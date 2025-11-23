@@ -247,7 +247,7 @@
     <div class="ticker" role="region" aria-label="Latest announcements">
         <div class="label">Announcements</div>
         <div class="marquee">
-            <p id="tickerContent"> Admissions open for Nursery to Grade 5 — Apply online | School reopens on 1st November 2025 | Parent-teacher meeting on 10 December 2025 | Mid-day meal schedule updated. </p>
+            <p id="tickerContent"> Admissions open for Pre Primary 3 to Grade 5 — Apply online | School reopens on 1st November 2025 | Parent-teacher meeting on 10 December 2025 | Winter vacation starts from 1st December 2025. </p>
         </div>
     </div>
 
@@ -296,10 +296,12 @@
             <div class="stats">
                 <h3>School At A Glance</h3>
                 <div class="stat-grid">
-                    <div class="stat-item"><div class="number">350+</div><div class="label">Students Enrolled</div></div>
-                    <div class="stat-item"><div class="number">10</div><div class="label">Teachers</div></div>
-                    <div class="stat-item"><div class="number">8</div><div class="label">Classrooms</div></div>
-                    <div class="stat-item"><div class="number">1500+</div><div class="label">Library Books</div></div>
+                    <div class="stat-item"><div class="number">50+</div><div class="label">Students Enrolled</div></div>
+                    <div class="stat-item"><div class="number">3</div><div class="label">Teachers</div></div>
+                    <div class="stat-item"><div class="number">1</div><div class="label">Aaya</div></div>
+                    <div class="stat-item"><div class="number">1</div><div class="label">Cook</div></div>
+                    <div class="stat-item"><div class="number">3</div><div class="label">Classrooms</div></div>
+                    <div class="stat-item"><div class="number">350+</div><div class="label">Library Books</div></div>
                 </div>
             </div>
         </div>
@@ -325,7 +327,7 @@
             <div>
                 <h4>Contact Details</h4>
                 <p>Government Primary School Pethgam Wagoora<br>
-                Address: Pethgam Wagoora, Baramulla, J&K (add full postal address here)</p>
+                Address: Pethgam Wagoora, Baramulla, J&K Wagoora Babareshi Road Near ZEO Office Wagoora 193109</p>
                 <p>Phone: 7006261694 | 9596449881<br>
                 Email: pspethgam@gmail.com</p>
             </div>
@@ -409,7 +411,8 @@
                     <select id="staffDesignationInput" class="full-width">
                         <option value="Teacher">Teacher</option>
                         <option value="Head of Institution (HOI)">Head of Institution (HOI)</option>
-                        <option value="Non-Teaching Staff">Non-Teaching Staff</option>
+                        <option value="COOK">COOK</option>
+                        <option value="AAYA">AAYA</option>
                     </select>
                     
                     <div class="photo-input-group">
@@ -425,10 +428,15 @@
 
                 <div id="admin-students" class="admin-section">
                     <h4>Add New Student</h4>
-                    <input type="text" id="studentNameInput" placeholder="Student Name (e.g., Ali Bhat)">
+                    <input type="text" id="studentNameInput" placeholder="Student Name (e.g., Mohammad Aazam Rather)">
+                    <input type="text" id="father'sNameInput" placeholder="Father's Name (e.g., Mohammad Ashraf Rather)">
+                    <input type="text" id="mother'sNameInput" placeholder="Mother's Name (e.g., Yasmeena Bano)">
+                    <input type="text" id="dateOfBirthInput" placeholder="Date of Birth(DD MM YYYY)">
+                    <input type="text" id="studentPENNoInput" placeholder="Student Name (123434565678)">
+                    <input type="text" id="ApaarIDInput" placeholder="Student Name (123434565678)">
                     <input type="text" id="studentIdInput" placeholder="Student ID (Unique)">
                     <select id="studentClassInput" class="full-width">
-                        <option value="Class Pre-Primary 3">Class Pre-Primary 3</option><option value="Class Pre-Primary 2">Class Pre-Primary </option>
+                        <option value="Class Pre-Primary 3">Class Pre-Primary 3</option><option value="Class Pre-Primary 2">Class Pre-Primary 2</option>
                         <option value="Class Balvatika">Class Balvatika</option><option value="Class 1">Class 1</option>
                         <option value="Class 2">Class 2</option><option value="Class 3">Class 3</option>
                         <option value="Class 4">Class 4</option><option value="Class 5">Class 5</option>
@@ -490,7 +498,7 @@
       // ==========================================================
         // DYNAMIC CONTENT DATA STORE (LOCALSTORAGE)
         // ==========================================================
-        const CLASSES = ["Class 1", "Class 2", "Class 3", "Class 4", "Class 5"];
+        const CLASSES = ["Class Pre Primary 3", "Class Pre Primary 2", "Class Balvatika", "Class 1", "Class 2", "Class 3", "Class 4", "Class 5"];
         const SUBJECTS = ["English", "Mathematics", "EVS", "Urdu", "Kashmiri"];
         const PROFICIENCY_LEVELS = {
             'A+': 'Sky',
