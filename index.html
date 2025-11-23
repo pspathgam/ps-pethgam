@@ -15,7 +15,8 @@ p<!DOCTYPE html>
 
         /* HEADER AND CONTACT INFO */
         header { background-color: #fff; padding: 15px 30px; border-bottom: 2px solid #0056b3; }
-        .contact-info { background-color: #ffc107font-size: 1.0em; margin-bottom: 5px; color: #555; }
+        .sub-header { background-color: #fff; font-size: 1.8em; border-bottom: 2px; color: #0056b3; }
+        .contact-info { background-color: #ffc107; font-size: 1.0em; margin-bottom: 5px; color: #555; }
         .logo-section { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
         .logo-section h1 { margin: 0; font-size: 1.5em; flex-grow: 1; }
 
@@ -828,9 +829,9 @@ p<!DOCTYPE html>
                     name, 
                     class: classVal, 
                     photo, 
-                    father: 'N/A', 
-                    mother: 'N/A', 
-                    dob: 'N/A', 
+                    father, 
+                    mother, 
+                    dob, 
                     rollNo: Math.floor(Math.random() * 900) + 100 // Placeholder roll number
                 });
                 localStorage.setItem('students', JSON.stringify(students));
@@ -965,7 +966,7 @@ p<!DOCTYPE html>
                 
                 return `
                     <div class="list-item">
-                        <span>ID: ${studentData.id} | ${studentData.name} (${studentData.class}) | ${totalSubjects} Subjects Graded | Overall Grade: ${overallGrade}</span>
+                        <span>ID: ${studentData.id} | ${studentData.name} ${studentData.fathersname} ${studentData.mothersname} (${studentData.class}) | ${totalSubjects} Subjects Graded | Overall Grade: ${overallGrade}</span>
                         <div>
                             <button class="add" onclick="generateMarksheet('${studentData.id}')" style="margin-right: 5px;">Marks Sheet</button>
                             <button class="remove" onclick="alert('Use Student management to remove student to clear all results.')">Remove All</button>
@@ -1007,7 +1008,7 @@ p<!DOCTYPE html>
 
                 const totalFA = fa1 + fa2 + fa3 + fa4 + fa5 + fa6;
                 const grade = getGrade(total, max);
-                const proficiency = PROFICIENCY_LEVELS[grade] || 'N/A';
+                const proficiency = PROFICIENCY_LEVELS[grade] || '   ';
                 
                 totalObtainedMarks += total;
                 totalMaxMarks += max;
@@ -1033,7 +1034,7 @@ p<!DOCTYPE html>
             const overallPercentage = (totalMaxMarks > 0) ? Math.round((grandTotal / totalMaxMarks) * 100) : 0;
             const overallGrade = getGrade(grandTotal, totalMaxMarks);
             const finalResult = overallPercentage >= 33 ? 'Pass' : 'Fail';
-            const finalProficiency = PROFICIENCY_LEVELS[overallGrade] || 'N/A';
+            const finalProficiency = PROFICIENCY_LEVELS[overallGrade] || '   ';
 
             const msHtml = `
                 <div style="text-align: center;">
