@@ -3,106 +3,343 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admissions | Government Primary School Pethgam Wagoora</title>
+<title>Government Primary School Pethgam Wagoora</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;900&display=swap" rel="stylesheet">
 
 <style>
+/* ---------------------------
+   GENERAL & BODY
+---------------------------- */
 body{
-    margin:0;
-    font-family:"Poppins",sans-serif;
-    background:#f3f7fb;
-    color:#333;
+  margin:0;
+  font-family:'Nunito',sans-serif;
+  background:#f5faff;
+  color:#222;
 }
 
-/* Header */
+/* ---------------------------
+   HEADER
+---------------------------- */
 header{
-    background:linear-gradient(135deg,#007bff,#00c6ff);
-    color:white;
-    text-align:center;
-    padding:25px 10px;
-}
-header h1{margin:0;font-weight:700;}
-header p{margin:5px 0 0;}
-
-/* Container */
-.container{
-    width:92%;
-    max-width:850px;
-    margin:20px auto;
+  background:#0077ff;
+  color:white;
+  padding:10px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-/* Section Boxes */
-.section{
-    background:white;
-    padding:20px;
-    margin-bottom:25px;
-    border-radius:12px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+header h1{
+  font-size:22px;
+  margin:0;
+  font-weight:800;
 }
 
-.section h2{
-    margin-top:0;
-    font-size:22px;
-    color:#0056b3;
+header .contact{
+  text-align:right;
+  font-size:13px;
 }
 
-/* Buttons */
-.btn{
-    display:inline-block;
-    padding:10px 18px;
-    background:#007bff;
-    color:white;
-    border-radius:6px;
-    cursor:pointer;
-    text-decoration:none;
-    font-size:15px;
-}
-.btn:hover{
-    background:#005ec2;
+/* ---------------------------
+   NAVIGATION
+---------------------------- */
+nav{
+  background:white;
+  padding:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
 
-.close-btn{
-    background:#ff4d4d;
-}
-.close-btn:hover{
-    background:#cc0000;
-}
-
-/* Form */
-#admissionForm{
-    display:none;
-    margin-top:20px;
+nav ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
 
-input,select,textarea{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    margin-bottom:18px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    font-size:14px;
-}
-label{
-    font-weight:600;
+nav ul li a{
+  text-decoration:none;
+  padding:8px 14px;
+  background:#0077ff;
+  color:white;
+  border-radius:6px;
+  font-weight:600;
+  font-size:14px;
+  display:block;
 }
 
-.submit-btn{
-    background:#28a745;
-}
-.submit-btn:hover{
-    background:#1f7e32;
+/* ---------------------------
+   NOTIFICATION TICKER
+---------------------------- */
+#ticker{
+  background:#ffce00;
+  padding:8px;
+  font-weight:700;
+  overflow:hidden;
+  white-space:nowrap;
 }
 
-/* Success Message */
-#successMessage{
-    display:none;
-    background:#d4edda;
-    padding:15px;
-    border-left:6px solid #28a745;
-    border-radius:8px;
-    margin-top:15px;
+#ticker span{
+  display:inline-block;
+  animation:scroll-left 14s linear infinite;
+}
+
+@keyframes scroll-left{
+  from{transform:translateX(100%);}
+  to{transform:translateX(-100%);}
+}
+
+/* ---------------------------
+   HERO SECTION
+---------------------------- */
+.hero{
+  background:linear-gradient(to right,#0077ff,#00bfff);
+  color:white;
+  padding:50px 20px;
+  text-align:center;
+}
+
+.hero h2{
+  font-size:32px;
+  margin:0 0 10px 0;
+  font-weight:900;
+}
+
+.hero p{
+  font-size:18px;
+  opacity:0.9;
+}
+
+/* ---------------------------
+   NEWS & EVENTS (VERTICAL)
+---------------------------- */
+#news-box{
+  background:#fff;
+  margin:20px;
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 0 8px rgba(0,0,0,0.1);
+  height:150px;
+  overflow:hidden;
+}
+
+#news-list{
+  animation:scroll-vertical 10s linear infinite;
+}
+
+@keyframes scroll-vertical{
+  0%{transform:translateY(100%);}
+  100%{transform:translateY(-100%);}
+}
+
+/* ---------------------------
+   GALLERY SLIDER
+---------------------------- */
+.slider{
+  width:100%;
+  max-width:550px;
+  margin:20px auto;
+  overflow:hidden;
+  border-radius:12px;
+  box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.slider img{
+  width:100%;
+  animation:fadeSlide 16s infinite;
+}
+
+@keyframes fadeSlide{
+  0%{opacity:1;}
+  25%{opacity:0;}
+  50%{opacity:1;}
+  75%{opacity:0;}
+  100%{opacity:1;}
+}
+
+/* ---------------------------
+   STAFF SECTION
+---------------------------- */
+#staff{
+  padding:20px;
+}
+
+#staff h3{
+  font-size:24px;
+  text-align:center;
+  margin-bottom:15px;
+}
+
+.staff-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:15px;
+}
+
+.staff-card{
+  background:white;
+  padding:12px;
+  text-align:center;
+  border-radius:10px;
+  box-shadow:0 0 8px rgba(0,0,0,0.1);
+}
+
+.staff-card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.staff-card h4{
+  margin:8px 0 0 0;
+  font-size:16px;
+  font-weight:700;
+}
+
+.staff-card p{
+  font-size:13px;
+  opacity:0.7;
+}
+
+/* ---------------------------
+   ADMIN PANEL
+---------------------------- */
+#admin-panel{
+  background:#ffffff;
+  padding:20px;
+  margin:20px;
+  border-radius:10px;
+  box-shadow:0 0 8px rgba(0,0,0,0.15);
+}
+
+#admin-panel input{
+  width:100%;
+  padding:8px;
+  margin:5px 0;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+/* ---------------------------
+   FOOTER
+---------------------------- */
+footer{
+  background:#0077ff;
+  color:white;
+  text-align:center;
+  padding:15px;
+  font-size:14px;
+  margin-top:30px;
 }
 </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>GPS Pethgam Wagoora</h1>
+  <div class="contact">
+    UDISE: 01030705401<br>
+    Email: gpspethgam@gmail.com<br>
+    Phone: +91-7006XXXXXX
+  </div>
+</header>
+
+<!-- NAVIGATION -->
+<nav>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Staff</a></li>
+    <li><a href="#">MDM</a></li>
+    <li><a href="#">Results</a></li>
+    <li><a href="#">Attendance</a></li>
+    <li><a href="#">Certificates</a></li>
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#admin-panel">Admin</a></li>
+  </ul>
+</nav>
+
+<!-- NOTIFICATION TICKER -->
+<div id="ticker"><span>⭐ Admission Open • ⭐ Winter Assignments Available • ⭐ Mid-Day Meal Weekly Menu Updated</span></div>
+
+<!-- HERO -->
+<div class="hero">
+  <h2>Welcome to Government Primary School Pethgam Wagoora</h2>
+  <p>Quality Education • Discipline • Development • Excellence</p>
+</div>
+
+<!-- VERTICAL NEWS -->
+<div id="news-box">
+  <div id="news-list">
+    <p>🔹 School Reopened After Winter Break</p>
+    <p>🔹 New Computer-Based Worksheets Available</p>
+    <p>🔹 Mid-Day Meal Updated Weekly Menu</p>
+  </div>
+</div>
+
+<!-- GALLERY SLIDER -->
+<div class="slider">
+  <img src="img1.jpg">
+</div>
+
+<!-- STAFF (student cards removed) -->
+<section id="staff">
+  <h3>Our Teaching Staff</h3>
+  <div class="staff-grid">
+    
+    <div class="staff-card">
+      <img src="ashraf.jpg">
+      <h4>Mohammad Ashraf Rather</h4>
+      <p>Head of Institution</p>
+    </div>
+
+    <div class="staff-card">
+      <img src="iqbal.jpg">
+      <h4>Mohammad Iqbal Rather</h4>
+      <p>Teacher</p>
+    </div>
+
+    <div class="staff-card">
+      <img src="zamrooda.jpg">
+      <h4>Zamrooda Bano</h4>
+      <p>Teacher</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ADMIN PANEL -->
+<section id="admin-panel">
+  <h3>Admin Login</h3>
+  <input type="text" id="admin_user" placeholder="Username">
+  <input type="password" id="admin_pass" placeholder="Password">
+  <button onclick="adminLogin()">Login</button>
+  <p id="admin-msg"></p>
+</section>
+
+<footer>
+  © 2025 Government Primary School Pethgam Wagoora — All Rights Reserved
+</footer>
+
+<script>
+function adminLogin(){
+  let u=document.getElementById("admin_user").value;
+  let p=document.getElementById("admin_pass").value;
+
+  if(u==="gps" && p==="1234"){
+    document.getElementById("admin-msg").innerHTML="✔ Login Successful";
+  } else {
+    document.getElementById("admin-msg").innerHTML="❌ Incorrect Credentials";
+  }
+}
+</script>
+
+</body>
+</html></style>
 
 </head>
 <body>
