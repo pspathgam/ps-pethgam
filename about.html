@@ -12,14 +12,52 @@ body{
     background:#f7f9fc;
     color:#333;
 }
+
+/* ========================
+   HEADER WITH LOGO + TITLE
+   ======================== */
 header{
     background: linear-gradient(135deg, #1b7ced, #00b7ff);
-    padding:20px;
+    padding:20px 10px;
     color:white;
-    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:20px;
 }
-header h1{margin:0;font-size:28px;font-weight:700;}
-header p{margin:5px 0;font-size:14px;}
+
+.logo-box{
+    width:70px;
+    height:70px;
+    background:white;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#1b7ced;
+    font-weight:700;
+    font-size:18px;
+    border:3px solid #e3f3ff;
+}
+
+/* Title block */
+.title-block{
+    flex:1;
+}
+
+.title-block h1{
+    margin:0;
+    font-size:34px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.title-block p{
+    margin:5px 0 0;
+    font-size:14px;
+    font-weight:500;
+}
 
 .container{
     width:90%;
@@ -83,8 +121,15 @@ footer{
 <body>
 
 <header>
-    <h1>Government Primary School Pethgam Wagoora</h1>
-    <p><strong>UDISE CODE:</strong> 01022202207 | <strong>Email:</strong> pspethgam@gmail.com | <strong>Contact:</strong> +91-9596449881</p>
+    <div class="logo-box">LOGO</div>
+
+    <div class="title-block">
+        <h1>Government Primary School Pethgam Wagoora</h1>
+        <p><strong>UDISE CODE:</strong> 01022202207 | 
+           <strong>Email:</strong> pspethgam@gmail.com | 
+           <strong>Contact:</strong> +91-9596449881
+        </p>
+    </div>
 </header>
 
 <div class="container">
@@ -93,9 +138,9 @@ footer{
     <div class="section">
         <h2>About Our School</h2>
         <p>
-            Government Primary School Pethgam Wagoora, located in the scenic area of Wagoora in District Baramulla, 
-            Jammu & Kashmir, is committed to providing high-quality foundational education. 
-            With a child-friendly environment, trained educators, and a focus on holistic 
+            Government Primary School Pethgam Wagoora, located in the scenic area of Wagoora in 
+            District Baramulla, Jammu & Kashmir, is committed to providing high-quality foundational 
+            education. With a child-friendly environment, trained educators, and a focus on holistic 
             development, the school has become a trusted institution for early learning in the community.
         </p>
         <p>
@@ -108,9 +153,8 @@ footer{
     <div class="section">
         <h2>Our Mission</h2>
         <div class="mission-box">
-            To deliver joyful, engaging, and inclusive education to every child, ensuring 
-            foundational literacy and numeracy, strong moral values, and equal learning 
-            opportunities for all.
+            To deliver joyful, engaging, and inclusive education to every child, ensuring foundational 
+            literacy and numeracy, strong moral values, and equal learning opportunities for all.
         </div>
     </div>
 
@@ -118,6 +162,82 @@ footer{
     <div class="section">
         <h2>Our Vision</h2>
         <div class="vision-box">
+            To transform young learners into confident, curious, and capable individuals—ready to 
+            embrace challenges and succeed in higher education and life.
+        </div>
+    </div>
+
+    <!-- Staff -->
+    <div class="section">
+        <h2>Teaching Staff</h2>
+        <div class="staff-grid">
+
+            <div class="staff-card">
+                <strong>Mohammad Ashraf Rather</strong>
+                <p>Head of Institution (HOI)</p>
+            </div>
+
+            <div class="staff-card">
+                <strong>Mohammad Iqbal Rather</strong>
+                <p>Teacher</p>
+            </div>
+
+            <div class="staff-card">
+                <strong>Zamrooda Bano</strong>
+                <p>Teacher</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Non-Teaching -->
+    <div class="section">
+        <h2>Non-Teaching Staff</h2>
+        <div class="staff-grid">
+
+            <div class="staff-card">
+                <strong>Masrat Begum</strong>
+                <p>Aaya</p>
+            </div>
+
+            <div class="staff-card">
+                <strong>Shaheena Bano</strong>
+                <p>Cook</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Infrastructure -->
+    <div class="section">
+        <h2>School Infrastructure</h2>
+        <ul>
+            <li>Well-ventilated classrooms</li>
+            <li>Playground area</li>
+            <li>Smart-learning aids and TLM</li>
+            <li>Clean drinking water facility</li>
+            <li>Mid-Day Meal (MDM) facility</li>
+            <li>Student-friendly environment</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    © 2025 Government Primary School Pethgam Wagoora. All Rights Reserved.
+</footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+<div class="vision-box">
             To transform young learners into confident, curious, and capable individuals—ready 
             to embrace challenges and succeed in higher education and life.
         </div>
