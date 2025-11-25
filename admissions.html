@@ -5,183 +5,219 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Government Primary School Pethgam Wagoora</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-/* ---------------------------
-   GENERAL & BODY
----------------------------- */
 body{
-  margin:0;
-  font-family:'Nunito',sans-serif;
-  background:#f5faff;
-  color:#222;
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:#f6f9ff;
 }
 
-/* ---------------------------
-   HEADER
----------------------------- */
-header{
-  background:#0077ff;
-  color:white;
-  padding:10px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+/* ---------------- HEADER ---------------- */
+.top-header{
+    display:flex;
+    align-items:center;
+    padding:10px 20px;
+    background:white;
+    border-bottom:3px solid #0a74e6;
+}
+.top-header img{
+    height:65px;
+    margin-right:15px;
+}
+.top-header .title-area h1{
+    margin:0;
+    font-size:28px;
+    color:#0a4cb3;
+    font-weight:800;
+}
+.top-header .title-area p{
+    margin:0;
+    font-size:13px;
 }
 
-header h1{
-  font-size:22px;
-  margin:0;
-  font-weight:800;
-}
-
-header .contact{
-  text-align:right;
-  font-size:13px;
-}
-
-/* ---------------------------
-   NAVIGATION
----------------------------- */
+/* ---------------- MENU ---------------- */
 nav{
-  background:white;
-  padding:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    background:#0a74e6;
+    padding:0;
 }
-
 nav ul{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-wrap:wrap;
 }
-
+nav ul li{
+    margin:0;
+}
 nav ul li a{
-  text-decoration:none;
-  padding:8px 14px;
-  background:#0077ff;
-  color:white;
-  border-radius:6px;
-  font-weight:600;
-  font-size:14px;
-  display:block;
+    padding:12px 18px;
+    display:block;
+    text-decoration:none;
+    color:white;
+    font-size:14px;
+    border-right:1px solid rgba(255,255,255,0.2);
+}
+nav ul li a:hover{
+    background:#003e7e;
 }
 
-/* ---------------------------
-   NOTIFICATION TICKER
----------------------------- */
-#ticker{
-  background:#ffce00;
-  padding:8px;
-  font-weight:700;
-  overflow:hidden;
-  white-space:nowrap;
-}
-
-#ticker span{
-  display:inline-block;
-  animation:scroll-left 14s linear infinite;
-}
-
-@keyframes scroll-left{
-  from{transform:translateX(100%);}
-  to{transform:translateX(-100%);}
-}
-
-/* ---------------------------
-   HERO SECTION
----------------------------- */
+/* ---------------- HERO SLIDER ---------------- */
 .hero{
-  background:linear-gradient(to right,#0077ff,#00bfff);
-  color:white;
-  padding:50px 20px;
-  text-align:center;
+    height:280px;
+    background:url('https://picsum.photos/1200/500?random=1') center/cover no-repeat;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    text-shadow:0 3px 6px rgba(0,0,0,0.5);
 }
-
 .hero h2{
-  font-size:32px;
-  margin:0 0 10px 0;
-  font-weight:900;
+    font-size:36px;
+    margin:0;
 }
 
-.hero p{
-  font-size:18px;
-  opacity:0.9;
+/* ---------------- NEWS TICKER ---------------- */
+.ticker{
+    background:#ffcc00;
+    padding:8px;
+    overflow:hidden;
+    white-space:nowrap;
+    color:#000;
+    font-weight:600;
+    border-top:2px solid #333;
+    border-bottom:2px solid #333;
+}
+.ticker span{
+    display:inline-block;
+    animation:marquee 18s linear infinite;
+}
+@keyframes marquee{
+    0%{transform:translateX(100%);}
+    100%{transform:translateX(-100%);}
 }
 
-/* ---------------------------
-   NEWS & EVENTS (VERTICAL)
----------------------------- */
-#news-box{
-  background:#fff;
-  margin:20px;
-  padding:15px;
-  border-radius:10px;
-  box-shadow:0 0 8px rgba(0,0,0,0.1);
-  height:150px;
-  overflow:hidden;
+/* ---------------- QUICK LINKS ---------------- */
+.quick-links{
+    padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+.q-card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 3px 8px rgba(0,0,0,0.1);
+    text-align:center;
+    border-top:4px solid #0a74e6;
+}
+.q-card h3{
+    margin:0;
+    font-size:20px;
+}
+.q-card:hover{
+    transform:translateY(-3px);
 }
 
-#news-list{
-  animation:scroll-vertical 10s linear infinite;
+/* ---------------- NEWS & EVENTS ---------------- */
+.news-section{
+    padding:20px;
+}
+.news-box{
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    height:200px;
+    overflow:hidden;
+}
+.news-move{
+    animation:scrollNews 10s linear infinite;
+}
+@keyframes scrollNews{
+    0%{transform:translateY(100%);}
+    100%{transform:translateY(-100%);}
 }
 
-@keyframes scroll-vertical{
-  0%{transform:translateY(100%);}
-  100%{transform:translateY(-100%);}
+/* ---------------- FOOTER ---------------- */
+footer{
+    background:#003e7e;
+    color:white;
+    padding:15px;
+    text-align:center;
+    margin-top:20px;
 }
+</style>
+</head>
+<body>
 
-/* ---------------------------
-   GALLERY SLIDER
----------------------------- */
-.slider{
-  width:100%;
-  max-width:550px;
-  margin:20px auto;
-  overflow:hidden;
-  border-radius:12px;
-  box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
+<!-- HEADER -->
+<div class="top-header">
+    <img src="logo.png" alt="School Logo">
+    <div class="title-area">
+        <h1>Government Primary School Pethgam Wagoora</h1>
+        <p>UDISE: 01022202207 | Email: pspethgam@gmail.com | Contact: +91-9596449881</p>
+    </div>
+</div>
 
-.slider img{
-  width:100%;
-  animation:fadeSlide 16s infinite;
-}
+<!-- MENU -->
+<nav>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="academics.html">Academics</a></li>
+        <li><a href="students.html">Students</a></li>
+        <li><a href="staff.html">Staff</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="mdm.html">MDM</a></li>
+        <li><a href="certificates.html">Certificates</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="attendance.html">Attendance</a></li>
+        <li><a href="admission.html">Admission</a></li>
+        <li><a href="admin.html">Admin</a></li>
+    </ul>
+</nav>
 
-@keyframes fadeSlide{
-  0%{opacity:1;}
-  25%{opacity:0;}
-  50%{opacity:1;}
-  75%{opacity:0;}
-  100%{opacity:1;}
-}
+<!-- HERO -->
+<div class="hero">
+    <h2>Welcome to GPS Pethgam Wagoora</h2>
+</div>
 
-/* ---------------------------
-   STAFF SECTION
----------------------------- */
-#staff{
-  padding:20px;
-}
+<!-- TICKER -->
+<div class="ticker">
+    <span>★ Admission Open • Winter Coaching • New MDM Menu Updated • Staff Meeting Monday 11AM ★</span>
+</div>
 
-#staff h3{
-  font-size:24px;
-  text-align:center;
-  margin-bottom:15px;
-}
+<!-- QUICK LINKS -->
+<div class="quick-links">
+    <div class="q-card"><h3>Admissions</h3></div>
+    <div class="q-card"><h3>Academics</h3></div>
+    <div class="q-card"><h3>Results</h3></div>
+    <div class="q-card"><h3>Gallery</h3></div>
+</div>
 
-.staff-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:15px;
-}
+<!-- NEWS -->
+<div class="news-section">
+    <h2>Latest News & Events</h2>
+    <div class="news-box">
+        <div class="news-move">
+            <p>• Annual Day celebration next week.</p>
+            <p>• FLN Baseline test from Monday.</p>
+            <p>• MDM nutritional upgrade completed.</p>
+        </div>
+    </div>
+</div>
 
-.staff-card{
-  background:white;
-  padding:12px;
-  text-align:center;
+<!-- FOOTER -->
+<footer>
+    © 2025 Government Primary School Pethgam Wagoora. All Rights Reserved.
+</footer>
+
+</body>
+</html>    text-align:center;
   border-radius:10px;
   box-shadow:0 0 8px rgba(0,0,0,0.1);
 }
@@ -237,86 +273,6 @@ footer{
 </style>
 </head>
 
-<body>
-
-<!-- HEADER -->
-<header>
-  <h1>GPS Pethgam Wagoora</h1>
-  <div class="contact">
-    UDISE: 01030705401<br>
-    Email: gpspethgam@gmail.com<br>
-    Phone: +91-7006XXXXXX
-  </div>
-</header>
-
-<!-- NAVIGATION -->
-<nav>
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Staff</a></li>
-    <li><a href="#">MDM</a></li>
-    <li><a href="#">Results</a></li>
-    <li><a href="#">Attendance</a></li>
-    <li><a href="#">Certificates</a></li>
-    <li><a href="#">Gallery</a></li>
-    <li><a href="#admin-panel">Admin</a></li>
-  </ul>
-</nav>
-
-<!-- NOTIFICATION TICKER -->
-<div id="ticker"><span>⭐ Admission Open • ⭐ Winter Assignments Available • ⭐ Mid-Day Meal Weekly Menu Updated</span></div>
-
-<!-- HERO -->
-<div class="hero">
-  <h2>Welcome to Government Primary School Pethgam Wagoora</h2>
-  <p>Quality Education • Discipline • Development • Excellence</p>
-</div>
-
-<!-- VERTICAL NEWS -->
-<div id="news-box">
-  <div id="news-list">
-    <p>🔹 School Reopened After Winter Break</p>
-    <p>🔹 New Computer-Based Worksheets Available</p>
-    <p>🔹 Mid-Day Meal Updated Weekly Menu</p>
-  </div>
-</div>
-
-<!-- GALLERY SLIDER -->
-<div class="slider">
-  <img src="img1.jpg">
-</div>
-
-<!-- STAFF (student cards removed) -->
-<section id="staff">
-  <h3>Our Teaching Staff</h3>
-  <div class="staff-grid">
-    
-    <div class="staff-card">
-      <img src="ashraf.jpg">
-      <h4>Mohammad Ashraf Rather</h4>
-      <p>Head of Institution</p>
-    </div>
-
-    <div class="staff-card">
-      <img src="iqbal.jpg">
-      <h4>Mohammad Iqbal Rather</h4>
-      <p>Teacher</p>
-    </div>
-
-    <div class="staff-card">
-      <img src="zamrooda.jpg">
-      <h4>Zamrooda Bano</h4>
-      <p>Teacher</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- ADMIN PANEL -->
-<section id="admin-panel">
-  <h3>Admin Login</h3>
-  <input type="text" id="admin_user" placeholder="Username">
-  <input type="password" id="admin_pass" placeholder="Password">
   <button onclick="adminLogin()">Login</button>
   <p id="admin-msg"></p>
 </section>
