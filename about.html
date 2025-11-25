@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Us | Government Primary School Pethgam Wagoora</title>
+<title>Government Primary School Pethgam Wagoora</title>
 
 <style>
 body{
     margin:0;
     font-family: "Poppins", sans-serif;
-    background:#f7f9fc;
-    color:#333;
+    background:#f3f7fc;
 }
 
 /* ========================
@@ -18,15 +17,14 @@ body{
    ======================== */
 header{
     background: linear-gradient(135deg, #1b7ced, #00b7ff);
-    padding:20px 10px;
+    padding:15px 10px;
     color:white;
     display:flex;
     align-items:center;
-    justify-content:flex-start;
     gap:20px;
 }
 
-.logo-box{
+.logo{
     width:70px;
     height:70px;
     background:white;
@@ -36,29 +34,79 @@ header{
     justify-content:center;
     color:#1b7ced;
     font-weight:700;
-    font-size:18px;
     border:3px solid #e3f3ff;
+    font-size:16px;
 }
 
-/* Title block */
-.title-block{
-    flex:1;
-}
-
-.title-block h1{
+header h1{
     margin:0;
-    font-size:34px;
+    font-size:32px;
     font-weight:800;
     text-transform:uppercase;
-    letter-spacing:1px;
 }
 
-.title-block p{
-    margin:5px 0 0;
+header p{
+    margin:4px 0 0;
     font-size:14px;
-    font-weight:500;
 }
 
+/* ========================
+   NAVIGATION MENU
+   ======================== */
+nav{
+    background:#003d66;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+nav ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+}
+
+nav ul li{
+    position:relative;
+}
+
+nav ul li a{
+    display:block;
+    padding:14px 20px;
+    text-decoration:none;
+    color:white;
+    font-weight:600;
+    font-size:15px;
+}
+
+nav ul li a:hover{
+    background:#005a94;
+}
+
+/* Dropdown */
+nav ul li ul{
+    position:absolute;
+    top:48px;
+    left:0;
+    min-width:200px;
+    background:#005a94;
+    display:none;
+    flex-direction:column;
+    padding:0;
+}
+
+nav ul li:hover ul{
+    display:flex;
+}
+
+nav ul li ul li a{
+    padding:12px 15px;
+}
+
+/* ========================
+   HOME SECTIONS
+   ======================== */
 .container{
     width:90%;
     max-width:1100px;
@@ -73,36 +121,152 @@ header{
     box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
-.section h2{
-    margin-top:0;
+/* Slider placeholder */
+.slider{
+    width:100%;
+    height:220px;
+    background:#d9ecff;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#1b7ced;
     font-size:22px;
-    color:#0056b3;
+    font-weight:600;
 }
 
-.mission-box, .vision-box{
-    padding:20px;
-    border-radius:10px;
-    margin:10px 0;
+footer{
+    background:#003d66;
     color:white;
-}
-
-.mission-box{ background:#0077cc; }
-.vision-box{ background:#009966; }
-
-.staff-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-    gap:20px;
-}
-
-.staff-card{
-    background:#fafafa;
-    border-radius:10px;
-    padding:15px;
     text-align:center;
-    border:1px solid #e4e4e4;
+    padding:12px;
+    margin-top:30px;
+    font-size:14px;
 }
-.staff-card strong{
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">LOGO</div>
+    <div>
+        <h1>Government Primary School Pethgam Wagoora</h1>
+        <p><strong>UDISE:</strong> 01022202207 | 
+           <strong>Email:</strong> pspethgam@gmail.com | 
+           <strong>Contact:</strong> +91-9596449881
+        </p>
+    </div>
+</header>
+
+<!-- =========================
+     NAVIGATION MENU
+========================= -->
+<nav>
+<ul>
+    <li><a href="#">Home</a></li>
+
+    <li><a href="#">About Us ▾</a>
+        <ul>
+            <li><a href="#">School Profile</a></li>
+            <li><a href="#">Vision & Mission</a></li>
+            <li><a href="#">Staff Directory</a></li>
+            <li><a href="#">Infrastructure</a></li>
+        </ul>
+    </li>
+
+    <li><a href="#">Academics ▾</a>
+        <ul>
+            <li><a href="#">Curriculum</a></li>
+            <li><a href="#">Academic Calendar</a></li>
+            <li><a href="#">Syllabus</a></li>
+            <li><a href="#">Learning Outcomes</a></li>
+        </ul>
+    </li>
+
+    <li><a href="#">Admissions ▾</a>
+        <ul>
+            <li><a href="#">Admission Process</a></li>
+            <li><a href="#">Online Form</a></li>
+            <li><a href="#">Required Documents</a></li>
+        </ul>
+    </li>
+
+    <li><a href="#">Students ▾</a>
+        <ul>
+            <li><a href="#">Student List</a></li>
+            <li><a href="#">Roll Statement</a></li>
+            <li><a href="#">Homework</a></li>
+            <li><a href="#">Certificates</a></li>
+        </ul>
+    </li>
+
+    <li><a href="#">Results ▾</a>
+        <ul>
+            <li><a href="#">FA/SA Marks</a></li>
+            <li><a href="#">Download Marksheet</a></li>
+            <li><a href="#">Result Checker</a></li>
+        </ul>
+    </li>
+
+    <li><a href="#">MDM ▾</a>
+        <ul>
+            <li><a href="#">MDM Daily Roll</a></li>
+            <li><a href="#">MDM Menu</a></li>
+            <li><a href="#">Stock Register</a></li>
+        </ul>
+    </li>
+
+    <li><a href="#">Gallery</a></li>
+    <li><a href="#">Contact</a></li>
+
+    <li><a href="#">Admin ▾</a>
+        <ul>
+            <li><a href="#">Admin Login</a></li>
+            <li><a href="#">Teacher Login</a></li>
+            <li><a href="#">Student Login</a></li>
+        </ul>
+    </li>
+</ul>
+</nav>
+
+<!-- =========================
+     HOME PAGE SECTIONS
+========================= -->
+
+<div class="container">
+
+    <div class="section">
+        <div class="slider">Image Slider / Banner</div>
+    </div>
+
+    <div class="section">
+        <h2>Latest Announcements</h2>
+        <ul>
+            <li>School reopens after winter vacation from 1st March.</li>
+            <li>FA-1 Assessment scheduled in April.</li>
+            <li>New admissions open for 2025–26.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Quick Links</h2>
+        <ul>
+            <li><a href="#">Admission Form</a></li>
+            <li><a href="#">Download Calendar</a></li>
+            <li><a href="#">Teacher Login</a></li>
+            <li><a href="#">Result Checker</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    © 2025 Government Primary School Pethgam Wagoora. All Rights Reserved.
+</footer>
+
+</body>
+</html>.staff-card strong{
     font-size:18px;
     color:#0056b3;
 }
@@ -164,82 +328,6 @@ footer{
         <div class="vision-box">
             To transform young learners into confident, curious, and capable individuals—ready to 
             embrace challenges and succeed in higher education and life.
-        </div>
-    </div>
-
-    <!-- Staff -->
-    <div class="section">
-        <h2>Teaching Staff</h2>
-        <div class="staff-grid">
-
-            <div class="staff-card">
-                <strong>Mohammad Ashraf Rather</strong>
-                <p>Head of Institution (HOI)</p>
-            </div>
-
-            <div class="staff-card">
-                <strong>Mohammad Iqbal Rather</strong>
-                <p>Teacher</p>
-            </div>
-
-            <div class="staff-card">
-                <strong>Zamrooda Bano</strong>
-                <p>Teacher</p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Non-Teaching -->
-    <div class="section">
-        <h2>Non-Teaching Staff</h2>
-        <div class="staff-grid">
-
-            <div class="staff-card">
-                <strong>Masrat Begum</strong>
-                <p>Aaya</p>
-            </div>
-
-            <div class="staff-card">
-                <strong>Shaheena Bano</strong>
-                <p>Cook</p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Infrastructure -->
-    <div class="section">
-        <h2>School Infrastructure</h2>
-        <ul>
-            <li>Well-ventilated classrooms</li>
-            <li>Playground area</li>
-            <li>Smart-learning aids and TLM</li>
-            <li>Clean drinking water facility</li>
-            <li>Mid-Day Meal (MDM) facility</li>
-            <li>Student-friendly environment</li>
-        </ul>
-    </div>
-
-</div>
-
-<footer>
-    © 2025 Government Primary School Pethgam Wagoora. All Rights Reserved.
-</footer>
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-<div class="vision-box">
-            To transform young learners into confident, curious, and capable individuals—ready 
-            to embrace challenges and succeed in higher education and life.
         </div>
     </div>
 
