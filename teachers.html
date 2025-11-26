@@ -38,21 +38,49 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:
   gap:18px;
 }
 
+/* LOGO + PLACEHOLDER */
 .logo-box{
   display:flex;
   align-items:center;
   gap:14px;
 }
+
+/* NEW: Circular placeholder */
+.logo-placeholder{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#1c7ce0,#00c6ff);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:26px;
+  font-weight:900;
+  color:white;
+  letter-spacing:2px;
+}
+
+/* If real image loads → placeholder hides automatically */
 .logo-box img{
   width:90px;
   height:90px;
   border-radius:50%;
   object-fit:cover;
+  display:none;
 }
+
+/* COLOURED LETTERS (RAINBOW HEADER) */
+.colored-letter:nth-child(odd){color:#e63946;}
+.colored-letter:nth-child(even){color:#1d3557;}
+.colored-letter:nth-child(3n){color:#457b9d;}
+.colored-letter:nth-child(5n){color:#2a9d8f;}
+.colored-letter:nth-child(7n){color:#ffb703;}
+.colored-letter:nth-child(11n){color:#d00000;}
+
 .logo-title h1{
   margin:0;
-  color:var(--primary);
   font-size:1.6rem;
+  font-weight:900;
 }
 .logo-title h2{
   margin:4px 0 0;
@@ -71,21 +99,10 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:
   box-shadow:0 4px 12px rgba(0,0,0,0.15);
   border-left:6px solid var(--primary);
 }
-.clock-card h3{
-  margin:0;
-  color:var(--primary);
-}
-.clock-time{
-  font-size:1.6rem;
-  font-weight:700;
-  margin-top:6px;
-}
-.clock-date, .clock-hijri{
-  font-size:0.95rem;
-  margin-top:4px;
-}
+.clock-card h3{margin:0;color:var(--primary);}
+.clock-time{font-size:1.6rem;font-weight:700;margin-top:6px;}
+.clock-date, .clock-hijri{font-size:0.95rem;margin-top:4px;}
 
-/* CONTACT STRIP */
 .contact-info{
   background:#e9ecef;
   padding:8px 18px;
@@ -94,7 +111,7 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:
 }
 
 /* -------------------------------------------------------
-   NEW 3D NAV BAR
+   NAV BAR
 ---------------------------------------------------------*/
 .nav{
   background:var(--primary);
@@ -103,7 +120,6 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:
   white-space:nowrap;
 }
 
-/* 3D BUTTON STYLE */
 .nav a{
   display:inline-block;
   color:#fff;
@@ -111,20 +127,15 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:
   margin-right:10px;
   text-decoration:none;
   border-radius:8px;
-
-  background:linear-gradient(#1c7ce0, #0056b3);
+  background:linear-gradient(#1c7ce0,#0056b3);
   box-shadow:0 4px 0 #003e86;
   font-weight:700;
   transition:0.2s;
 }
-
-/* Lift on hover */
 .nav a:hover{
   transform:translateY(-3px);
   box-shadow:0 6px 0 #003e86;
 }
-
-/* Active red Admin tab */
 .nav a.admin-btn{
   background:linear-gradient(#ff6b6b,#dc3545);
   box-shadow:0 4px 0 #9e202d;
@@ -135,7 +146,7 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:
 }
 
 /* -------------------------------------------------------
-   YOUR REMAINING CSS (kept as-is)
+   REST OF YOUR CSS UNCHANGED
 ---------------------------------------------------------*/
 
 .hero{height:380px;position:relative;overflow:hidden}
@@ -153,7 +164,6 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:
 @keyframes slide-animation{0%{margin-left:0}30%{margin-left:0}33.33%{margin-left:-100%}63.33%{margin-left:-100%}66.66%{margin-left:-200%}96.66%{margin-left:-200%}100%{margin-left:0}}
 
 .content-section{max-width:1150px;margin:20px auto;padding:0 18px}
-/* ... (rest of your long CSS untouched) ... */
 
 </style>
 </head>
@@ -165,16 +175,18 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:
 
   <div class="logo-clock-row">
 
-    <!-- LEFT: LOGO -->
+    <!-- LEFT: LOGO with placeholder -->
     <div class="logo-box">
-      <img src="assets/images/logo.png" alt="School Logo" onerror="this.style.display='none'">
+      <div class="logo-placeholder" id="logoPlaceholder">GPS</div>
+      <img id="schoolLogo" src="assets/images/logo.png" alt="School Logo">
+      
       <div class="logo-title">
-        <h1>Government Primary School Pethgam Wagoora</h1>
+        <h1 id="rainbowTitle"></h1>
         <h2>Wagoora Babareshi Road Near ZEO Office Wagoora</h2>
       </div>
     </div>
 
-    <!-- RIGHT: CLOCK CARD -->
+    <!-- RIGHT: CLOCK -->
     <div class="clock-card">
       <h3>🕒 IST</h3>
       <div class="clock-time" id="clockTime">Loading...</div>
@@ -205,36 +217,41 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:
 
 </header>
 
-<!-- -----------------------------------------------
-     YOUR FULL PAGE CONTENT REMAINS SAME BELOW
------------------------------------------------- -->
-<!-- (Paste your same body content unchanged) -->
+<!-- REST OF YOUR PAGE CONTENT (unchanged) -->
 
-<!-- CLOCK SCRIPT -->
 <script>
-function updateClock(){
-  const now = new Date();
+/* Rainbow Text Generator */
+const titleText = "Government Primary School Pethgam Wagoora";
+const titleContainer = document.getElementById("rainbowTitle");
 
-  // TIME (IST)
-  const optionsTime = { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true, timeZone:'Asia/Kolkata' };
-  document.getElementById("clockTime").innerHTML = now.toLocaleTimeString('en-US', optionsTime);
+titleText.split("").forEach(letter=>{
+  const span=document.createElement("span");
+  span.className="colored-letter";
+  span.textContent=letter;
+  titleContainer.appendChild(span);
+});
 
-  // DAY + DATE
-  const optionsDate = { weekday:'long', year:'numeric', month:'long', day:'numeric', timeZone:'Asia/Kolkata' };
-  const d = new Date(now.toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-
-  document.getElementById("clockDate").innerHTML =
-    d.toLocaleDateString("en-US", optionsDate);
-
-  // HIJRI DATE
-  const hijri = new Intl.DateTimeFormat('en-TN-u-ca-islamic', {
-    day:'numeric', month:'long', year:'numeric'
-  }).format(d);
-
-  document.getElementById("hijriDate").innerHTML = "Hijri: " + hijri;
+/* Hide placeholder if image loads */
+const logoImg=document.getElementById("schoolLogo");
+logoImg.onload=function(){
+  document.getElementById("logoPlaceholder").style.display="none";
 }
 
-setInterval(updateClock, 1000);
+/* Clock Script */
+function updateClock(){
+  const now = new Date();
+  const d = new Date(now.toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+
+  document.getElementById("clockTime").innerHTML = 
+      d.toLocaleTimeString("en-US",{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
+
+  document.getElementById("clockDate").innerHTML =
+      d.toLocaleDateString("en-US",{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  const hijri=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{day:'numeric',month:'long',year:'numeric'}).format(d);
+  document.getElementById("hijriDate").innerHTML="Hijri: "+hijri;
+}
+setInterval(updateClock,1000);
 updateClock();
 </script>
 
