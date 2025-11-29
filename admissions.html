@@ -5,87 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admission 2025-26 - Govt. Primary School Pethgam Wagoora</title>
     <style>
-        /* Basic Styling and Layout */
+        /* General Reset and Layout */
         body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
         .container { width: 90%; max-width: 1200px; margin: 20px auto; padding: 20px; background: #fff; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); }
-        header { background-color: #004d40; color: white; padding: 20px 0; text-align: center; margin-bottom: 20px; }
+        
+        /* 1. Header Section Styling */
+        header { background-color: #004d40; color: white; padding: 20px 0; text-align: center; margin-bottom: 20px; position: relative; }
         header h1 { margin: 0; font-size: 2.2em; }
         header p { margin: 5px 0 0; font-size: 1.1em; }
-        .details-bar { background-color: #e0f2f1; color: #004d40; padding: 10px 0; font-size: 0.9em; display: flex; justify-content: space-around; flex-wrap: wrap; }
-        .details-bar span { margin: 0 10px; }
-        section { padding: 30px 0; border-bottom: 1px solid #eee; }
-        h2 { color: #004d40; border-bottom: 2px solid #004d40; padding-bottom: 10px; margin-top: 0; }
-        .contact-info { text-align: center; padding: 20px; background-color: #004d40; color: white; margin-top: 20px; }
-        .contact-info p { margin: 5px 0; font-size: 1.1em; }
-
-        /* 3D Navigation Tabs (Mock-up CSS for visual effect) */
-        .tabs-nav { display: flex; overflow-x: auto; margin-bottom: 30px; border-bottom: 3px solid #ccc; }
-        .tabs-nav button {
-            background-color: #ccc; color: #333; border: none; padding: 15px 25px; cursor: pointer;
-            transition: all 0.3s ease; font-weight: bold; font-size: 1em;
-            position: relative; top: 3px;
-        }
-        .tabs-nav button:hover, .tabs-nav button.active {
-            background-color: #00796b; color: white;
-            transform: translateY(-5px); /* Simple "3D" lift effect */
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        }
-        .tab-content { display: none; padding: 20px 0; }
-        .tab-content.active { display: block; }
+        .logo-placeholder { float: left; margin-left: 20px; width: 60px; height: 60px; background: #00695c; border-radius: 50%; line-height: 60px; font-size: 0.8em; color: white; font-weight: bold; text-align: center;}
         
-        /* Scrolling Banner */
+        .details-bar { background-color: #e0f2f1; color: #004d40; padding: 10px 0; font-size: 0.9em; display: flex; justify-content: space-around; flex-wrap: wrap; font-weight: bold; }
+        .details-bar span { margin: 5px 10px; }
+        
+        /* 9. Scrolling Banner */
         .scrolling-banner { background-color: #ffeb3b; color: #c62828; padding: 8px 0; overflow: hidden; white-space: nowrap; margin-bottom: 20px; border: 1px dashed #c62828; }
         .scrolling-banner > div { display: inline-block; padding-left: 100%; animation: scroll-text 30s linear infinite; }
         @keyframes scroll-text {
             to { transform: translateX(-100%); }
         }
-
-        /* Form Styling */
-        form label { display: block; margin-top: 10px; font-weight: bold; }
-        form input[type="text"], form input[type="email"], form input[type="date"], form select, form textarea {
+        
+        /* 2. 3D Navigation Tabs */
+        .tabs-nav { display: flex; overflow-x: auto; margin-bottom: 30px; border-bottom: 3px solid #ccc; background-color: #f9f9f9; }
+        .tabs-nav button {
+            background-color: #ccc; color: #333; border: none; padding: 15px 20px; cursor: pointer;
+            transition: all 0.3s ease; font-weight: bold; font-size: 0.95em;
+            position: relative; top: 3px; margin-right: 2px;
+            border-top-left-radius: 8px; border-top-right-radius: 8px;
+        }
+        .tabs-nav button:hover, .tabs-nav button.active {
+            background-color: #00796b; color: white;
+            transform: translateY(-5px); /* Simple "3D" lift effect */
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        .tab-content { display: none; padding: 30px 10px; border: 1px solid #eee; border-top: none; }
+        .tab-content.active { display: block; }
+        
+        /* Section Content Styling */
+        section h2 { color: #004d40; border-bottom: 2px solid #004d40; padding-bottom: 10px; margin-top: 0; }
+        
+        /* Form Styling (Apply Online) */
+        form { background-color: #f9f9f9; padding: 20px; border-radius: 8px; }
+        form h3 { color: #00796b; margin-top: 25px; border-left: 4px solid #00796b; padding-left: 10px; }
+        form label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.9em; }
+        form input[type="text"], form input[type="email"], form input[type="date"], form select, form input[type="file"], form textarea {
             width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
         }
-        form .form-group { margin-bottom: 15px; }
-        .form-actions { margin-top: 20px; text-align: center; }
+        .form-actions { margin-top: 30px; text-align: center; }
         .form-actions button {
             padding: 10px 20px; margin: 0 10px; background-color: #00796b; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;
         }
         .form-actions button:hover { background-color: #004d40; }
-
-        /* Table/Register Styling (Responsive) */
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        table th, table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        table th { background-color: #f2f2f2; font-weight: bold; }
         
+        /* Table/Register Styling */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
+        table th, table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        table th { background-color: #e0f2f1; font-weight: bold; color: #004d40; }
+        
+        /* 10. Contact Section */
+        .contact-info { text-align: center; padding: 20px; background-color: #004d40; color: white; margin-top: 20px; }
+        .contact-info p { margin: 5px 0; font-size: 1.1em; }
     </style>
     <script>
-        // MOCKUP JAVASCRIPT: For tab switching ONLY.
+        // FUNCTIONAL JAVASCRIPT for Tab Switching
         function openTab(tabName) {
-            var i, tabContent, tabLinks;
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) {
-                tabContent[i].style.display = "none";
+            // Get all tab content elements
+            var tabContent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContent.length; i++) {
                 tabContent[i].classList.remove("active");
             }
-            tabLinks = document.getElementsByClassName("tab-link");
-            for (i = 0; i < tabLinks.length; i++) {
+            
+            // Get all tab links/buttons
+            var tabLinks = document.getElementsByClassName("tab-link");
+            for (var i = 0; i < tabLinks.length; i++) {
                 tabLinks[i].classList.remove("active");
             }
-            document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add("active");
-            document.querySelector(`button[onclick*='${tabName}']`).classList.add("active");
+            
+            // Show the current tab and set the button as active
+            var currentTab = document.getElementById(tabName);
+            if (currentTab) {
+                currentTab.classList.add("active");
+                // Set the corresponding button as active
+                document.querySelector(`button[onclick*='${tabName}']`).classList.add("active");
+            }
         }
 
         // Auto-load the first tab on page load
         window.onload = function() {
-            openTab('guidelines');
+            // Set the default tab to 'guidelines'
+            openTab('guidelines'); 
+            
+            // Auto-calculate Admission Date (Mock)
+            var today = new Date().toISOString().split('T')[0];
+            var dateField = document.getElementById('admissionDateMock');
+            if (dateField) {
+                dateField.value = today;
+            }
         };
+        
+        // Mock function for Preview/Submission
+        function handleFormAction(action) {
+            if (action === 'preview') {
+                alert('Mockup: Generating a preview of the Admission & Apaar Forms PDF based on current inputs...');
+            } else if (action === 'submit') {
+                alert('Mockup: Submitting data, storing in register, and generating/downloading Admission & Apaar Forms PDFs.');
+                // Prevent actual form submission for this mockup
+                return false; 
+            }
+        }
     </script>
 </head>
 <body>
 
     <header>
-        <div style="float: left; margin-left: 20px; width: 80px; height: 80px; background: #00695c; border-radius: 50%; line-height: 80px; font-size: 0.8em;">[LOGO]</div>
+        <div class="logo-placeholder">GPS</div>
         <h1>Government Primary School Pethgam Wagoora</h1>
         <p>Session: 2025–26 | UDISE CODE: 01022202207</p>
     </header>
@@ -93,37 +127,31 @@
     <div class="details-bar">
         <span>📞 **Contact:** 9596449881, 7006261694</span>
         <span>📧 **Email:** pspethgam@gmail.com</span>
-        <span>📅 **Admission Open:** 01/11/2025</span>
-        <span>📅 **Admission Close:** 15/04/2026</span>
+        <span>📅 **Admission Open:** 01/11/2025 – **Close:** 15/04/2026</span>
     </div>
 
     <div class="container">
         
         <div class="scrolling-banner">
             <div>
-                📢 Admission Open: 01/11/2025 – 15/04/2026 | Check document verification schedule on the notice board | Mandatory Parent Meeting on 20/04/2026 at 10 AM. &nbsp;&nbsp;&nbsp;
+                📢 Admission Opening: 01/11/2025 | Admission Closing: 15/04/2026 | Check document verification dates on the notice board | Mandatory Parent Meeting scheduled. &nbsp;&nbsp;&nbsp;
             </div>
         </div>
 
         <nav class="tabs-nav">
-            <button class="tab-link active" onclick="openTab('guidelines')">📌 Guidelines</button>
-            <button class="tab-link" onclick="openTab('applyOnline')">🖥️ Apply Online</button>
-            <button class="tab-link" onclick="openTab('apaarForm')">📄 Apaar Form</button>
+            <button class="tab-link" onclick="openTab('guidelines')">📌 Guidelines</button>
+            <button class="tab-link" onclick="openTab('applyOnline')">🖥️ Apply Online (Form)</button>
+            <button class="tab-link" onclick="openTab('apaarForm')">📄 Apaar Form Details</button>
             <button class="tab-link" onclick="openTab('admissionRegister')">📘 Admission Register</button>
             <button class="tab-link" onclick="openTab('requiredDocs')">📑 Required Documents</button>
             <button class="tab-link" onclick="openTab('downloads')">📥 Downloads</button>
         </nav>
-
-        <section id="guidelines" class="tab-content active">
+        
+        <section id="guidelines" class="tab-content">
             <h2>📌 Admission Guidelines</h2>
-            <p>Please ensure your child meets the age criteria as specified below. Age is calculated **as on 1 November 2025**.</p>
+            <p>Please ensure your child meets the age criteria. Age is calculated **as on 1 November 2025**.</p>
             <table>
-                <thead>
-                    <tr>
-                        <th>Class</th>
-                        <th>Minimum Age Eligibility</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Class</th><th>Minimum Age Eligibility</th></tr></thead>
                 <tbody>
                     <tr><td>Pre Primary-3</td><td>3+ years</td></tr>
                     <tr><td>Pre Primary-2</td><td>4+ years</td></tr>
@@ -139,58 +167,119 @@
 
         <section id="applyOnline" class="tab-content">
             <h2>🖥️ Apply Online – Admission Form</h2>
-            <p style="color: red; font-weight: bold;">Note: This form generates both the Admission Form and the Apaar Form PDFs automatically upon submission.</p>
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <p style="color: #c62828; font-weight: bold;">✔ This form generates **Admission Form (A4)** and **Apaar Form (A4)** PDFs upon submission.</p>
+            <form onsubmit="return handleFormAction('submit')">
                 
                 <h3>Student Information</h3>
-                <div class="form-group"><label for="studentName">Student Full Name *</label><input type="text" id="studentName" name="studentName" required></div>
-                <div class="form-group"><label for="gender">Gender *</label><select id="gender" name="gender" required><option value="">Select Gender</option><option value="M">Male</option><option value="F">Female</option><option value="O">Other</option></select></div>
-                <div class="form-group"><label for="dob">Date of Birth *</label><input type="date" id="dob" name="dob" required></div>
-                <div class="form-group"><label>Age (Auto-Calculated as on 01/11/2025)</label><input type="text" value="[Auto]" disabled></div>
-                <div class="form-group"><label for="classApplying">Class Applying For *</label><select id="classApplying" name="classApplying" required>
-                    <option value="">Select Class</option>
-                    <option>Pre Primary-3</option><option>Pre Primary-2</option><option>Balvatika</option>
-                    <option>1st Primary</option><option>2nd Primary</option><option>3rd Primary</option>
-                    <option>4th Primary</option><option>5th Primary</option>
-                </select></div>
-                <div class="form-group"><label for="photo">Upload Photo (Passport Size) *</label><input type="file" id="photo" name="photo" accept="image/*" required></div>
-                <div class="form-group"><label for="bloodReport">Upload Blood Group Report *</label><input type="file" id="bloodReport" name="bloodReport" accept=".pdf,.jpg,.png" required></div>
-                <div class="form-group"><label for="bloodGroup">Blood Group *</label><select id="bloodGroup" name="bloodGroup" required>
-                    <option value="">Select Blood Group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option>
-                    <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
-                </select></div>
+                <div class="form-group"><label for="studentName">Student Full Name *</label><input type="text" id="studentName" required></div>
+                <div class="form-group"><label for="gender">Gender *</label><select id="gender" required><option value="">Select Gender</option><option>Male</option></select></div>
+                <div class="form-group"><label for="dob">Date of Birth *</label><input type="date" id="dob" required></div>
+                <div class="form-group"><label>Age (Auto-Calculated)</label><input type="text" value="[Calculated]" disabled></div>
+                <div class="form-group"><label for="classApplying">Class Applying For *</label><select id="classApplying" required><option value="">Select Class</option><option>Balvatika</option><option>1st Primary</option></select></div>
+                <div class="form-group"><label for="photo">Upload Photo (Passport Size) *</label><input type="file" id="photo" accept="image/*" required></div>
+                <div class="form-group"><label for="bloodReport">Upload Blood Group Report *</label><input type="file" id="bloodReport" required></div>
+                <div class="form-group"><label for="bloodGroup">Blood Group *</label><select id="bloodGroup" required><option value="">Select Group</option><option>A+</option><option>O-</option></select></div>
 
                 <h3>Parents’ Details</h3>
-                <div class="form-group"><label for="fatherName">Father’s Name *</label><input type="text" id="fatherName" name="fatherName" required></div>
-                <div class="form-group"><label for="motherName">Mother’s Name *</label><input type="text" id="motherName" name="motherName" required></div>
-                <div class="form-group"><label for="fatherProfession">Father’s Profession *</label><input type="text" id="fatherProfession" name="fatherProfession" required></div>
-                <div class="form-group"><label for="motherProfession">Mother’s Profession *</label><input type="text" id="motherProfession" name="motherProfession" required></div>
-                <div class="form-group"><label for="parentsPhone">Parents’ Phone Number(s) *</label><input type="text" id="parentsPhone" name="parentsPhone" required></div>
-                <div class="form-group"><label for="address">Address *</label><textarea id="address" name="address" rows="3" required></textarea></div>
-                <div class="form-group"><label for="email">Email (Optional)</label><input type="email" id="email" name="email"></div>
+                <div class="form-group"><label for="fatherName">Father’s Name *</label><input type="text" id="fatherName" required></div>
+                <div class="form-group"><label for="motherName">Mother’s Name *</label><input type="text" id="motherName" required></div>
+                <div class="form-group"><label for="parentsPhone">Parents’ Phone Number(s) *</label><input type="text" id="parentsPhone" required></div>
+                <div class="form-group"><label for="address">Address *</label><textarea id="address" rows="3" required></textarea></div>
+                
+                <h3>Admission & Bank Details</h3>
+                <div class="form-group"><label for="penNumber">PEN Number *</label><input type="text" id="penNumber" required></div>
+                <div class="form-group"><label for="accountNumber">Bank Account Number *</label><input type="text" id="accountNumber" required></div>
+                <div class="form-group"><label for="uniformGrant">Uniform Grant Eligibility *</label><select id="uniformGrant" required><option>Yes</option><option>No</option></select></div>
 
-                <h3>Additional Details</h3>
-                <div class="form-group"><label for="penNumber">PEN Number *</label><input type="text" id="penNumber" name="penNumber" required></div>
-                <h4>Bank Account Details (for Uniform Grants)</h4>
-                <div class="form-group"><label for="accountHolder">Account Holder Name *</label><input type="text" id="accountHolder" name="accountHolder" required></div>
-                <div class="form-group"><label for="accountNumber">Account Number *</label><input type="text" id="accountNumber" name="accountNumber" required></div>
-                <div class="form-group"><label for="ifscCode">IFSC Code *</label><input type="text" id="ifscCode" name="ifscCode" required></div>
-                <div class="form-group"><label for="bankName">Bank Name *</label><input type="text" id="bankName" name="bankName" required></div>
-                <div class="form-group"><label for="prevSchool">Previous School (If Any)</label><input type="text" id="prevSchool" name="prevSchool"></div>
-                <div class="form-group"><label for="uniformGrant">Uniform Grant Eligibility *</label><select id="uniformGrant" name="uniformGrant" required><option value="Yes">Yes</option><option value="No">No</option></select></div>
-
-                <input type="hidden" name="admissionDate" value="[Auto Today]">
-                <input type="hidden" name="admissionNumber" value="[Auto-Generate]">
-                <input type="hidden" name="admissionStatus" value="Active">
+                <input type="hidden" id="admissionDateMock">
+                <input type="hidden" value="[Auto-Generate Admission Number]">
+                <input type="hidden" value="Active">
                 
                 <div class="form-actions">
-                    <button type="button" onclick="alert('Mockup: Previewing PDF...');">Preview PDF</button>
+                    <button type="button" onclick="handleFormAction('preview')">Preview PDF</button>
                     <button type="submit">Submit & Download PDFs</button>
                     <button type="reset" style="background-color: #d32f2f;">Reset Form</button>
                 </div>
             </form>
         </section>
 
+        <section id="apaarForm" class="tab-content">
+            <h2>📄 Apaar Form Details</h2>
+            <p>The **Apaar Form** is integrated with the main Admission Form. The following fields are pre-filled/attached automatically:</p>
+            <ul>
+                <li><strong>Student & Parent Information</strong></li>
+                <li><strong>Health details:</strong> Blood Group (dropdown selection)</li>
+                <li><strong>Attachment:</strong> Uploaded Blood Group Report</li>
+                <li><strong>Parent Profession:</strong> (Father's and Mother's Profession fields are included in the main form data.)</li>
+                <li><strong>Emergency Contact:</strong> Parents' Phone Number.</li>
+            </ul>
+            <p style="margin-top: 20px;">To input or update this information, please use the **Apply Online (Form)** tab.</p>
+        </section>
+
+        <section id="admissionRegister" class="tab-content">
+            <h2>📘 Admission Register (Mock Data View)</h2>
+            <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+                <input type="text" placeholder="Search by Name / PEN Number..." style="flex-grow: 1; padding: 8px;">
+                <select style="padding: 8px;"><option>Filter by Class</option><option>Balvatika</option><option>1st Primary</option></select>
+                <button>Export (PDF)</button>
+            </div>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S. No.</th><th>Date</th><th>Adm. No.</th><th>Student Name</th><th>Class</th><th>DOB</th><th>PEN No.</th><th>Blood Group</th><th>Status</th><th>PDF Links</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td><td>02/11/2025</td><td>25001</td><td>Aisha Khan</td><td>Balvatika</td><td>10/10/2020</td><td>PEN12345</td><td>O+</td><td><span style="color: green;">Active</span></td><td><a href="#" onclick="alert('Mockup: Downloading Admission Form PDF.');">Adm/Apaar</a></td>
+                        </tr>
+                        <tr>
+                            <td>2</td><td>05/11/2025</td><td>25002</td><td>Zain Malik</td><td>1st Primary</td><td>15/05/2019</td><td>PEN67890</td><td>A-</td><td><span style="color: red;">Struck Off</span></td><td><a href="#" onclick="alert('Mockup: Downloading Admission Form PDF.');">Adm/Apaar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="requiredDocs" class="tab-content">
+            <h2>📑 Required Documents (All Mandatory)</h2>
+            <p style="font-weight: bold; color: #c62828;">Please ensure you have all original documents and their photocopies for verification.</p>
+            <ul>
+                <li>✔ Birth Certificate</li>
+                <li>✔ Aadhaar Card (Student)</li>
+                <li>✔ Aadhaar Card (Parents)</li>
+                <li>✔ Bank Passbook Copy (for Uniform Grants)</li>
+                <li>✔ PEN Number details/proof</li>
+                <li>✔ Blood Group Report</li>
+                <li>✔ 2 Passport Size Photos (physical copies)</li>
+                <li>✔ Transfer Certificate (T.C.) - *Mandatory for 2nd Primary to 5th Primary*</li>
+                <li>✔ Profession Certificate (if available)</li>
+            </ul>
+        </section>
+
+        <section id="downloads" class="tab-content">
+            <h2>📥 Downloads Section</h2>
+            <ul style="list-style-type: disc; padding-left: 20px;">
+                <li style="margin-bottom: 10px;">⬇️ <a href="#" onclick="alert('Mockup: Downloading Blank Admission Form.');">Blank Admission Form (A4)</a></li>
+                <li style="margin-bottom: 10px;">⬇️ <a href="#" onclick="alert('Mockup: Downloading Blank Apaar Form.');">Blank Apaar Form (A4)</a></li>
+                <li style="margin-bottom: 10px;">⬇️ <a href="#" onclick="alert('Mockup: Downloading Prospectus.');">Prospectus</a></li>
+                <li style="margin-bottom: 10px;">⬇️ <a href="#" onclick="alert('Mockup: Downloading Uniform Grant Guidelines.');">Uniform Grant Guidelines</a></li>
+                <li style="margin-bottom: 10px;">⬇️ <a href="#" onclick="alert('Mockup: Downloading Checklist.');">Required Documents Checklist</a></li>
+            </ul>
+        </section>
+        
+        </div>
+
+    <div class="contact-info">
+        <h2>📞 Contact Information</h2>
+        <p><strong>Primary:</strong> 9596449881 | <strong>Alternate:</strong> 7006261694</p>
+        <p><strong>Email:</strong> pspethgam@gmail.com</p>
+    </div>
+
+</body>
+</html>
+            
         <section id="apaarForm" class="tab-content">
             <h2>📄 Apaar Form Online (Pre-filled Data)</h2>
             <p>This section represents the Apaar Form data, which is largely **pre-filled** from the 'Apply Online' Admission Form. Upon submission, this data is formatted into the required Apaar PDF.</p>
