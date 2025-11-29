@@ -1,281 +1,694 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admission 2025-26 - Govt. Primary School Pethgam Wagoora</title>
-    <style>
-        /* General Reset and Layout */
-        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f4f7f6; color: #333; }
-        .container { width: 90%; max-width: 1200px; margin: 20px auto; padding: 20px; background: #fff; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); }
-        
-        /* 1. Header Section Styling */
-        header { background-color: #004d40; color: white; padding: 20px 0; text-align: center; margin-bottom: 20px; position: relative; }
-        header h1 { margin: 0; font-size: 2.2em; }
-        header p { margin: 5px 0 0; font-size: 1.1em; }
-        .logo-placeholder { float: left; margin-left: 20px; width: 60px; height: 60px; background: #00695c; border-radius: 50%; line-height: 60px; font-size: 0.8em; color: white; font-weight: bold; text-align: center;}
-        
-        .details-bar { background-color: #e0f2f1; color: #004d40; padding: 10px 0; font-size: 0.9em; display: flex; justify-content: space-around; flex-wrap: wrap; font-weight: bold; }
-        .details-bar span { margin: 5px 10px; }
-        
-        /* 9. Scrolling Banner */
-        .scrolling-banner { background-color: #ffeb3b; color: #c62828; padding: 8px 0; overflow: hidden; white-space: nowrap; margin-bottom: 20px; border: 1px dashed #c62828; }
-        .scrolling-banner > div { display: inline-block; padding-left: 100%; animation: scroll-text 30s linear infinite; }
-        @keyframes scroll-text {
-            to { transform: translateX(-100%); }
-        }
-        
-        /* 2. 3D Navigation Tabs */
-        .tabs-nav { display: flex; overflow-x: auto; margin-bottom: 30px; border-bottom: 3px solid #ccc; background-color: #f9f9f9; }
-        .tabs-nav button {
-            background-color: #ccc; color: #333; border: none; padding: 15px 20px; cursor: pointer;
-            transition: all 0.3s ease; font-weight: bold; font-size: 0.95em;
-            position: relative; top: 3px; margin-right: 2px;
-            border-top-left-radius: 8px; border-top-right-radius: 8px;
-        }
-        .tabs-nav button:hover, .tabs-nav button.active {
-            background-color: #00796b; color: white;
-            transform: translateY(-5px); /* Simple "3D" lift effect */
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            z-index: 10;
-        }
-        .tab-content { display: none; padding: 30px 10px; border: 1px solid #eee; border-top: none; }
-        .tab-content.active { display: block; }
-        
-        /* Section Content Styling */
-        section h2 { color: #004d40; border-bottom: 2px solid #004d40; padding-bottom: 10px; margin-top: 0; }
-        
-        /* Form Styling (Apply Online) */
-        form { background-color: #f9f9f9; padding: 20px; border-radius: 8px; }
-        form h3 { color: #00796b; margin-top: 25px; border-left: 4px solid #00796b; padding-left: 10px; }
-        form label { display: block; margin-top: 10px; font-weight: bold; font-size: 0.9em; }
-        form input[type="text"], form input[type="email"], form input[type="date"], form select, form input[type="file"], form textarea {
-            width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
-        }
-        .form-actions { margin-top: 30px; text-align: center; }
-        .form-actions button {
-            padding: 10px 20px; margin: 0 10px; background-color: #00796b; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;
-        }
-        .form-actions button:hover { background-color: #004d40; }
-        
-        /* Table/Register Styling */
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
-        table th, table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        table th { background-color: #e0f2f1; font-weight: bold; color: #004d40; }
-        
-        /* 10. Contact Section */
-        .contact-info { text-align: center; padding: 20px; background-color: #004d40; color: white; margin-top: 20px; }
-        .contact-info p { margin: 5px 0; font-size: 1.1em; }
-    </style>
-    <script>
-        // FUNCTIONAL JAVASCRIPT for Tab Switching
-        function openTab(tabName) {
-            // Get all tab content elements
-            var tabContent = document.getElementsByClassName("tab-content");
-            for (var i = 0; i < tabContent.length; i++) {
-                tabContent[i].classList.remove("active");
-            }
-            
-            // Get all tab links/buttons
-            var tabLinks = document.getElementsByClassName("tab-link");
-            for (var i = 0; i < tabLinks.length; i++) {
-                tabLinks[i].classList.remove("active");
-            }
-            
-            // Show the current tab and set the button as active
-            var currentTab = document.getElementById(tabName);
-            if (currentTab) {
-                currentTab.classList.add("active");
-                // Set the corresponding button as active
-                document.querySelector(`button[onclick*='${tabName}']`).classList.add("active");
-            }
-        }
+  <meta charset="utf-8" />
+  <title>Admissions 2025-26 — Government Primary School Pethgam Wagoora</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-        // Auto-load the first tab on page load
-        window.onload = function() {
-            // Set the default tab to 'guidelines'
-            openTab('guidelines'); 
-            
-            // Auto-calculate Admission Date (Mock)
-            var today = new Date().toISOString().split('T')[0];
-            var dateField = document.getElementById('admissionDateMock');
-            if (dateField) {
-                dateField.value = today;
-            }
-        };
-        
-        // Mock function for Preview/Submission
-        function handleFormAction(action) {
-            if (action === 'preview') {
-                alert('Mockup: Generating a preview of the Admission & Apaar Forms PDF based on current inputs...');
-            } else if (action === 'submit') {
-                alert('Mockup: Submitting data, storing in register, and generating/downloading Admission & Apaar Forms PDFs.');
-                // Prevent actual form submission for this mockup
-                return false; 
-            }
-        }
-    </script>
+  <!-- External libs for client-side PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNa5/6bI8xN0V2o+eYqf2WwXxwQ6h1ZkNLw0GQ7kqKQX2x6rH8gQj6k/0z7cH0lH0q0H1xYVb3k1s3qG6g2q1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-8nLUf6Qf9k6y9hYdp5vQkqZK3x0t6E5yq1V+6X2rX2n9bXgyqzB1nQxQy2YvCq2nQf5Y3m1z3g2a2v1bQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <style>
+    :root{
+      --brand-a:#00796b; --brand-b:#00bfa5; --accent:#ffb300; --bg:#f0fbff;
+      --card:#ffffff; --muted:#666;
+    }
+    *{box-sizing:border-box}
+    body{font-family: "Nunito", Arial, sans-serif; margin:0; background:var(--bg); color:#222; -webkit-font-smoothing:antialiased;}
+    header{background:linear-gradient(135deg,var(--brand-a),#00695c); color:#fff; padding:18px 12px; position:relative; overflow:hidden;}
+    .container{width:94%; max-width:1200px; margin:18px auto;}
+    .header-inner{display:flex; align-items:center; gap:12px;}
+    .logo{width:80px;height:80px;border-radius:10px;background:#fff2;font-weight:800;display:flex;align-items:center;justify-content:center;color:#004d40;font-size:18px;}
+    header h1{font-size:20px;margin:0}
+    header p{margin:4px 0 0; font-size:14px; opacity:0.95}
+    .details-bar{display:flex; gap:12px;justify-content:center; background:#e0f2f1; color:#004d40; padding:8px 10px; margin-top:12px; border-radius:6px; font-weight:700;}
+    .scrolling-banner{background:#fff3; color:#b71c1c; padding:8px 12px; margin:16px 0; border-left:6px solid #ffeb3b; overflow:hidden; white-space:nowrap;}
+    .scrolling-banner > div{display:inline-block; padding-left:100%; animation:scroll 28s linear infinite;}
+    @keyframes scroll{to{transform:translateX(-100%)}}
+
+    /* Tabs nav */
+    .tabs-nav{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;}
+    .tab-btn{
+      padding:12px 18px; border-radius:12px; border:none; background:linear-gradient(180deg,#eee,#ddd);
+      cursor:pointer; font-weight:800; box-shadow:0 6px 0 rgba(0,0,0,0.08); transform:translateY(0); transition:all .18s ease;
+    }
+    .tab-btn:hover{transform:translateY(-6px); box-shadow:0 12px 18px rgba(0,0,0,0.12); background: linear-gradient(180deg,var(--brand-b),var(--brand-a)); color:white}
+    .tab-btn.active{background:linear-gradient(180deg,var(--brand-b),var(--brand-a)); color:white; transform:translateY(-6px); box-shadow:0 12px 18px rgba(0,0,0,0.12);}
+
+    .card{background:var(--card); padding:16px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.06); margin-bottom:18px;}
+    .tab-content{display:none;}
+    .tab-content.active{display:block;}
+
+    h2{color:var(--brand-a); margin:0 0 10px 0; font-size:18px}
+    form .row{display:flex; gap:12px}
+    form .col{flex:1}
+    label{display:block; font-weight:700; margin:8px 0 6px; font-size:13px}
+    input[type=text], input[type=date], input[type=email], select, textarea{width:100%; padding:10px; border-radius:6px; border:1px solid #d7e6e2}
+    textarea{min-height:80px; resize:vertical}
+    .form-actions{display:flex; gap:10px; justify-content:center; margin-top:14px}
+    .btn{padding:10px 14px; border-radius:8px; border:none; font-weight:800; cursor:pointer}
+    .btn.primary{background:linear-gradient(180deg,var(--brand-b),var(--brand-a)); color:white}
+    .btn.ghost{background:transparent; border:2px solid var(--brand-a); color:var(--brand-a)}
+    .small{font-size:13px; color:var(--muted)}
+
+    table{width:100%; border-collapse:collapse; margin-top:10px}
+    th,td{padding:8px;border:1px solid #e6f0ee; text-align:left; font-size:13px}
+    th{background:#e8f6f2; color:var(--brand-a)}
+    .actions a{margin-right:8px; cursor:pointer; color:var(--brand-a); text-decoration:underline}
+
+    /* responsive */
+    @media (max-width:800px){
+      .header-inner{flex-direction:column; align-items:flex-start}
+      .details-bar{flex-direction:column; gap:6px}
+      form .row{flex-direction:column}
+    }
+  </style>
 </head>
 <body>
-
-    <header>
-        <div class="logo-placeholder">GPS</div>
+  <header>
+    <div class="container header-inner">
+      <div class="logo">GPS<br>Pethgam</div>
+      <div>
         <h1>Government Primary School Pethgam Wagoora</h1>
-        <p>Session: 2025–26 | UDISE CODE: 01022202207</p>
-    </header>
-
-    <div class="details-bar">
-        <span>📞 **Contact:** 9596449881, 7006261694</span>
-        <span>📧 **Email:** pspethgam@gmail.com</span>
-        <span>📅 **Admission Open:** 01/11/2025 – **Close:** 15/04/2026</span>
+        <p>Wagoora Babareshi Road — Near Zonal Education Office, Wagoora · UDISE: 01022202207 · Zone: Wagoora · Session: 2025–26</p>
+      </div>
     </div>
-
     <div class="container">
-        
-        <div class="scrolling-banner">
-            <div>
-                📢 Admission Opening: 01/11/2025 | Admission Closing: 15/04/2026 | Check document verification dates on the notice board | Mandatory Parent Meeting scheduled. &nbsp;&nbsp;&nbsp;
-            </div>
-        </div>
+      <div class="details-bar">
+        <div>📞 Contact: <strong>9596449881</strong> , <strong>7006261694</strong></div>
+        <div>📧 Email: <strong>pspethgam@gmail.com</strong></div>
+        <div>📅 Admission: <strong>01/11/2025</strong> — <strong>15/04/2026</strong></div>
+      </div>
+    </div>
+  </header>
 
-        <nav class="tabs-nav">
-            <button class="tab-link" onclick="openTab('guidelines')">📌 Guidelines</button>
-            <button class="tab-link" onclick="openTab('applyOnline')">🖥️ Apply Online (Form)</button>
-            <button class="tab-link" onclick="openTab('apaarForm')">📄 Apaar Form Details</button>
-            <button class="tab-link" onclick="openTab('admissionRegister')">📘 Admission Register</button>
-            <button class="tab-link" onclick="openTab('requiredDocs')">📑 Required Documents</button>
-            <button class="tab-link" onclick="openTab('downloads')">📥 Downloads</button>
-        </nav>
-        
-        <section id="guidelines" class="tab-content">
-            <h2>📌 Admission Guidelines</h2>
-            <p>Please ensure your child meets the age criteria. Age is calculated **as on 1 November 2025**.</p>
-            <table>
-                <thead><tr><th>Class</th><th>Minimum Age Eligibility</th></tr></thead>
-                <tbody>
-                    <tr><td>Pre Primary-3</td><td>3+ years</td></tr>
-                    <tr><td>Pre Primary-2</td><td>4+ years</td></tr>
-                    <tr><td>Balvatika</td><td>5+ years</td></tr>
-                    <tr><td>1st Primary</td><td>6+ years</td></tr>
-                    <tr><td>2nd Primary</td><td>7+ years</td></tr>
-                    <tr><td>3rd Primary</td><td>8+ years</td></tr>
-                    <tr><td>4th Primary</td><td>9+ years</td></tr>
-                    <tr><td>5th Primary</td><td>10+ years</td></tr>
-                </tbody>
-            </table>
-        </section>
+  <main class="container">
+    <div class="scrolling-banner card"><div>📢 Admission Opening: 01/11/2025 | Admission Closing: 15/04/2026 | All documents are mandatory. Please submit printed Admission & Apaar forms at the school office during working hours. &nbsp;&nbsp;&nbsp;</div></div>
 
-        <section id="applyOnline" class="tab-content">
-            <h2>🖥️ Apply Online – Admission Form</h2>
-            <p style="color: #c62828; font-weight: bold;">✔ This form generates **Admission Form (A4)** and **Apaar Form (A4)** PDFs upon submission.</p>
-            <form onsubmit="return handleFormAction('submit')">
-                
-                <h3>Student Information</h3>
-                <div class="form-group"><label for="studentName">Student Full Name *</label><input type="text" id="studentName" required></div>
-                <div class="form-group"><label for="gender">Gender *</label><select id="gender" required><option value="">Select Gender</option><option>Male</option></select></div>
-                <div class="form-group"><label for="dob">Date of Birth *</label><input type="date" id="dob" required></div>
-                <div class="form-group"><label>Age (Auto-Calculated)</label><input type="text" value="[Calculated]" disabled></div>
-                <div class="form-group"><label for="classApplying">Class Applying For *</label><select id="classApplying" required><option value="">Select Class</option><option>Balvatika</option><option>1st Primary</option></select></div>
-                <div class="form-group"><label for="photo">Upload Photo (Passport Size) *</label><input type="file" id="photo" accept="image/*" required></div>
-                <div class="form-group"><label for="bloodReport">Upload Blood Group Report *</label><input type="file" id="bloodReport" required></div>
-                <div class="form-group"><label for="bloodGroup">Blood Group *</label><select id="bloodGroup" required><option value="">Select Group</option><option>A+</option><option>O-</option></select></div>
-
-                <h3>Parents’ Details</h3>
-                <div class="form-group"><label for="fatherName">Father’s Name *</label><input type="text" id="fatherName" required></div>
-                <div class="form-group"><label for="motherName">Mother’s Name *</label><input type="text" id="motherName" required></div>
-                <div class="form-group"><label for="parentsPhone">Parents’ Phone Number(s) *</label><input type="text" id="parentsPhone" required></div>
-                <div class="form-group"><label for="address">Address *</label><textarea id="address" rows="3" required></textarea></div>
-                
-                <h3>Admission & Bank Details</h3>
-                <div class="form-group"><label for="penNumber">PEN Number *</label><input type="text" id="penNumber" required></div>
-                <div class="form-group"><label for="accountNumber">Bank Account Number *</label><input type="text" id="accountNumber" required></div>
-                <div class="form-group"><label for="uniformGrant">Uniform Grant Eligibility *</label><select id="uniformGrant" required><option>Yes</option><option>No</option></select></div>
-
-                <input type="hidden" id="admissionDateMock">
-                <input type="hidden" value="[Auto-Generate Admission Number]">
-                <input type="hidden" value="Active">
-                
-                <div class="form-actions">
-                    <button type="button" onclick="handleFormAction('preview')">Preview PDF</button>
-                    <button type="submit">Submit & Download PDFs</button>
-                    <button type="reset" style="background-color: #d32f2f;">Reset Form</button>
-                </div>
-            </form>
-        </section>
-
-        <section id="apaarForm" class="tab-content">
-            <h2>📄 Apaar Form Details</h2>
-            <p>The **Apaar Form** is integrated with the main Admission Form. The following fields are pre-filled/attached automatically:</p>
-            <ul>
-                <li><strong>Student & Parent Information</strong></li>
-                <li><strong>Health details:</strong> Blood Group (dropdown selection)</li>
-                <li><strong>Attachment:</strong> Uploaded Blood Group Report</li>
-                <li><strong>Parent Profession:</strong> (Father's and Mother's Profession fields are included in the main form data.)</li>
-                <li><strong>Emergency Contact:</strong> Parents' Phone Number.</li>
-            </ul>
-            <p style="margin-top: 20px;">To input or update this information, please use the **Apply Online (Form)** tab.</p>
-        </section>
-
-        <section id="admissionRegister" class="tab-content">
-            <h2>📘 Admission Register (Mock Data View)</h2>
-            <div style="margin-bottom: 15px; display: flex; gap: 10px;">
-                <input type="text" placeholder="Search by Name / PEN Number..." style="flex-grow: 1; padding: 8px;">
-                <select style="padding: 8px;"><option>Filter by Class</option><option>Balvatika</option><option>1st Primary</option></select>
-                <button>Export (PDF)</button>
-            </div>
-            <div style="overflow-x: auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S. No.</th><th>Date</th><th>Adm. No.</th><th>Student Name</th><th>Class</th><th>DOB</th><th>PEN No.</th><th>Blood Group</th><th>Status</th><th>PDF Links</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td><td>02/11/2025</td><td>25001</td><td>Aisha Khan</td><td>Balvatika</td><td>10/10/2020</td><td>PEN12345</td><td>O+</td><td><span style="color: green;">Active</span></td><td><a href="#" onclick="alert('Mockup: Downloading Admission Form PDF.');">Adm/Apaar</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td><td>05/11/2025</td><td>25002</td><td>Zain Malik</td><td>1st Primary</td><td>15/05/2019</td><td>PEN67890</td><td>A-</td><td><span style="color: red;">Struck Off</span></td><td><a href="#" onclick="alert('Mockup: Downloading Admission Form PDF.');">Adm/Apaar</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="requiredDocs" class="tab-content">
-            <h2>📑 Required Documents (All Mandatory)</h2>
-            <p style="font-weight: bold; color: #c62828;">Please ensure you have all original documents and their photocopies for verification.</p>
-            <ul>
-                <li>✔ Birth Certificate</li>
-                <li>✔ Aadhaar Card (Student)</li>
-                <li>✔ Aadhaar Card (Parents)</li>
-                <li>✔ Bank Passbook Copy (for Uniform Grants)</li>
-                <li>✔ PEN Number details/proof</li>
-                <li>✔ Blood Group Report</li>
-                <li>✔ 2 Passport Size Photos (physical copies)</li>
-                <li>✔ Transfer Certificate (T.C.) - *Mandatory for 2nd Primary to 5th Primary*</li>
-                <li>✔ Profession Certificate (if available)</li>
-            </ul>
-        </section>
-
-        <section id="downloads" class="tab-content">
-            <h2>📥 Downloads Section</h2>
-            <ul style="list-style-type: disc; padding-left: 20px;">
-                <li style="margin-bottom: 10px;">⬇️ <a href="#" onclick="alert('Mockup: Downloading Blank Admission Form.');">Blank Admission Form (A4)</a></li>
-                <li style="margin-bottom: 10px;">⬇️ <a href="#" onclick="alert('Mockup: Downloading Blank Apaar Form.');">Blank Apaar Form (A4)</a></li>
-                <li style="margin-bottom: 10px;">⬇️ <a href="#" onclick="alert('Mockup: Downloading Prospectus.');">Prospectus</a></li>
-                <li style="margin-bottom: 10px;">⬇️ <a href="#" onclick="alert('Mockup: Downloading Uniform Grant Guidelines.');">Uniform Grant Guidelines</a></li>
-                <li style="margin-bottom: 10px;">⬇️ <a href="#" onclick="alert('Mockup: Downloading Checklist.');">Required Documents Checklist</a></li>
-            </ul>
-        </section>
-        
-        </div>
-
-    <div class="contact-info">
-        <h2>📞 Contact Information</h2>
-        <p><strong>Primary:</strong> 9596449881 | <strong>Alternate:</strong> 7006261694</p>
-        <p><strong>Email:</strong> pspethgam@gmail.com</p>
+    <!-- Tabs -->
+    <div class="tabs-nav card" role="tablist" aria-label="Admission Navigation">
+      <button class="tab-btn tab-link" data-tab="guidelines" onclick="openTab('guidelines')">📌 Guidelines</button>
+      <button class="tab-btn tab-link" data-tab="applyOnline" onclick="openTab('applyOnline')">🖥️ Apply Online</button>
+      <button class="tab-btn tab-link" data-tab="apaarForm" onclick="openTab('apaarForm')">📄 Apaar Form</button>
+      <button class="tab-btn tab-link" data-tab="admissionRegister" onclick="openTab('admissionRegister')">📘 Admission Register</button>
+      <button class="tab-btn tab-link" data-tab="requiredDocs" onclick="openTab('requiredDocs')">📑 Required Documents</button>
+      <button class="tab-btn tab-link" data-tab="downloads" onclick="openTab('downloads')">📥 Downloads</button>
     </div>
 
+    <!-- GUIDELINES -->
+    <section id="guidelines" class="tab-content card">
+      <h2>Admission Guidelines</h2>
+      <p class="small">Age eligibility is calculated <strong>as on 01-Nov-2025</strong>. All documents listed in Required Documents are <strong>mandatory</strong>. Apply online to generate the Admission Form & Apaar Form PDFs. Submit printed copies at the school office.</p>
+
+      <table>
+        <thead><tr><th>Class</th><th>Minimum Age (on 01-Nov-2025)</th></tr></thead>
+        <tbody>
+          <tr><td>Pre Primary-3</td><td>3+</td></tr>
+          <tr><td>Pre Primary-2</td><td>4+</td></tr>
+          <tr><td>Balvatika</td><td>5+</td></tr>
+          <tr><td>1st Primary</td><td>6+</td></tr>
+          <tr><td>2nd Primary</td><td>7+</td></tr>
+          <tr><td>3rd Primary</td><td>8+</td></tr>
+          <tr><td>4th Primary</td><td>9+</td></tr>
+          <tr><td>5th Primary</td><td>10+</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- APPLY ONLINE -->
+    <section id="applyOnline" class="tab-content card">
+      <h2>Apply Online — Admission Form</h2>
+      <p class="small">Fill all fields. On submit the system will validate age eligibility (01-Nov-2025). It will then generate two A4 PDFs (Admission Form + Apaar Form) and store the record in the local Admission Register.</p>
+
+      <form id="admissionForm" onsubmit="return handleSubmit(event)">
+        <div class="row">
+          <div class="col">
+            <label for="studentName">Student Full Name *</label>
+            <input id="studentName" type="text" required>
+          </div>
+          <div class="col">
+            <label for="gender">Gender *</label>
+            <select id="gender" required><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="dob">Date of Birth *</label>
+            <input id="dob" type="date" required>
+          </div>
+          <div class="col">
+            <label for="classApplying">Class Applying For *</label>
+            <select id="classApplying" required>
+              <option value="">Select</option>
+              <option>Pre Primary-3</option><option>Pre Primary-2</option><option>Balvatika</option>
+              <option>1st Primary</option><option>2nd Primary</option><option>3rd Primary</option>
+              <option>4th Primary</option><option>5th Primary</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="photo">Upload Photo (passport size) *</label>
+            <input id="photo" type="file" accept="image/*" required>
+          </div>
+          <div class="col">
+            <label for="bloodReport">Upload Blood Group Report *</label>
+            <input id="bloodReport" type="file" accept="image/*,application/pdf" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="bloodGroup">Blood Group *</label>
+            <select id="bloodGroup" required><option value="">Select</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
+          </div>
+          <div class="col">
+            <label for="penNumber">PEN Number *</label>
+            <input id="penNumber" type="text" required>
+          </div>
+        </div>
+
+        <h2 style="margin-top:14px; font-size:16px;">Parents’ Details</h2>
+        <div class="row">
+          <div class="col">
+            <label for="fatherName">Father's Name *</label>
+            <input id="fatherName" type="text" required>
+          </div>
+          <div class="col">
+            <label for="motherName">Mother's Name *</label>
+            <input id="motherName" type="text" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="fatherProfession">Father's Profession *</label>
+            <input id="fatherProfession" type="text" placeholder="e.g. Farmer / Govt Employee / Labour" required>
+          </div>
+          <div class="col">
+            <label for="motherProfession">Mother's Profession *</label>
+            <input id="motherProfession" type="text" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="parentsPhone">Parents' Phone Number(s) *</label>
+            <input id="parentsPhone" type="text" required>
+          </div>
+          <div class="col">
+            <label for="address">Address *</label>
+            <input id="address" type="text" required>
+          </div>
+        </div>
+
+        <h2 style="margin-top:14px; font-size:16px;">Bank Details (for records)</h2>
+        <div class="row">
+          <div class="col"><label for="bankName">Bank Name *</label><input id="bankName" type="text" required></div>
+          <div class="col"><label for="accountNumber">Account Number *</label><input id="accountNumber" type="text" required></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn ghost" onclick="previewPdfs()">Preview PDF</button>
+          <button type="submit" class="btn primary">Submit & Generate PDFs</button>
+          <button type="reset" class="btn" style="background:#e57373;color:#fff">Reset</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- APAAR FORM -->
+    <section id="apaarForm" class="tab-content card">
+      <h2>Apaar Consent Text</h2>
+      <div style="white-space:pre-wrap; font-size:14px; line-height:1.4; color:#222;">
+GOVERNMENT PRIMARY SCHOOL PETHGAM WAGOORA
+Wagoora Babareshi Road Near Zonal Education Office Wagoora
+
+UDISE Code: 01022202207.
+Zone: Wagoora
+
+Consent by Father/Mother/Legal Guardian of Student for APAAR ID Generation
+
+I, ________________________ (Father / Mother / Legal Guardian) of ________________________ with my identity proof as (Aadhar / PAN / EPIC Voter ID / Driving License / Passport) and Identity Proof Number ________________________ voluntarily give my consent to share his/her Aadhaar Number and demographic information issued by UIDAI with Ministry of Education for the sole purpose of creation of APAAR ID and opening of DIGILOCKER account of my child for the following intents and purposes.
+
+I understand that my APAAR ID may be used and shared for limited purposes as notified by Ministry of Education. I authorise Ministry of Education to use my Aadhaar number for performing Aadhaar based authentication with UIDAI as per the Aadhaar Act, 2016. I understand that the information shared shall be kept confidential. I can withdraw my consent anytime and such withdrawal will stop further processing (already processed data remains).
+      </div>
+
+      <p class="small" style="margin-top:12px">When generating the Apaar PDF the above consent block will be included and pre-filled with student's & parent's info from the Admission Form.</p>
+    </section>
+
+    <!-- ADMISSION REGISTER -->
+    <section id="admissionRegister" class="tab-content card">
+      <h2>Admission Register</h2>
+      <div style="display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap;">
+        <input id="searchRegister" placeholder="Search by Name / PEN / Class" style="flex:1; padding:8px; border-radius:6px; border:1px solid #d7e6e2">
+        <select id="filterClass" style="padding:8px; border-radius:6px; border:1px solid #d7e6e2">
+          <option value="">Filter by Class</option>
+          <option>Pre Primary-3</option><option>Pre Primary-2</option><option>Balvatika</option>
+          <option>1st Primary</option><option>2nd Primary</option><option>3rd Primary</option>
+          <option>4th Primary</option><option>5th Primary</option>
+        </select>
+        <button class="btn ghost" onclick="exportRegisterPDF()">Export (PDF)</button>
+        <button class="btn ghost" onclick="exportRegisterCSV()">Export (CSV)</button>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table id="registerTable" aria-live="polite">
+          <thead>
+            <tr><th>S. No.</th><th>Date</th><th>Adm. No.</th><th>Student Name</th><th>Class</th><th>DOB</th><th>PEN No.</th><th>Blood Group</th><th>Parents</th><th>Bank (last4)</th><th>Status</th><th>PDFs</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top:8px">Admission Status is editable only here (Active / Struck Off / D.C. Issued).</p>
+    </section>
+
+    <!-- REQUIRED DOCS -->
+    <section id="requiredDocs" class="tab-content card">
+      <h2>Required Documents (All Mandatory)</h2>
+      <ul>
+        <li>Birth Certificate</li>
+        <li>Aadhaar Card (Student)</li>
+        <li>Aadhaar Card (Parents)</li>
+        <li>Bank Passbook Copy</li>
+        <li>PEN Number proof</li>
+        <li>Blood Group Report</li>
+        <li>2 Passport Size Photos (physical)</li>
+        <li>Transfer Certificate (for 2nd–5th Primary)</li>
+      </ul>
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section id="downloads" class="tab-content card">
+      <h2>Downloads</h2>
+      <ul>
+        <li>⬇️ <a href="javascript:void(0)" onclick="downloadBlank('admission')">Blank Admission Form (A4)</a></li>
+        <li>⬇️ <a href="javascript:void(0)" onclick="downloadBlank('apaar')">Blank Apaar Form (A4)</a></li>
+        <li>⬇️ <a href="javascript:void(0)" onclick="alert('Prospectus download - replace this with real file link on your server')">Prospectus</a></li>
+        <li>⬇️ <a href="javascript:void(0)" onclick="alert('Checklist download - replace with your file link')">Required Documents Checklist</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="container card" style="margin-top:18px; text-align:center;">
+    <strong>Contact:</strong> 9596449881 , 7006261694 &nbsp; | &nbsp; <strong>Email:</strong> pspethgam@gmail.com
+  </footer>
+
+  <script>
+    // ---------- Utilities ----------
+    const APAAR_CONSENT = `GOVERNMENT PRIMARY SCHOOL PETHGAM WAGOORA
+Wagoora Babareshi Road Near Zonal Education Office Wagoora
+
+UDISE Code: 01022202207.
+Zone: Wagoora
+
+Consent by Father/Mother/Legal Guardian of Student for APAAR ID Generation
+
+I, ________________________ (Father / Mother / Legal Guardian) of ________________________ with my identity proof as (Aadhar / PAN / EPIC Voter ID / Driving License / Passport) and Identity Proof Number ________________________ voluntarily give my consent to share his/her Aadhaar Number and demographic information issued by UIDAI with Ministry of Education for the sole purpose of creation of APAAR ID and opening of DIGILOCKER account of my child for the following intents and purposes.
+
+I understand that my APAAR ID may be used and shared for limited purposes as notified by Ministry of Education. I authorise Ministry of Education to use my Aadhaar number for performing Aadhaar based authentication with UIDAI as per the Aadhaar Act, 2016. I understand that the information shared shall be kept confidential. I can withdraw my consent anytime and such withdrawal will stop further processing (already processed data remains).`;
+
+    // Tab system (safe selector using data-tab)
+    function openTab(tabName){
+      // hide contents
+      document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+      // deactivate buttons
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      // show
+      const content = document.getElementById(tabName);
+      if(content) content.classList.add('active');
+      // activate btn
+      const btn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+      if(btn) btn.classList.add('active');
+      // focus top
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    // init default
+    window.addEventListener('DOMContentLoaded', ()=> {
+      openTab('guidelines');
+      loadRegister();
+      document.getElementById('dob').max = '2025-11-01'; // prevent future DOB beyond cutoffs roughly
+    });
+
+    // ---------- Age validation ----------
+    function calcAgeOn(dobStr, onDateStr){
+      const dob = new Date(dobStr);
+      const on = new Date(onDateStr);
+      let age = on.getFullYear() - dob.getFullYear();
+      const m = on.getMonth() - dob.getMonth();
+      if(m < 0 || (m===0 && on.getDate() < dob.getDate())) age--;
+      return age;
+    }
+
+    function isEligible(dobStr, classApplying){
+      const cutoff = '2025-11-01';
+      const age = calcAgeOn(dobStr, cutoff);
+      const map = {
+        'Pre Primary-3':3,'Pre Primary-2':4,'Balvatika':5,'1st Primary':6,'2nd Primary':7,'3rd Primary':8,'4th Primary':9,'5th Primary':10
+      };
+      const required = map[classApplying];
+      if(required===undefined) return {ok:false, msg:'Select class.'};
+      if(age>=required) return {ok:true, age};
+      return {ok:false, msg:`Child is ${age} yrs on ${cutoff} — requires ${required}+ yrs for ${classApplying}.`};
+    }
+
+    // ---------- Admission number generator ----------
+    function generateAdmNo(){
+      // uses year + sequence stored in localStorage
+      const seqKey = 'aps_adm_seq_2025';
+      let seq = parseInt(localStorage.getItem(seqKey) || '0', 10);
+      seq++; localStorage.setItem(seqKey, seq);
+      const year = '25'; // short year
+      return `${year}${String(seq).padStart(4,'0')}`;
+    }
+
+    // ---------- PDF generation helpers ----------
+    async function elementToPdfBlob(element, pdfTitle){
+      // render element -> canvas -> pdf
+      const canvas = await html2canvas(element, {scale:2, useCORS:true, logging:false});
+      const imgData = canvas.toDataURL('image/png');
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p','mm','a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+             }
+const pageHeight = pdf.internal.pageSize.getHeight();
+      // fit image to page width maintaining aspect
+      const imgProps = pdf.getImageProperties(imgData);
+      const imgH = (imgProps.height * pageWidth) / imgProps.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, imgH);
+      return pdf; // return jsPDF instance
+    }
+
+    // Create HTML fragments for Admission & Apaar printable layout
+    function createAdmissionPrintHTML(data){
+      // Inline small styles for print look
+      const html = `
+        <div style="font-family: Arial; padding:18px; color:#222;">
+          <div style="text-align:center; margin-bottom:8px;">
+            <h2 style="margin:0">Government Primary School Pethgam Wagoora</h2>
+            <div>Wagoora Babareshi Road — Near Zonal Education Office, Wagoora</div>
+            <div style="font-weight:700; margin-top:6px">UDISE Code: 01022202207 | Session: 2025-26</div>
+            <hr style="margin-top:12px;"/>
+          </div>
+          <div style="display:flex; gap:12px;">
+            <div style="flex:1;">
+              <p><strong>Admission No:</strong> ${data.admNo}</p>
+              <p><strong>Admission Date:</strong> ${data.admDate}</p>
+              <p><strong>Student Name:</strong> ${data.studentName}</p>
+              <p><strong>Class:</strong> ${data.classApplying}</p>
+              <p><strong>DOB:</strong> ${data.dob}</p>
+              <p><strong>Blood Group:</strong> ${data.bloodGroup}</p>
+              <p><strong>PEN No:</strong> ${data.penNumber}</p>
+              <p><strong>Father:</strong> ${data.fatherName}</p>
+              <p><strong>Mother:</strong> ${data.motherName}</p>
+              <p><strong>Parents Phones:</strong> ${data.parentsPhone}</p>
+              <p><strong>Address:</strong> ${data.address}</p>
+              <p><strong>Bank:</strong> ${data.bankName} (....${String(data.accountNumber).slice(-4)})</p>
+            </div>
+            <div style="width:160px; text-align:center;">
+              ${data.photoData ? `<img src="${data.photoData}" style="width:140px;height:160px;object-fit:cover;border:1px solid #ccc;" />` : ''}
+            </div>
+          </div>
+          <hr style="margin:14px 0"/>
+          <div style="font-size:13px;">
+            <strong>Note:</strong> Submit the printed Admission & Apaar form at the school office with supporting documents. All documents are mandatory.
+          </div>
+          <div style="margin-top:18px;">
+            <div style="float:right; text-align:center;">
+              <div>Signature (HoI / Authorized)</div>
+              <div style="margin-top:36px;">__________________________</div>
+            </div>
+          </div>
+        </div>`;
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      return wrapper;
+    }
+
+    function createApaarPrintHTML(data){
+      const html = `
+        <div style="font-family: Arial; padding:18px; color:#222;">
+          <div style="text-align:center; margin-bottom:8px;">
+            <h3 style="margin:0">APAAR Consent</h3>
+            <div style="font-weight:700; margin-top:6px">Government Primary School Pethgam Wagoora</div>
+            <hr style="margin-top:12px;"/>
+          </div>
+          <div>
+            <p><strong>Student:</strong> ${data.studentName} &nbsp; <strong>DOB:</strong> ${data.dob} &nbsp; <strong>Class:</strong> ${data.classApplying}</p>
+            <pre style="white-space:pre-wrap; font-size:13px; background:#f6f6f6; padding:10px; border-radius:6px;">${APAAR_CONSENT}</pre>
+            <p style="margin-top:10px;">Place of Physical Consent: ____________________</p>
+            <p>Date of Physical Consent: ____________________</p>
+            <p>Signature of Parent / Guardian: ____________________</p>
+            <hr/>
+            <p style="margin-top:8px;">Consent by Head of School: ____________________ Date: __________ Signature: ____________________</p>
+          </div>
+        </div>`;
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+      return wrapper;
+    }
+
+    // ---------- Form handlers ----------
+    async function handleSubmit(e){
+      e.preventDefault();
+      // gather data
+      const data = {
+        studentName: document.getElementById('studentName').value.trim(),
+        gender: document.getElementById('gender').value,
+        dob: document.getElementById('dob').value,
+        classApplying: document.getElementById('classApplying').value,
+        bloodGroup: document.getElementById('bloodGroup').value,
+        penNumber: document.getElementById('penNumber').value.trim(),
+        fatherName: document.getElementById('fatherName').value.trim(),
+        motherName: document.getElementById('motherName').value.trim(),
+        fatherProfession: document.getElementById('fatherProfession').value.trim(),
+        motherProfession: document.getElementById('motherProfession').value.trim(),
+        parentsPhone: document.getElementById('parentsPhone').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        bankName: document.getElementById('bankName').value.trim(),
+        accountNumber: document.getElementById('accountNumber').value.trim(),
+        admDate: new Date().toLocaleDateString('en-GB'),
+      };
+
+      // validate age
+      const eligible = isEligible(data.dob, data.classApplying);
+      if(!eligible.ok){
+        alert('Age Validation Error: ' + (eligible.msg || 'Not eligible for selected class.'));
+        return false;
+      }
+      data.ageOnCutoff = eligible.age;
+
+      // read photo file and blood report as data URLs
+      try{
+        data.photoData = await fileInputToDataURL(document.getElementById('photo'));
+      }catch(err){ alert('Please upload a valid photo.'); return false; }
+      try{
+        data.bloodReportData = await fileInputToDataURL(document.getElementById('bloodReport'));
+      }catch(err){ alert('Please upload a valid Blood Group Report (image/pdf).'); return false; }
+
+      // assign admission number
+      data.admNo = generateAdmNo();
+
+      // generate PDFs
+      const admNode = createAdmissionPrintHTML(data);
+      const apaarNode = createApaarPrintHTML(data);
+
+      // temporarily add to DOM (offscreen) for html2canvas rendering
+      admNode.style.width = '794px'; // A4 px at 96dpi ~ 794w x 1123h
+      apaarNode.style.width = '794px';
+      admNode.style.background = '#fff'; apaarNode.style.background='#fff';
+      admNode.style.padding = '12px'; apaarNode.style.padding='12px';
+      admNode.style.position='fixed'; admNode.style.left='-2000px'; admNode.style.top='0';
+      apaarNode.style.position='fixed'; apaarNode.style.left='-2000px'; apaarNode.style.top='0';
+      document.body.appendChild(admNode);
+      document.body.appendChild(apaarNode);
+
+      try{
+        const admPdf = await elementToPdfBlob(admNode, `Admission_${data.admNo}`);
+        const apaarPdf = await elementToPdfBlob(apaarNode, `Apaar_${data.admNo}`);
+        // offer downloads immediately
+        admPdf.save(`Admission_${data.admNo}_${data.studentName.replace(/\s+/g,'_')}.pdf`);
+        apaarPdf.save(`Apaar_${data.admNo}_${data.studentName.replace(/\s+/g,'_')}.pdf`);
+
+        // store record in register (including data URIs of pdfs)
+        const admDataUri = admPdf.output('datauristring');
+        const apaarDataUri = apaarPdf.output('datauristring');
+        data.admPdf = admDataUri; data.apaarPdf = apaarDataUri;
+        saveRecordToRegister(data);
+
+        // cleanup nodes
+        document.body.removeChild(admNode);
+        document.body.removeChild(apaarNode);
+
+        // reset form
+        document.getElementById('admissionForm').reset();
+        alert('Admission saved to Register and PDFs downloaded. Submit printed copies at school office.');
+        openTab('admissionRegister');
+      }catch(err){
+        console.error(err);
+        alert('Error generating PDFs: ' + err.message);
+        try{ document.body.removeChild(admNode); document.body.removeChild(apaarNode); }catch(e){}
+      }
+      return false;
+    }
+
+    function previewPdfs(){
+      // generate preview from current form inputs (without saving)
+      const data = {
+        studentName: document.getElementById('studentName').value.trim() || '[Student Name]',
+        dob: document.getElementById('dob').value || '[DOB]',
+        classApplying: document.getElementById('classApplying').value || '[Class]',
+        penNumber: document.getElementById('penNumber').value || '[PEN]',
+        fatherName: document.getElementById('fatherName').value || '[Father]',
+        motherName: document.getElementById('motherName').value || '[Mother]',
+        parentsPhone: document.getElementById('parentsPhone').value || '[Phone]',
+        address: document.getElementById('address').value || '[Address]',
+        bankName: document.getElementById('bankName').value || '[Bank]',
+        accountNumber: document.getElementById('accountNumber').value || 'XXXX'
+      };
+      const admNode = createAdmissionPrintHTML(data);
+      const w = window.open('', '_blank', 'width=900,height=1100');
+      w.document.write('<html><head><title>Preview Admission</title></head><body>');
+      w.document.write(admNode.innerHTML);
+      w.document.write('</body></html>');
+      w.document.close();
+    }
+
+    // read File input -> data URL
+    function fileInputToDataURL(inputEl){
+      return new Promise((res, rej)=>{
+        const f = inputEl.files && inputEl.files[0];
+        if(!f) return rej(new Error('No file'));
+        const reader = new FileReader();
+        reader.onload = ()=>res(reader.result);
+        reader.onerror = ()=>rej(reader.error);
+        reader.readAsDataURL(f);
+      });
+      }
+      // ---------- Register storage ----------
+    function loadRegister(){
+      const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
+      renderRegister(arr);
+    }
+
+    function saveRecordToRegister(record){
+      const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
+      arr.push({...record, status:'Active', createdAt: new Date().toISOString()});
+      localStorage.setItem('aps_register_v1', JSON.stringify(arr));
+      renderRegister(arr);
+    }
+
+    function renderRegister(arr){
+      const tbody = document.querySelector('#registerTable tbody');
+      tbody.innerHTML = '';
+      arr.forEach((r, idx)=>{
+        const tr = document.createElement('tr');
+        const admDate = r.admDate || new Date().toLocaleDateString('en-GB');
+        tr.innerHTML = `<td>${idx+1}</td>
+          <td>${admDate}</td>
+          <td>${r.admNo || ''}</td>
+          <td>${r.studentName}</td>
+          <td>${r.classApplying}</td>
+          <td>${r.dob}</td>
+          <td>${r.penNumber}</td>
+          <td>${r.bloodGroup||''}</td>
+          <td>${r.fatherName} / ${r.motherName}</td>
+          <td>${r.bankName ? '....'+String(r.accountNumber).slice(-4) : ''}</td>
+          <td>
+            <select onchange="updateStatus(${idx}, this.value)">
+              <option ${r.status==='Active'?'selected':''}>Active</option>
+              <option ${r.status==='Struck Off'?'selected':''}>Struck Off</option>
+              <option ${r.status==='D.C. Issued'?'selected':''}>D.C. Issued</option>
+            </select>
+          </td>
+          <td class="actions">
+            <a href="${r.admPdf||'javascript:void(0)'}" target="_blank">Admission PDF</a>
+            <a href="${r.apaarPdf||'javascript:void(0)'}" target="_blank">Apaar PDF</a>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateStatus(index, value){
+      const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
+      if(!arr[index]) return;
+      arr[index].status = value;
+      localStorage.setItem('aps_register_v1', JSON.stringify(arr));
+      renderRegister(arr);
+    }
+
+    // ---------- Export functions ----------
+    async function exportRegisterPDF(){
+      // create a printable node based on table snapshot
+      const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
+      const node = document.createElement('div');
+      node.style.padding='12px'; node.style.background='#fff';
+      let html = `<h2>Admission Register — Government Primary School Pethgam Wagoora</h2><table border="1" style="border-collapse:collapse;width:100%"><thead><tr>
+        <th>S.No</th><th>Adm.No</th><th>Name</th><th>Class</th><th>DOB</th><th>PEN</th><th>Phone</th><th>Status</th></tr></thead><tbody>`;
+      arr.forEach((r,i)=>{ html+=`<tr><td>${i+1}</td><td>${r.admNo||''}</td><td>${r.studentName}</td><td>${r.classApplying}</td><td>${r.dob}</td><td>${r.penNumber}</td><td>${r.parentsPhone}</td><td>${r.status||'Active'}</td></tr>`; });
+      html += '</tbody></table>';
+      node.innerHTML = html;
+      document.body.appendChild(node);
+      const pdf = await elementToPdfBlob(node,'Register');
+      pdf.save('Admission_Register.pdf');
+      document.body.removeChild(node);
+    }
+
+    function exportRegisterCSV(){
+      const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
+      const rows = [['S.No','AdmNo','Name','Class','DOB','PEN','Phone','Status']];
+      arr.forEach((r,i)=> rows.push([i+1, r.admNo||'', r.studentName, r.classApplying, r.dob, r.penNumber, r.parentsPhone, r.status||'Active']));
+      const csv = rows.map(r=> r.map(cell => `"${String(cell).replace(/"/g,'""')}"`).join(',')).join('\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download='admission_register.csv'; a.click(); URL.revokeObjectURL(url);
+    }
+
+    // ---------- Blank downloads ----------
+    async function downloadBlank(type){
+      if(type==='admission'){
+        const dummy = { studentName:'[Student Name]', dob:'[DD/MM/YYYY]', classApplying:'[Class]', admNo:'[AdmNo]', admDate:'[Date]', penNumber:'[PEN]' , fatherName:'[Father]', motherName:'[Mother]', parentsPhone:'[Phone]', address:'[Address]', bankName:'[Bank]', accountNumber:'XXXX' };
+        const node = createAdmissionPrintHTML(dummy);
+        document.body.appendChild(node);
+        const pdf = await elementToPdfBlob(node,'Blank_Admission');
+        pdf.save('Blank_Admission_Form_A4.pdf');
+        document.body.removeChild(node);
+      }else if(type==='apaar'){
+        const node = createApaarPrintHTML({studentName:'[Student Name]', dob:'[DD/MM/YYYY]', classApplying:'[Class]'});
+        document.body.appendChild(node);
+        const pdf = await elementToPdfBlob(node,'Blank_Apaar');
+        pdf.save('Blank_Apaar_Form_A4.pdf');
+        document.body.removeChild(node);
+      }
+    }
+
+    // ---------- Search / filter UI ----------
+    document.getElementById('searchRegister').addEventListener('input', function(){
+      const q = this.value.trim().toLowerCase();
+      const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
+      const filtered = arr.filter(r => {
+        return (r.studentName||'').toLowerCase().includes(q) || (r.penNumber||'').toLowerCase().includes(q) || (r.classApplying||'').toLowerCase().includes(q);
+      });
+      renderRegister(filtered);
+    });
+    document.getElementById('filterClass').addEventListener('change', function(){
+      const cls = this.value;
+      const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
+      const filtered = cls ? arr.filter(r=> r.classApplying===cls) : arr;
+      renderRegister(filtered);
+    });
+
+  </script>
 </body>
 </html>
+
+
+
+
+
+      
+                
