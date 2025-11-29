@@ -370,254 +370,6 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
       const map = {
         'Pre Primary-3':3,'Pre Primary-2':4,'Balvatika':5,'1st Primary':6,'2nd Primary':7,'3rd Primary':8,'4th Primary':9,'5th Primary':10
       };
-      const required = map[classApplyin        <thead><tr><th>Class</th><th>Minimum Age (on 01-Nov-2025)</th></tr></thead>
-        <tbody>
-          <tr><td>Pre Primary-3</td><td>3+</td></tr>
-          <tr><td>Pre Primary-2</td><td>4+</td></tr>
-          <tr><td>Balvatika</td><td>5+</td></tr>
-          <tr><td>1st Primary</td><td>6+</td></tr>
-          <tr><td>2nd Primary</td><td>7+</td></tr>
-          <tr><td>3rd Primary</td><td>8+</td></tr>
-          <tr><td>4th Primary</td><td>9+</td></tr>
-          <tr><td>5th Primary</td><td>10+</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- APPLY ONLINE -->
-    <section id="applyOnline" class="tab-content card">
-      <h2>Apply Online — Admission Form</h2>
-      <p class="small">Fill all fields. On submit the system will validate age eligibility (01-Nov-2025). It will then generate two A4 PDFs (Admission Form + Apaar Form) and store the record in the local Admission Register.</p>
-
-      <form id="admissionForm" onsubmit="return handleSubmit(event)">
-        <div class="row">
-          <div class="col">
-            <label for="studentName">Student Full Name *</label>
-            <input id="studentName" type="text" required>
-          </div>
-          <div class="col">
-            <label for="gender">Gender *</label>
-            <select id="gender" required><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <label for="dob">Date of Birth *</label>
-            <input id="dob" type="date" required>
-          </div>
-          <div class="col">
-            <label for="classApplying">Class Applying For *</label>
-            <select id="classApplying" required>
-              <option value="">Select</option>
-              <option>Pre Primary-3</option><option>Pre Primary-2</option><option>Balvatika</option>
-              <option>1st Primary</option><option>2nd Primary</option><option>3rd Primary</option>
-              <option>4th Primary</option><option>5th Primary</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <label for="photo">Upload Photo (passport size) *</label>
-            <input id="photo" type="file" accept="image/*" required>
-          </div>
-          <div class="col">
-            <label for="bloodReport">Upload Blood Group Report *</label>
-            <input id="bloodReport" type="file" accept="image/*,application/pdf" required>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <label for="bloodGroup">Blood Group *</label>
-            <select id="bloodGroup" required><option value="">Select</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
-          </div>
-          <div class="col">
-            <label for="penNumber">PEN Number *</label>
-            <input id="penNumber" type="text" required>
-          </div>
-        </div>
-
-        <h2 style="margin-top:14px; font-size:16px;">Parents’ Details</h2>
-        <div class="row">
-          <div class="col">
-            <label for="fatherName">Father's Name *</label>
-            <input id="fatherName" type="text" required>
-          </div>
-          <div class="col">
-            <label for="motherName">Mother's Name *</label>
-            <input id="motherName" type="text" required>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <label for="fatherProfession">Father's Profession *</label>
-            <input id="fatherProfession" type="text" placeholder="e.g. Farmer / Govt Employee / Labour" required>
-          </div>
-          <div class="col">
-            <label for="motherProfession">Mother's Profession *</label>
-            <input id="motherProfession" type="text" required>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <label for="parentsPhone">Parents' Phone Number(s) *</label>
-            <input id="parentsPhone" type="text" required>
-          </div>
-          <div class="col">
-            <label for="address">Address *</label>
-            <input id="address" type="text" required>
-          </div>
-        </div>
-
-        <h2 style="margin-top:14px; font-size:16px;">Bank Details (for records)</h2>
-        <div class="row">
-          <div class="col"><label for="bankName">Bank Name *</label><input id="bankName" type="text" required></div>
-          <div class="col"><label for="accountNumber">Account Number *</label><input id="accountNumber" type="text" required></div>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn ghost" onclick="previewPdfs()">Preview PDF</button>
-          <button type="submit" class="btn primary">Submit & Generate PDFs</button>
-          <button type="reset" class="btn" style="background:#e57373;color:#fff">Reset</button>
-        </div>
-      </form>
-    </section>
-
-    <!-- APAAR FORM -->
-    <section id="apaarForm" class="tab-content card">
-      <h2>Apaar Consent Text</h2>
-      <div style="white-space:pre-wrap; font-size:14px; line-height:1.4; color:#222;">
-GOVERNMENT PRIMARY SCHOOL PETHGAM WAGOORA
-Wagoora Babareshi Road Near Zonal Education Office Wagoora
-
-UDISE Code: 01022202207.
-Zone: Wagoora
-
-Consent by Father/Mother/Legal Guardian of Student for APAAR ID Generation
-
-I, ________________________ (Father / Mother / Legal Guardian) of ________________________ with my identity proof as (Aadhar / PAN / EPIC Voter ID / Driving License / Passport) and Identity Proof Number ________________________ voluntarily give my consent to share his/her Aadhaar Number and demographic information issued by UIDAI with Ministry of Education for the sole purpose of creation of APAAR ID and opening of DIGILOCKER account of my child for the following intents and purposes.
-
-I understand that my APAAR ID may be used and shared for limited purposes as notified by Ministry of Education. I authorise Ministry of Education to use my Aadhaar number for performing Aadhaar based authentication with UIDAI as per the Aadhaar Act, 2016. I understand that the information shared shall be kept confidential. I can withdraw my consent anytime and such withdrawal will stop further processing (already processed data remains).
-      </div>
-
-      <p class="small" style="margin-top:12px">When generating the Apaar PDF the above consent block will be included and pre-filled with student's & parent's info from the Admission Form.</p>
-    </section>
-
-    <!-- ADMISSION REGISTER -->
-    <section id="admissionRegister" class="tab-content card">
-      <h2>Admission Register</h2>
-      <div style="display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap;">
-        <input id="searchRegister" placeholder="Search by Name / PEN / Class" style="flex:1; padding:8px; border-radius:6px; border:1px solid #d7e6e2">
-        <select id="filterClass" style="padding:8px; border-radius:6px; border:1px solid #d7e6e2">
-          <option value="">Filter by Class</option>
-          <option>Pre Primary-3</option><option>Pre Primary-2</option><option>Balvatika</option>
-          <option>1st Primary</option><option>2nd Primary</option><option>3rd Primary</option>
-          <option>4th Primary</option><option>5th Primary</option>
-        </select>
-        <button class="btn ghost" onclick="exportRegisterPDF()">Export (PDF)</button>
-        <button class="btn ghost" onclick="exportRegisterCSV()">Export (CSV)</button>
-      </div>
-
-      <div style="overflow-x:auto">
-        <table id="registerTable" aria-live="polite">
-          <thead>
-            <tr><th>S. No.</th><th>Date</th><th>Adm. No.</th><th>Student Name</th><th>Class</th><th>DOB</th><th>PEN No.</th><th>Blood Group</th><th>Parents</th><th>Bank (last4)</th><th>Status</th><th>PDFs</th></tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <p class="small" style="margin-top:8px">Admission Status is editable only here (Active / Struck Off / D.C. Issued).</p>
-    </section>
-
-    <!-- REQUIRED DOCS -->
-    <section id="requiredDocs" class="tab-content card">
-      <h2>Required Documents (All Mandatory)</h2>
-      <ul>
-        <li>Birth Certificate</li>
-        <li>Aadhaar Card (Student)</li>
-        <li>Aadhaar Card (Parents)</li>
-        <li>Bank Passbook Copy</li>
-        <li>PEN Number proof</li>
-        <li>Blood Group Report</li>
-        <li>2 Passport Size Photos (physical)</li>
-        <li>Transfer Certificate (for 2nd–5th Primary)</li>
-      </ul>
-    </section>
-
-    <!-- DOWNLOADS -->
-    <section id="downloads" class="tab-content card">
-      <h2>Downloads</h2>
-      <ul>
-        <li>⬇️ <a href="javascript:void(0)" onclick="downloadBlank('admission')">Blank Admission Form (A4)</a></li>
-        <li>⬇️ <a href="javascript:void(0)" onclick="downloadBlank('apaar')">Blank Apaar Form (A4)</a></li>
-        <li>⬇️ <a href="javascript:void(0)" onclick="alert('Prospectus download - replace this with real file link on your server')">Prospectus</a></li>
-        <li>⬇️ <a href="javascript:void(0)" onclick="alert('Checklist download - replace with your file link')">Required Documents Checklist</a></li>
-      </ul>
-    </section>
-
-  </main>
-
-  <footer class="container card" style="margin-top:18px; text-align:center;">
-    <strong>Contact:</strong> 9596449881 , 7006261694 &nbsp; | &nbsp; <strong>Email:</strong> pspethgam@gmail.com
-  </footer>
-
-  <script>
-    // ---------- Utilities ----------
-    const APAAR_CONSENT = `GOVERNMENT PRIMARY SCHOOL PETHGAM WAGOORA
-Wagoora Babareshi Road Near Zonal Education Office Wagoora
-
-UDISE Code: 01022202207.
-Zone: Wagoora
-
-Consent by Father/Mother/Legal Guardian of Student for APAAR ID Generation
-
-I, ________________________ (Father / Mother / Legal Guardian) of ________________________ with my identity proof as (Aadhar / PAN / EPIC Voter ID / Driving License / Passport) and Identity Proof Number ________________________ voluntarily give my consent to share his/her Aadhaar Number and demographic information issued by UIDAI with Ministry of Education for the sole purpose of creation of APAAR ID and opening of DIGILOCKER account of my child for the following intents and purposes.
-
-I understand that my APAAR ID may be used and shared for limited purposes as notified by Ministry of Education. I authorise Ministry of Education to use my Aadhaar number for performing Aadhaar based authentication with UIDAI as per the Aadhaar Act, 2016. I understand that the information shared shall be kept confidential. I can withdraw my consent anytime and such withdrawal will stop further processing (already processed data remains).`;
-
-    // Tab system (safe selector using data-tab)
-    function openTab(tabName){
-      // hide contents
-      document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
-      // deactivate buttons
-      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-      // show
-      const content = document.getElementById(tabName);
-      if(content) content.classList.add('active');
-      // activate btn
-      const btn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
-      if(btn) btn.classList.add('active');
-      // focus top
-      window.scrollTo({top:0, behavior:'smooth'});
-    }
-
-    // init default
-    window.addEventListener('DOMContentLoaded', ()=> {
-      openTab('guidelines');
-      loadRegister();
-      document.getElementById('dob').max = '2025-11-01'; // prevent future DOB beyond cutoffs roughly
-    });
-
-    // ---------- Age validation ----------
-    function calcAgeOn(dobStr, onDateStr){
-      const dob = new Date(dobStr);
-      const on = new Date(onDateStr);
-      let age = on.getFullYear() - dob.getFullYear();
-      const m = on.getMonth() - dob.getMonth();
-      if(m < 0 || (m===0 && on.getDate() < dob.getDate())) age--;
-      return age;
-    }
-
-    function isEligible(dobStr, classApplying){
-      const cutoff = '2025-11-01';
-      const age = calcAgeOn(dobStr, cutoff);
-      const map = {
-        'Pre Primary-3':3,'Pre Primary-2':4,'Balvatika':5,'1st Primary':6,'2nd Primary':7,'3rd Primary':8,'4th Primary':9,'5th Primary':10
-      };
       const required = map[classApplying];
       if(required===undefined) return {ok:false, msg:'Select class.'};
       if(age>=required) return {ok:true, age};
@@ -626,58 +378,52 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
 
     // ---------- Admission number generator ----------
     function generateAdmNo(){
-      // uses year + sequence stored in localStorage
       const seqKey = 'aps_adm_seq_2025';
       let seq = parseInt(localStorage.getItem(seqKey) || '0', 10);
       seq++; localStorage.setItem(seqKey, seq);
-      const year = '25'; // short year
+      const year = '25';
       return `${year}${String(seq).padStart(4,'0')}`;
     }
 
     // ---------- PDF generation helpers ----------
-    async function elementToPdfBlob(element, pdfTitle){
-      // render element -> canvas -> pdf
+    async function elementToPdfBlob(element){
       const canvas = await html2canvas(element, {scale:2, useCORS:true, logging:false});
       const imgData = canvas.toDataURL('image/png');
       const { jsPDF } = window.jspdf;
       const pdf = new jsPDF('p','mm','a4');
       const pageWidth = pdf.internal.pageSize.getWidth();
-             }
-const pageHeight = pdf.internal.pageSize.getHeight();
-      // fit image to page width maintaining aspect
       const imgProps = pdf.getImageProperties(imgData);
       const imgH = (imgProps.height * pageWidth) / imgProps.width;
       pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, imgH);
-      return pdf; // return jsPDF instance
+      return pdf;
     }
 
-    // Create HTML fragments for Admission & Apaar printable layout
+    // create print HTML nodes
     function createAdmissionPrintHTML(data){
-      // Inline small styles for print look
       const html = `
-        <div style="font-family: Arial; padding:18px; color:#222;">
+        <div style="font-family: Arial; padding:18px; color:#222; width:100%;">
           <div style="text-align:center; margin-bottom:8px;">
             <h2 style="margin:0">Government Primary School Pethgam Wagoora</h2>
             <div>Wagoora Babareshi Road — Near Zonal Education Office, Wagoora</div>
             <div style="font-weight:700; margin-top:6px">UDISE Code: 01022202207 | Session: 2025-26</div>
             <hr style="margin-top:12px;"/>
           </div>
-          <div style="display:flex; gap:12px;">
-            <div style="flex:1;">
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:260px;">
               <p><strong>Admission No:</strong> ${data.admNo}</p>
               <p><strong>Admission Date:</strong> ${data.admDate}</p>
               <p><strong>Student Name:</strong> ${data.studentName}</p>
               <p><strong>Class:</strong> ${data.classApplying}</p>
               <p><strong>DOB:</strong> ${data.dob}</p>
               <p><strong>Blood Group:</strong> ${data.bloodGroup}</p>
-              <p><strong>PEN No:</strong> ${data.penNumber}</p>
+              ${data.penNumber ? `<p><strong>PEN No:</strong> ${data.penNumber}</p>` : ''}
               <p><strong>Father:</strong> ${data.fatherName}</p>
               <p><strong>Mother:</strong> ${data.motherName}</p>
               <p><strong>Parents Phones:</strong> ${data.parentsPhone}</p>
               <p><strong>Address:</strong> ${data.address}</p>
               <p><strong>Bank:</strong> ${data.bankName} (....${String(data.accountNumber).slice(-4)})</p>
             </div>
-            <div style="width:160px; text-align:center;">
+            <div style="width:160px; text-align:center; min-width:140px;">
               ${data.photoData ? `<img src="${data.photoData}" style="width:140px;height:160px;object-fit:cover;border:1px solid #ccc;" />` : ''}
             </div>
           </div>
@@ -699,14 +445,14 @@ const pageHeight = pdf.internal.pageSize.getHeight();
 
     function createApaarPrintHTML(data){
       const html = `
-        <div style="font-family: Arial; padding:18px; color:#222;">
+        <div style="font-family: Arial; padding:18px; color:#222; width:100%;">
           <div style="text-align:center; margin-bottom:8px;">
             <h3 style="margin:0">APAAR Consent</h3>
             <div style="font-weight:700; margin-top:6px">Government Primary School Pethgam Wagoora</div>
             <hr style="margin-top:12px;"/>
           </div>
           <div>
-            <p><strong>Student:</strong> ${data.studentName} &nbsp; <strong>DOB:</strong> ${data.dob} &nbsp; <strong>Class:</strong> ${data.classApplying}</p>
+            <p><strong>Student:</strong> ${data.studentName || '[Student Name]'} &nbsp; <strong>DOB:</strong> ${data.dob || '[DOB]'} &nbsp; <strong>Class:</strong> ${data.classApplying || '[Class]'}</p>
             <pre style="white-space:pre-wrap; font-size:13px; background:#f6f6f6; padding:10px; border-radius:6px;">${APAAR_CONSENT}</pre>
             <p style="margin-top:10px;">Place of Physical Consent: ____________________</p>
             <p>Date of Physical Consent: ____________________</p>
@@ -723,14 +469,13 @@ const pageHeight = pdf.internal.pageSize.getHeight();
     // ---------- Form handlers ----------
     async function handleSubmit(e){
       e.preventDefault();
-      // gather data
       const data = {
         studentName: document.getElementById('studentName').value.trim(),
         gender: document.getElementById('gender').value,
         dob: document.getElementById('dob').value,
         classApplying: document.getElementById('classApplying').value,
         bloodGroup: document.getElementById('bloodGroup').value,
-        penNumber: document.getElementById('penNumber').value.trim(),
+        penNumber: (document.getElementById('penNumber').value || '').trim(),
         fatherName: document.getElementById('fatherName').value.trim(),
         motherName: document.getElementById('motherName').value.trim(),
         fatherProfession: document.getElementById('fatherProfession').value.trim(),
@@ -742,7 +487,6 @@ const pageHeight = pdf.internal.pageSize.getHeight();
         admDate: new Date().toLocaleDateString('en-GB'),
       };
 
-      // validate age
       const eligible = isEligible(data.dob, data.classApplying);
       if(!eligible.ok){
         alert('Age Validation Error: ' + (eligible.msg || 'Not eligible for selected class.'));
@@ -750,7 +494,6 @@ const pageHeight = pdf.internal.pageSize.getHeight();
       }
       data.ageOnCutoff = eligible.age;
 
-      // read photo file and blood report as data URLs
       try{
         data.photoData = await fileInputToDataURL(document.getElementById('photo'));
       }catch(err){ alert('Please upload a valid photo.'); return false; }
@@ -758,59 +501,49 @@ const pageHeight = pdf.internal.pageSize.getHeight();
         data.bloodReportData = await fileInputToDataURL(document.getElementById('bloodReport'));
       }catch(err){ alert('Please upload a valid Blood Group Report (image/pdf).'); return false; }
 
-      // assign admission number
       data.admNo = generateAdmNo();
 
-      // generate PDFs
       const admNode = createAdmissionPrintHTML(data);
       const apaarNode = createApaarPrintHTML(data);
 
-      // temporarily add to DOM (offscreen) for html2canvas rendering
-      admNode.style.width = '794px'; // A4 px at 96dpi ~ 794w x 1123h
+      admNode.style.width = '794px';
       apaarNode.style.width = '794px';
       admNode.style.background = '#fff'; apaarNode.style.background='#fff';
-      admNode.style.padding = '12px'; apaarNode.style.padding='12px';
       admNode.style.position='fixed'; admNode.style.left='-2000px'; admNode.style.top='0';
       apaarNode.style.position='fixed'; apaarNode.style.left='-2000px'; apaarNode.style.top='0';
       document.body.appendChild(admNode);
       document.body.appendChild(apaarNode);
 
       try{
-        const admPdf = await elementToPdfBlob(admNode, `Admission_${data.admNo}`);
-        const apaarPdf = await elementToPdfBlob(apaarNode, `Apaar_${data.admNo}`);
-        // offer downloads immediately
+        const admPdf = await elementToPdfBlob(admNode);
+        const apaarPdf = await elementToPdfBlob(apaarNode);
         admPdf.save(`Admission_${data.admNo}_${data.studentName.replace(/\s+/g,'_')}.pdf`);
         apaarPdf.save(`Apaar_${data.admNo}_${data.studentName.replace(/\s+/g,'_')}.pdf`);
 
-        // store record in register (including data URIs of pdfs)
-        const admDataUri = admPdf.output('datauristring');
-        const apaarDataUri = apaarPdf.output('datauristring');
-        data.admPdf = admDataUri; data.apaarPdf = apaarDataUri;
+        data.admPdf = admPdf.output('datauristring');
+        data.apaarPdf = apaarPdf.output('datauristring');
         saveRecordToRegister(data);
 
-        // cleanup nodes
         document.body.removeChild(admNode);
         document.body.removeChild(apaarNode);
 
-        // reset form
         document.getElementById('admissionForm').reset();
         alert('Admission saved to Register and PDFs downloaded. Submit printed copies at school office.');
         openTab('admissionRegister');
       }catch(err){
         console.error(err);
-        alert('Error generating PDFs: ' + err.message);
+        alert('Error generating PDFs: ' + (err.message || err));
         try{ document.body.removeChild(admNode); document.body.removeChild(apaarNode); }catch(e){}
       }
       return false;
     }
 
     function previewPdfs(){
-      // generate preview from current form inputs (without saving)
       const data = {
         studentName: document.getElementById('studentName').value.trim() || '[Student Name]',
         dob: document.getElementById('dob').value || '[DOB]',
         classApplying: document.getElementById('classApplying').value || '[Class]',
-        penNumber: document.getElementById('penNumber').value || '[PEN]',
+        penNumber: document.getElementById('penNumber').value || '',
         fatherName: document.getElementById('fatherName').value || '[Father]',
         motherName: document.getElementById('motherName').value || '[Mother]',
         parentsPhone: document.getElementById('parentsPhone').value || '[Phone]',
@@ -826,7 +559,6 @@ const pageHeight = pdf.internal.pageSize.getHeight();
       w.document.close();
     }
 
-    // read File input -> data URL
     function fileInputToDataURL(inputEl){
       return new Promise((res, rej)=>{
         const f = inputEl.files && inputEl.files[0];
@@ -836,8 +568,8 @@ const pageHeight = pdf.internal.pageSize.getHeight();
         reader.onerror = ()=>rej(reader.error);
         reader.readAsDataURL(f);
       });
-      }
-      // ---------- Register storage ----------
+    }
+// ---------- Register storage ----------
     function loadRegister(){
       const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
       renderRegister(arr);
@@ -862,7 +594,7 @@ const pageHeight = pdf.internal.pageSize.getHeight();
           <td>${r.studentName}</td>
           <td>${r.classApplying}</td>
           <td>${r.dob}</td>
-          <td>${r.penNumber}</td>
+          <td>${r.penNumber || ''}</td>
           <td>${r.bloodGroup||''}</td>
           <td>${r.fatherName} / ${r.motherName}</td>
           <td>${r.bankName ? '....'+String(r.accountNumber).slice(-4) : ''}</td>
@@ -891,17 +623,16 @@ const pageHeight = pdf.internal.pageSize.getHeight();
 
     // ---------- Export functions ----------
     async function exportRegisterPDF(){
-      // create a printable node based on table snapshot
       const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
       const node = document.createElement('div');
       node.style.padding='12px'; node.style.background='#fff';
       let html = `<h2>Admission Register — Government Primary School Pethgam Wagoora</h2><table border="1" style="border-collapse:collapse;width:100%"><thead><tr>
         <th>S.No</th><th>Adm.No</th><th>Name</th><th>Class</th><th>DOB</th><th>PEN</th><th>Phone</th><th>Status</th></tr></thead><tbody>`;
-      arr.forEach((r,i)=>{ html+=`<tr><td>${i+1}</td><td>${r.admNo||''}</td><td>${r.studentName}</td><td>${r.classApplying}</td><td>${r.dob}</td><td>${r.penNumber}</td><td>${r.parentsPhone}</td><td>${r.status||'Active'}</td></tr>`; });
+      arr.forEach((r,i)=>{ html+=`<tr><td>${i+1}</td><td>${r.admNo||''}</td><td>${r.studentName}</td><td>${r.classApplying}</td><td>${r.dob}</td><td>${r.penNumber||''}</td><td>${r.parentsPhone}</td><td>${r.status||'Active'}</td></tr>`; });
       html += '</tbody></table>';
       node.innerHTML = html;
       document.body.appendChild(node);
-      const pdf = await elementToPdfBlob(node,'Register');
+      const pdf = await elementToPdfBlob(node);
       pdf.save('Admission_Register.pdf');
       document.body.removeChild(node);
     }
@@ -909,7 +640,7 @@ const pageHeight = pdf.internal.pageSize.getHeight();
     function exportRegisterCSV(){
       const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
       const rows = [['S.No','AdmNo','Name','Class','DOB','PEN','Phone','Status']];
-      arr.forEach((r,i)=> rows.push([i+1, r.admNo||'', r.studentName, r.classApplying, r.dob, r.penNumber, r.parentsPhone, r.status||'Active']));
+      arr.forEach((r,i)=> rows.push([i+1, r.admNo||'', r.studentName, r.classApplying, r.dob, r.penNumber||'', r.parentsPhone, r.status||'Active']));
       const csv = rows.map(r=> r.map(cell => `"${String(cell).replace(/"/g,'""')}"`).join(',')).join('\n');
       const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
       const url = URL.createObjectURL(blob);
@@ -922,41 +653,18 @@ const pageHeight = pdf.internal.pageSize.getHeight();
         const dummy = { studentName:'[Student Name]', dob:'[DD/MM/YYYY]', classApplying:'[Class]', admNo:'[AdmNo]', admDate:'[Date]', penNumber:'[PEN]' , fatherName:'[Father]', motherName:'[Mother]', parentsPhone:'[Phone]', address:'[Address]', bankName:'[Bank]', accountNumber:'XXXX' };
         const node = createAdmissionPrintHTML(dummy);
         document.body.appendChild(node);
-        const pdf = await elementToPdfBlob(node,'Blank_Admission');
+        const pdf = await elementToPdfBlob(node);
         pdf.save('Blank_Admission_Form_A4.pdf');
         document.body.removeChild(node);
       }else if(type==='apaar'){
         const node = createApaarPrintHTML({studentName:'[Student Name]', dob:'[DD/MM/YYYY]', classApplying:'[Class]'});
         document.body.appendChild(node);
-        const pdf = await elementToPdfBlob(node,'Blank_Apaar');
+        const pdf = await elementToPdfBlob(node);
         pdf.save('Blank_Apaar_Form_A4.pdf');
         document.body.removeChild(node);
       }
     }
 
-    // ---------- Search / filter UI ----------
-    document.getElementById('searchRegister').addEventListener('input', function(){
-      const q = this.value.trim().toLowerCase();
-      const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
-      const filtered = arr.filter(r => {
-        return (r.studentName||'').toLowerCase().includes(q) || (r.penNumber||'').toLowerCase().includes(q) || (r.classApplying||'').toLowerCase().includes(q);
-      });
-      renderRegister(filtered);
-    });
-    document.getElementById('filterClass').addEventListener('change', function(){
-      const cls = this.value;
-      const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
-      const filtered = cls ? arr.filter(r=> r.classApplying===cls) : arr;
-      renderRegister(filtered);
-    });
-
   </script>
 </body>
-</html>
-
-
-
-
-
-      
-                
+</html>                              
