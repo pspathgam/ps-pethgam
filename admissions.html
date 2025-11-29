@@ -3,202 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Government Primary School Pethgam Wagoora</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<title>Admission Register – Government Primary School Pethgam Wagoora</title>
 
 <style>
-body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background:#f6f9ff;
-}
+    body{
+        font-family: Arial, sans-serif;
+        background:#f0f9ff;
+        margin:0;
+        padding:0;
+    }
 
-/* ---------------- HEADER ---------------- */
-.top-header{
-    display:flex;
-    align-items:center;
-    padding:10px 20px;
-    background:white;
-    border-bottom:3px solid #0a74e6;
-}
-.top-header img{
-    height:65px;
-    margin-right:15px;
-}
-.top-header .title-area h1{
-    margin:0;
-    font-size:28px;
-    color:#0a4cb3;
-    font-weight:800;
-}
-.top-header .title-area p{
-    margin:0;
-    font-size:13px;
-}
+    h1{
+        text-align:center;
+        background:#0066cc;
+        color:white;
+        padding:15px;
+        margin:0 0 20px 0;
+        letter-spacing:1px;
+    }
 
-/* ---------------- MENU ---------------- */
-nav{
-    background:#0a74e6;
-    padding:0;
-}
-nav ul{
-    list-style:none;
-    margin:0;
-    padding:0;
-    display:flex;
-    flex-wrap:wrap;
-}
-nav ul li{
-    margin:0;
-}
-nav ul li a{
-    padding:12px 18px;
-    display:block;
-    text-decoration:none;
-    color:white;
-    font-size:14px;
-    border-right:1px solid rgba(255,255,255,0.2);
-}
-nav ul li a:hover{
-    background:#003e7e;
-}
+    .btn-box{
+        text-align:center;
+        margin-bottom:20px;
+    }
 
-/* ---------------- HERO SLIDER ---------------- */
-.hero{
-    height:280px;
-    background:url('https://picsum.photos/1200/500?random=1') center/cover no-repeat;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    text-shadow:0 3px 6px rgba(0,0,0,0.5);
-}
-.hero h2{
-    font-size:36px;
-    margin:0;
-}
+    .btn-3d{
+        display:inline-block;
+        padding:10px 25px;
+        margin:5px;
+        background:#00aaff;
+        color:white;
+        font-weight:bold;
+        border-radius:8px;
+        border:none;
+        box-shadow:0 4px 0 #0077aa;
+        cursor:pointer;
+    }
 
-/* ---------------- NEWS TICKER ---------------- */
-.ticker{
-    background:#ffcc00;
-    padding:8px;
-    overflow:hidden;
-    white-space:nowrap;
-    color:#000;
-    font-weight:600;
-    border-top:2px solid #333;
-    border-bottom:2px solid #333;
-}
-.ticker span{
-    display:inline-block;
-    animation:marquee 18s linear infinite;
-}
-@keyframes marquee{
-    0%{transform:translateX(100%);}
-    100%{transform:translateX(-100%);}
-}
+    .btn-3d:active{
+        transform:translateY(3px);
+        box-shadow:0 1px 0 #0077aa;
+    }
 
-/* ---------------- QUICK LINKS ---------------- */
-.quick-links{
-    padding:20px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:20px;
-}
-.q-card{
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 3px 8px rgba(0,0,0,0.1);
-    text-align:center;
-    border-top:4px solid #0a74e6;
-}
-.q-card h3{
-    margin:0;
-    font-size:20px;
-}
-.q-card:hover{
-    transform:translateY(-3px);
-}
+    #formBox{
+        width:90%;
+        max-width:700px;
+        margin:0 auto;
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0 0 10px #aaa;
+        display:none;
+    }
 
-/* ---------------- NEWS & EVENTS ---------------- */
-.news-section{
-    padding:20px;
-}
-.news-box{
-    background:white;
-    border-radius:12px;
-    padding:15px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
-    height:200px;
-    overflow:hidden;
-}
-.news-move{
-    animation:scrollNews 10s linear infinite;
-}
-@keyframes scrollNews{
-    0%{transform:translateY(100%);}
-    100%{transform:translateY(-100%);}
-}
+    label{font-weight:bold;}
 
-/* ---------------- FOOTER ---------------- */
-footer{
-    background:#003e7e;
-    color:white;
-    padding:15px;
-    text-align:center;
-    margin-top:20px;
-}
+    input, select, textarea{
+        width:100%;
+        padding:8px;
+        margin:6px 0 12px 0;
+        border:1px solid #ccc;
+        border-radius:5px;
+    }
+
+    table{
+        width:95%;
+        margin:20px auto;
+        border-collapse:collapse;
+        background:white;
+    }
+
+    table th, table td{
+        border:1px solid #444;
+        padding:8px;
+        font-size:14px;
+    }
+
+    table th{
+        background:#0055aa;
+        color:white;
+    }
+
 </style>
+
+<script>
+function openForm(){ document.getElementById("formBox").style.display="block"; }
+function closeForm(){ document.getElementById("formBox").style.display="none"; }
+
+// STORE FORM DATA INTO ADMISSION REGISTER
+function submitForm(){
+    let table=document.getElementById("regTable");
+
+    let row=table.insertRow(-1);
+
+    row.insertCell(0).innerHTML = table.rows.length - 1;
+    row.insertCell(1).innerHTML = document.getElementById("admissionDate").value;
+    row.insertCell(2).innerHTML = document.getElementById("studentName").value;
+    row.insertCell(3).innerHTML = document.getElementById("fatherName").value;
+    row.insertCell(4).innerHTML = document.getElementById("motherName").value;
+    row.insertCell(5).innerHTML = document.getElementById("dob").value;
+    row.insertCell(6).innerHTML = document.getElementById("classAdmitted").value;
+    row.insertCell(7).innerHTML = document.getElementById("parentProfession").value;
+    row.insertCell(8).innerHTML = document.getElementById("uniformGrant").value;
+
+    alert("Admission Saved in Register!");
+
+    document.getElementById("admissionForm").reset();
+    closeForm();
+}
+</script>
 </head>
+
 <body>
 
-<!-- HEADER -->
-<div class="top-header">
-    <img src="logo.png" alt="School Logo">
-    <div class="title-area">
-        <h1>Government Primary School Pethgam Wagoora</h1>
-        <p>UDISE: 01022202207 | Email: pspethgam@gmail.com | Contact: +91-9596449881</p>
-    </div>
+<h1>Government Primary School Pethgam Wagoora<br>Admission Register</h1>
+
+<div class="btn-box">
+    <button class="btn-3d" onclick="openForm()">Open Admission Form</button>
+    <button class="btn-3d" onclick="closeForm()">Close Form</button>
 </div>
 
-<!-- MENU -->
-<nav>
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="academics.html">Academics</a></li>
-        <li><a href="students.html">Students</a></li>
-        <li><a href="staff.html">Staff</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="mdm.html">MDM</a></li>
-        <li><a href="certificates.html">Certificates</a></li>
-        <li><a href="results.html">Results</a></li>
-        <li><a href="attendance.html">Attendance</a></li>
-        <li><a href="admission.html">Admission</a></li>
-        <li><a href="admin.html">Admin</a></li>
-    </ul>
-</nav>
+<!-- ===================== ADMISSION FORM ====================== -->
 
-<!-- HERO -->
-<div class="hero">
-    <h2>Welcome to GPS Pethgam Wagoora</h2>
+<div id="formBox">
+    <h2 style="text-align:center;color:#004488;">Admission Form</h2>
+
+    <form id="admissionForm" onsubmit="event.preventDefault(); submitForm();">
+
+        <label>Date of Admission</label>
+        <input type="date" id="admissionDate" required>
+
+        <label>Name of Student</label>
+        <input type="text" id="studentName" required>
+
+        <label>Father's Name</label>
+        <input type="text" id="fatherName" required>
+
+        <label>Mother's Name</label>
+        <input type="text" id="motherName" required>
+
+        <label>Date of Birth</label>
+        <input type="date" id="dob" required>
+
+        <label>Class Admitted (Primary Only)</label>
+        <select id="classAdmitted" required>
+            <option value="">Select Class</option>
+            <option>2nd</option>
+            <option>3rd</option>
+            <option>4th</option>
+            <option>5th</option>
+        </select>
+
+        <label>Parent Profession</label>
+        <input type="text" id="parentProfession" placeholder="Farmer / Govt. Employee / Driver / Labour etc." required>
+
+        <label>Uniform Grant Eligibility</label>
+        <select id="uniformGrant" required>
+            <option value="">Select</option>
+            <option>Eligible</option>
+            <option>Not Eligible</option>
+        </select>
+
+        <label>Upload Photo</label>
+        <input type="file" accept="image/*" id="photo" required>
+
+        <button class="btn-3d" type="submit">Submit Admission</button>
+
+    </form>
 </div>
 
-<!-- TICKER -->
-<div class="ticker">
-    <span>★ Admission Open • Winter Coaching • New MDM Menu Updated • Staff Meeting Monday 11AM ★</span>
-</div>
 
-<!-- QUICK LINKS -->
-<div class="quick-links">
-    <div class="q-card"><h3>Admissions</h3></div>
-    <div class="q-card"><h3>Academics</h3></div>
-    <div class="q-card"><h3>Results</h3></div>
-    <div class="q-card"><h3>Gallery</h3></div>
-</div>
 
+<!-- ===================== ADMISSION REGISTER ====================== -->
+
+<h2 style="text-align:center;margin-top:30px;">Admission Register</h2>
+
+<table id="regTable">
+    <tr>
+        <th>S. No.</th>
+        <th>Date of Admission</th>
+        <th>Student Name</th>
+        <th>Father's Name</th>
+        <th>Mother's Name</th>
+        <th>DOB</th>
+        <th>Class</th>
+        <th>Parents Profession</th>
+        <th>Uniform Grant</th>
+    </tr>
+</table>
+
+</body>
+</html>
 <!-- NEWS -->
 <div class="news-section">
     <h2>Latest News & Events</h2>
