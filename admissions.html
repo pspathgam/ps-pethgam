@@ -384,6 +384,37 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
       const year = '25';
       return `${year}${String(seq).padStart(4,'0')}`;
     }
+<!-- html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+async function generatePDF() {
+    try {
+        const { jsPDF } = window.jspdf;
+
+        // Select the form container
+        const form = document.getElementById("admissionFormPreview");
+
+        // Render HTML → Canvas
+        const canvas = await html2canvas(form, { scale: 2 });
+
+        const imgData = canvas.toDataURL("image/png");
+
+        // Create A4 PDF
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+
+        pdf.save("Admission_Form.pdf");
+    } catch (error) {
+        alert("Error generating PDF: " + error);
+    }
+}
+</script>
 
     // ---------- PDF generation helpers ----------
     async function elementToPdfBlob(element){
