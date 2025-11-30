@@ -5,9 +5,9 @@
   <title>Admissions 2025-26 — Government Primary School Pethgam Wagoora</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- External libs for client-side PDF generation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNa5/6bI8xN0V2o+eYqf2WwXxwQ6h1ZkNLw0GQ7kqKQX2x6rH8gQj6k/0z7cH0lH0q0H1xYVb3k1s3qG6g2q1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-8nLUf6Qf9k6y9hYdp5vQkqZK3x0t6E5yq1V+6X2rX2n9bXgyqzB1nQxQy2YvCq2nQf5Y3m1z3g2a2v1bQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- 3rd-party libs (load first) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
   <style>
     :root{
@@ -23,7 +23,7 @@
     header h1{font-size:20px;margin:0}
     header p{margin:4px 0 0; font-size:14px; opacity:0.95}
     .details-bar{display:flex; gap:12px;justify-content:center; background:#e0f2f1; color:#004d40; padding:8px 10px; margin-top:12px; border-radius:6px; font-weight:700;}
-    .scrolling-banner{background:#fff3; color:#b71c1c; padding:8px 12px; margin:16px 0; border-left:6px solid #ffeb3b; overflow:hidden; white-space:nowrap;}
+    .scrolling-banner{background:#fff3; color:#b71c1c; padding:8px 12px; margin:16px 0; border-left:6px solid #ffeb3b; overflow:hidden; white-space:nowrap; border-radius:6px;}
     .scrolling-banner > div{display:inline-block; padding-left:100%; animation:scroll 28s linear infinite;}
     @keyframes scroll{to{transform:translateX(-100%)}}
 
@@ -57,6 +57,9 @@
     th{background:#e8f6f2; color:var(--brand-a)}
     .actions a{margin-right:8px; cursor:pointer; color:var(--brand-a); text-decoration:underline}
 
+    /* camera preview */
+    #photoPreview{width:140px;height:160px;object-fit:cover;border:1px solid #ccc;border-radius:6px}
+
     /* responsive */
     @media (max-width:800px){
       .header-inner{flex-direction:column; align-items:flex-start}
@@ -76,7 +79,7 @@
     </div>
     <div class="container">
       <div class="details-bar">
-        <div>📞 Contact: <strong>9596449881</strong> , <strong>7006261694</strong></div>
+        <div>📞 Contact: <strong>9596449881</strong></div>
         <div>📧 Email: <strong>pspethgam@gmail.com</strong></div>
         <div>📅 Admission: <strong>01/11/2025</strong> — <strong>15/04/2026</strong></div>
       </div>
@@ -84,7 +87,7 @@
   </header>
 
   <main class="container">
-    <div class="scrolling-banner card"><div>📢 Admission Opening: 01/11/2025 | Admission Closing: 15/04/2026 | All documents are mandatory. Please submit printed Admission & Apaar forms at the school office during working hours. &nbsp;&nbsp;&nbsp;</div></div>
+    <div class="scrolling-banner card"><div>📢 Admission Opening: 01/11/2025 | Admission Closing: 15/04/2026 | Submit printed Admission & Apaar forms at the school office. &nbsp;&nbsp;&nbsp;</div></div>
 
     <!-- Tabs -->
     <div class="tabs-nav card" role="tablist" aria-label="Admission Navigation">
@@ -97,7 +100,7 @@
     </div>
 
     <!-- GUIDELINES -->
-    <section id="guidelines" class="tab-content card">
+    <section id="guidelines" class="tab-content card" role="tabpanel">
       <h2>Admission Guidelines</h2>
       <p class="small">Age eligibility is calculated <strong>as on 01-Nov-2025</strong>. All documents listed in Required Documents are <strong>mandatory</strong>. Apply online to generate the Admission Form & Apaar Form PDFs. Submit printed copies at the school office.</p>
 
@@ -117,11 +120,11 @@
     </section>
 
     <!-- APPLY ONLINE -->
-    <section id="applyOnline" class="tab-content card">
+    <section id="applyOnline" class="tab-content card" role="tabpanel">
       <h2>Apply Online — Admission Form</h2>
       <p class="small">Fill all fields. On submit the system will validate age eligibility (01-Nov-2025). It will then generate two A4 PDFs (Admission Form + Apaar Form) and store the record in the local Admission Register.</p>
 
-      <form id="admissionForm" onsubmit="return handleSubmit(event)">
+      <form id="admissionForm" onsubmit="return handleSubmit(event)" autocomplete="off" class="card" style="padding:14px;">
         <div class="row">
           <div class="col">
             <label for="studentName">Student Full Name *</label>
@@ -151,23 +154,38 @@
 
         <div class="row">
           <div class="col">
-            <label for="photo">Upload Photo (passport size) *</label>
-            <input id="photo" type="file" accept="image/*" required>
+            <label for="aadhaarStudent">Aadhaar Number (Student) *</label>
+            <input id="aadhaarStudent" type="text" inputmode="numeric" pattern="\d*" placeholder="Optional for offline" >
           </div>
-          <div class="col">
-            <label for="bloodReport">Upload Blood Group Report *</label>
-            <input id="bloodReport" type="file" accept="image/*,application/pdf" required>
-          </div>
-        </div>
-
-        <div class="row">
           <div class="col">
             <label for="bloodGroup">Blood Group *</label>
             <select id="bloodGroup" required><option value="">Select</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select>
           </div>
+        </div>
+
+        <div style="display:flex; gap:12px; align-items:flex-end; margin-top:6px;">
+          <div>
+            <label for="photo">Upload Photo (passport size) *</label>
+            <input id="photo" type="file" accept="image/*" />
+            <div style="margin-top:6px;">
+              <label for="cameraCapture" style="font-weight:700; display:block; margin-top:8px;">Or take photo with camera</label>
+              <input id="cameraCapture" type="file" accept="image/*" capture="environment">
+            </div>
+          </div>
+          <div style="margin-left:auto; text-align:center;">
+            <div style="font-weight:700; margin-bottom:6px;">Photo Preview</div>
+            <img id="photoPreview" src="" alt="Photo preview" />
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:8px;">
           <div class="col">
             <label for="penNumber">PEN Number (Optional)</label>
             <input id="penNumber" type="text" placeholder="If available">
+          </div>
+          <div class="col">
+            <label for="previousSchool">Previous School (If any)</label>
+            <input id="previousSchool" type="text" placeholder="For 2nd–5th">
           </div>
         </div>
 
@@ -211,16 +229,21 @@
           <div class="col"><label for="accountNumber">Account Number *</label><input id="accountNumber" type="text" required></div>
         </div>
 
+        <div style="margin-top:12px;">
+          <label for="tcUpload">Transfer Certificate (if applicable)</label>
+          <input id="tcUpload" type="file" accept="image/*,application/pdf">
+        </div>
+
         <div class="form-actions">
           <button type="button" class="btn ghost" onclick="previewPdfs()">Preview PDF</button>
           <button type="submit" class="btn primary">Submit & Generate PDFs</button>
-          <button type="reset" class="btn" style="background:#e57373;color:#fff">Reset</button>
+          <button type="reset" class="btn" style="background:#e57373;color:#fff" onclick="clearPhotoPreview()">Reset</button>
         </div>
       </form>
     </section>
 
     <!-- APAAR FORM -->
-    <section id="apaarForm" class="tab-content card">
+    <section id="apaarForm" class="tab-content card" role="tabpanel">
       <h2>Apaar Consent Text</h2>
       <div style="white-space:pre-wrap; font-size:14px; line-height:1.4; color:#222;">
 GOVERNMENT PRIMARY SCHOOL PETHGAM WAGOORA
@@ -240,7 +263,7 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
     </section>
 
     <!-- ADMISSION REGISTER -->
-    <section id="admissionRegister" class="tab-content card">
+    <section id="admissionRegister" class="tab-content card" role="tabpanel">
       <h2>Admission Register</h2>
       <div style="display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap;">
         <input id="searchRegister" placeholder="Search by Name / PEN / Class" style="flex:1; padding:8px; border-radius:6px; border:1px solid #d7e6e2">
@@ -266,7 +289,7 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
     </section>
 
     <!-- REQUIRED DOCS -->
-    <section id="requiredDocs" class="tab-content card">
+    <section id="requiredDocs" class="tab-content card" role="tabpanel">
       <h2>Required Documents (All Mandatory)</h2>
       <ul>
         <li>Birth Certificate</li>
@@ -281,7 +304,7 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
     </section>
 
     <!-- DOWNLOADS -->
-    <section id="downloads" class="tab-content card">
+    <section id="downloads" class="tab-content card" role="tabpanel">
       <h2>Downloads</h2>
       <ul>
         <li>⬇️ <a href="javascript:void(0)" onclick="downloadBlank('admission')">Blank Admission Form (A4)</a></li>
@@ -294,11 +317,15 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
   </main>
 
   <footer class="container card" style="margin-top:18px; text-align:center;">
-    <strong>Contact:</strong> 9596449881 , 7006261694 &nbsp; | &nbsp; <strong>Email:</strong> pspethgam@gmail.com
+    <strong>Contact:</strong> 9596449881 &nbsp; | &nbsp; <strong>Email:</strong> pspethgam@gmail.com
   </footer>
 
   <script>
-    // ---------- Utilities ----------
+    // ensure libraries are available globally
+    window.html2canvas = window.html2canvas || window.html2canvas || html2canvas;
+    const { jsPDF } = window.jspdf || (window.jspdf = window.jspdf || {});
+
+    // APAAR consent block used in the PDF
     const APAAR_CONSENT = `GOVERNMENT PRIMARY SCHOOL PETHGAM WAGOORA
 Wagoora Babareshi Road Near Zonal Education Office Wagoora
 
@@ -311,7 +338,7 @@ I, ________________________ (Father / Mother / Legal Guardian) of ______________
 
 I understand that my APAAR ID may be used and shared for limited purposes as notified by Ministry of Education. I authorise Ministry of Education to use my Aadhaar number for performing Aadhaar based authentication with UIDAI as per the Aadhaar Act, 2016. I understand that the information shared shall be kept confidential. I can withdraw my consent anytime and such withdrawal will stop further processing (already processed data remains).`;
 
-    // Tab system (safe selector using data-tab)
+    /* ---------- Tabs ---------- */
     function openTab(tabName){
       document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -322,15 +349,27 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
       window.scrollTo({top:0, behavior:'smooth'});
     }
 
-    // init default & wire UI after DOM ready
+    // Set defaults when DOM ready
     window.addEventListener('DOMContentLoaded', ()=> {
       openTab('guidelines');
       loadRegister();
-      // restrict DOB to reasonable value (not strictly necessary)
       const dobEl = document.getElementById('dob');
       if(dobEl) dobEl.max = '2025-11-01';
 
-      // wire search & filter safely
+      // wire photo inputs (upload + camera)
+      const photoIn = document.getElementById('photo');
+      const cameraIn = document.getElementById('cameraCapture');
+      [photoIn, cameraIn].forEach(inp=>{
+        if(!inp) return;
+        inp.addEventListener('change', async (e)=> {
+          const f = e.target.files && e.target.files[0];
+          if(!f) return;
+          const url = await fileInputToDataURL(e.target);
+          document.getElementById('photoPreview').src = url;
+        });
+      });
+
+      // search & filter
       const searchEl = document.getElementById('searchRegister');
       if(searchEl){
         searchEl.addEventListener('input', function(){
@@ -353,7 +392,7 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
       }
     });
 
-    // ---------- Age validation ----------
+    /* ---------- Utilities ---------- */
     function calcAgeOn(dobStr, onDateStr){
       const dob = new Date(dobStr);
       const on = new Date(onDateStr);
@@ -363,20 +402,15 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
       if(m < 0 || (m===0 && on.getDate() < dob.getDate())) age--;
       return age;
     }
-
     function isEligible(dobStr, classApplying){
       const cutoff = '2025-11-01';
       const age = calcAgeOn(dobStr, cutoff);
-      const map = {
-        'Pre Primary-3':3,'Pre Primary-2':4,'Balvatika':5,'1st Primary':6,'2nd Primary':7,'3rd Primary':8,'4th Primary':9,'5th Primary':10
-      };
+      const map = {'Pre Primary-3':3,'Pre Primary-2':4,'Balvatika':5,'1st Primary':6,'2nd Primary':7,'3rd Primary':8,'4th Primary':9,'5th Primary':10};
       const required = map[classApplying];
       if(required===undefined) return {ok:false, msg:'Select class.'};
       if(age>=required) return {ok:true, age};
       return {ok:false, msg:`Child is ${age} yrs on ${cutoff} — requires ${required}+ yrs for ${classApplying}.`};
     }
-
-    // ---------- Admission number generator ----------
     function generateAdmNo(){
       const seqKey = 'aps_adm_seq_2025';
       let seq = parseInt(localStorage.getItem(seqKey) || '0', 10);
@@ -384,40 +418,22 @@ I understand that my APAAR ID may be used and shared for limited purposes as not
       const year = '25';
       return `${year}${String(seq).padStart(4,'0')}`;
     }
-<!-- html2canvas -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-<!-- jsPDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-async function generatePDF() {
-    try {
-        const { jsPDF } = window.jspdf;
-
-        // Select the form container
-        const form = document.getElementById("admissionFormPreview");
-
-        // Render HTML → Canvas
-        const canvas = await html2canvas(form, { scale: 2 });
-
-        const imgData = canvas.toDataURL("image/png");
-
-        // Create A4 PDF
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-
-        pdf.save("Admission_Form.pdf");
-    } catch (error) {
-        alert("Error generating PDF: " + error);
+    function fileInputToDataURL(inputEl){
+      return new Promise((res, rej)=>{
+        const f = inputEl.files && inputEl.files[0];
+        if(!f) return rej(new Error('No file'));
+        const reader = new FileReader();
+        reader.onload = ()=>res(reader.result);
+        reader.onerror = ()=>rej(reader.error);
+        reader.readAsDataURL(f);
+      });
     }
-}
-</script>
+    function clearPhotoPreview(){ document.getElementById('photoPreview').src = ''; }
 
-    // ---------- PDF generation helpers ----------
+    /* ---------- PDF helpers (use html2canvas + jsPDF) ---------- */
     async function elementToPdfBlob(element){
+      // ensure html2canvas is available
+      if(typeof html2canvas === 'undefined') throw new Error('html2canvas not loaded');
       const canvas = await html2canvas(element, {scale:2, useCORS:true, logging:false});
       const imgData = canvas.toDataURL('image/png');
       const { jsPDF } = window.jspdf;
@@ -429,10 +445,9 @@ async function generatePDF() {
       return pdf;
     }
 
-    // create print HTML nodes
     function createAdmissionPrintHTML(data){
       const html = `
-        <div style="font-family: Arial; padding:18px; color:#222; width:100%;">
+        <div style="font-family: Arial; padding:18px; color:#222; width:100%; max-width:794px;">
           <div style="text-align:center; margin-bottom:8px;">
             <h2 style="margin:0">Government Primary School Pethgam Wagoora</h2>
             <div>Wagoora Babareshi Road — Near Zonal Education Office, Wagoora</div>
@@ -473,10 +488,9 @@ async function generatePDF() {
       wrapper.innerHTML = html;
       return wrapper;
     }
-
     function createApaarPrintHTML(data){
       const html = `
-        <div style="font-family: Arial; padding:18px; color:#222; width:100%;">
+        <div style="font-family: Arial; padding:18px; color:#222; width:100%; max-width:794px;">
           <div style="text-align:center; margin-bottom:8px;">
             <h3 style="margin:0">APAAR Consent</h3>
             <div style="font-weight:700; margin-top:6px">Government Primary School Pethgam Wagoora</div>
@@ -497,7 +511,7 @@ async function generatePDF() {
       return wrapper;
     }
 
-    // ---------- Form handlers ----------
+    /* ---------- Form handlers ---------- */
     async function handleSubmit(e){
       e.preventDefault();
       const data = {
@@ -505,8 +519,10 @@ async function generatePDF() {
         gender: document.getElementById('gender').value,
         dob: document.getElementById('dob').value,
         classApplying: document.getElementById('classApplying').value,
+        aadhaarStudent: document.getElementById('aadhaarStudent').value.trim(),
         bloodGroup: document.getElementById('bloodGroup').value,
-        penNumber: (document.getElementById('penNumber').value || '').trim(),
+        penNumber: document.getElementById('penNumber').value.trim(),
+        previousSchool: document.getElementById('previousSchool').value.trim(),
         fatherName: document.getElementById('fatherName').value.trim(),
         motherName: document.getElementById('motherName').value.trim(),
         fatherProfession: document.getElementById('fatherProfession').value.trim(),
@@ -525,23 +541,35 @@ async function generatePDF() {
       }
       data.ageOnCutoff = eligible.age;
 
+      // photo and TC uploads
+      try{ 
+        const photoEl = document.getElementById('photo');
+        const camEl = document.getElementById('cameraCapture');
+        // prefer camera capture if used
+        if(camEl && camEl.files && camEl.files[0]){
+          data.photoData = await fileInputToDataURL(camEl);
+        } else if(photoEl && photoEl.files && photoEl.files[0]){
+          data.photoData = await fileInputToDataURL(photoEl);
+        } else {
+          data.photoData = document.getElementById('photoPreview').src || '';
+        }
+      }catch(err){ alert('Please upload or capture a valid photo.'); return false; }
+
       try{
-        data.photoData = await fileInputToDataURL(document.getElementById('photo'));
-      }catch(err){ alert('Please upload a valid photo.'); return false; }
-      try{
-        data.bloodReportData = await fileInputToDataURL(document.getElementById('bloodReport'));
-      }catch(err){ alert('Please upload a valid Blood Group Report (image/pdf).'); return false; }
+        const tc = document.getElementById('tcUpload');
+        if(tc && tc.files && tc.files[0]){
+          data.tcData = await fileInputToDataURL(tc);
+        }
+      }catch(err){ /* optional */ }
 
       data.admNo = generateAdmNo();
 
+      // craft nodes, render to PDF, save and store
       const admNode = createAdmissionPrintHTML(data);
       const apaarNode = createApaarPrintHTML(data);
 
-      admNode.style.width = '794px';
-      apaarNode.style.width = '794px';
-      admNode.style.background = '#fff'; apaarNode.style.background='#fff';
-      admNode.style.position='fixed'; admNode.style.left='-2000px'; admNode.style.top='0';
-      apaarNode.style.position='fixed'; apaarNode.style.left='-2000px'; apaarNode.style.top='0';
+      admNode.style.position='fixed'; admNode.style.left='-2000px';
+      apaarNode.style.position='fixed'; apaarNode.style.left='-2000px';
       document.body.appendChild(admNode);
       document.body.appendChild(apaarNode);
 
@@ -559,6 +587,7 @@ async function generatePDF() {
         document.body.removeChild(apaarNode);
 
         document.getElementById('admissionForm').reset();
+        clearPhotoPreview();
         alert('Admission saved to Register and PDFs downloaded. Submit printed copies at school office.');
         openTab('admissionRegister');
       }catch(err){
@@ -580,7 +609,8 @@ async function generatePDF() {
         parentsPhone: document.getElementById('parentsPhone').value || '[Phone]',
         address: document.getElementById('address').value || '[Address]',
         bankName: document.getElementById('bankName').value || '[Bank]',
-        accountNumber: document.getElementById('accountNumber').value || 'XXXX'
+        accountNumber: document.getElementById('accountNumber').value || 'XXXX',
+        photoData: document.getElementById('photoPreview').src || ''
       };
       const admNode = createAdmissionPrintHTML(data);
       const w = window.open('', '_blank', 'width=900,height=1100');
@@ -590,29 +620,17 @@ async function generatePDF() {
       w.document.close();
     }
 
-    function fileInputToDataURL(inputEl){
-      return new Promise((res, rej)=>{
-        const f = inputEl.files && inputEl.files[0];
-        if(!f) return rej(new Error('No file'));
-        const reader = new FileReader();
-        reader.onload = ()=>res(reader.result);
-        reader.onerror = ()=>rej(reader.error);
-        reader.readAsDataURL(f);
-      });
-    }
-// ---------- Register storage ----------
+    /* ---------- Register storage & UI ---------- */
     function loadRegister(){
       const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
       renderRegister(arr);
     }
-
     function saveRecordToRegister(record){
       const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
       arr.push({...record, status:'Active', createdAt: new Date().toISOString()});
       localStorage.setItem('aps_register_v1', JSON.stringify(arr));
       renderRegister(arr);
     }
-
     function renderRegister(arr){
       const tbody = document.querySelector('#registerTable tbody');
       tbody.innerHTML = '';
@@ -643,7 +661,6 @@ async function generatePDF() {
         tbody.appendChild(tr);
       });
     }
-
     function updateStatus(index, value){
       const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
       if(!arr[index]) return;
@@ -652,7 +669,7 @@ async function generatePDF() {
       renderRegister(arr);
     }
 
-    // ---------- Export functions ----------
+    /* ---------- Export ---------- */
     async function exportRegisterPDF(){
       const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
       const node = document.createElement('div');
@@ -667,7 +684,6 @@ async function generatePDF() {
       pdf.save('Admission_Register.pdf');
       document.body.removeChild(node);
     }
-
     function exportRegisterCSV(){
       const arr = JSON.parse(localStorage.getItem('aps_register_v1') || '[]');
       const rows = [['S.No','AdmNo','Name','Class','DOB','PEN','Phone','Status']];
@@ -678,7 +694,7 @@ async function generatePDF() {
       const a = document.createElement('a'); a.href=url; a.download='admission_register.csv'; a.click(); URL.revokeObjectURL(url);
     }
 
-    // ---------- Blank downloads ----------
+    /* ---------- Blank downloads ---------- */
     async function downloadBlank(type){
       if(type==='admission'){
         const dummy = { studentName:'[Student Name]', dob:'[DD/MM/YYYY]', classApplying:'[Class]', admNo:'[AdmNo]', admDate:'[Date]', penNumber:'[PEN]' , fatherName:'[Father]', motherName:'[Mother]', parentsPhone:'[Phone]', address:'[Address]', bankName:'[Bank]', accountNumber:'XXXX' };
@@ -695,7 +711,21 @@ async function generatePDF() {
         document.body.removeChild(node);
       }
     }
-
   </script>
 </body>
-</html>                              
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+    
