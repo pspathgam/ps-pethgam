@@ -12,68 +12,74 @@
         body {
             margin: 0;
             padding: 0;
-            height: 100vh;
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #8ec5fc 0%, #e0c3fc 100%);
             overflow-x: hidden;
         }
 
-        /* Animated floating background shapes */
+        /* Animated BG */
         .bg-shape {
             position: absolute;
             border-radius: 50%;
             filter: blur(80px);
-            opacity: 0.6;
+            opacity: 0.55;
             animation: float 10s infinite alternate ease-in-out;
         }
-        .s1 { width: 300px; height: 300px; background: #ff7eb3; top: 10%; left: 5%; }
-        .s2 { width: 350px; height: 350px; background: #65d6ff; bottom: 10%; right: 5%; }
+        .s1 { width: 300px; height: 300px; background: #ff9bd6; top: 10%; left: 5%; }
+        .s2 { width: 350px; height: 350px; background: #82dfff; bottom: 10%; right: 5%; }
 
         @keyframes float {
             0% { transform: translateY(0px); }
             100% { transform: translateY(-60px); }
         }
 
-        /* Glassmorphism container */
+        /* Glass box */
         .glass-box {
-            width: 92%;
-            max-width: 900px;
+            width: 90%;
+            max-width: 950px;
             margin: 40px auto;
-            padding: 25px;
+            padding: 30px;
             border-radius: 25px;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(15px);
-            color: #fff;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+            color: #222;
         }
 
+        /* Header */
         .header {
             text-align: center;
             margin-bottom: 20px;
         }
         .header img {
-            width: 80px;
-            margin-bottom: 10px;
+            width: 85px;
         }
         h2 {
             font-weight: 700;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            color: #222;
+            margin: 10px 0 0 0;
+        }
+        h4 {
+            margin-top: 5px;
+            color: #444;
         }
 
         /* Scrolling News */
         .scrolling {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.6);
             padding: 10px;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             white-space: nowrap;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.25);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.20);
+            margin-bottom: 15px;
         }
         .scrolling span {
+            font-weight: 600;
             display: inline-block;
             padding-left: 100%;
             animation: scroll 12s linear infinite;
-            font-weight: bold;
+            color: #222;
         }
 
         @keyframes scroll {
@@ -87,18 +93,17 @@
             padding: 12px;
             margin: 8px 0;
             border-radius: 12px;
-            border: none;
+            border: 1px solid #bbb;
             outline: none;
-            background: rgba(255,255,255,0.4);
-            color: #000;
+            background: rgba(255,255,255,0.85);
+            color: #333;
             font-size: 16px;
         }
 
-        /* Neon glowing buttons */
+        /* Button - High Contrast Neon */
         .btn {
             width: 100%;
             background: #6a11cb;
-            color: #fff;
             padding: 14px;
             border-radius: 14px;
             border: none;
@@ -107,24 +112,25 @@
             margin-top: 10px;
             font-weight: 600;
             transition: 0.3s;
-            box-shadow: 0 0 12px #b86cff;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(106, 17, 203, 0.6);
         }
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 18px #d49aff;
+            box-shadow: 0 0 22px rgba(106, 17, 203, 0.9);
         }
 
         .section-title {
             font-size: 22px;
             margin-top: 25px;
             font-weight: bold;
-            color: #fff;
+            color: #222;
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Animation -->
+    <!-- Background animated shapes -->
     <div class="bg-shape s1"></div>
     <div class="bg-shape s2"></div>
 
@@ -136,13 +142,14 @@
             <h4>Government Primary School Pethgam Wagoora</h4>
         </div>
 
-        <!-- Scrolling News -->
+        <!-- News -->
         <div class="scrolling">
-            <span>Welcome Teacher — Publish quizzes, homework, results, and announcements easily!</span>
+            <span>Welcome Teacher — Publish quizzes, homework, and announcements easily!</span>
         </div>
 
         <!-- Class & Subject -->
         <h3 class="section-title">Select Class & Subject</h3>
+
         <select id="classSelect">
             <option>Select Class</option>
             <option>1st</option>
@@ -162,25 +169,23 @@
             <option>Kashmiri</option>
         </select>
 
-        <!-- Publish Quiz -->
+        <!-- Quiz -->
         <h3 class="section-title">Publish Quiz</h3>
         <input type="text" placeholder="Quiz Title" id="quizTitle">
         <textarea placeholder="Enter Question" id="quizQuestion"></textarea>
         <input type="text" placeholder="Correct Answer" id="quizAnswer">
-
         <button class="btn" onclick="publishQuiz()">Publish Quiz</button>
 
         <!-- Homework -->
         <h3 class="section-title">Assign Homework</h3>
         <textarea placeholder="Homework Details" id="homeworkText"></textarea>
-
         <button class="btn" onclick="publishHomework()">Publish Homework</button>
 
     </div>
 
 <script>
     function publishQuiz() {
-        alert("Quiz Published Successfully! (Firebase linking will be added)");
+        alert("Quiz Published Successfully!");
     }
 
     function publishHomework() {
@@ -190,3 +195,4 @@
 
 </body>
 </html>
+                    
