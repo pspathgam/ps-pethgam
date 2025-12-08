@@ -45,7 +45,31 @@
     </script>
 
 </head>
+<!-- Firebase SDKs -->
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+  import { getStorage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
 
+  // Your firebaseConfig
+  const firebaseConfig = {
+    apiKey: "AIzaSyDE_iP6HYhJ3YhOff8eEd8uFLuaKLjklbM",
+    authDomain: "ps-pethgam-wagoora.firebaseapp.com",
+    projectId: "ps-pethgam-wagoora",
+    storageBucket: "ps-pethgam-wagoora.firebasestorage.app",
+    messagingSenderId: "528172741552",
+    appId: "1:528172741552:web:171477c1c4fabf68ab5c75",
+    measurementId: "G-XF2HP4FQK1"
+  };
+
+  // Initialize Firebase services
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+  const storage = getStorage(app);
+</script>
 <body>
     <h2>Student Login</h2>
 
