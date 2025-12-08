@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Student Results</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial; padding:12px; max-width:760px; margin:0 auto;}
+    .card{border:1px solid #e0e0e0;border-radius:10px;padding:12px;margin:10px 0;box-shadow:0 1px 4px rgba(0,0,0,0.03);}
+    .h{font-size:18px;margin:6px 0}
+    .meta{color:#666;font-size:13px}
+    .score{font-weight:700;font-size:16px}
+    .percent{background:#f1f8e9;padding:4px 8px;border-radius:6px;color:#33691e;display:inline-block;margin-left:8px}
+    .empty{color:#666;text-align:center;padding:30px}
+    a.button{display:inline-block;padding:8px 12px;border-radius:8px;border:1px solid #1976d2;color:#1976d2;text-decoration:none}
+  </style>
+
+  <!-- Firebase namespaced SDK (same style as your other pages) -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"></script>
+</head>
+<body>
+  <h2>My Results</h2>
+  <div id="content">
+    <div id="loading" class="card">Loading results…</div>
+    <div id="list"></div>
+    <div id="none" class="empty" style="display:none">No results yet. Attempt a quiz to see results here.</div>
+  </div>
+
+  <p style="margin-top:20px"><a class="button" href="student-dashboard.html">Back to Dashboard</a></p>
+
+<script>
+  // ===== UPDATE THIS WITH YOUR FIREBASE CONFIG (same as other pages) =====
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT",
+    // other keys if present
+  };
+  // ======================================================================
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // Helper: format timestamp to readable string
+  function formatDate(ts) {
+    if (!ts) return '';
+    try {
+      const d = ts.toDate ? ts.toDate() : new Date(ts);
+      return d.toLocaleString();
+    } catch(e) {
+      return String(ts);
+    }
+  }
+
+  // Compute score from quiz questions and student's answers
+  // - quiz.questions: array of {q, a:[], correct: index}
+  // - response.answers: array of chosen indices (numbers) OR answer strings
+  function computeScoreFromQuiz(quiz, response) {
+    if (!quiz || !quiz.questions || !Array.isArray(response.answers)) return {score:0,total:0};
+    const questions = quiz.questions;
+    let correctCount = 0;
+    for (let i = 0; i < questions.length; i++) {
+      const q = questions[i];
+      const studentAns = response.answers[i];
+      if (studentAns === undefined || studentAns === null) continue;
+      // if stored as index numbers:
+      if (typeof studentAns === 'number' && (typeof q.correct === 'number')) {
+        if (studentAns === q.correct) correctCount++;
+      } else {
+        // compare strings (option text) - tolerate types
+        const chosen = String(studentAns).trim();
+        const correctIdx = q.correct;
+        const correctText = (Array.isArray(q.a) && typeof correctIdx === 'number') ? String(q.a[correctIdx]).trim() : String(q.correct).trim();
+        if (chosen === correctText) correctCount++;
+      }
+    }
+    return { score: correctCount, total: questions.length };
+  }
+
+  // Render one result card
+  function renderResultCard({ quizTitle, score, total, pct, submittedAt, raw }) {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <div class="h">${quizTitle || 'Quiz'}</div>
+      <div class="meta">Submitted: ${formatDate(submittedAt)}</div>
+      <div style="margin-top:8px">
+        <span class="score">Score: ${score} / ${total}</span>
+        <span class="percent">${pct}%</span>
+      </div>
+      <div style="margin-top:8px;color:#444;font-size:13px">Details: <a href="#" data-id="${raw.id}" class="view">View</a></div>
+    `;
+    // view handler (optionally show question-wise detail)
+    div.querySelector('.view').addEventListener('click', (e) => {
+      e.preventDefault();
+      showDetail(raw);
+    });
+    return div;
+  }
+
+  // Show detail modal-like (simple)
+  function showDetail(responseDoc) {
+    // fetch quiz to show questions and answers
+    db.collection('quizzes').doc(responseDoc.quizId).get().then(qdoc => {
+      const quiz = qdoc.exists ? qdoc.data() : null;
+      let html = `<h3>${quiz ? quiz.title : 'Quiz'}</h3>`;
+      html += `<p><b>Submitted:</b> ${formatDate(responseDoc.submittedAt)}</p>`;
+      html += '<ol>';
+      const questions = quiz && quiz.questions ? quiz.questions : [];
+      const answers = responseDoc.answers || [];
+      for (let i=0;i<Math.max(questions.length, answers.length);i++){
+        const q = questions[i] || { q: 'Question not found', a: [], correct: null };
+        const ans = answers[i] === undefined ? '(no answer)' : answers[i];
+        const correctIdx = q.correct;
+        const correctText = (Array.isArray(q.a) && typeof correctIdx === 'number') ? q.a[correctIdx] : (q.correct ?? 'N/A');
+        let isCorrect = false;
+        if (typeof ans === 'number' && typeof correctIdx === 'number') isCorrect = (ans === correctIdx);
+        else isCorrect = String(ans).trim() === String(correctText).trim();
+        html += `<li style="margin-bottom:8px">
+                  <div><b>Q:</b> ${q.q || '—'}</div>
+                  <div><b>Your:</b> ${Array.isArray(q.a) ? (typeof ans==='number' ? (q.a[ans] ?? ans) : ans) : ans}</div>
+                  <div style="color:${isCorrect? '#2e7d32':'#c62828'}"><b>${isCorrect? 'Correct' : 'Correct answer:'}</b> ${isCorrect? '' : correctText}</div>
+                </li>`;
+      }
+      html += '</ol>';
+      // pop a simple window
+      const w = window.open('', '_blank', 'width=400,height=600,scrollbars=1');
+      w.document.write(`<title>Result detail</title><div style="font-family:system-ui;padding:12px">${html}</div>`);
+    }).catch(err => alert('Failed to load quiz detail: '+err.message));
+  }
+
+  // Main: load quiz_responses for current student and render
+  auth.onAuthStateChanged(async (user) => {
+    const loading = document.getElementById('loading');
+    const list = document.getElementById('list');
+    const none = document.getElementById('none');
+    loading.style.display = 'block';
+    list.innerHTML = '';
+    none.style.display = 'none';
+
+    if (!user) {
+      // not logged in -> go to student login
+      window.location.href = 'student-login.html';
+      return;
+    }
+
+    try {
+      // Query quiz_responses where studentUid == current uid
+      const qSnap = await db.collection('quiz_responses').where('studentUid', '==', user.uid).orderBy('submittedAt', 'desc').get();
+      if (qSnap.empty) {
+        loading.style.display = 'none';
+        none.style.display = 'block';
+        return;
+      }
+
+      const docs = [];
+      qSnap.forEach(d => docs.push({ id: d.id, ...d.data() }));
+
+      // For each response: get quiz title OR compute score if missing
+      // We'll fetch all needed quiz docs in parallel (unique quizIds)
+      const quizIds = Array.from(new Set(docs.map(r => r.quizId).filter(Boolean)));
+      const quizPromises = quizIds.map(id => db.collection('quizzes').doc(id).get());
+      const quizDocs = await Promise.all(quizPromises);
+      const quizMap = {};
+      quizDocs.forEach(qd => { if (qd.exists) quizMap[qd.id] = qd.data(); });
+
+      // Render
+      loading.style.display = 'none';
+      for (const r of docs) {
+        let score = null, total = null, pct = 0;
+        if (typeof r.score === 'number' && typeof r.total === 'number') {
+          score = r.score;
+          total = r.total;
+        } else if (typeof r.score === 'number' && !r.total) {
+          // if only score stored, attempt to get total from quiz
+          const q = quizMap[r.quizId];
+          total = q && Array.isArray(q.questions) ? q.questions.length : (r.answers ? r.answers.length : 0);
+          score = r.score;
+        } else {
+          // compute from quiz if possible
+          const q = quizMap[r.quizId];
+          const computed = computeScoreFromQuiz(q, r);
+          score = computed.score;
+          total = computed.total;
+        }
+        pct = total ? Math.round((score / total) * 100) : 0;
+        const card = renderResultCard({
+          quizTitle: (quizMap[r.quizId] && quizMap[r.quizId].title) || 'Quiz',
+          score, total, pct, submittedAt: r.submittedAt || r.submittedAt || null, raw: {...r}
+        });
+        list.appendChild(card);
+      }
+    } catch (err) {
+      loading.style.display = 'none';
+      alert('Error loading results: ' + err.message);
+      console.error(err);
+    }
+  });
+</script>
+</body>
+</html>
