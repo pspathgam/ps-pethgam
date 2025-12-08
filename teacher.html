@@ -1,120 +1,129 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Teacher Panel – Government Primary School Pethgam Wagoora</title>
-
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Teacher Dashboard</title>
 <style>
-:root{
-  --accent: #0f766e;
-  --accent2:#ff6b6b;
-  --accent3:#ffd166;
-  --card-bg: rgba(255,255,255,0.92);
-  --muted:#6b7280;
+:root{--accent:#0f766e;--accent2:#ff6b6b;--accent3:#ffd166;--card-bg:rgba(255,255,255,0.94);--muted:#6b7280}
+*{box-sizing:border-box}body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:linear-gradient(120deg,#f3fbfa,#fff);color:#072;min-height:100vh}
+.header{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(90deg,var(--accent),#06b6d4);color:#fff}
+.logo img{width:52px;height:52px;border-radius:8px;object-fit:cover;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
+.container{max-width:1100px;margin:20px auto;padding:16px;position:relative;z-index:2}
+.panel{background:var(--card-bg);padding:14px;border-radius:12px;box-shadow:0 12px 30px rgba(2,6,23,0.06);margin-bottom:14px}
+.marquee{overflow:hidden;border-radius:10px;padding:8px;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.8));margin:12px 0}
+.marquee-inner{display:inline-block;white-space:nowrap;animation:marq 14s linear infinite}
+.marq-item{display:inline-block;margin-right:22px;padding:6px 10px;border-radius:10px;background:var(--accent3);font-weight:700;color:#072}
+@keyframes marq{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+label{display:block;margin:8px 0;font-weight:700;color:#0b534e}input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(7,22,20,0.06);background:#fff}
+.btn{display:inline-block;padding:10px 14px;border-radius:12px;border:none;cursor:pointer;color:#fff;font-weight:800;background:linear-gradient(180deg,var(--accent),#064e47);box-shadow:0 10px 20px rgba(12,74,70,0.12)}
+.btn.coral{background:linear-gradient(180deg,var(--accent2),#e05555);box-shadow:0 10px 20px rgba(224,85,85,0.12)}
+.small{font-size:0.9rem;color:var(--muted)}
+.center{max-width:480px;margin:40px auto}
+.hidden{display:none!important}
+.feed-item{background:#fff;padding:10px;border-radius:10px;margin:8px 0;box-shadow:0 6px 16px rgba(2,6,23,0.04)}
+</style>
+</head>
+<body>
+
+<!-- login panel -->
+<div id="loginPanel" class="center panel">
+  <h2>Teacher Login</h2>
+  <form id="loginForm">
+    <label>User ID<input id="tUser" required></label>
+    <label>Password<input id="tPass" type="password" required></label>
+    <div style="display:flex;gap:8px">
+      <button class="btn coral" type="submit">Login</button>
+      <button type="button" id="firebaseHint" class="btn">Firebase Setup</button>
+    </div>
+    <p class="small">Demo credentials: <strong>teacher1 / 12345</strong></p>
+  </form>
+</div>
+
+<!-- dashboard -->
+<div id="dashboard" class="hidden">
+  <header class="header"><div class="logo"><img src="logo.png" alt="logo"></div><h1>Teacher Dashboard</h1></header>
+
+  <div class="container">
+    <div class="marquee"><div class="marquee-inner" id="marq"><span class="marq-item">Welcome</span></div></div>
+
+    <section class="panel">
+      <h3>Publish Assignment</h3>
+      <form id="assignForm">
+        <label>Title<input id="assignTitle" required></label>
+        <label>Class<select id="assignClass"><option>1st</option><option>2nd</option><option>3rd</option><option>4th</option><option>5th</option></select></label>
+        <label>Subject<select id="assignSubject"><option>Mathematics</option><option>English</option><option>EVS</option><option>Urdu</option><option>Kashmiri</option></select></label>
+        <label>Details<textarea id="assignDetails" rows="3"></textarea></label>
+        <button class="btn coral" type="submit">Publish Assignment</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h3>Publish Quiz (single Q demo)</h3>
+      <form id="quizForm">
+        <label>Title<input id="quizTitle" required></label>
+        <label>Class<select id="quizClass"><option>1st</option><option>2nd</option><option>3rd</option><option>4th</option><option>5th</option></select></label>
+        <label>Subject<select id="quizSubject"><option>Mathematics</option><option>English</option><option>EVS</option><option>Urdu</option><option>Kashmiri</option></select></label>
+        <label>Question<input id="quizQuestion" required></label>
+        <label>Option A<input id="quizA" required></label>
+        <label>Option B<input id="quizB" required></label>
+        <label>Option C<input id="quizC" required></label>
+        <label>Correct<select id="quizCorrect"><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></label>
+        <button class="btn coral" type="submit">Publish Quiz</button>
+      </form>
+    </section>
+
+    <section class="panel"><h3>Published Assignments</h3><div id="taskFeed"></div></section>
+    <section class="panel"><h3>Published Quizzes</h3><div id="quizFeed"></div></section>
+  </div>
+</div>
+
+<script>
+/* demo credentials */
+const demoTeacher = { user:'teacher1', pass:'12345' };
+
+/* login */
+document.getElementById('loginForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const u=document.getElementById('tUser').value, p=document.getElementById('tPass').value;
+  if(u===demoTeacher.user && p===demoTeacher.pass){ showDashboard(u); } else { alert('Invalid teacher credentials'); }
+});
+document.getElementById('firebaseHint').addEventListener('click', ()=>alert('To use Firebase: add firebaseConfig to your page, enable Auth (email) and Firestore; I can generate the code for that.') );
+
+function showDashboard(uid){
+  document.getElementById('loginPanel').classList.add('hidden');
+  document.getElementById('dashboard').classList.remove('hidden');
+  document.getElementById('marq').innerHTML = '<span class="marq-item">Logged in as '+uid+'</span>';
+  loadTasks(); loadQuizzes();
 }
 
-html,body{
-  height:100%;
-  margin:0;
-  font-family:Inter, system-ui, Arial, sans-serif;
-  background:linear-gradient(120deg,#f3fbfa 0%, #ffffff 40%, #f7fbff 100%);
-  color:#042;
+/* tasks */
+function loadTasks(){
+  const tasks = JSON.parse(localStorage.getItem('teacherTasks')||'[]');
+  const area = document.getElementById('taskFeed');
+  if(!tasks.length){ area.innerHTML = '<p class="small">No assignments yet</p>'; return; }
+  area.innerHTML = tasks.map(t=>`<div class="feed-item"><strong>${t.title}</strong><div class="small">Class: ${t.class} | Subject: ${t.subject}</div><div class="small">${new Date(t.time).toLocaleString()}</div><p>${t.details}</p></div>`).join('');
 }
+document.getElementById('assignForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const tasks = JSON.parse(localStorage.getItem('teacherTasks')||'[]');
+  tasks.unshift({ title:document.getElementById('assignTitle').value, class:document.getElementById('assignClass').value, subject:document.getElementById('assignSubject').value, details:document.getElementById('assignDetails').value, time:Date.now() });
+  localStorage.setItem('teacherTasks', JSON.stringify(tasks));
+  loadTasks(); alert('Assignment saved (local demo)'); e.target.reset();
+});
 
-body::before, body::after{
-  content:"";
-  position:fixed;
-  z-index:-1;
-  filter:blur(60px);
-  opacity:0.6;
-  pointer-events:none;
+/* quizzes */
+function loadQuizzes(){
+  const qs = JSON.parse(localStorage.getItem('teacherQuizzes')||'[]');
+  const area = document.getElementById('quizFeed');
+  if(!qs.length){ area.innerHTML = '<p class="small">No quizzes yet</p>'; return; }
+  area.innerHTML = qs.map(q=>`<div class="feed-item"><strong>${q.title}</strong><div class="small">Class: ${q.class} | Subject: ${q.subject}</div><div class="small">${new Date(q.time).toLocaleString()}</div><p>Q: ${q.question}</p><div class="small">A) ${q.optionA} | B) ${q.optionB} | C) ${q.optionC} | Correct: ${q.correct}</div></div>`).join('');
 }
-body::before{
-  width:420px;height:420px;
-  left:-120px;top:-80px;
-  background: radial-gradient(circle at 30% 30%, rgba(15,118,110,0.18), transparent 40%),
-              radial-gradient(circle at 70% 70%, rgba(255,107,107,0.12), transparent 35%);
-  animation:blobmove 12s ease-in-out infinite alternate;
-}
-body::after{
-  width:320px;height:320px;
-  right:-100px;bottom:-60px;
-  background: radial-gradient(circle at 20% 20%, rgba(255,209,102,0.12), transparent 40%),
-              radial-gradient(circle at 80% 80%, rgba(15,118,110,0.08), transparent 35%);
-  animation:blobmove 14s ease-in-out infinite alternate-reverse;
-}
-@keyframes blobmove{
-  from{transform:translateY(0) scale(1) rotate(0deg)}
-  to{transform:translateY(18px) scale(1.06) rotate(6deg)}
-}
-
-.header{
-  display:flex;align-items:center;
-  padding:14px 18px;
-  background:linear-gradient(90deg,var(--accent),#06b6d4);
-  color:white;
-  box-shadow:0 8px 22px rgba(2,6,23,0.08);
-}
-.logo{
-  width:54px;height:54px;
-  background:white;border-radius:10px;
-  color:var(--accent);
-  display:flex;align-items:center;justify-content:center;
-  font-weight:900;font-size:18px;
-}
-.header h1{margin-left:12px;font-size:21px;}
-
-.container{max-width:900px;margin:20px auto;padding:16px;}
-.panel{
-  background:var(--card-bg);
-  padding:16px;
-  border-radius:14px;
-  box-shadow:0 12px 30px rgba(2,6,23,0.06);
-  backdrop-filter:blur(6px);
-  margin-top:18px;
-}
-
-.btn{
-  display:inline-block;
-  padding:12px 18px;
-  border:none;border-radius:12px;
-  font-weight:700;
-  cursor:pointer;
-  transition:all .15s ease;
-  background:linear-gradient(180deg,var(--accent), #064e47);
-  box-shadow:0 10px 20px rgba(12,74,70,0.2);
-  color:white;
-}
-.btn:active{transform:translateY(3px);box-shadow:0 4px 10px rgba(12,74,70,0.15);}
-.btn-coral{background:linear-gradient(180deg,var(--accent2),#e05555);box-shadow:0 10px 22px rgba(224,85,85,0.2);}
-
-label{font-weight:600;margin:8px 0;display:block;color:#064e47;}
-input,textarea,select{
-  width:100%;padding:12px;
-  border-radius:12px;
-  border:1px solid rgba(7,22,20,0.1);
-  background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(248,248,248,0.92));
-}
-
-.task-item, .quiz-item{
-  background:white;
-  padding:12px;
-  border-radius:12px;
-  margin:8px 0;
-  box-shadow:0 4px 10px rgba(2,6,23,0.06);
-}
-.task-item strong, .quiz-item strong{color:var(--accent);}
-small{color:var(--muted);}
-
-/* Login Screen */
-#loginScreen{
-  max-width:400px;
-  margin:80px auto;
-  padding:24px;
-  background:var(--card-bg);
-  border-radius:16px;
-  box-shadow:0 12px 30px rgba(2,6,23,0.06);
+document.getElementById('quizForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const qs = JSON.parse(localStorage.getItem('teacherQuizzes')||'[]');
+  qs.unshift({ title:document.getElementById('quizTitle').value, class:document.getElementById('quizClass').value, subject:document.getElementById('quizSubject').value, question:document.getElementById('quizQuestion').value, optionA:document.getElementById('quizA').value, optionB:document.getElementById('quizB').value, optionC:document.getElementById('quizC').value, correct:document.getElementById('quizCorrect').value, time:Date.now() });
+  localStorage.setItem('teacherQuizzes', JSON.stringify(qs));
+  loadQuizzes(); alert('Quiz saved (local demo)'); e.target.reset();
+});
+</script>
+</body></html>
 }
 </style>
 </head>
