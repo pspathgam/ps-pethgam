@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Teacher Dashboard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-header small">
+  <a href="index.html">&larr; Home</a>
+  <h2>Teacher Dashboard</h2>
+</header>
+<main class="container">
+  <section class="panel">
+    <h3>Assign Home Task</h3>
+    <form id="assignForm">
+      <label>Title<input id="assignTitle" required></label>
+      <label>Class<select id="assignClass"><option>4th</option><option>5th</option></select></label>
+      <label>Details<textarea id="assignDetails"></textarea></label>
+      <button class="btn">Publish</button>
+    </form>
+    <div id="taskFeed"></div>
+  </section>
+
+  <section class="panel">
+    <h3>View Submissions (demo)</h3>
+    <div id="allSubs"></div>
+  </section>
+</main>
+<script src="assets/js/app.js"></script>
+<script>
+  function loadTasks(){
+    const tasks = JSON.parse(localStorage.getItem('tasks')||'[]');
+    document.getElementById('taskFeed').innerHTML = tasks.length? tasks.map(t=>`<div class="task-item"><strong>${t.title}</strong> — ${t.clazz} — ${new Date(t.time).toLocaleString()}</div>`).join('') : '<p>No tasks published yet.</p>';
+  }
+  document.getElementById('assignForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const title = document.getElementById('assignTitle').value;
+    const clazz = document.getElementById('assignClass').value;
+    const details = document.getElementById('assignDetails').value;
+    const tasks = JSON.parse(localStorage.getItem('tasks')||'[]');
+    tasks.unshift({title,clazz,details,time:Date.now()});
+    localStorage.setItem('tasks',JSON.stringify(tasks));
+    loadTasks();
+    alert('Task published (stored locally in this demo).');
+    e.target.reset();
+  });
+  loadTasks();
+
+  // show student submissions (from student demo)
+  function loadSubs(){
+    const subs = JSON.parse(localStorage.getItem('subs')||'[]');
+    document.getElementById('allSubs').innerHTML = subs.length? subs.map(s=>`<div>${s.title} — ${new Date(s.time).toLocaleString()}</div>`).join('') : '<p>No submissions yet.</p>';
+  }
+  loadSubs();
+</script>
+</body>
+</html>
