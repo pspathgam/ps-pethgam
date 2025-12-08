@@ -1,107 +1,296 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Student Dashboard</title>
-<link rel="stylesheet" href="assets/css/style.css">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Student Panel – Government Primary School Pethgam Wagoora</title>
+
+<style>
+/* ============================
+   Matching Theme With Teacher Dashboard
+   ============================ */
+:root{
+  --accent:#0f766e;
+  --accent2:#ff6b6b;
+  --accent3:#ffd166;
+  --card-bg:rgba(255,255,255,0.92);
+  --muted:#6b7280;
+}
+
+html,body{
+  height:100%;
+  margin:0;
+  font-family:Inter, system-ui, Arial;
+  background:linear-gradient(120deg,#f3fbfa 0%, #ffffff 40%, #f7fbff 100%);
+  color:#042;
+}
+
+/* Floating blobs */
+body::before, body::after{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  filter:blur(60px);
+  opacity:0.55;
+}
+body::before{
+  width:420px;height:420px;
+  left:-120px;top:-80px;
+  background: radial-gradient(circle, rgba(15,118,110,0.18), transparent 40%),
+              radial-gradient(circle, rgba(255,107,107,0.12), transparent 35%);
+  animation:blobmove 12s infinite alternate;
+}
+body::after{
+  width:320px;height:320px;
+  right:-100px;bottom:-60px;
+  background: radial-gradient(circle, rgba(255,209,102,0.12), transparent 40%),
+              radial-gradient(circle, rgba(15,118,110,0.08), transparent 35%);
+  animation:blobmove 14s infinite alternate-reverse;
+}
+@keyframes blobmove{
+  from{transform:translateY(0)}
+  to{transform:translateY(20px)}
+}
+
+/* Header */
+.header{
+  display:flex;align-items:center;
+  padding:14px 18px;
+  background:linear-gradient(90deg,var(--accent),#06b6d4);
+  color:white;
+  box-shadow:0 8px 22px rgba(0,0,0,0.08);
+}
+.header img{
+  width:52px;height:52px;border-radius:10px;
+}
+.header h1{margin-left:12px;font-size:22px}
+
+/* Marquee */
+.marquee{
+  overflow:hidden;
+  border-radius:12px;
+  background:white;
+  padding:8px;margin:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.05);
+}
+.marquee-inner{
+  display:inline-block;
+  white-space:nowrap;
+  animation:marq 14s linear infinite;
+}
+.marq-item{
+  margin-right:30px;padding:6px 12px;
+  background:var(--accent3);
+  border-radius:10px;font-weight:700;color:#064;
+}
+@keyframes marq{
+  from{transform:translateX(100%);}
+  to{transform:translateX(-100%);}
+}
+.marquee:hover .marquee-inner{animation-play-state:paused}
+
+/* Container & Panels */
+.container{max-width:900px;margin:20px auto;padding:16px}
+.panel{
+  background:var(--card-bg);
+  padding:16px;
+  border-radius:14px;
+  box-shadow:0 12px 28px rgba(0,0,0,0.07);
+  backdrop-filter:blur(8px);
+  margin-top:18px;
+}
+
+/* 3D Buttons */
+.btn{
+  padding:12px 18px;border:none;
+  border-radius:12px;font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(180deg,var(--accent),#064e47);
+  color:white;
+  box-shadow:0 10px 22px rgba(12,74,70,0.25);
+  transition:.15s;
+}
+.btn:active{
+  transform:translateY(3px);
+  box-shadow:0 5px 12px rgba(12,74,70,0.2);
+}
+
+/* Inputs */
+input, select{
+  width:100%;padding:12px;
+  border-radius:12px;border:1px solid rgba(0,0,0,0.1);
+  background:white;
+  margin-top:6px;margin-bottom:14px;
+}
+
+/* Assignment Items */
+.item{
+  background:white;
+  padding:12px;
+  border-radius:12px;
+  margin:8px 0;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+</style>
 </head>
+
 <body>
-<header class="site-header small">
-  <a href="index.html">&larr; Home</a>
-  <h2>Student Dashboard</h2>
+
+<header class="header">
+  <img src="logo.png" alt="School Logo">
+  <h1>Student Dashboard</h1>
 </header>
-<main class="container">
-  <section class="panel">
-    <h3>Your Results</h3>
-    <div id="resultsArea">Loading results...</div>
-  </section>
 
-  <section class="panel">
-    <h3>Submit Home Task</h3>
-    <form id="taskForm">
-      <label>Title<input id="taskTitle" required></label>
-      <label>Notes<textarea id="taskNotes"></textarea></label>
-      <label>Attach file<input id="taskFile" type="file"></label>
-      <button type="submit" class="btn">Submit</button>
-    </form>
-    <div id="submissionsList"></div>
-  </section>
+<!-- Scrolling notifications -->
+<div class="marquee">
+  <div class="marquee-inner">
+    <span class="marq-item">Welcome Students!</span>
+    <span class="marq-item">Check your latest Assignments here</span>
+    <span class="marq-item">Quiz Section is now Active!</span>
+  </div>
+</div>
 
-  <section class="panel">
-    <h3>Quick Quiz</h3>
-    <div id="quizArea"></div>
-  </section>
+<div class="container">
 
-  <section class="panel">
-    <h3>Leaderboard</h3>
-    <div id="leaderboard"></div>
-  </section>
-</main>
-<script src="assets/js/app.js"></script>
+<!-- ================= LOGIN ================= -->
+<section class="panel" id="loginPanel">
+  <h2>Student Login</h2>
+
+  <label>User ID:
+    <input id="stuUser">
+  </label>
+
+  <label>Password:
+    <input id="stuPass" type="password">
+  </label>
+
+  <button class="btn" onclick="studentLogin()">Login</button>
+</section>
+
+
+<!-- ================= DASHBOARD ================= -->
+<section class="panel" id="studentPanel" style="display:none;">
+  <h2>Welcome, <span id="stuName"></span></h2>
+
+  <label>Select Your Class:
+    <select id="stuClass" onchange="loadAssignments(); loadQuizzes();">
+      <option value="1st">1st</option>
+      <option value="2nd">2nd</option>
+      <option value="3rd">3rd</option>
+      <option value="4th">4th</option>
+      <option value="5th">5th</option>
+    </select>
+  </label>
+</section>
+
+<!-- Assignments -->
+<section class="panel" id="assignPanel" style="display:none;">
+  <h2>Your Assignments</h2>
+  <div id="assignFeed"></div>
+</section>
+
+<!-- Quiz -->
+<section class="panel" id="quizPanel" style="display:none;">
+  <h2>Available Quizzes</h2>
+  <div id="quizFeed"></div>
+</section>
+
+</div>
+
 <script>
-  // sample results - in production fetch from API
-  const sampleResults = [
-    {"subject":"Math","marks":86,"max":100},
-    {"subject":"English","marks":78,"max":100},
-    {"subject":"EVS","marks":91,"max":100}
-  ];
-  const resultsArea = document.getElementById('resultsArea');
-  resultsArea.innerHTML = sampleResults.map(r=>`<div class="result-row"><strong>${r.subject}</strong> — ${r.marks}/${r.max}</div>`).join('');
+/* ================= LOGIN SYSTEM ================= */
+const studentAccounts = [
+  {user:"stu1", pass:"1111", name:"Student 1"},
+  {user:"stu2", pass:"2222", name:"Student 2"}
+];
 
-  // submissions storage demo
-  const submissionsList = document.getElementById('submissionsList');
-  function loadSubmissions(){
-    const subs = JSON.parse(localStorage.getItem('subs')||'[]');
-    if(!subs.length) submissionsList.innerHTML = '<p>No submissions yet.</p>';
-    else submissionsList.innerHTML = subs.map(s=>`<div class="sub-item"><strong>${s.title}</strong> — ${new Date(s.time).toLocaleString()}</div>`).join('');
-  }
-  document.getElementById('taskForm').addEventListener('submit', e=>{
-    e.preventDefault();
-    const title = document.getElementById('taskTitle').value;
-    const notes = document.getElementById('taskNotes').value;
-    const file = document.getElementById('taskFile').files[0];
-    const subs = JSON.parse(localStorage.getItem('subs')||'[]');
-    subs.push({title,notes,time:Date.now(),fileName: file?file.name:null});
-    localStorage.setItem('subs',JSON.stringify(subs));
-    loadSubmissions();
-    alert('Submitted (stored locally in this demo).');
-    e.target.reset();
-  });
-  loadSubmissions();
+function studentLogin(){
+  const u = document.getElementById('stuUser').value;
+  const p = document.getElementById('stuPass').value;
 
-  // simple quiz
-  const quiz = [
-    {q:"What is 7 + 5?",options:["10","12","13"],a:1},
-    {q:"Capital of India?",options:["Mumbai","New Delhi","Kolkata"],a:1}
-  ];
-  const quizArea = document.getElementById('quizArea');
-  function renderQuiz(){
-    quizArea.innerHTML = quiz.map((x,i)=>`
-      <div class="quiz-q"><strong>${i+1}. ${x.q}</strong>
-      ${x.options.map((op,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${op}</label>`).join('')}
-      </div>
-    `).join('') + '<button id="submitQuiz" class="btn">Submit Quiz</button>';
-    document.getElementById('submitQuiz').addEventListener('click',()=>{
-      let score=0;
-      quiz.forEach((x,i)=>{ const sel = document.querySelector('input[name=q'+i+']:checked'); if(sel && parseInt(sel.value)===x.a) score++;});
-      // store leaderboard
-      const lb = JSON.parse(localStorage.getItem('leader')||'[]');
-      lb.push({name:'You',score,when:Date.now()});
-      localStorage.setItem('leader',JSON.stringify(lb));
-      alert('You scored '+score+'/'+quiz.length);
-      renderLeaderboard();
-    });
-  }
-  renderQuiz();
+  const found = studentAccounts.find(s => s.user===u && s.pass===p);
 
-  function renderLeaderboard(){
-    const lb = JSON.parse(localStorage.getItem('leader')||'[]');
-    lb.sort((a,b)=>b.score-a.score);
-    const top = lb.slice(0,10);
-    document.getElementById('leaderboard').innerHTML = top.length ? top.map((p,i)=>`<div>${i+1}. ${p.name} — ${p.score}</div>`).join('') : '<p>No entries yet.</p>';
+  if(!found){ alert("Invalid User ID or Password"); return; }
+
+  document.getElementById('stuName').innerText = found.name;
+
+  document.getElementById('loginPanel').style.display="none";
+  document.getElementById('studentPanel').style.display="block";
+  document.getElementById('assignPanel').style.display="block";
+  document.getElementById('quizPanel').style.display="block";
+
+  loadAssignments();
+  loadQuizzes();
+}
+
+/* ================= LOAD ASSIGNMENTS ================= */
+function loadAssignments(){
+  const cls = document.getElementById('stuClass').value;
+  const feed = document.getElementById('assignFeed');
+
+  const tasks = JSON.parse(localStorage.getItem('teacherTasks')||'[]')
+    .filter(t => t.class === cls);
+
+  if(!tasks.length){
+    feed.innerHTML = "<p>No assignments for your class.</p>";
+    return;
   }
-  renderLeaderboard();
+
+  feed.innerHTML = tasks.map(t=>`
+    <div class="item">
+      <strong>${t.title}</strong><br>
+      <small>${new Date(t.time).toLocaleString()}</small><br><br>
+      ${t.details}
+    </div>
+  `).join('');
+}
+
+/* ================= LOAD QUIZZES ================= */
+function loadQuizzes(){
+  const cls = document.getElementById('stuClass').value;
+  const feed = document.getElementById('quizFeed');
+
+  const quizzes = JSON.parse(localStorage.getItem('teacherQuizzes')||'[]')
+    .filter(q => q.class === cls);
+
+  if(!quizzes.length){
+    feed.innerHTML = "<p>No quizzes available for your class.</p>";
+    return;
+  }
+
+  feed.innerHTML = quizzes.map((q,i)=>`
+    <div class="item">
+      <strong>${q.title}</strong><br><br>
+      ${q.question}<br><br>
+      <button class="btn" onclick="attemptQuiz(${i})">Attempt Quiz</button>
+    </div>
+  `).join('');
+}
+
+function attemptQuiz(i){
+  const cls = document.getElementById('stuClass').value;
+  const quizzes = JSON.parse(localStorage.getItem('teacherQuizzes')||'[]')
+    .filter(q => q.class === cls);
+
+  const q = quizzes[i];
+  let ans = prompt(
+    `${q.question}\nA) ${q.optionA}\nB) ${q.optionB}\nC) ${q.optionC}\n\nEnter A, B or C:`
+  );
+
+  if(!ans) return;
+
+  ans = ans.toUpperCase();
+
+  if(ans === q.correct){
+    alert("Correct Answer! 🎉");
+  } else {
+    alert("Wrong Answer ❌  Correct: " + q.correct);
+  }
+}
+</script>
+
+</body>
+</html>
 </script>
 </body>
 </html>
