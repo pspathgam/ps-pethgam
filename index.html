@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>School Portal Prototype - Home</title>
+  <title>School Portal Prototype - Home (Style 3)</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -24,7 +24,7 @@
       <h2>Free cross-device school portal prototype</h2>
       <p>Students can view results, submit home tasks, take quizzes, and view leaderboard. Teachers can assign tasks and mark submissions. Includes a face-capture attendance demo that saves photos locally and records timestamps.</p>
       <div class="cta-row">
-        <a class="btn" href="student.html">Open Student Dashboard</a>
+        <a class="btn btn.b-coral" href="student.html">Open Student Dashboard</a>
         <a class="btn secondary" href="teacher.html">Open Teacher Dashboard</a>
       </div>
     </section>
@@ -32,9 +32,7 @@
     <section class="news">
       <h3>Scrolling News & Events</h3>
       <div class="marquee">
-        <div class="marquee-inner" id="newsMarquee">
-          <!-- JS will populate -->
-        </div>
+        <div class="marquee-inner" id="newsMarquee"></div>
       </div>
     </section>
 
@@ -60,14 +58,13 @@
 
   <script src="assets/js/app.js"></script>
   <script>
-    // sample news
     const news = [
       "Winter holiday starts on December 20, 2025.",
       "Parent-Teacher meeting: January 10, 2026 at 10:00 AM.",
       "Mid-term exam timetable uploaded."
     ];
     const marquee = document.getElementById('newsMarquee');
-    marquee.innerHTML = news.map(n => '<span class="marquee-item">' + n + '</span>').join(' <span class="sep">•</span> ');
+    marquee.innerHTML = news.map(n => '<span class=\"marquee-item\">' + n + '</span>').join(' <span class=\"sep\">•</span> ');
   </script>
 </body>
 </html>
