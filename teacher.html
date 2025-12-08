@@ -6,9 +6,6 @@
 <title>Teacher Panel – Government Primary School Pethgam Wagoora</title>
 
 <style>
-/* ============================
-   Colour Style 3 + Background Animation 2 + 3D Buttons
-   ============================= */
 :root{
   --accent: #0f766e;
   --accent2:#ff6b6b;
@@ -25,7 +22,6 @@ html,body{
   color:#042;
 }
 
-/* Background Animated Blobs */
 body::before, body::after{
   content:"";
   position:fixed;
@@ -48,13 +44,11 @@ body::after{
               radial-gradient(circle at 80% 80%, rgba(15,118,110,0.08), transparent 35%);
   animation:blobmove 14s ease-in-out infinite alternate-reverse;
 }
-
 @keyframes blobmove{
   from{transform:translateY(0) scale(1) rotate(0deg)}
   to{transform:translateY(18px) scale(1.06) rotate(6deg)}
 }
 
-/* Header */
 .header{
   display:flex;align-items:center;
   padding:14px 18px;
@@ -69,12 +63,8 @@ body::after{
   display:flex;align-items:center;justify-content:center;
   font-weight:900;font-size:18px;
 }
-.header h1{
-  margin-left:12px;
-  font-size:21px;
-}
+.header h1{margin-left:12px;font-size:21px;}
 
-/* Scrolling notification bar */
 .marquee{
   overflow:hidden;
   border-radius:12px;
@@ -95,22 +85,10 @@ body::after{
   font-weight:700;
   color:#064;
 }
-@keyframes marq{
-  0%{transform:translateX(100%)}
-  100%{transform:translateX(-100%)}
-}
-.marquee:hover .marquee-inner{
-  animation-play-state:paused;
-}
+@keyframes marq{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+.marquee:hover .marquee-inner{animation-play-state:paused;}
 
-/* Container */
-.container{
-  max-width:900px;
-  margin:20px auto;
-  padding:16px;
-}
-
-/* Card panels */
+.container{max-width:900px;margin:20px auto;padding:16px;}
 .panel{
   background:var(--card-bg);
   padding:16px;
@@ -120,7 +98,6 @@ body::after{
   margin-top:18px;
 }
 
-/* 3D Buttons */
 .btn{
   display:inline-block;
   padding:12px 18px;
@@ -132,16 +109,9 @@ body::after{
   box-shadow:0 10px 20px rgba(12,74,70,0.2);
   color:white;
 }
-.btn:active{
-  transform:translateY(3px);
-  box-shadow:0 4px 10px rgba(12,74,70,0.15);
-}
-.btn-coral{
-  background:linear-gradient(180deg,var(--accent2),#e05555);
-  box-shadow:0 10px 22px rgba(224,85,85,0.2);
-}
+.btn:active{transform:translateY(3px);box-shadow:0 4px 10px rgba(12,74,70,0.15);}
+.btn-coral{background:linear-gradient(180deg,var(--accent2),#e05555);box-shadow:0 10px 22px rgba(224,85,85,0.2);}
 
-/* Inputs */
 label{font-weight:600;margin:8px 0;display:block;color:#064e47;}
 input,textarea,select{
   width:100%;padding:12px;
@@ -150,7 +120,6 @@ input,textarea,select{
   background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(248,248,248,0.92));
 }
 
-/* Task & Quiz feed */
 .task-item, .quiz-item{
   background:white;
   padding:12px;
@@ -164,7 +133,6 @@ small{color:var(--muted);}
 </head>
 
 <body>
-
 <header class="header">
   <div class="logo">GPSP</div>
   <h1>Teacher Dashboard</h1>
@@ -180,170 +148,131 @@ small{color:var(--muted);}
 
 <div class="container">
 
-  <!-- Publish Assignment -->
-  <section class="panel">
-    <h2>Publish New Assignment</h2>
-    <form id="assignForm">
-      <label>Assignment Title:
-        <input id="assignTitle" required>
-      </label>
+<!-- Assignments -->
+<section class="panel">
+<h2>Publish New Assignment</h2>
+<form id="assignForm">
+<label>Assignment Title:<input id="assignTitle" required></label>
 
-      <label>For Class:
-        <select id="assignClass">
-          <option>1st</option>
-          <option>2nd</option>
-          <option>3rd</option>
-          <option>4th</option>
-          <option>5th</option>
-        </select>
-      </label>
+<label>For Class:
+<select id="assignClass">
+<option>1st</option><option>2nd</option><option>3rd</option>
+<option>4th</option><option>5th</option></select></label>
 
-      <label>Details:
-        <textarea id="assignDetails" rows="4"></textarea>
-      </label>
+<label>Subject:
+<select id="assignSubject">
+<option>Mathematics</option><option>English</option><option>EVS</option>
+<option>Urdu</option><option>Kashmiri</option></select></label>
 
-      <button type="submit" class="btn btn-coral">Publish Assignment</button>
-    </form>
-  </section>
+<label>Details:<textarea id="assignDetails" rows="4"></textarea></label>
 
-  <!-- Assignment Feed -->
-  <section class="panel">
-    <h2>Published Assignments</h2>
-    <div id="taskFeed"></div>
-  </section>
+<button type="submit" class="btn btn-coral">Publish Assignment</button>
+</form>
+</section>
 
-  <!-- Publish Quiz -->
-  <section class="panel">
-    <h2>Publish New Quiz</h2>
-    <form id="quizForm">
-      <label>Quiz Title:
-        <input id="quizTitle" required>
-      </label>
+<section class="panel">
+<h2>Published Assignments</h2>
+<div id="taskFeed"></div>
+</section>
 
-      <label>For Class:
-        <select id="quizClass">
-          <option>1st</option>
-          <option>2nd</option>
-          <option>3rd</option>
-          <option>4th</option>
-          <option>5th</option>
-        </select>
-      </label>
+<!-- Quizzes -->
+<section class="panel">
+<h2>Publish New Quiz</h2>
+<form id="quizForm">
+<label>Quiz Title:<input id="quizTitle" required></label>
 
-      <label>Question:
-        <input id="quizQuestion" placeholder="Enter question" required>
-      </label>
+<label>For Class:
+<select id="quizClass">
+<option>1st</option><option>2nd</option><option>3rd</option>
+<option>4th</option><option>5th</option></select></label>
 
-      <label>Option A:
-        <input id="quizOptionA" required>
-      </label>
-      <label>Option B:
-        <input id="quizOptionB" required>
-      </label>
-      <label>Option C:
-        <input id="quizOptionC" required>
-      </label>
+<label>Subject:
+<select id="quizSubject">
+<option>Mathematics</option><option>English</option><option>EVS</option>
+<option>Urdu</option><option>Kashmiri</option></select></label>
 
-      <label>Correct Option:
-        <select id="quizCorrect">
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-        </select>
-      </label>
+<label>Question:<input id="quizQuestion" placeholder="Enter question" required></label>
+<label>Option A:<input id="quizOptionA" required></label>
+<label>Option B:<input id="quizOptionB" required></label>
+<label>Option C:<input id="quizOptionC" required></label>
 
-      <button type="submit" class="btn btn-coral">Publish Quiz</button>
-    </form>
-  </section>
+<label>Correct Option:
+<select id="quizCorrect"><option value="A">A</option><option value="B">B</option><option value="C">C</option></select>
+</label>
 
-  <!-- Quiz Feed -->
-  <section class="panel">
-    <h2>Published Quizzes</h2>
-    <div id="quizFeed"></div>
-  </section>
+<button type="submit" class="btn btn-coral">Publish Quiz</button>
+</form>
+</section>
+
+<section class="panel">
+<h2>Published Quizzes</h2>
+<div id="quizFeed"></div>
+</section>
 
 </div>
 
 <script>
-/* ========== STORE & LOAD ASSIGNMENTS ========= */
+/* Assignments */
 function loadTasks(){
-  const tasks = JSON.parse(localStorage.getItem('teacherTasks')||'[]');
-  const area = document.getElementById('taskFeed');
-
-  if(!tasks.length){
-    area.innerHTML = "<p>No assignments posted yet.</p>";
-    return;
-  }
-
-  area.innerHTML = tasks.map(t=>`
-    <div class="task-item">
-      <strong>${t.title}</strong> <br>
-      Class: ${t.class} <br>
-      <small>${new Date(t.time).toLocaleString()}</small><br><br>
-      ${t.details}
-    </div>
-  `).join('');
+const tasks=JSON.parse(localStorage.getItem('teacherTasks')||'[]');
+const area=document.getElementById('taskFeed');
+if(!tasks.length){area.innerHTML="<p>No assignments posted yet.</p>";return;}
+area.innerHTML=tasks.map(t=>`
+<div class="task-item">
+<strong>${t.title}</strong><br>
+Class: ${t.class} | Subject: ${t.subject}<br>
+<small>${new Date(t.time).toLocaleString()}</small><br><br>${t.details}
+</div>`).join('');
 }
 
-document.getElementById('assignForm').addEventListener('submit', e=>{
-  e.preventDefault();
-  const title = document.getElementById('assignTitle').value;
-  const cls = document.getElementById('assignClass').value;
-  const det = document.getElementById('assignDetails').value;
-
-  const tasks = JSON.parse(localStorage.getItem('teacherTasks')||'[]');
-  tasks.unshift({title, class:cls, details:det, time:Date.now()});
-  localStorage.setItem('teacherTasks', JSON.stringify(tasks));
-
-  loadTasks();
-  alert("Assignment Published Successfully!");
-  e.target.reset();
+document.getElementById('assignForm').addEventListener('submit',e=>{
+e.preventDefault();
+const title=document.getElementById('assignTitle').value;
+const cls=document.getElementById('assignClass').value;
+const subj=document.getElementById('assignSubject').value;
+const det=document.getElementById('assignDetails').value;
+const tasks=JSON.parse(localStorage.getItem('teacherTasks')||'[]');
+tasks.unshift({title,class:cls,subject:subj,details:det,time:Date.now()});
+localStorage.setItem('teacherTasks',JSON.stringify(tasks));
+loadTasks();
+alert("Assignment Published Successfully!");
+e.target.reset();
 });
-
 loadTasks();
 
-/* ========== STORE & LOAD QUIZZES ========= */
+/* Quizzes */
 function loadQuizzes(){
-  const quizzes = JSON.parse(localStorage.getItem('teacherQuizzes')||'[]');
-  const area = document.getElementById('quizFeed');
-
-  if(!quizzes.length){
-    area.innerHTML = "<p>No quizzes published yet.</p>";
-    return;
-  }
-
-  area.innerHTML = quizzes.map(q=>`
-    <div class="quiz-item">
-      <strong>${q.title}</strong> <br>
-      Class: ${q.class} <br>
-      Q: ${q.question}<br>
-      Options: A) ${q.optionA} | B) ${q.optionB} | C) ${q.optionC} <br>
-      Correct: ${q.correct}
-    </div>
-  `).join('');
+const quizzes=JSON.parse(localStorage.getItem('teacherQuizzes')||'[]');
+const area=document.getElementById('quizFeed');
+if(!quizzes.length){area.innerHTML="<p>No quizzes published yet.</p>";return;}
+area.innerHTML=quizzes.map(q=>`
+<div class="quiz-item">
+<strong>${q.title}</strong><br>
+Class: ${q.class} | Subject: ${q.subject}<br>
+Q: ${q.question}<br>
+Options: A) ${q.optionA} | B) ${q.optionB} | C) ${q.optionC}<br>
+Correct: ${q.correct}
+</div>`).join('');
 }
 
-document.getElementById('quizForm').addEventListener('submit', e=>{
-  e.preventDefault();
-  const title = document.getElementById('quizTitle').value;
-  const cls = document.getElementById('quizClass').value;
-  const question = document.getElementById('quizQuestion').value;
-  const optionA = document.getElementById('quizOptionA').value;
-  const optionB = document.getElementById('quizOptionB').value;
-  const optionC = document.getElementById('quizOptionC').value;
-  const correct = document.getElementById('quizCorrect').value;
-
-  const quizzes = JSON.parse(localStorage.getItem('teacherQuizzes')||'[]');
-  quizzes.unshift({title, class:cls, question, optionA, optionB, optionC, correct, time:Date.now()});
-  localStorage.setItem('teacherQuizzes', JSON.stringify(quizzes));
-
-  loadQuizzes();
-  alert("Quiz Published Successfully!");
-  e.target.reset();
+document.getElementById('quizForm').addEventListener('submit',e=>{
+e.preventDefault();
+const title=document.getElementById('quizTitle').value;
+const cls=document.getElementById('quizClass').value;
+const subj=document.getElementById('quizSubject').value;
+const question=document.getElementById('quizQuestion').value;
+const optionA=document.getElementById('quizOptionA').value;
+const optionB=document.getElementById('quizOptionB').value;
+const optionC=document.getElementById('quizOptionC').value;
+const correct=document.getElementById('quizCorrect').value;
+const quizzes=JSON.parse(localStorage.getItem('teacherQuizzes')||'[]');
+quizzes.unshift({title,class:cls,subject:subj,question,optionA,optionB,optionC,correct,time:Date.now()});
+localStorage.setItem('teacherQuizzes',JSON.stringify(quizzes));
+loadQuizzes();
+alert("Quiz Published Successfully!");
+e.target.reset();
 });
-
 loadQuizzes();
 </script>
-
 </body>
 </html>
