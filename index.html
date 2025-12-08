@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>School Portal Prototype - Home</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <img src="assets/logo-placeholder.png" alt="School Logo" class="logo">
+    <h1>Government Primary School Pethgam Wagoora</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="student.html">Student</a>
+      <a href="teacher.html">Teacher</a>
+      <a href="attendance.html">Attendance</a>
+      <a href="templates/marksheet.html">Templates</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>Free cross-device school portal prototype</h2>
+      <p>Students can view results, submit home tasks, take quizzes, and view leaderboard. Teachers can assign tasks and mark submissions. Includes a face-capture attendance demo that saves photos locally and records timestamps.</p>
+      <div class="cta-row">
+        <a class="btn" href="student.html">Open Student Dashboard</a>
+        <a class="btn secondary" href="teacher.html">Open Teacher Dashboard</a>
+      </div>
+    </section>
+
+    <section class="news">
+      <h3>Scrolling News & Events</h3>
+      <div class="marquee">
+        <div class="marquee-inner" id="newsMarquee">
+          <!-- JS will populate -->
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="card">
+        <h4>Results</h4>
+        <p>Students check marks online from home.</p>
+      </div>
+      <div class="card">
+        <h4>Assignments</h4>
+        <p>Submit tasks, teachers assign from home.</p>
+      </div>
+      <div class="card">
+        <h4>Attendance</h4>
+        <p>Face-capture attendance demo (no facial recognition; only capture & record).</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Prototype — demo only. See README for production steps.</small>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+  <script>
+    // sample news
+    const news = [
+      "Winter holiday starts on December 20, 2025.",
+      "Parent-Teacher meeting: January 10, 2026 at 10:00 AM.",
+      "Mid-term exam timetable uploaded."
+    ];
+    const marquee = document.getElementById('newsMarquee');
+    marquee.innerHTML = news.map(n => '<span class="marquee-item">' + n + '</span>').join(' <span class="sep">•</span> ');
+  </script>
+</body>
+</html>
