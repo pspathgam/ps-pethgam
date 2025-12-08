@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Student Dashboard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-header small">
+  <a href="index.html">&larr; Home</a>
+  <h2>Student Dashboard</h2>
+</header>
+<main class="container">
+  <section class="panel">
+    <h3>Your Results</h3>
+    <div id="resultsArea">Loading results...</div>
+  </section>
+
+  <section class="panel">
+    <h3>Submit Home Task</h3>
+    <form id="taskForm">
+      <label>Title<input id="taskTitle" required></label>
+      <label>Notes<textarea id="taskNotes"></textarea></label>
+      <label>Attach file<input id="taskFile" type="file"></label>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+    <div id="submissionsList"></div>
+  </section>
+
+  <section class="panel">
+    <h3>Quick Quiz</h3>
+    <div id="quizArea"></div>
+  </section>
+
+  <section class="panel">
+    <h3>Leaderboard</h3>
+    <div id="leaderboard"></div>
+  </section>
+</main>
+<script src="assets/js/app.js"></script>
+<script>
+  // sample results - in production fetch from API
+  const sampleResults = [
+    {"subject":"Math","marks":86,"max":100},
+    {"subject":"English","marks":78,"max":100},
+    {"subject":"EVS","marks":91,"max":100}
+  ];
+  const resultsArea = document.getElementById('resultsArea');
+  resultsArea.innerHTML = sampleResults.map(r=>`<div class="result-row"><strong>${r.subject}</strong> — ${r.marks}/${r.max}</div>`).join('');
+
+  // submissions storage demo
+  const submissionsList = document.getElementById('submissionsList');
+  function loadSubmissions(){
+    const subs = JSON.parse(localStorage.getItem('subs')||'[]');
+    if(!subs.length) submissionsList.innerHTML = '<p>No submissions yet.</p>';
+    else submissionsList.innerHTML = subs.map(s=>`<div class="sub-item"><strong>${s.title}</strong> — ${new Date(s.time).toLocaleString()}</div>`).join('');
+  }
+  document.getElementById('taskForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const title = document.getElementById('taskTitle').value;
+    const notes = document.getElementById('taskNotes').value;
+    const file = document.getElementById('taskFile').files[0];
+    const subs = JSON.parse(localStorage.getItem('subs')||'[]');
+    subs.push({title,notes,time:Date.now(),fileName: file?file.name:null});
+    localStorage.setItem('subs',JSON.stringify(subs));
+    loadSubmissions();
+    alert('Submitted (stored locally in this demo).');
+    e.target.reset();
+  });
+  loadSubmissions();
+
+  // simple quiz
+  const quiz = [
+    {q:"What is 7 + 5?",options:["10","12","13"],a:1},
+    {q:"Capital of India?",options:["Mumbai","New Delhi","Kolkata"],a:1}
+  ];
+  const quizArea = document.getElementById('quizArea');
+  function renderQuiz(){
+    quizArea.innerHTML = quiz.map((x,i)=>`
+      <div class="quiz-q"><strong>${i+1}. ${x.q}</strong>
+      ${x.options.map((op,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${op}</label>`).join('')}
+      </div>
+    `).join('') + '<button id="submitQuiz" class="btn">Submit Quiz</button>';
+    document.getElementById('submitQuiz').addEventListener('click',()=>{
+      let score=0;
+      quiz.forEach((x,i)=>{ const sel = document.querySelector('input[name=q'+i+']:checked'); if(sel && parseInt(sel.value)===x.a) score++;});
+      // store leaderboard
+      const lb = JSON.parse(localStorage.getItem('leader')||'[]');
+      lb.push({name:'You',score,when:Date.now()});
+      localStorage.setItem('leader',JSON.stringify(lb));
+      alert('You scored '+score+'/'+quiz.length);
+      renderLeaderboard();
+    });
+  }
+  renderQuiz();
+
+  function renderLeaderboard(){
+    const lb = JSON.parse(localStorage.getItem('leader')||'[]');
+    lb.sort((a,b)=>b.score-a.score);
+    const top = lb.slice(0,10);
+    document.getElementById('leaderboard').innerHTML = top.length ? top.map((p,i)=>`<div>${i+1}. ${p.name} — ${p.score}</div>`).join('') : '<p>No entries yet.</p>';
+  }
+  renderLeaderboard();
+</script>
+</body>
+</html>
