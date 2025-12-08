@@ -292,6 +292,57 @@ document.getElementById('assignForm').addEventListener('submit', e=>{
 
 loadTasks();
 
+<!-- Publish Quiz -->
+<section class="panel">
+  <h2>Publish New Quiz</h2>
+  <form id="quizForm">
+    <label>Quiz Title:
+      <input id="quizTitle" required>
+    </label>
+
+    <label>For Class:
+      <select id="quizClass">
+        <option>1st</option>
+        <option>2nd</option>
+        <option>3rd</option>
+        <option>4th</option>
+        <option>5th</option>
+      </select>
+    </label>
+
+    <label>Question:
+      <input id="quizQuestion" placeholder="Enter question" required>
+    </label>
+
+    <label>Option A:
+      <input id="quizOptionA" required>
+    </label>
+    <label>Option B:
+      <input id="quizOptionB" required>
+    </label>
+    <label>Option C:
+      <input id="quizOptionC" required>
+    </label>
+
+    <label>Correct Option:
+      <select id="quizCorrect">
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+      </select>
+    </label>
+
+    <button type="submit" class="btn btn-coral">Publish Quiz</button>
+  </form>
+</section>
+
+<!-- Quiz Feed -->
+<section class="panel">
+  <h2>Published Quizzes</h2>
+  <div id="quizFeed"></div>
+</section>
+
+<script>
 /* ========== STORE & LOAD QUIZZES ========= */
 function loadQuizzes(){
   const quizzes = JSON.parse(localStorage.getItem('teacherQuizzes')||'[]');
@@ -304,7 +355,8 @@ function loadQuizzes(){
 
   area.innerHTML = quizzes.map(q=>`
     <div class="quiz-item">
-      <strong>${q.title}</strong><br>
+      <strong>${q.title}</strong> <br>
+      Class: ${q.class} <br>
       Q: ${q.question}<br>
       Options: A) ${q.optionA} | B) ${q.optionB} | C) ${q.optionC} <br>
       Correct: ${q.correct}
@@ -315,6 +367,7 @@ function loadQuizzes(){
 document.getElementById('quizForm').addEventListener('submit', e=>{
   e.preventDefault();
   const title = document.getElementById('quizTitle').value;
+  const cls = document.getElementById('quizClass').value;
   const question = document.getElementById('quizQuestion').value;
   const optionA = document.getElementById('quizOptionA').value;
   const optionB = document.getElementById('quizOptionB').value;
@@ -322,7 +375,7 @@ document.getElementById('quizForm').addEventListener('submit', e=>{
   const correct = document.getElementById('quizCorrect').value;
 
   const quizzes = JSON.parse(localStorage.getItem('teacherQuizzes')||'[]');
-  quizzes.unshift({title, question, optionA, optionB, optionC, correct, time:Date.now()});
+  quizzes.unshift({title, class:cls, question, optionA, optionB, optionC, correct, time:Date.now()});
   localStorage.setItem('teacherQuizzes', JSON.stringify(quizzes));
 
   loadQuizzes();
@@ -332,6 +385,7 @@ document.getElementById('quizForm').addEventListener('submit', e=>{
 
 loadQuizzes();
 </script>
+
 
 </body>
 </html>
