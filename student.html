@@ -1,73 +1,131 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Student Dashboard</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Student Dashboard - Demo</title>
 <style>
-:root{--accent:#0f766e;--card-bg:rgba(255,255,255,0.94);--muted:#6b7280}*{box-sizing:border-box}body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:linear-gradient(120deg,#f3fbfa,#fff);color:#072}
-.header{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(90deg,var(--accent),#06b6d4);color:#fff}
-.logo img{width:52px;height:52px;border-radius:8px}
-.container{max-width:900px;margin:20px auto;padding:16px}
-.panel{background:var(--card-bg);padding:14px;border-radius:12px;box-shadow:0 12px 30px rgba(2,6,23,0.06);margin-bottom:14px}
-label{display:block;margin:8px 0;font-weight:700;color:#0b534e}input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(7,22,20,0.06)}
-.btn{display:inline-block;padding:10px 14px;border-radius:12px;border:none;cursor:pointer;color:#fff;background:linear-gradient(180deg,var(--accent),#064e47);font-weight:800}
-.small{font-size:0.9rem;color:var(--muted)}
-.feed-item{background:#fff;padding:10px;border-radius:10px;margin:8px 0;box-shadow:0 6px 16px rgba(2,6,23,0.04)}
-.center{max-width:480px;margin:40px auto}
-.hidden{display:none!important}
-</style></head><body>
+  :root{--accent:#0f766e;--accent2:#ff6b6b;--card:#fff;--muted:#6b7280}
+  body{font-family:Inter,system-ui,Arial;margin:0;background:linear-gradient(135deg,#f0faff,#fff8f3);color:#052}
+  .header{display:flex;align-items:center;gap:12px;padding:12px 18px;background:linear-gradient(90deg,var(--accent),#06b6d4);color:#fff}
+  .logo{width:46px;height:46px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:800}
+  .container{max-width:1000px;margin:18px auto;padding:16px}
+  .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 12px 30px rgba(2,6,23,0.06);margin-bottom:12px}
+  label{display:block;margin:8px 0;font-weight:700;color:#064e47}
+  input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(7,22,20,0.06)}
+  .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:none;background:linear-gradient(180deg,var(--accent),#064e47);color:#fff;font-weight:800;cursor:pointer}
+  .feed-item{padding:10px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfdff);margin-bottom:8px}
+  .small{font-size:0.9rem;color:var(--muted)}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">GPSP</div>
+  <div style="font-weight:800">Student Portal</div>
+</header>
 
-<!-- student login -->
-<div id="loginPanel" class="center panel">
-  <h2>Student Login</h2>
-  <form id="sLogin">
-    <label>User ID<input id="sUser" required></label>
-    <label>Password<input id="sPass" type="password" required></label>
-    <div style="display:flex;gap:8px"><button class="btn" type="submit">Login</button></div>
-    <p class="small">Demo: <strong>student1 / abcd</strong></p>
-  </form>
-</div>
+<div class="container">
+  <div id="loginPanel" class="card" style="max-width:520px;margin:22px auto">
+    <h3>Student Login</h3>
+    <form id="loginForm">
+      <label>User ID<input id="userId" required></label>
+      <label>Password<input id="password" type="password" required></label>
+      <div style="margin-top:8px"><button class="btn" type="submit">Sign In</button></div>
+      <p class="small">Demo: <strong>student1 / abcd</strong></p>
+    </form>
+  </div>
 
-<!-- dashboard -->
-<div id="dashboard" class="hidden">
-  <header class="header"><div class="logo"><img src="logo.png"></div><h1>Student Dashboard</h1></header>
-  <div class="container">
-    <section class="panel"><h3>Your Results</h3><div id="results"><p class="small">No results (demo)</p></div></section>
-    <section class="panel"><h3>Available Quizzes</h3><div id="availableQuizzes"></div></section>
-    <section class="panel"><h3>Your Submissions</h3><div id="subs"></div></section>
+  <div id="dashboard" class="hidden">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 id="welcome">Welcome</h3>
+        <div><button id="logoutBtn" class="btn" style="background:linear-gradient(180deg,#475569,#2b3440)">Logout</button></div>
+      </div>
+      <p class="small">Class: <strong id="stuClass">4th</strong></p>
+    </div>
+
+    <div class="card">
+      <h4>Your Assignments</h4>
+      <div id="assignList" class="small">Loading...</div>
+    </div>
+
+    <div class="card">
+      <h4>Available Quizzes</h4>
+      <div id="quizList">Loading...</div>
+    </div>
+
+    <div class="card">
+      <h4>Your Submissions</h4>
+      <div id="subsList">Loading...</div>
+    </div>
   </div>
 </div>
 
 <script>
-/* demo student credentials and class */
-const demoStudent = { user:'student1', pass:'abcd', class:'4th' };
-document.getElementById('sLogin').addEventListener('submit', e=>{
-  e.preventDefault();
-  const u=document.getElementById('sUser').value, p=document.getElementById('sPass').value;
-  if(u===demoStudent.user && p===demoStudent.pass){ document.getElementById('loginPanel').classList.add('hidden'); document.getElementById('dashboard').classList.remove('hidden'); loadAvailable(); loadSubs(); } else { alert('Invalid student credentials'); }
-});
+  // Demo student
+  const demo = {user:'student1', pass:'abcd', class:'4th'};
+  document.getElementById('loginForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const u = document.getElementById('userId').value;
+    const p = document.getElementById('password').value;
+    if(u === demo.user && p === demo.pass){
+      document.getElementById('loginPanel').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      document.getElementById('welcome').textContent = 'Welcome, ' + u;
+      document.getElementById('stuClass').textContent = demo.class;
+      loadAssignments(); loadQuizzes(); loadSubs();
+    } else alert('Invalid credentials (demo).');
+  });
 
-function loadAvailable(){
-  const qs = JSON.parse(localStorage.getItem('teacherQuizzes')||'[]');
-  const avail = qs.filter(q => q.class === demoStudent.class || q.class==='All');
-  const area = document.getElementById('availableQuizzes');
-  if(!avail.length){ area.innerHTML = '<p class="small">No quizzes for your class</p>'; return; }
-  area.innerHTML = avail.map((q,i)=>`<div class="feed-item"><strong>${q.title}</strong><div class="small">${q.class} | ${q.subject}</div><p>Q: ${q.question}</p><div><button class="btn" onclick="take(${i})">Take</button></div></div>`).join('');
-  window.__avail = avail;
-}
+  document.getElementById('logoutBtn').addEventListener('click', ()=> location.reload());
 
-function take(i){
-  const q = window.__avail[i];
-  const ans = prompt('Answer (A/B/C) for: ' + q.question);
-  if(!ans) return;
-  const subs = JSON.parse(localStorage.getItem('studentSubs')||'[]');
-  subs.unshift({ student:demoStudent.user, quizTitle:q.title, answer:ans.toUpperCase(), correct:q.correct, time:Date.now(), class:q.class, subject:q.subject});
-  localStorage.setItem('studentSubs', JSON.stringify(subs));
-  alert('Submitted (local demo)');
-  loadSubs();
-}
-function loadSubs(){
-  const subs = JSON.parse(localStorage.getItem('studentSubs')||'[]').filter(s=>s.student===demoStudent.user);
-  const area = document.getElementById('subs');
-  if(!subs.length){ area.innerHTML = '<p class="small">No submissions yet</p>'; return; }
-  area.innerHTML = subs.map(s=>`<div class="feed-item"><strong>${s.quizTitle}</strong><div class="small">Answer: ${s.answer} | Correct: ${s.correct} | ${new Date(s.time).toLocaleString()}</div></div>`).join('');
-}
+  // load assignments for class
+  function loadAssignments(){
+    const tasks = JSON.parse(localStorage.getItem('teacherTasks') || '[]');
+    const my = tasks.filter(t => t.class === demo.class);
+    const area = document.getElementById('assignList');
+    area.innerHTML = my.length ? my.map(a=>`<div class="feed-item"><strong>${a.title}</strong><div class="small">${a.class} • ${a.subject} • ${a.due?('Due: '+a.due):''}</div><p class="small">${a.details}</p></div>`).join('') : '<div class="small">No assignments for your class.</div>';
+  }
+
+  // load quizzes for class
+  function loadQuizzes(){
+    const qs = JSON.parse(localStorage.getItem('teacherQuizzes') || '[]');
+    const my = qs.filter(q => q.class === demo.class);
+    const area = document.getElementById('quizList');
+    if(!my.length) { area.innerHTML = '<div class="small">No quizzes for your class.</div>'; return; }
+    area.innerHTML = my.map((q, idx) => `
+      <div class="feed-item">
+        <strong>${q.title}</strong>
+        <div class="small">${q.class} • ${q.subject} • ${q.due?('Due: '+q.due):''}</div>
+        <p class="small">${q.question}</p>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn" onclick="submitAnswer(${idx},'A')">A) ${q.optionA}</button>
+          <button class="btn" onclick="submitAnswer(${idx},'B')">B) ${q.optionB}</button>
+          <button class="btn" onclick="submitAnswer(${idx},'C')">C) ${q.optionC}</button>
+        </div>
+      </div>`).join('');
+    // store current filtered quizzes for submission indexes
+    window.__quizzes = my;
+  }
+
+  function submitAnswer(index, choice){
+    const q = window.__quizzes[index];
+    if(!q) return alert('Quiz not found.');
+    const answer = String(choice).trim().toUpperCase();
+    const correct = String(q.correct || '').trim().toUpperCase();
+    const subs = JSON.parse(localStorage.getItem('studentSubs') || '[]');
+    subs.unshift({student:demo.user, quizTitle:q.title, answer:answer, correct:correct, time:Date.now()});
+    localStorage.setItem('studentSubs', JSON.stringify(subs));
+    alert('Submitted. Your answer: ' + answer + (answer === correct ? ' (Correct)' : ' (Wrong)'));
+    loadSubs();
+  }
+
+  function loadSubs(){
+    const subs = JSON.parse(localStorage.getItem('studentSubs') || '[]').filter(s => s.student === demo.user);
+    const area = document.getElementById('subsList');
+    area.innerHTML = subs.length ? subs.map(s => `<div class="feed-item"><strong>${s.quizTitle}</strong><div class="small">Answer: ${s.answer} • Correct: ${s.correct} • ${new Date(s.time).toLocaleString()}</div></div>`).join('') : '<div class="small">No submissions yet.</div>';
+  }
 </script>
-</body></html>
-</html>        
+</body>
+</html>
