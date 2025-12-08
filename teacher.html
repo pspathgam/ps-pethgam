@@ -171,10 +171,24 @@
 
         <!-- Quiz -->
         <h3 class="section-title">Publish Quiz</h3>
-        <input type="text" placeholder="Quiz Title" id="quizTitle">
-        <textarea placeholder="Enter Question" id="quizQuestion"></textarea>
-        <input type="text" placeholder="Correct Answer" id="quizAnswer">
-        <button class="btn" onclick="publishQuiz()">Publish Quiz</button>
+
+<input type="text" placeholder="Quiz Title" id="quizTitle">
+
+<textarea placeholder="Enter Question" id="quizQuestion"></textarea>
+
+<input type="text" placeholder="Option A" id="optA">
+<input type="text" placeholder="Option B" id="optB">
+<input type="text" placeholder="Option C" id="optC">
+
+<select id="correctOption">
+    <option value="">Select Correct Answer</option>
+    <option value="A">Option A</option>
+    <option value="B">Option B</option>
+    <option value="C">Option C</option>
+</select>
+
+<button class="btn" onclick="publishQuiz()">Publish Quiz</button>
+>
 
         <!-- Homework -->
         <h3 class="section-title">Assign Homework</h3>
@@ -185,8 +199,54 @@
 
 <script>
     function publishQuiz() {
-        alert("Quiz Published Successfully!");
+    let cls = document.getElementById("classSelect").value;
+    let sub = document.getElementById("subjectSelect").value;
+
+    let title = document.getElementById("quizTitle").value;
+    let question = document.getElementById("quizQuestion").value;
+
+    let A = document.getElementById("optA").value;
+    let B = document.getElementById("optB").value;
+    let C = document.getElementById("optC").value;
+
+    let correct = document.getElementById("correctOption").value;
+
+    if (cls === "Select Class" || sub === "Select Subject") {
+        alert("Please select class and subject!");
+        return;
     }
+    if (!title || !question || !A || !B || !C || !correct) {
+        alert("Please fill all quiz fields!");
+        return;
+    }
+
+    // For later Firebase use (already structured)
+    const quizData = {
+        class: cls,
+        subject: sub,
+        title: title,
+        question: question,
+        options: {
+            A: A,
+            B: B,
+            C: C
+        },
+        correct: correct,
+        time: Date.now()
+    };
+
+    console.log("Quiz Saved:", quizData);
+
+    alert("Quiz Published Successfully!");
+
+    document.getElementById("quizTitle").value = "";
+    document.getElementById("quizQuestion").value = "";
+    document.getElementById("optA").value = "";
+    document.getElementById("optB").value = "";
+    document.getElementById("optC").value = "";
+    document.getElementById("correctOption").value = "";
+}
+
 
     function publishHomework() {
         alert("Homework Assigned Successfully!");
