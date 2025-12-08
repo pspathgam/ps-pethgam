@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Attendance - Face Capture Demo</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site-header small">
+  <a href="index.html">&larr; Home</a>
+  <h2>Attendance - Face Capture Demo</h2>
+</header>
+<main class="container">
+  <section class="panel">
+    <h3>Capture Photo for Attendance</h3>
+    <video id="video" autoplay playsinline width="320" height="240"></video>
+    <canvas id="canvas" width="320" height="240" style="display:none"></canvas>
+    <div class="controls">
+      <button id="startBtn" class="btn">Start Camera</button>
+      <button id="snapBtn" class="btn">Capture</button>
+      <button id="downloadBtn" class="btn secondary">Download Last Photo</button>
+    </div>
+    <div id="lastCapture"></div>
+    <h4>Attendance Log</h4>
+    <div id="attendanceLog"></div>
+  </section>
+</main>
+<script>
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let stream;
+
+document.getElementById('startBtn').addEventListener('click', async ()=>{
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({video:true});
+    video.srcObject = stream;
+  }catch(err){ alert('Camera access blocked or not available: '+err.message); }
+});
+
+document.getElementById('snapBtn').addEventListener('click', ()=>{
+  if(!video.srcObject){ alert('Start camera first.'); return; }
+  ctx.drawImage(video,0,0,canvas.width,canvas.height);
+  const data = canvas.toDataURL('image/png');
+  // save to attendance log (localStorage demo)
+  const log = JSON.parse(localStorage.getItem('attLog')||'[]');
+  log.unshift({time:Date.now(),img:data});
+  localStorage.setItem('attLog',JSON.stringify(log));
+  document.getElementById('lastCapture').innerHTML = '<img src="'+data+'" alt="capture" style="max-width:240px">';
+  renderLog();
+});
+
+document.getElementById('downloadBtn').addEventListener('click', ()=>{
+  const log = JSON.parse(localStorage.getItem('attLog')||'[]');
+  if(!log.length){ alert('No photo to download.'); return; }
+  const a = document.createElement('a');
+  a.href = log[0].img;
+  a.download = 'attendance-'+(new Date()).toISOString()+'.png';
+  a.click();
+});
+
+function renderLog(){
+  const log = JSON.parse(localStorage.getItem('attLog')||'[]');
+  document.getElementById('attendanceLog').innerHTML = log.map(l=>`<div class="att-item"><img src="${l.img}" style="width:80px;height:60px"> ${new Date(l.time).toLocaleString()}</div>`).join('') || '<p>No attendance recorded yet.</p>';
+}
+renderLog();
+</script>
+</body>
+</html>
