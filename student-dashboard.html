@@ -1,105 +1,73 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Student Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Student Dashboard</title>
+<style>
+:root{--accent:#0f766e;--card-bg:rgba(255,255,255,0.94);--muted:#6b7280}*{box-sizing:border-box}body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:linear-gradient(120deg,#f3fbfa,#fff);color:#072}
+.header{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(90deg,var(--accent),#06b6d4);color:#fff}
+.logo img{width:52px;height:52px;border-radius:8px}
+.container{max-width:900px;margin:20px auto;padding:16px}
+.panel{background:var(--card-bg);padding:14px;border-radius:12px;box-shadow:0 12px 30px rgba(2,6,23,0.06);margin-bottom:14px}
+label{display:block;margin:8px 0;font-weight:700;color:#0b534e}input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(7,22,20,0.06)}
+.btn{display:inline-block;padding:10px 14px;border-radius:12px;border:none;cursor:pointer;color:#fff;background:linear-gradient(180deg,var(--accent),#064e47);font-weight:800}
+.small{font-size:0.9rem;color:var(--muted)}
+.feed-item{background:#fff;padding:10px;border-radius:10px;margin:8px 0;box-shadow:0 6px 16px rgba(2,6,23,0.04)}
+.center{max-width:480px;margin:40px auto}
+.hidden{display:none!important}
+</style></head><body>
 
-    <!-- Firebase CDN -->
-    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"></script>
+<!-- student login -->
+<div id="loginPanel" class="center panel">
+  <h2>Student Login</h2>
+  <form id="sLogin">
+    <label>User ID<input id="sUser" required></label>
+    <label>Password<input id="sPass" type="password" required></label>
+    <div style="display:flex;gap:8px"><button class="btn" type="submit">Login</button></div>
+    <p class="small">Demo: <strong>student1 / abcd</strong></p>
+  </form>
+</div>
 
-    <script>
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_PROJECT.firebaseapp.com",
-        projectId: "YOUR_PROJECT",
-    };
-    firebase.initializeApp(firebaseConfig);
+<!-- dashboard -->
+<div id="dashboard" class="hidden">
+  <header class="header"><div class="logo"><img src="logo.png"></div><h1>Student Dashboard</h1></header>
+  <div class="container">
+    <section class="panel"><h3>Your Results</h3><div id="results"><p class="small">No results (demo)</p></div></section>
+    <section class="panel"><h3>Available Quizzes</h3><div id="availableQuizzes"></div></section>
+    <section class="panel"><h3>Your Submissions</h3><div id="subs"></div></section>
+  </div>
+</div>
 
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+<script>
+/* demo student credentials and class */
+const demoStudent = { user:'student1', pass:'abcd', class:'4th' };
+document.getElementById('sLogin').addEventListener('submit', e=>{
+  e.preventDefault();
+  const u=document.getElementById('sUser').value, p=document.getElementById('sPass').value;
+  if(u===demoStudent.user && p===demoStudent.pass){ document.getElementById('loginPanel').classList.add('hidden'); document.getElementById('dashboard').classList.remove('hidden'); loadAvailable(); loadSubs(); } else { alert('Invalid student credentials'); }
+});
 
-    // Load dashboard
-    auth.onAuthStateChanged(async (user) => {
-        if (!user) {
-            window.location.href = "student-login.html";
-            return;
-        }
+function loadAvailable(){
+  const qs = JSON.parse(localStorage.getItem('teacherQuizzes')||'[]');
+  const avail = qs.filter(q => q.class === demoStudent.class || q.class==='All');
+  const area = document.getElementById('availableQuizzes');
+  if(!avail.length){ area.innerHTML = '<p class="small">No quizzes for your class</p>'; return; }
+  area.innerHTML = avail.map((q,i)=>`<div class="feed-item"><strong>${q.title}</strong><div class="small">${q.class} | ${q.subject}</div><p>Q: ${q.question}</p><div><button class="btn" onclick="take(${i})">Take</button></div></div>`).join('');
+  window.__avail = avail;
+}
 
-        const doc = await db.collection("users").doc(user.uid).get();
-
-        document.getElementById("studentName").innerText = doc.data().name;
-        loadAssignments();
-        loadQuizzes();
-    });
-
-    // Load Assignments
-    async function loadAssignments() {
-        const container = document.getElementById("assignments");
-
-        const ref = await db.collection("assignments").get();
-        ref.forEach(doc => {
-            container.innerHTML += `<p>📘 ${doc.data().title}</p>`;
-        });
-    }
-
-    // Load Quizzes
-    async function loadQuizzes() {
-        const container = document.getElementById("quizzes");
-
-        const ref = await db.collection("quizzes").get();
-        ref.forEach(doc => {
-            container.innerHTML += `
-                <p>
-                    📝 ${doc.data().title}
-                    <a href="attempt-quiz.html?id=${doc.id}">Attempt</a>
-                </p>`;
-        });
-    }
-
-    function logout() {
-        auth.signOut().then(() => {
-            window.location.href = "student-login.html";
-        });
-    }
-    </script>
-</head>
-<!-- Firebase SDKs -->
-<script type="module">
-  // Import Firebase
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-  import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-  import { getStorage } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
-
-  // Your firebaseConfig
-  const firebaseConfig = {
-    apiKey: "AIzaSyDE_iP6HYhJ3YhOff8eEd8uFLuaKLjklbM",
-    authDomain: "ps-pethgam-wagoora.firebaseapp.com",
-    projectId: "ps-pethgam-wagoora",
-    storageBucket: "ps-pethgam-wagoora.firebasestorage.app",
-    messagingSenderId: "528172741552",
-    appId: "1:528172741552:web:171477c1c4fabf68ab5c75",
-    measurementId: "G-XF2HP4FQK1"
-  };
-
-  // Initialize Firebase services
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const auth = getAuth(app);
-  const storage = getStorage(app);
+function take(i){
+  const q = window.__avail[i];
+  const ans = prompt('Answer (A/B/C) for: ' + q.question);
+  if(!ans) return;
+  const subs = JSON.parse(localStorage.getItem('studentSubs')||'[]');
+  subs.unshift({ student:demoStudent.user, quizTitle:q.title, answer:ans.toUpperCase(), correct:q.correct, time:Date.now(), class:q.class, subject:q.subject});
+  localStorage.setItem('studentSubs', JSON.stringify(subs));
+  alert('Submitted (local demo)');
+  loadSubs();
+}
+function loadSubs(){
+  const subs = JSON.parse(localStorage.getItem('studentSubs')||'[]').filter(s=>s.student===demoStudent.user);
+  const area = document.getElementById('subs');
+  if(!subs.length){ area.innerHTML = '<p class="small">No submissions yet</p>'; return; }
+  area.innerHTML = subs.map(s=>`<div class="feed-item"><strong>${s.quizTitle}</strong><div class="small">Answer: ${s.answer} | Correct: ${s.correct} | ${new Date(s.time).toLocaleString()}</div></div>`).join('');
+}
 </script>
-<body>
-    <h2>Welcome, <span id="studentName"></span></h2>
-
-    <h3>Assignments</h3>
-    <div id="assignments"></div>
-
-    <h3>Quizzes</h3>
-    <div id="quizzes"></div>
-
-    <br><br>
-    <button onclick="logout()">Logout</button>
-</body>
+</body></html>
 </html>        
