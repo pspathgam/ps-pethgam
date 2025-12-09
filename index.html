@@ -11,15 +11,6 @@
   /* Base Styles */
   .header-info { font-size: 0.85rem; }
 
-  /* Menu Button Style (Kept here for max compatibility, relies on Tailwind colors) */
-  .nav-link-btn {
-    transition: background-color 0.2s, color 0.2s;
-  }
-  .nav-link-btn:hover {
-    background-color: #fef3c7; /* yellow-100 */
-    color: #1e40af; /* blue-800 */
-  }
-
   /* Custom Card Hover Effect (Relies on card class from style.css) */
   .card-hover:hover {
     transform: translateY(-4px);
@@ -44,20 +35,19 @@
         <span>📞 9596449881</span>
         <span>✉️ pspethgam@gmail.com</span>
       </div>
-
       <div class="relative">
         <input type="search" placeholder="Search..." class="w-32 py-1 px-3 text-sm rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
       </div>
-      
       <button class="header-info bg-opacity-10 bg-white hover:bg-opacity-20 px-2 py-1 rounded">EN / हिंदी</button>
     </div>
+
+    <span class="mobile-menu-icon" onclick="toggleMenu()">☰</span>
   </div>
 </div>
 
 <nav class="bg-white sticky top-0 z-40 shadow-lg border-b border-gray-200">
   <div class="max-w-7xl mx-auto px-4">
-    <div class="flex justify-start space-x-1 items-center h-14">
-      
+    <div class="hidden md:flex justify-start space-x-1 items-center h-14">
       <a href="index.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Home</a>
       <a href="about.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">About Us</a>
       <a href="academics.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Academics</a>
@@ -65,10 +55,28 @@
       <a href="gallery.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Gallery</a>
       <a href="news.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">News & Events</a>
       <a href="contact.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Contact Us</a>
-
     </div>
+
+    <div id="mobile-menu" class="hidden md:hidden py-2">
+        <a href="index.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Home</a>
+        <a href="about.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">About Us</a>
+        <a href="academics.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Academics</a>
+        <a href="admissions.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Admissions</a>
+        </div>
   </div>
 </nav>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+        } else {
+            menu.classList.add('hidden');
+        }
+    }
+</script>
+
 
 <section class="relative">
   <img src="school.jpg"
@@ -243,4 +251,5 @@
 
 </body>
 </html>
-    
+        
+        
