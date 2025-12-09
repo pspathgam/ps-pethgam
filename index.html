@@ -6,48 +6,37 @@
 <title>Government Primary School Pethgam Wagoora | Official Website</title>
 <link rel="stylesheet" href="assets/css/style.css"> 
 <script src="https://cdn.tailwindcss.com"></script>
-
-<style>
-  /* Base Styles */
-  .header-info { font-size: 0.85rem; }
-
-  /* Custom Card Hover Effect (Relies on card class from style.css) */
-  .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  }
-</style>
 </head>
 
-<body class="bg-gray-50 min-h-screen">
+<body>
 
-<div class="site-header text-white shadow-md">
+<div class="site-header text-white shadow-md relative">
   <div class="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
     
-    <div class="flex items-center space-x-3">
+    <div class="flex items-center space-x-3 flex-shrink-0">
       <img src="logo.png" alt="GPS Logo" class="logo h-10 w-auto"/> 
-      <span class="text-2xl font-black tracking-wide">Government Primary School Pethgam Wagoora</span>
-      <span class="header-info text-gray-200 hidden lg:block">| UDISE: 01022202207</span>
-    </div>
-
-    <div class="hidden md:flex items-center space-x-6">
-      <div class="header-info space-x-4">
-        <span>📞 9596449881</span>
-        <span>✉️ pspethgam@gmail.com</span>
+      <span class="text-xl md:text-2xl font-black tracking-wide leading-none">Government Primary School Pethgam Wagoora</span>
       </div>
+
+    <div class="hidden md:flex items-center space-x-6 header-info">
+      <span>📞 9596449881</span>
+      <span>✉️ pspethgam@gmail.com</span>
       <div class="relative">
-        <input type="search" placeholder="Search..." class="w-32 py-1 px-3 text-sm rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
+        <input type="search" placeholder="Search..." class="w-28 py-1 px-3 text-sm rounded-full text-gray-900"/>
       </div>
-      <button class="header-info bg-opacity-10 bg-white hover:bg-opacity-20 px-2 py-1 rounded">EN / हिंदी</button>
+      <button class="bg-opacity-10 bg-white hover:bg-opacity-20 px-2 py-1 rounded">EN / हिंदी</button>
     </div>
 
-    <span class="mobile-menu-icon" onclick="toggleMenu()">☰</span>
+    <button class="md:hidden text-2xl p-2 rounded-lg hover:bg-opacity-20 transition" id="menu-toggle" onclick="toggleMenu()">
+        ☰
+    </button>
   </div>
 </div>
 
-<nav class="bg-white sticky top-0 z-40 shadow-lg border-b border-gray-200">
+<nav class="sticky top-0 z-40 shadow-lg border-b border-gray-200">
   <div class="max-w-7xl mx-auto px-4">
-    <div class="hidden md:flex justify-start space-x-1 items-center h-14">
+    
+    <div class="desktop-nav hidden md:flex justify-start space-x-1 items-center h-14 bg-white">
       <a href="index.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Home</a>
       <a href="about.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">About Us</a>
       <a href="academics.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Academics</a>
@@ -57,22 +46,25 @@
       <a href="contact.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Contact Us</a>
     </div>
 
-    <div id="mobile-menu" class="hidden md:hidden py-2">
+    <div id="mobile-menu" class="mobile-nav">
         <a href="index.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Home</a>
         <a href="about.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">About Us</a>
         <a href="academics.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Academics</a>
         <a href="admissions.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Admissions</a>
-        </div>
+        <a href="gallery.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Gallery</a>
+        <a href="news.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">News & Events</a>
+        <a href="contact.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Contact Us</a>
+    </div>
   </div>
 </nav>
 
 <script>
     function toggleMenu() {
         const menu = document.getElementById('mobile-menu');
-        if (menu.classList.contains('hidden')) {
-            menu.classList.remove('hidden');
+        if (menu.style.display === 'block') {
+            menu.style.display = 'none';
         } else {
-            menu.classList.add('hidden');
+            menu.style.display = 'block';
         }
     }
 </script>
@@ -94,7 +86,7 @@
     </p>
 
     <a href="admissions.html"
-       class="btn b-coral mt-8 inline-block font-bold text-lg py-3 px-8 transition duration-200">
+       class="btn b-coral mt-8 inline-block font-bold text-lg transition duration-200">
        Apply for Admission Now
     </a>
   </div>
@@ -251,5 +243,3 @@
 
 </body>
 </html>
-        
-        
