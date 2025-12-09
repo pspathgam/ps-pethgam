@@ -3,191 +3,256 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Government Primary School Pethgam Wagoora | Fun Learning Hub</title>
+<title>Government Primary School Pethgam Wagoora | Official Website</title>
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-  /* --- ENHANCED 3D BUTTON STYLES (Maximized Pop) --- */
-  .btn-3d {
+  /* Base Styles for Professional Look */
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  .header-info { font-size: 0.85rem; }
+
+  /* Custom Menu Button Style */
+  .nav-link-btn {
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .nav-link-btn:hover {
+    background-color: #fef3c7; /* yellow-100 */
+    color: #1e40af; /* blue-800 */
+  }
+
+  /* Key CTA 3D Effect */
+  .cta-3d {
     position: relative;
     top: 0;
-    transition: top 0.1s ease, box-shadow 0.1s ease, background-color 0.2s;
-    border: 4px solid #000; /* THICKER BORDER for extra pop */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); 
-    display: block; /* Ensure button takes up space */
-    width: 100%; /* Ensure button fills its grid space */
+    transition: top 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 8px 0 #047857; /* Darker green */
+    border: 3px solid #065f46;
+  }
+  .cta-3d:active {
+    top: 4px;
+    box-shadow: 0 4px 0 #047857;
   }
 
-  /* Specific shadow colors for maximum 3D pop */
-  .btn-3d.bg-blue-600 { box-shadow: 0 10px 0 #1e40af; } 
-  .btn-3d.bg-green-500 { box-shadow: 0 10px 0 #15803d; } 
-  .btn-3d.bg-red-600 { box-shadow: 0 10px 0 #991b1b; } 
-  .btn-3d.bg-yellow-500 { box-shadow: 0 10px 0 #a16207; } 
-  .btn-3d.bg-pink-600 { box-shadow: 0 10px 0 #9d174d; } 
-
-  .btn-3d:active {
-    top: 5px; 
-    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.5);
-  }
-
-  /* Marquee Styling */
-  @keyframes scroll-left {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-  .marquee {
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .marquee span {
-    display: inline-block;
-    padding-left: 100%;
-    animation: scroll-left 18s linear infinite;
-  }
-  .marquee:hover span {
-    animation-play-state: paused;
+  /* Custom Card Hover Effect */
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   }
 </style>
 </head>
 
-<body class="bg-blue-50 min-h-screen font-sans">
+<body class="bg-gray-50 min-h-screen">
 
-<nav class="bg-blue-700 shadow-xl sticky top-0 z-50 border-b-6 border-yellow-400">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="flex justify-between h-24 items-center">
+<div class="bg-blue-900 text-white py-2 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+    
+    <div class="flex items-center space-x-3">
+      <span class="text-3xl text-yellow-400">🎓</span>
+      <span class="text-xl font-extrabold tracking-wide">Government Primary School Pethgam Wagoora</span>
+    </div>
+
+    <div class="hidden md:flex items-center space-x-6">
       
-      <a href="index.html" class="flex items-center space-x-3">
-        <span class="text-5xl sm:text-6xl font-black text-white leading-none drop-shadow-lg">GPS PETHGAM</span>
-      </a>
-
-      <div class="hidden sm:ml-6 sm:flex sm:space-x-4">
-        <a href="admissions.html" class="inline-flex items-center px-4 py-2 text-xl font-extrabold text-white bg-green-500 rounded-xl hover:bg-green-600 transition duration-150 shadow-md border-2 border-black">
-            ADMISSIONS 📝
-        </a>
-        <a href="examinations.html" class="inline-flex items-center px-4 py-2 text-xl font-extrabold text-white bg-red-500 rounded-xl hover:bg-red-600 transition duration-150 shadow-md border-2 border-black">
-            EXAMS 📊
-        </a>
-        <a href="#stars" class="inline-flex items-center px-4 py-2 text-xl font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-800 transition duration-150 shadow-md border-2 border-black">⭐ STARS</a>
-        <a href="#gallery" class="inline-flex items-center px-4 py-2 text-xl font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-800 transition duration-150 shadow-md border-2 border-black">🖼️ GALLERY</a>
+      <div class="header-info space-x-4">
+        <span>📞 +91 12345 67890</span>
+        <span>✉️ office@gpspethgam.edu.in</span>
       </div>
 
-      <div class="sm:hidden">
-        <button class="text-white text-4xl p-2 rounded-md hover:bg-blue-600">
-          ☰
-        </button>
+      <div class="relative">
+        <input type="search" placeholder="Search..." class="w-32 py-1 px-3 text-sm rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-500"/>
       </div>
+      
+      <button class="header-info bg-blue-700 hover:bg-blue-600 px-2 py-1 rounded">EN / हिंदी</button>
+    </div>
+  </div>
+</div>
+
+<nav class="bg-white sticky top-0 z-40 shadow-lg border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-start space-x-1 items-center h-14">
+      
+      <a href="index.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Home</a>
+
+      <a href="about.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">About Us</a>
+      
+      <a href="academics.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Academics</a>
+      
+      <a href="admissions.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Admissions</a>
+      
+      <a href="gallery.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Gallery</a>
+      
+      <a href="news.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">News & Events</a>
+      
+      <a href="contact.html" class="nav-link-btn text-base font-semibold text-gray-700 px-4 py-2 rounded-lg">Contact Us</a>
+
     </div>
   </div>
 </nav>
 
-<div class="bg-pink-500 font-extrabold text-white py-4 marquee shadow-lg cursor-pointer text-xl">
-  <span>✨ HUGE PRIZE DRAW TODAY! Check the Announcements Card! • Winter Assignments DUE soon • Parent-Teacher Meeting on 15th March • Click to Pause!</span>
-</div>
-
-<section class="px-4 pt-8">
+<section class="relative">
   <img src="school.jpg"
-       class="w-full h-80 object-cover rounded-3xl shadow-2xl border-6 border-white"
-       alt="Exterior view of Government Primary School Pethgam Wagoora building.">
+       class="w-full h-96 object-cover shadow-xl"
+       alt="Students actively participating in a school activity.">
 
-  <div class="text-center mt-6 p-8 bg-yellow-400 rounded-xl shadow-2xl border-b-8 border-yellow-600">
-    <h1 class="text-5xl font-black text-blue-800 drop-shadow-md">
-      Welcome to Our Bright Learning Hub!
+  <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-start p-8 md:p-16">
+    
+    <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight drop-shadow-lg max-w-2xl">
+      Learning Today, Leading Tomorrow
     </h1>
-    <p class="text-2xl text-gray-800 mt-2 font-semibold">
-      Your fun-filled gateway to resources, results, and school news.
+    
+    <p class="text-xl md:text-2xl text-yellow-300 mt-4 max-w-xl drop-shadow">
+      Educating the Future of Wagoora since 2005.
     </p>
-  </div>
-</section>
 
-<section id="login-portals" class="p-8 grid grid-cols-2 lg:grid-cols-4 gap-8 bg-blue-200 my-10 shadow-inner rounded-xl">
-  <h2 class="col-span-2 lg:col-span-4 text-3xl font-black text-blue-800 mb-4">Access Your Dashboard:</h2>
-
-  <a href="student-login.html"
-     aria-label="Student Login Portal"
-     class="btn-3d bg-blue-600 text-white text-center py-8 rounded-2xl font-black text-2xl hover:bg-blue-700 col-span-2 lg:col-span-1">
-     <span class="text-5xl block mb-1">🎓</span> Student Portal
-  </a>
-
-  <a href="teacher-login.html"
-     aria-label="Teacher Login Portal"
-     class="btn-3d bg-green-500 text-white text-center py-8 rounded-2xl font-black text-2xl hover:bg-green-600 lg:col-span-1">
-     <span class="text-5xl block mb-1">🍎</span> Teacher Zone
-  </a>
-
-  <a href="examinations.html"
-     aria-label="View Examination Schedule and Results"
-     class="btn-3d bg-red-600 text-white text-center py-8 rounded-2xl font-black text-2xl hover:bg-red-700 lg:col-span-1">
-     <span class="text-5xl block mb-1">⏰</span> Exam Schedule
-  </a>
-
-  <a href="admissions.html"
-     aria-label="Apply for School Admission"
-     class="btn-3d bg-yellow-500 text-white text-center py-8 rounded-2xl font-black text-2xl hover:bg-yellow-600 lg:col-span-1">
-     <span class="text-5xl block mb-1">🆕</span> Apply Now!
-  </a>
-</section>
-
-<section class="px-6 mt-8" id="stars">
-  <h2 class="text-3xl font-extrabold text-pink-700 mb-4 border-b-4 border-pink-300 pb-2 flex items-center">
-    🌟 Star Student Achievements
-  </h2>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div class="bg-yellow-200 p-6 rounded-xl shadow-xl border-b-8 border-yellow-500 text-center transform hover:scale-[1.03] transition duration-200">
-      <div class="text-6xl mb-2">🏆</div>
-      <p class="font-bold text-xl text-gray-800">Aisha Khan</p>
-      <p class="text-lg text-gray-600">Class III - **Top Reader** of the Month</p>
-    </div>
-    <div class="bg-blue-200 p-6 rounded-xl shadow-xl border-b-8 border-blue-500 text-center transform hover:scale-[1.03] transition duration-200">
-      <div class="text-6xl mb-2">💡</div>
-      <p class="font-bold text-xl text-gray-800">Mohsin Wani</p>
-      <p class="text-lg text-gray-600">Class V - **Science Project** Excellence</p>
-    </div>
-    <div class="bg-green-200 p-6 rounded-xl shadow-xl border-b-8 border-green-500 text-center transform hover:scale-[1.03] transition duration-200">
-      <div class="text-6xl mb-2">🎨</div>
-      <p class="font-bold text-xl text-gray-800">Fatima Bano</p>
-      <p class="text-lg text-gray-600">Class I - **Most Creative Artist**</p>
-    </div>
-  </div>
-</section>
-
-<section class="p-8 mt-10 bg-white shadow-inner rounded-xl" id="gallery">
-  <h2 class="text-3xl font-extrabold text-green-700 mb-4 border-b-4 border-green-300 pb-2 flex items-center">
-    🖼️ School Life Gallery
-  </h2>
-
-  <div class="grid grid-cols-3 gap-4">
-    <div class="col-span-1">
-      <img src="gallery-event1.jpg" alt="Students celebrating Annual Day" class="w-full h-36 object-cover rounded-lg shadow-md border-2 border-gray-300">
-    </div>
-    <div class="col-span-1">
-      <img src="gallery-sports.jpg" alt="Students playing games outdoors" class="w-full h-36 object-cover rounded-lg shadow-md border-2 border-gray-300">
-    </div>
-    <div class="col-span-1">
-      <img src="gallery-class.jpg" alt="Students in a classroom session" class="w-full h-36 object-cover rounded-lg shadow-md border-2 border-gray-300">
-    </div>
-  </div>
-  <div class="text-center mt-8">
-    <a href="gallery.html" class="inline-block bg-pink-500 text-white font-bold text-2xl py-4 px-12 rounded-full shadow-lg hover:bg-pink-600 transition duration-200 transform hover:scale-105">
-      View Full Gallery
+    <a href="admissions.html"
+       class="cta-3d mt-8 inline-block bg-green-600 text-white font-bold text-lg py-3 px-8 rounded-xl shadow-lg hover:bg-green-700 transition duration-200">
+       Apply for Admission Now
     </a>
   </div>
 </section>
 
-<footer class="bg-gray-800 text-white py-8 mt-12 text-center" id="contact">
-  <div class="max-w-7xl mx-auto px-4">
-    <p class="mb-4 font-bold text-xl">Contact Government Primary School Pethgam</p>
-    <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-gray-300 text-lg">
-      <a href="tel:+911234567890" class="hover:text-yellow-400 transition duration-200">📞 +91 12345 67890</a>
-      <a href="mailto:contact@gpspethgam.edu.in" class="hover:text-yellow-400 transition duration-200">✉️ contact@gpspethgam.edu.in</a>
-      <p>📍 Pethgam, Wagoora, J&K</p>
+<div class="max-w-7xl mx-auto px-4 py-12">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+    <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
+      <h2 class="text-3xl font-bold text-blue-800 mb-4">A Message from the Principal</h2>
+      
+      <div class="flex space-x-4 items-start">
+        <img src="headmaster_placeholder.jpg"
+             class="w-24 h-24 object-cover rounded-full border-2 border-gray-300 flex-shrink-0"
+             alt="Photo of the Headmaster/Principal">
+        
+        <p class="text-gray-700 leading-relaxed">
+          "Welcome to GPS Pethgam Wagoora. Our dedicated faculty ensures a nurturing environment where every child is encouraged to reach their full potential, fostering curiosity and integrity. We look forward to partnering with you in your child's educational journey."
+        </p>
+      </div>
+      
+      <div class="mt-4 text-right">
+        <p class="font-semibold text-gray-800">— Mr. Javaid Ahmad, Principal</p>
+        <a href="about.html#principal" class="text-blue-600 hover:underline font-medium">Read Full Message &rarr;</a>
+      </div>
     </div>
-    <p class="mt-6 text-base border-t border-gray-700 pt-4">
-      © 2025 GPS Pethgam Wagoora | Designed for Student Engagement
+
+    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-red-500">
+      <h2 class="text-2xl font-bold text-red-800 mb-4">Latest News & Updates</h2>
+      
+      <div class="space-y-4">
+        <div class="border-b pb-2">
+          <p class="text-sm text-gray-500">📅 Dec 10, 2025</p>
+          <a href="news-detail.html" class="text-blue-600 font-semibold hover:underline">Winter Vacation Assignments Available Now</a>
+          <p class="text-xs text-gray-600">Assignments for all primary classes have been uploaded to the portal...</p>
+        </div>
+        <div class="border-b pb-2">
+          <p class="text-sm text-gray-500">📅 Nov 28, 2025</p>
+          <a href="news-detail.html" class="text-blue-600 font-semibold hover:underline">Annual Sports Day Schedule Finalized</a>
+          <p class="text-xs text-gray-600">Check the calendar for the final schedule of events and timings...</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">📅 Nov 15, 2025</p>
+          <a href="news-detail.html" class="text-blue-600 font-semibold hover:underline">Enrollment for Computer Classes Opens</a>
+          <p class="text-xs text-gray-600">Limited seats available for the new computer literacy program...</p>
+        </div>
+      </div>
+      
+      <div class="mt-4 text-center">
+        <a href="news.html" class="text-red-600 font-bold hover:underline">View All News & Events &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-12">
+    <h2 class="text-3xl font-bold text-blue-800 mb-6">Quick Links & Resources</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+      <a href="circulars.html" class="card-hover bg-yellow-100 p-5 rounded-xl shadow-md text-center border-b-4 border-yellow-500 transition duration-300">
+        <span class="text-4xl block mb-2">📜</span>
+        <p class="font-bold text-gray-800">Important Circulars</p>
+      </a>
+
+      <a href="admissions.html#form" class="card-hover bg-green-100 p-5 rounded-xl shadow-md text-center border-b-4 border-green-500 transition duration-300">
+        <span class="text-4xl block mb-2">✍️</span>
+        <p class="font-bold text-gray-800">Online Admission Form</p>
+      </a>
+
+      <a href="academics.html#calendar" class="card-hover bg-blue-100 p-5 rounded-xl shadow-md text-center border-b-4 border-blue-500 transition duration-300">
+        <span class="text-4xl block mb-2">🗓️</span>
+        <p class="font-bold text-gray-800">Academic Calendar</p>
+      </a>
+
+      <a href="achievements.html" class="card-hover bg-red-100 p-5 rounded-xl shadow-md text-center border-b-4 border-red-500 transition duration-300">
+        <span class="text-4xl block mb-2">🏆</span>
+        <p class="font-bold text-gray-800">Achievements</p>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<section class="bg-blue-900 py-10">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-white mb-6 border-b border-blue-700 pb-2">🖼️ School Activities Glimpse</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <img src="photo-glimpse1.jpg" alt="Students in classroom" class="w-full h-40 object-cover rounded-lg shadow-lg hover:opacity-90 transition duration-300">
+      <img src="photo-glimpse2.jpg" alt="Sports activity" class="w-full h-40 object-cover rounded-lg shadow-lg hover:opacity-90 transition duration-300">
+      <img src="photo-glimpse3.jpg" alt="School event" class="w-full h-40 object-cover rounded-lg shadow-lg hover:opacity-90 transition duration-300">
+      <img src="photo-glimpse4.jpg" alt="Students reading" class="w-full h-40 object-cover rounded-lg shadow-lg hover:opacity-90 transition duration-300">
+    </div>
+  </div>
+</section>
+
+
+<footer class="bg-gray-800 text-white py-10 mt-0">
+  <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
+    
+    <div>
+      <h4 class="text-lg font-bold text-yellow-400 mb-3">GPS Pethgam Wagoora</h4>
+      <p class="text-sm text-gray-400">
+        Pethgam, Wagoora, Baramulla, J&K
+      </p>
+      <div class="mt-4 space-y-1 text-sm text-gray-400">
+        <p>📞 +91 12345 67890</p>
+        <p>✉️ office@gpspethgam.edu.in</p>
+      </div>
+    </div>
+
+    <div>
+      <h4 class="text-lg font-bold text-yellow-400 mb-3">Site Map</h4>
+      <ul class="space-y-1 text-sm">
+        <li><a href="about.html" class="hover:text-yellow-300">About Us</a></li>
+        <li><a href="academics.html" class="hover:text-yellow-300">Academics</a></li>
+        <li><a href="admissions.html" class="hover:text-yellow-300">Admissions</a></li>
+        <li><a href="news.html" class="hover:text-yellow-300">News & Events</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-lg font-bold text-yellow-400 mb-3">Information</h4>
+      <p class="font-semibold text-gray-300 mb-2">Office Hours:</p>
+      <p class="text-sm text-gray-400">Monday - Saturday</p>
+      <p class="text-sm text-gray-400">8:00 AM - 2:00 PM (Placeholder)</p>
+      
+      <p class="mt-4 text-xs font-semibold text-gray-300">
+        An initiative under the Department of Education, J&K.
+      </p>
+    </div>
+
+    <div>
+      <h4 class="text-lg font-bold text-yellow-400 mb-3">Connect With Us</h4>
+      <div class="flex space-x-3 text-2xl">
+        <a href="#" class="hover:text-yellow-300 transition duration-150">📘</a> 
+        <a href="#" class="hover:text-yellow-300 transition duration-150">📸</a> 
+        <a href="#" class="hover:text-yellow-300 transition duration-150">▶️</a> 
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 mt-8 pt-6 border-t border-gray-700 text-center">
+    <p class="text-sm text-gray-500">
+      © 2025 Government Primary School Pethgam Wagoora. All Rights Reserved.
     </p>
   </div>
 </footer>
 
 </body>
 </html>
-     
+        
