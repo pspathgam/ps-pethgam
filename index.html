@@ -5,18 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Government Primary School Pethgam Wagoora</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/heroicons/dist/24/outline/academic-cap.min.js"></script>
 
 <style>
+  /* --- CUSTOM STYLES (Should be in style.css in production) --- */
+
   /* 3D BUTTON EFFECT */
   .btn-3d {
     position: relative;
     top: 0;
     transition: top 0.1s ease, box-shadow 0.1s ease;
-    box-shadow: 0 6px 0 #0a0a0a33;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2); /* Slightly darker shadow */
   }
   .btn-3d:active {
     top: 4px;
-    box-shadow: 0 2px 0 #0a0a0a33;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
   }
 
   /* Marquee Smooth */
@@ -31,99 +34,130 @@
   .marquee span {
     display: inline-block;
     padding-left: 100%;
-    animation: scroll-left 12s linear infinite;
+    animation: scroll-left 14s linear infinite; /* Slightly slower */
+  }
+  /* UX Improvement: Pause animation on hover */
+  .marquee:hover span {
+    animation-play-state: paused;
   }
 </style>
 </head>
 
 <body class="bg-gradient-to-br from-blue-50 to-blue-200 min-h-screen">
 
-<!-- HEADER -->
 <header class="bg-blue-700 text-white py-4 shadow-lg">
-  <h1 class="text-center text-2xl font-bold drop-shadow">
-    Government Primary School Pethgam Wagoora
-  </h1>
-  <p class="text-center text-sm opacity-90">Learning • Growth • Excellence</p>
+  <div class="flex items-center justify-center space-x-3">
+    <svg class="w-8 h-8 text-yellow-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+    </svg>
+    <div>
+      <h1 class="text-2xl font-extrabold drop-shadow">
+        GPS Pethgam Wagoora
+      </h1>
+      <p class="text-xs opacity-80 text-center">Learning • Growth • Excellence</p>
+    </div>
+  </div>
 </header>
 
-<!-- NOTIFICATION MARQUEE -->
-<div class="bg-yellow-300 font-semibold text-gray-900 py-2 marquee shadow">
-  <span>📢 Winter Vacation Assignments are LIVE • New Quizzes Added • Teacher Dashboard Updated • Student Area Improved • Stay Tuned!</span>
+<div class="bg-yellow-300 font-semibold text-gray-900 py-2 marquee shadow cursor-pointer">
+  <span>🔔 ATTENTION: Please review the Important Notices section below for updated vacation schedule. • New Quizzes Added • Teacher Dashboard Updated • Stay Tuned!</span>
 </div>
 
-<!-- HERO IMAGE -->
 <section class="px-4 mt-4">
   <img src="school.jpg"
-       class="w-full rounded-xl shadow-xl border-2 border-white"
-       alt="School Image">
+       class="w-full h-48 object-cover rounded-xl shadow-xl border-4 border-white"
+       alt="Exterior view of Government Primary School Pethgam Wagoora building.">
 </section>
 
-<!-- WELCOME BOX -->
 <section class="p-4 text-center">
-  <h2 class="text-xl font-bold text-blue-800">Welcome Students & Teachers</h2>
-  <p class="text-gray-700 text-sm mt-1">
-    Access assignments, quizzes, dashboards and learning materials easily.
+  <h2 class="text-2xl font-bold text-blue-800">Digital Learning Hub</h2>
+  <p class="text-gray-700 mt-1">
+    Your central gateway for academic resources and administrative tools.
   </p>
 </section>
 
-<!-- GRID BUTTONS -->
 <section class="p-4 grid grid-cols-2 gap-4">
 
-  <!-- STUDENT LOGIN -->
   <a href="student-login.html"
-     class="btn-3d bg-green-500 text-white text-center py-4 rounded-xl font-bold text-lg shadow-md active:scale-95">
-     🎒 Student Login
+     aria-label="Student Login Portal"
+     class="btn-3d bg-green-600 text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-green-700 active:scale-95 transition duration-100">
+     <span class="text-2xl">🎓</span> Student Login
   </a>
 
-  <!-- TEACHER LOGIN -->
   <a href="teacher-login.html"
-     class="btn-3d bg-blue-600 text-white text-center py-4 rounded-xl font-bold text-lg shadow-md active:scale-95">
-     👨‍🏫 Teacher Login
+     aria-label="Teacher Login Portal"
+     class="btn-3d bg-blue-600 text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-700 active:scale-95 transition duration-100">
+     <span class="text-2xl">👨‍🏫</span> Teacher Login
   </a>
 
-  <!-- ADMIN PANEL -->
   <a href="admin-login.html"
-     class="btn-3d bg-red-600 text-white text-center py-4 rounded-xl font-bold text-lg shadow-md col-span-2 active:scale-95">
-     🛠 Admin Panel
+     aria-label="Administrative Panel Login"
+     class="btn-3d bg-red-600 text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg col-span-2 hover:bg-red-700 active:scale-95 transition duration-100">
+     <span class="text-2xl">🔒</span> Admin Panel
   </a>
 
 </section>
 
-<!-- QUICK LINKS -->
-<section class="px-4 mt-2">
-  <h3 class="text-lg font-bold text-blue-900 mb-2">Quick Links</h3>
+<section class="px-4 mt-4">
+  <h3 class="text-xl font-bold text-blue-900 mb-3 border-b-2 border-blue-200 pb-1">
+    📌 Important Notices
+  </h3>
+
+  <div class="space-y-3">
+    <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-red-500 hover:shadow-xl transition duration-150">
+      <p class="font-semibold text-red-700">Annual Day Rescheduled</p>
+      <p class="text-sm text-gray-600">Due to weather, the Annual Day function is postponed to March 15th. Details will follow.</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-green-500 hover:shadow-xl transition duration-150">
+      <p class="font-semibold text-green-700">New Study Material</p>
+      <p class="text-sm text-gray-600">Class IV Maths and Science study guides are now available in the Student Login Area.</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="px-4 mt-6">
+  <h3 class="text-xl font-bold text-blue-900 mb-3 border-b-2 border-blue-200 pb-1">Quick Links</h3>
 
   <div class="space-y-3">
 
     <a href="assignments.html"
-       class="block bg-white p-3 rounded-xl shadow hover:bg-blue-50">
-       📘 Winter Assignments
+       class="flex items-center space-x-2 bg-white p-3 rounded-xl shadow hover:bg-blue-50 transition duration-150">
+       <span class="text-xl">📘</span> <span class="font-medium">Winter Assignments</span>
     </a>
 
     <a href="quizzes.html"
-       class="block bg-white p-3 rounded-xl shadow hover:bg-blue-50">
-       📝 Online Quizzes
+       class="flex items-center space-x-2 bg-white p-3 rounded-xl shadow hover:bg-blue-50 transition duration-150">
+       <span class="text-xl">📝</span> <span class="font-medium">Online Quizzes & Tests</span>
     </a>
 
     <a href="attendance.html"
-       class="block bg-white p-3 rounded-xl shadow hover:bg-blue-50">
-       📊 Attendance Records
+       class="flex items-center space-x-2 bg-white p-3 rounded-xl shadow hover:bg-blue-50 transition duration-150">
+       <span class="text-xl">📊</span> <span class="font-medium">View Attendance Records</span>
     </a>
 
     <a href="gallery.html"
-       class="block bg-white p-3 rounded-xl shadow hover:bg-blue-50">
-       🖼 School Gallery
+       class="flex items-center space-x-2 bg-white p-3 rounded-xl shadow hover:bg-blue-50 transition duration-150">
+       <span class="text-xl">🖼️</span> <span class="font-medium">School Gallery & Events</span>
     </a>
 
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="bg-gray-800 text-white text-center py-3 mt-6 text-sm">
-  © 2025 Government Primary School Pethgam Wagoora
+<footer class="bg-gray-800 text-white text-center py-6 mt-8 text-sm">
+  <div class="container mx-auto px-4">
+    <p class="mb-2 font-semibold">Government Primary School Pethgam Wagoora</p>
+    <div class="text-gray-400 space-y-1">
+      <p>📍 Pethgam, Wagoora, Baramulla, J&K</p>
+      <p>📞 Contact: +91 12345 67890</p>
+      <p>✉️ Email: contact@gpspethgam.edu.in</p>
+    </div>
+    <p class="mt-4 border-t border-gray-700 pt-3">
+      © 2025 All Rights Reserved.
+    </p>
+  </div>
 </footer>
 
 </body>
-</html>        
-
-    
+</html>
+       
