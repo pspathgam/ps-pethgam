@@ -3,26 +3,32 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Government Primary School Pethgam Wagoora</title>
+<title>Government Primary School Pethgam Wagoora | Fun Learning</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/heroicons/dist/24/outline/academic-cap.min.js"></script>
 
 <style>
-  /* --- CUSTOM STYLES (Should be in style.css in production) --- */
+  /* --- CUSTOM STYLES for Enhanced 3D Effect --- */
 
-  /* 3D BUTTON EFFECT */
+  /* 3D BUTTON EFFECT - More depth and color contrast */
   .btn-3d {
     position: relative;
     top: 0;
-    transition: top 0.1s ease, box-shadow 0.1s ease;
-    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2); /* Slightly darker shadow */
-  }
-  .btn-3d:active {
-    top: 4px;
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    transition: top 0.1s ease, box-shadow 0.1s ease, background-color 0.2s;
+    /* Define the 'shadow' color for the 3D depth */
   }
 
-  /* Marquee Smooth */
+  /* Specific shadow colors for better 3D pop */
+  .btn-3d.bg-blue-600 { box-shadow: 0 7px 0 #1e40af; } /* Darker Blue */
+  .btn-3d.bg-green-500 { box-shadow: 0 7px 0 #15803d; } /* Darker Green */
+  .btn-3d.bg-yellow-500 { box-shadow: 0 7px 0 #b45309; } /* Darker Yellow/Orange */
+
+  .btn-3d:active {
+    top: 4px;
+    /* Reduce the shadow to give the 'pressed' look */
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  /* Marquee Smooth (Optimized) */
   @keyframes scroll-left {
     0% { transform: translateX(100%); }
     100% { transform: translateX(-100%); }
@@ -34,74 +40,165 @@
   .marquee span {
     display: inline-block;
     padding-left: 100%;
-    animation: scroll-left 14s linear infinite; /* Slightly slower */
+    animation: scroll-left 16s linear infinite;
   }
-  /* UX Improvement: Pause animation on hover */
   .marquee:hover span {
     animation-play-state: paused;
   }
 </style>
 </head>
 
-<body class="bg-gradient-to-br from-blue-50 to-blue-200 min-h-screen">
+<body class="bg-gradient-to-tr from-yellow-100 via-blue-100 to-green-100 min-h-screen">
 
-<header class="bg-blue-700 text-white py-4 shadow-lg">
-  <div class="flex items-center justify-center space-x-3">
-    <svg class="w-8 h-8 text-yellow-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-      <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
-    </svg>
-    <div>
-      <h1 class="text-2xl font-extrabold drop-shadow">
-        GPS Pethgam Wagoora
-      </h1>
-      <p class="text-xs opacity-80 text-center">Learning • Growth • Excellence</p>
-    </div>
+<nav class="bg-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <a href="index.html" class="flex items-center space-x-2">
+          <span class="text-3xl">📘</span>
+          <span class="text-xl font-extrabold text-blue-700">GPS Pethgam</span>
+        </a>
+      </div>
+      <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+        <a href="#features" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-transparent hover:border-blue-500">Features</a>
+        <a href="#gallery" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-transparent hover:border-blue-500">Gallery</a>
+        <a href="#notices" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-transparent hover:border-blue-500">Notices</a>
+        <a href="#contact" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-transparent hover:border-blue-500">Contact</a>
+      </div>
+      </div>
   </div>
-</header>
+</nav>
 
-<div class="bg-yellow-300 font-semibold text-gray-900 py-2 marquee shadow cursor-pointer">
-  <span>🔔 ATTENTION: Please review the Important Notices section below for updated vacation schedule. • New Quizzes Added • Teacher Dashboard Updated • Stay Tuned!</span>
+<div class="bg-pink-500 font-extrabold text-white py-2 marquee shadow cursor-pointer">
+  <span>✨ NEW: Check out our STAR STUDENT ACHIEVEMENTS below! • Winter Assignments DUE soon • Parent-Teacher Meeting on 15th March • Click to Pause!</span>
 </div>
 
-<section class="px-4 mt-4">
+<section class="px-4 pt-6">
   <img src="school.jpg"
-       class="w-full h-48 object-cover rounded-xl shadow-xl border-4 border-white"
+       class="w-full h-56 object-cover rounded-3xl shadow-2xl border-4 border-white transform hover:scale-[1.01] transition duration-300"
        alt="Exterior view of Government Primary School Pethgam Wagoora building.">
+
+  <div class="text-center mt-6">
+    <h1 class="text-3xl font-black text-blue-800 drop-shadow-md">
+      Welcome to Our Fun Learning World!
+    </h1>
+    <p class="text-gray-600 mt-2 text-lg font-medium">
+      Where every day is an adventure in growth and discovery.
+    </p>
+  </div>
 </section>
 
-<section class="p-4 text-center">
-  <h2 class="text-2xl font-bold text-blue-800">Digital Learning Hub</h2>
-  <p class="text-gray-700 mt-1">
-    Your central gateway for academic resources and administrative tools.
-  </p>
-</section>
+<div class="w-full h-1 bg-yellow-400 my-6 shadow-inner"></div>
 
-<section class="p-4 grid grid-cols-2 gap-4">
+<section id="features" class="p-4 grid grid-cols-2 lg:grid-cols-4 gap-6">
 
   <a href="student-login.html"
      aria-label="Student Login Portal"
-     class="btn-3d bg-green-600 text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-green-700 active:scale-95 transition duration-100">
-     <span class="text-2xl">🎓</span> Student Login
+     class="btn-3d bg-blue-600 text-white text-center py-5 rounded-2xl font-black text-xl shadow-lg hover:bg-blue-700 col-span-2 lg:col-span-1">
+     <span class="text-3xl">🚀</span><br> Student Portal
   </a>
 
   <a href="teacher-login.html"
      aria-label="Teacher Login Portal"
-     class="btn-3d bg-blue-600 text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-700 active:scale-95 transition duration-100">
-     <span class="text-2xl">👨‍🏫</span> Teacher Login
+     class="btn-3d bg-green-500 text-white text-center py-5 rounded-2xl font-black text-xl shadow-lg hover:bg-green-600 lg:col-span-1">
+     <span class="text-3xl">🍎</span><br> Teacher Zone
+  </a>
+
+  <a href="assignments.html"
+     aria-label="View Assignments and Homework"
+     class="btn-3d bg-yellow-500 text-white text-center py-5 rounded-2xl font-black text-xl shadow-lg hover:bg-yellow-600 lg:col-span-1">
+     <span class="text-3xl">✏️</span><br> Assignments
   </a>
 
   <a href="admin-login.html"
      aria-label="Administrative Panel Login"
-     class="btn-3d bg-red-600 text-white text-center py-4 rounded-xl font-bold text-lg shadow-lg col-span-2 hover:bg-red-700 active:scale-95 transition duration-100">
-     <span class="text-2xl">🔒</span> Admin Panel
+     class="btn-3d bg-gray-500 text-white text-center py-5 rounded-2xl font-black text-xl shadow-lg hover:bg-gray-600 lg:col-span-1">
+     <span class="text-3xl">🔑</span><br> Admin Access
   </a>
 
 </section>
 
-<section class="px-4 mt-4">
-  <h3 class="text-xl font-bold text-blue-900 mb-3 border-b-2 border-blue-200 pb-1">
-    📌 Important Notices
-  </h3>
+<section class="px-4 mt-8" id="stars">
+  <h2 class="text-3xl font-extrabold text-pink-700 mb-4 border-b-4 border-pink-300 pb-2 flex items-center">
+    🌟 Our Star Students
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white p-5 rounded-xl shadow-xl border-t-8 border-yellow-500 text-center transform hover:scale-[1.03] transition duration-200">
+      <div class="text-5xl mb-2">🏆</div>
+      <p class="font-bold text-lg text-gray-800">Aisha Khan</p>
+      <p class="text-sm text-gray-500">Class III - Best in Reading (Feb '25)</p>
+    </div>
+    <div class="bg-white p-5 rounded-xl shadow-xl border-t-8 border-blue-500 text-center transform hover:scale-[1.03] transition duration-200">
+      <div class="text-5xl mb-2">💡</div>
+      <p class="font-bold text-lg text-gray-800">Mohsin Wani</p>
+      <p class="text-sm text-gray-500">Class V - Math Whiz Award</p>
+    </div>
+    <div class="bg-white p-5 rounded-xl shadow-xl border-t-8 border-green-500 text-center transform hover:scale-[1.03] transition duration-200">
+      <div class="text-5xl mb-2">🎨</div>
+      <p class="font-bold text-lg text-gray-800">Fatima Bano</p>
+      <p class="text-sm text-gray-500">Class I - Most Creative Art</p>
+    </div>
+  </div>
+</section>
+
+<section class="px-4 mt-10" id="gallery">
+  <h2 class="text-3xl font-extrabold text-green-700 mb-4 border-b-4 border-green-300 pb-2 flex items-center">
+    🖼️ School Life Gallery
+  </h2>
+
+  <div class="grid grid-cols-3 gap-4">
+    <div class="col-span-1">
+      <img src="gallery-event1.jpg" alt="Students celebrating Annual Day" class="w-full h-32 object-cover rounded-lg shadow-md hover:opacity-80 transition duration-200">
+    </div>
+    <div class="col-span-1">
+      <img src="gallery-sports.jpg" alt="Students playing games outdoors" class="w-full h-32 object-cover rounded-lg shadow-md hover:opacity-80 transition duration-200">
+    </div>
+    <div class="col-span-1">
+      <img src="gallery-class.jpg" alt="Students in a classroom session" class="w-full h-32 object-cover rounded-lg shadow-md hover:opacity-80 transition duration-200">
+    </div>
+  </div>
+  <div class="text-center mt-6">
+    <a href="gallery.html" class="inline-block bg-pink-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-pink-600 transition duration-200">
+      View Full Gallery
+    </a>
+  </div>
+</section>
+
+
+<section class="px-4 mt-10" id="notices">
+  <h2 class="text-3xl font-extrabold text-yellow-700 mb-4 border-b-4 border-yellow-300 pb-2 flex items-center">
+    ⚠️ Important Notices
+  </h2>
+
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded-xl shadow-lg border-l-8 border-red-500 hover:shadow-2xl transition duration-150">
+      <p class="font-black text-red-700 text-lg">Urgent: Parent-Teacher Meet</p>
+      <p class="text-base text-gray-600">Mandatory meeting for all classes on **15th March 2025** at 10:00 AM. Attendance is strictly required.</p>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-lg border-l-8 border-blue-500 hover:shadow-2xl transition duration-150">
+      <p class="font-black text-blue-700 text-lg">School Re-opening Date</p>
+      <p class="text-base text-gray-600">School re-opens after winter break on **March 1st**. Please ensure students complete their assignments.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-gray-800 text-white py-8 mt-12 text-center" id="contact">
+  <div class="max-w-7xl mx-auto px-4">
+    <p class="mb-4 font-bold text-lg">Contact Us Today!</p>
+    <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-gray-300">
+      <a href="tel:+911234567890" class="hover:text-yellow-400 transition duration-200">📞 +91 12345 67890</a>
+      <a href="mailto:contact@gpspethgam.edu.in" class="hover:text-yellow-400 transition duration-200">✉️ contact@gpspethgam.edu.in</a>
+      <p>📍 Pethgam, Wagoora, J&K</p>
+    </div>
+    <p class="mt-6 text-sm border-t border-gray-700 pt-4">
+      © 2025 GPS Pethgam Wagoora | Designed for Fun Learning
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
 
   <div class="space-y-3">
     <div class="bg-white p-4 rounded-xl shadow-lg border-l-4 border-red-500 hover:shadow-xl transition duration-150">
