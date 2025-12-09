@@ -3,164 +3,278 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Government Primary School Pethgam Wagoora</title>
+  <title>GPS Pethgam Wagoora | Smart Education Portal</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root{
-      --bg-a: linear-gradient(135deg, #5ac8fa, #007aff);
+      --bg-a: linear-gradient(135deg, #00eaff, #006eff);
       --card-bg: rgba(255,255,255,0.95);
-      --accent:#003b95;
-      --accent2:#07a287;
+      --accent:#0050c8;
+      --accent2:#00c897;
       --muted:#234;
       --glass: rgba(255,255,255,0.12);
       --shadow: 0 8px 26px rgba(2,6,23,0.12);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;background:var(--bg-a);color:#012}
-    header{backdrop-filter:blur(6px);padding:18px 24px;display:flex;align-items:center;gap:18px;background:linear-gradient(90deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));}
-    .logo img{height:64px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.12)}
-    h1{margin:0;color:#fff;font-size:22px;text-shadow:0 4px 18px rgba(0,0,0,0.18)}
 
-    nav{display:flex;gap:10px;margin:10px 24px}
-    nav a{padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.12);color:#fff;text-decoration:none;font-weight:600;box-shadow:0 6px 18px rgba(0,0,0,0.12)}
-    nav a:hover{background:#fff;color:var(--accent)}
+      /* 3D button colours */
+      --btn-blue:#007aff;
+      --btn-pink:#ff2d55;
+      --btn-green:#28cd41;
+      --btn-yellow:#ffd60a;
+      --btn-purple:#5e5ce6;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui;
+      background:var(--bg-a);
+      color:#012;
+    }
+
+    header{
+      padding:18px 24px;
+      display:flex;
+      align-items:center;
+      gap:18px;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(6px);
+    }
+
+    .logo img{
+      height:72px;
+      border-radius:12px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.18);
+    }
+
+    h1{
+      margin:0;
+      color:#fff;
+      font-size:24px;
+      text-shadow:0 4px 18px rgba(0,0,0,0.28);
+    }
+
+    /* ----------- MENU with 3D BUTTONS ----------- */
+    nav{
+      display:flex;
+      gap:12px;
+      margin-top:6px;
+      flex-wrap:wrap;
+    }
+
+    nav a{
+      padding:10px 18px;
+      border-radius:12px;
+      font-weight:600;
+      text-decoration:none;
+      color:#fff;
+      background:var(--btn-purple);
+      box-shadow:0 6px 0 rgba(0,0,0,0.25);
+      transition:0.2s;
+    }
+
+    nav a:hover{
+      transform:translateY(-3px);
+      box-shadow:0 10px 0 rgba(0,0,0,0.28);
+    }
 
     .container{max-width:1200px;margin:18px auto;padding:0 18px}
+
     .top-row{display:flex;gap:18px;align-items:flex-start}
 
     .left{flex:2}
     .right{flex:1}
 
-    .card{background:var(--card-bg);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:18px}
+    .card{
+      background:var(--card-bg);
+      border-radius:14px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:18px;
+    }
+
+    /* ----------- MARQUEE ----------- */
     .marquee{overflow:hidden;border-radius:10px;margin-bottom:12px}
     .marquee-inner{display:inline-block;white-space:nowrap;animation:marq 14s linear infinite}
-    .marq-item{display:inline-block;margin-right:18px;padding:8px 12px;border-radius:10px;background:var(--accent2);color:#042;font-weight:700}
+    .marq-item{
+      display:inline-block;
+      margin-right:18px;
+      padding:8px 12px;
+      border-radius:10px;
+      background:var(--btn-green);
+      color:#042;
+      font-weight:700;
+    }
     @keyframes marq{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
 
-    .news-list{display:flex;flex-direction:column;gap:8px}
-    .news-item{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfdff)}
-
+    /* ----------- GALLERY ----------- */
     .gallery-wrap{overflow:hidden;border-radius:12px}
-    .gallery-track{display:flex;gap:12px;animation:galmove 20s linear infinite}
-    .gallery-track img{width:260px;height:150px;object-fit:cover;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.12)}
+    .gallery-track{display:flex;gap:12px;animation:galmove 22s linear infinite}
+    .gallery-track img{
+      width:270px;
+      height:160px;
+      object-fit:cover;
+      border-radius:12px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.12)
+    }
     @keyframes galmove{0%{transform:translateX(0)}50%{transform:translateX(-50%)}100%{transform:translateX(0)}}
 
+    /* ----------- KPIs ----------- */
     .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .kpi{padding:12px;border-radius:10px;background:linear-gradient(180deg,#fff,#f3fbfb);text-align:center;box-shadow:0 8px 18px rgba(0,0,0,0.06)}
+    .kpi{
+      padding:12px;
+      border-radius:10px;
+      background:linear-gradient(180deg,#fff,#f3fbff);
+      text-align:center;
+      box-shadow:0 8px 18px rgba(0,0,0,0.06);
+    }
 
-    footer{text-align:center;color:rgba(255,255,255,0.9);margin:30px 0}
+    /* ----------- QUICK ACTIONS ----------- */
+    .action-btn{
+      padding:12px;
+      border-radius:12px;
+      background:var(--btn-yellow);
+      border:none;
+      box-shadow:0 6px 0 rgba(0,0,0,0.22);
+      font-weight:700;
+      font-size:16px;
+      cursor:pointer;
+      transition:0.2s;
+    }
 
-    @media(max-width:900px){.top-row{flex-direction:column}.gallery-track{animation-duration:28s}}
+    .action-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 10px 0 rgba(0,0,0,0.25);
+    }
+
+    footer{
+      text-align:center;
+      color:rgba(255,255,255,0.9);
+      margin:30px 0
+    }
+
+    @media(max-width:900px){
+      .top-row{flex-direction:column}
+      .gallery-track{animation-duration:28s}
+    }
   </style>
 </head>
+
 <body>
+
+  <!-- HEADER -->
   <header>
     <div class="logo"><img src="logo.png" alt="School Logo"></div>
+
     <div style="flex:1">
       <h1>Government Primary School Pethgam Wagoora</h1>
+
       <nav>
-        <a href="#">Home</a>
-        <a href="#">Teachers</a>
-        <a href="#">Students</a>
-        <a href="#">Admissions</a>
-        <a href="#">MDM</a>
-        <a href="#">Gallery</a>
-        <a href="#">Promotion</a>
-        <a href="#">Settings</a>
+        <a href="index.html">Home</a>
+        <a href="teacher-login.html">Teacher Login</a>
+        <a href="student-login.html">Student Login</a>
+        <a href="teacher-dashboard.html">Teacher Dashboard</a>
+        <a href="student-dashboard.html">Student Dashboard</a>
+        <a href="assignments.html">Assignments</a>
+        <a href="quizzes.html">Quizzes</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="admin-panel.html">Admin Panel</a>
       </nav>
     </div>
   </header>
 
+  <!-- MAIN CONTENT -->
   <main class="container">
-    <!-- Scrolling Notifications -->
+
+    <!-- NOTIFICATIONS -->
     <div class="marquee card">
       <div class="marquee-inner" id="notifications"></div>
     </div>
 
     <div class="top-row">
+
+      <!-- LEFT SIDE -->
       <div class="left">
         <div class="card">
-          <h2 style="margin:0 0 12px 0">News & Events</h2>
+          <h2>News & Events</h2>
           <div class="news-list" id="newsList"></div>
         </div>
 
         <div class="card" style="margin-top:12px">
-          <h2 style="margin:0 0 12px 0">Latest Gallery (scrolling)</h2>
+          <h2>Latest Gallery (scrolling)</h2>
           <div class="gallery-wrap">
             <div class="gallery-track" id="galleryTrack"></div>
           </div>
         </div>
       </div>
 
+      <!-- RIGHT SIDE -->
       <aside class="right">
         <div class="card">
-          <h3 style="margin-top:0">At-a-glance</h3>
-          <div class="kpi-grid" id="kpis">
-            <div class="kpi"><strong id="stuCount">-</strong><div class="small">Students</div></div>
-            <div class="kpi"><strong id="teaCount">-</strong><div class="small">Teachers</div></div>
-            <div class="kpi"><strong id="noticeCount">-</strong><div class="small">Active Notices</div></div>
+          <h3>At-a-glance</h3>
+          <div class="kpi-grid">
+            <div class="kpi"><strong id="stuCount">-</strong><div>Students</div></div>
+            <div class="kpi"><strong id="teaCount">-</strong><div>Teachers</div></div>
+            <div class="kpi"><strong id="noticeCount">-</strong><div>Active Notices</div></div>
           </div>
         </div>
 
         <div class="card" style="margin-top:12px">
-          <h3 style="margin-top:0">Quick Actions</h3>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">
-            <button class="btn" onclick="alert('Open Admissions')">New Admission</button>
-            <button class="btn" onclick="alert('Open MDM')">Record MDM</button>
-            <button class="btn" onclick="alert('Open Gallery')">Upload Photo</button>
-          </div>
+          <h3>Quick Actions</h3>
+          <button class="action-btn" onclick="location.href='admin-panel.html'">New Admission</button>
+          <button class="action-btn" onclick="location.href='mdm.html'">Record MDM</button>
+          <button class="action-btn" onclick="location.href='gallery.html'">Upload Photo</button>
         </div>
       </aside>
     </div>
 
-    <footer>© 2025 Government Primary School Pethgam Wagoora — Super Admin Suite</footer>
+    <footer>
+      © 2025 Government Primary School Pethgam Wagoora — Smart Education Portal
+    </footer>
   </main>
 
   <script>
-    // Sample data — replace with real data source (Firestore) when connected
+    /* MOCK DATA — Replace with Firestore */
     const notifications = [
-      'Parent-Teacher meeting: Jan 10, 2026 at 10:00 AM',
-      'Mid-term exam timetable uploaded',
-      'Admissions open for 2026-27',
-      'MDM monthly report available'
+      'Winter Assignment Portal Launched',
+      'Class 5th Maths Results Updated',
+      'MDM report uploaded',
+      'New Admissions Open'
     ];
 
     const news = [
-      {title:'Sports Day Scheduled', date:'2026-01-20', desc:'Inter-class sports events and prizes.'},
-      {title:'Science Exhibition', date:'2026-02-05', desc:'Students to display projects.'},
-      {title:'National Holiday', date:'2026-01-26', desc:'School closed on Republic Day.'}
+      {title:'Sports Meet 2025', date:'Jan 25', desc:'All classes will participate.'},
+      {title:'Republic Day Program', date:'Jan 26', desc:'Flag hoisting at 8:30 AM.'},
+      {title:'Winter Assignments', date:'Jan 27', desc:'All classes assignments available.'}
     ];
 
     const gallery = [
-      'gallery1.jpg','gallery2.jpg','gallery3.jpg','gallery4.jpg','gallery5.jpg'
+      'gallery1.jpg','gallery2.jpg','gallery3.jpg','gallery4.jpg'
     ];
 
-    // populate notifications (marquee)
-    document.getElementById('notifications').innerHTML = notifications.map(n => `<span class="marq-item">${n}</span>`).join('');
+    // Notifications
+    document.getElementById('notifications').innerHTML =
+      notifications.map(n => `<span class="marq-item">${n}</span>`).join('');
 
-    // populate news list
-    const newsList = document.getElementById('newsList');
-    newsList.innerHTML = news.map(n => `
-      <div class="news-item">
-        <div>
-          <strong>${n.title}</strong><div class="small">${n.date}</div>
-          <div class="small">${n.desc}</div>
-        </div>
-        <div style=\"text-align:right;min-width:90px\">
-          <button class=\"btn\" onclick=\"alert('Open ${n.title}')\">Manage</button>
-        </div>
-      </div>`).join('');
+    // News list
+    document.getElementById('newsList').innerHTML =
+      news.map(n => `
+        <div class="news-item" style="padding:12px;background:#fff;border-radius:10px;margin-bottom:10px">
+          <strong>${n.title}</strong> — <small>${n.date}</small>
+          <div>${n.desc}</div>
+        </div>`).join('');
 
-    // populate gallery track (duplicate items so it scrolls smoothly)
+    // Gallery
     const track = document.getElementById('galleryTrack');
-    const items = gallery.concat(gallery); // duplicate for continuous effect
-    track.innerHTML = items.map(src => `<img src="${src}" alt="gallery">`).join('');
+    const items = gallery.concat(gallery);
+    track.innerHTML = items.map(src => `<img src="${src}" alt="Gallery">`).join('');
 
     // KPIs
     document.getElementById('stuCount').textContent = 452;
     document.getElementById('teaCount').textContent = 18;
     document.getElementById('noticeCount').textContent = notifications.length;
   </script>
+
 </body>
 </html>
