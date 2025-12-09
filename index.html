@@ -3,209 +3,127 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>GP School Pethgam Wagoora</title>
+<title>Government Primary School Pethgam Wagoora</title>
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Firebase -->
-<!-- (Paste the Firebase block from Step 1 here) -->
+<style>
+  /* 3D BUTTON EFFECT */
+  .btn-3d {
+    position: relative;
+    top: 0;
+    transition: top 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 6px 0 #0a0a0a33;
+  }
+  .btn-3d:active {
+    top: 4px;
+    box-shadow: 0 2px 0 #0a0a0a33;
+  }
+
+  /* Marquee Smooth */
+  @keyframes scroll-left {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-left 12s linear infinite;
+  }
+</style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gradient-to-br from-blue-50 to-blue-200 min-h-screen">
 
 <!-- HEADER -->
-<header class="bg-blue-700 text-white p-4 shadow-md text-center">
-  <h1 class="text-xl font-bold">Government Primary School Pethgam Wagoora</h1>
-  <p class="text-sm">Winter Assignment & Learning Portal</p>
+<header class="bg-blue-700 text-white py-4 shadow-lg">
+  <h1 class="text-center text-2xl font-bold drop-shadow">
+    Government Primary School Pethgam Wagoora
+  </h1>
+  <p class="text-center text-sm opacity-90">Learning • Growth • Excellence</p>
 </header>
 
-<!-- NOTICE -->
-<div class="bg-yellow-300 py-2 overflow-hidden">
-  <p class="animate-marquee text-black font-medium">
-    📢 Winter Vacation Assignments are now Live | Quizzes Updated | Login to Continue Learning |
-  </p>
+<!-- NOTIFICATION MARQUEE -->
+<div class="bg-yellow-300 font-semibold text-gray-900 py-2 marquee shadow">
+  <span>📢 Winter Vacation Assignments are LIVE • New Quizzes Added • Teacher Dashboard Updated • Student Area Improved • Stay Tuned!</span>
 </div>
 
-<!-- HERO SECTION -->
+<!-- HERO IMAGE -->
+<section class="px-4 mt-4">
+  <img src="school.jpg"
+       class="w-full rounded-xl shadow-xl border-2 border-white"
+       alt="School Image">
+</section>
+
+<!-- WELCOME BOX -->
 <section class="p-4 text-center">
-  <img src="school.jpg" class="w-full rounded-xl shadow-md" alt="School Image" />
-  <h2 class="text-lg mt-4 font-semibold">Welcome Students & Teachers</h2>
-  <p class="text-gray-600 text-sm">Access Assignments, Quizzes, Attendance & More</p>
+  <h2 class="text-xl font-bold text-blue-800">Welcome Students & Teachers</h2>
+  <p class="text-gray-700 text-sm mt-1">
+    Access assignments, quizzes, dashboards and learning materials easily.
+  </p>
 </section>
 
-<!-- BUTTON GRID -->
-<section class="p-4 grid grid-cols-2 gap-3">
-  <a href="student-login.html" class="bg-green-600 text-white p-4 rounded-xl text-center font-bold shadow-md">Student Login</a>
-  <a href="teacher-login.html" class="bg-blue-600 text-white p-4 rounded-xl text-center font-bold shadow-md">Teacher Login</a>
-  <a href="admin-login.html" class="bg-red-600 text-white p-4 rounded-xl text-center font-bold shadow-md col-span-2">Admin Panel</a>
+<!-- GRID BUTTONS -->
+<section class="p-4 grid grid-cols-2 gap-4">
+
+  <!-- STUDENT LOGIN -->
+  <a href="student-login.html"
+     class="btn-3d bg-green-500 text-white text-center py-4 rounded-xl font-bold text-lg shadow-md active:scale-95">
+     🎒 Student Login
+  </a>
+
+  <!-- TEACHER LOGIN -->
+  <a href="teacher-login.html"
+     class="btn-3d bg-blue-600 text-white text-center py-4 rounded-xl font-bold text-lg shadow-md active:scale-95">
+     👨‍🏫 Teacher Login
+  </a>
+
+  <!-- ADMIN PANEL -->
+  <a href="admin-login.html"
+     class="btn-3d bg-red-600 text-white text-center py-4 rounded-xl font-bold text-lg shadow-md col-span-2 active:scale-95">
+     🛠 Admin Panel
+  </a>
+
 </section>
 
+<!-- QUICK LINKS -->
+<section class="px-4 mt-2">
+  <h3 class="text-lg font-bold text-blue-900 mb-2">Quick Links</h3>
 
-    /* ----------- GALLERY ----------- */
-    .gallery-wrap{overflow:hidden;border-radius:12px}
-    .gallery-track{display:flex;gap:12px;animation:galmove 22s linear infinite}
-    .gallery-track img{
-      width:270px;
-      height:160px;
-      object-fit:cover;
-      border-radius:12px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.12)
-    }
-    @keyframes galmove{0%{transform:translateX(0)}50%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+  <div class="space-y-3">
 
-    /* ----------- KPIs ----------- */
-    .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    .kpi{
-      padding:12px;
-      border-radius:10px;
-      background:linear-gradient(180deg,#fff,#f3fbff);
-      text-align:center;
-      box-shadow:0 8px 18px rgba(0,0,0,0.06);
-    }
-    /* ----------- QUICK ACTIONS ----------- */
-    .action-btn{
-      padding:12px;
-      border-radius:12px;
-      background:var(--btn-yellow);
-      border:none;
-      box-shadow:0 6px 0 rgba(0,0,0,0.22);
-      font-weight:700;
-      font-size:16px;
-      cursor:pointer;
-      transition:0.2s;
-    }
+    <a href="assignments.html"
+       class="block bg-white p-3 rounded-xl shadow hover:bg-blue-50">
+       📘 Winter Assignments
+    </a>
 
-    .action-btn:hover{
-      transform:translateY(-3px);
-      box-shadow:0 10px 0 rgba(0,0,0,0.25);
-    }
+    <a href="quizzes.html"
+       class="block bg-white p-3 rounded-xl shadow hover:bg-blue-50">
+       📝 Online Quizzes
+    </a>
 
-    footer{
-      text-align:center;
-      color:rgba(255,255,255,0.9);
-      margin:30px 0
-    }
+    <a href="attendance.html"
+       class="block bg-white p-3 rounded-xl shadow hover:bg-blue-50">
+       📊 Attendance Records
+    </a>
 
-    @media(max-width:900px){
-      .top-row{flex-direction:column}
-      .gallery-track{animation-duration:28s}
-    }
-  </style>
-</head>
+    <a href="gallery.html"
+       class="block bg-white p-3 rounded-xl shadow hover:bg-blue-50">
+       🖼 School Gallery
+    </a>
 
-<body>
+  </div>
+</section>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo"><img src="logo.png" alt="School Logo"></div>
-
-    <div style="flex:1">
-      <h1>Government Primary School Pethgam Wagoora</h1>
-
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="teacher-login.html">Teacher Login</a>
-        <a href="student-login.html">Student Login</a>
-        <a href="teacher-dashboard.html">Teacher Dashboard</a>
-        <a href="student-dashboard.html">Student Dashboard</a>
-        <a href="assignments.html">Assignments</a>
-        <a href="quizzes.html">Quizzes</a>
-        <a href="attendance.html">Attendance</a>
-        <a href="admin-panel.html">Admin Panel</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- MAIN CONTENT -->
-  <main class="container">
-
-    <!-- NOTIFICATIONS -->
-    <div class="marquee card">
-      <div class="marquee-inner" id="notifications"></div>
-    </div>
-
-    <div class="top-row">
-
-      <!-- LEFT SIDE -->
-      <div class="left">
-        <div class="card">
-          <h2>News & Events</h2>
-          <div class="news-list" id="newsList"></div>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h2>Latest Gallery (scrolling)</h2>
-          <div class="gallery-wrap">
-            <div class="gallery-track" id="galleryTrack"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT SIDE -->
-      <aside class="right">
-        <div class="card">
-          <h3>At-a-glance</h3>
-          <div class="kpi-grid">
-            <div class="kpi"><strong id="stuCount">-</strong><div>Students</div></div>
-            <div class="kpi"><strong id="teaCount">-</strong><div>Teachers</div></div>
-            <div class="kpi"><strong id="noticeCount">-</strong><div>Active Notices</div></div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h3>Quick Actions</h3>
-          <button class="action-btn" onclick="location.href='admin-panel.html'">New Admission</button>
-          <button class="action-btn" onclick="location.href='mdm.html'">Record MDM</button>
-          <button class="action-btn" onclick="location.href='gallery.html'">Upload Photo</button>
-        </div>
-      </aside>
-    </div>
-
-    <footer>
-      © 2025 Government Primary School Pethgam Wagoora — Smart Education Portal
-    </footer>
-  </main>
-
-  <script>
-    /* MOCK DATA — Replace with Firestore */
-    const notifications = [
-      'Winter Assignment Portal Launched',
-      'Class 5th Maths Results Updated',
-      'MDM report uploaded',
-      'New Admissions Open'
-    ];
-
-    const news = [
-      {title:'Sports Meet 2025', date:'Jan 25', desc:'All classes will participate.'},
-      {title:'Republic Day Program', date:'Jan 26', desc:'Flag hoisting at 8:30 AM.'},
-      {title:'Winter Assignments', date:'Jan 27', desc:'All classes assignments available.'}
-    ];
-
-    const gallery = [
-      'gallery1.jpg','gallery2.jpg','gallery3.jpg','gallery4.jpg'
-    ];
-
-    // Notifications
-    document.getElementById('notifications').innerHTML =
-      notifications.map(n => `<span class="marq-item">${n}</span>`).join('');
-
-    // News list
-    document.getElementById('newsList').innerHTML =
-      news.map(n => `
-        <div class="news-item" style="padding:12px;background:#fff;border-radius:10px;margin-bottom:10px">
-          <strong>${n.title}</strong> — <small>${n.date}</small>
-          <div>${n.desc}</div>
-        </div>`).join('');
-
-    // Gallery
-    const track = document.getElementById('galleryTrack');
-    const items = gallery.concat(gallery);
-    track.innerHTML = items.map(src => `<img src="${src}" alt="Gallery">`).join('');
-
-    // KPIs
-    document.getElementById('stuCount').textContent = 452;
-    document.getElementById('teaCount').textContent = 18;
-    document.getElementById('noticeCount').textContent = notifications.length;
-  </script>
+<!-- FOOTER -->
+<footer class="bg-gray-800 text-white text-center py-3 mt-6 text-sm">
+  © 2025 Government Primary School Pethgam Wagoora
+</footer>
 
 </body>
-</html>
+</html>        
+
+    
