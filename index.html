@@ -8,32 +8,36 @@
 <!-- Tailwind CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<!-- Font Awesome for icons (optional) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
-/* ================= 3D BUTTONS ================= */
+/* ===== 3D MIXED BUTTONS =====
+   Each nav button will use .btn-3d and a color class like .c-blue, .c-green, .c-pink, etc.
+*/
 .btn-3d {
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  padding:.6rem 1.2rem;
-  border-radius:.75rem;
+  padding: .6rem 1.2rem;
+  border-radius: .75rem;
   font-weight:700;
   color:#fff;
   position:relative;
   transform-style:preserve-3d;
-  box-shadow:0 8px rgba(0,0,0,0.12);
-  transition:.12s ease, box shadow .12s ease;
+  box-shadow: 0 8px rgba(0,0,0,0.12);
+  transition: transform .12s ease, box-shadow .12s ease;
+  user-select:none;
 }
-.btn-3d:active { transform:translateY(6px); box-shadow:0 3px rgba(0,0,0,0.13); }
+.btn-3d:active { transform: translateY(6px); box-shadow:0 3px rgba(0,0,0,0.12); }
 
-.c-blue   { background:linear-gradient(180deg,#2b9bff,#0066cc); }
-.c-green  { background:linear-gradient(180deg,#34d399,#10b981); }
-.c-purple { background:linear-gradient(180deg,#a78bfa,#7c3aed); }
-.c-red    { background:linear-gradient(180deg,#fb7185,#ef4444); }
-.c-teal   { background:linear-gradient(180deg,#5eead4,#0ea5a4); }
-.c-yellow { background:linear-gradient(180deg,#facc15,#f59e0b); }
+/* color variants */
+.c-blue { background: linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green { background: linear-gradient(180deg,#34d399,#10b981); }
+.c-purple { background: linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-red { background: linear-gradient(180deg,#fb7185,#ef4444); }
+.c-teal { background: linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow { background: linear-gradient(180deg,#facc15,#f59e0b); }
 
 .btn-3d::after{
   content:""; position:absolute; left:6px; right:6px; bottom:-6px;
@@ -351,46 +355,7 @@ function openAdmin() {
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Government Primary School Pethgam Wagoora</title>
 
-<!-- Tailwind CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Font Awesome for icons (optional) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-<style>
-/* ===== 3D MIXED BUTTONS =====
-   Each nav button will use .btn-3d and a color class like .c-blue, .c-green, .c-pink, etc.
-*/
-.btn-3d {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: .6rem 1.2rem;
-  border-radius: .75rem;
-  font-weight:700;
-  color:#fff;
-  position:relative;
-  transform-style:preserve-3d;
-  box-shadow: 0 8px rgba(0,0,0,0.12);
-  transition: transform .12s ease, box-shadow .12s ease;
-  user-select:none;
-}
-.btn-3d:active { transform: translateY(6px); box-shadow:0 3px rgba(0,0,0,0.12); }
-
-/* color variants */
-.c-blue { background: linear-gradient(180deg,#2b9bff,#0066cc); }
-.c-green { background: linear-gradient(180deg,#34d399,#10b981); }
-.c-purple { background: linear-gradient(180deg,#a78bfa,#7c3aed); }
-.c-red { background: linear-gradient(180deg,#fb7185,#ef4444); }
-.c-teal { background: linear-gradient(180deg,#5eead4,#0ea5a4); }
-.c-yellow { background: linear-gradient(180deg,#facc15,#f59e0b); }
 
 /* subtle inner "lip" */
 .btn-3d::after {
