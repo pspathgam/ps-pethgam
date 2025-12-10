@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Government Primary School Pethgam Wagoora</title>
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font Awesome for icons (optional) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+/* ===== 3D MIXED BUTTONS =====
+   Each nav button will use .btn-3d and a color class like .c-blue, .c-green, .c-pink, etc.
+*/
+.btn-3d {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: .6rem 1.2rem;
+  border-radius: .75rem;
+  font-weight:700;
+  color:#fff;
+  position:relative;
+  transform-style:preserve-3d;
+  box-shadow: 0 8px rgba(0,0,0,0.12);
+  transition: transform .12s ease, box-shadow .12s ease;
+  user-select:none;
+}
+.btn-3d:active { transform: translateY(6px); box-shadow:0 3px rgba(0,0,0,0.12); }
+
+/* color variants */
+.c-blue { background: linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green { background: linear-gradient(180deg,#34d399,#10b981); }
+.c-purple { background: linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-red { background: linear-gradient(180deg,#fb7185,#ef4444); }
+.c-teal { background: linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow { background: linear-gradient(180deg,#facc15,#f59e0b); }
+
+/* subtle inner "lip" */
+.btn-3d::after {
+  content: "";
+  position:absolute;
+  left:6px; right:6px; bottom:-6px; height:8px;
+  border-radius: .6rem;
+  opacity:.9;
+  z-index:-1;
+  filter:blur(2px);
+}
+
+/* marquee/notification */
+@keyframes scroll-left { 0%{ transform:translateX(100%);} 100%{ transform:translateX(-100%);} }
+
+/* card banner & profile */
+.card-banner { height: 120px; background-size:cover; background-position:center; }
+.profile-photo { width:96px; height:96px; border-radius:9999px; object-fit:cover; border:5px solid #fff; }
+
+/* hover lift */
+.lift { transition: transform .25s ease, box-shadow .25s ease; }
+.lift:hover { transform: translateY(-8px); box-shadow:0 20px 35px rgba(2,6,23,0.12); }
+
+/* staff card specifics */
+.staff-card .meta { color:#0f172a; font-weight:700; }
+
+/* small utilities for admin area */
+.badge { display:inline-block; background:#f1f5f9; padding:.18rem .5rem; border-radius:999px; font-weight:600; font-size:.82rem; }
+
+/* mega menu styles */
+.dropdown { position:relative; }
+.dropdown-menu { position:absolute; left:0; top:calc(100% + 6px); display:none; background:#fff; color:#0f172a; border-radius:.5rem; box-shadow:0 10px 30px rgba(2,6,23,0.08); min-width:220px; z-index:60; }
+.dropdown:hover .dropdown-menu, .dropdown.open .dropdown-menu { display:block; }
+.dropdown-menu a { display:block; padding:.6rem 1rem; color:inherit; text-decoration:none; }
+.dropdown-menu a:hover { background:#f8fafc; }
+
+/* two-column mega */
+.mega { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; padding:.5rem; }
+
+/* responsive */
+@media (max-width:768px) {
+  .card-banner { height:90px; }
+  .profile-photo { width:76px; height:76px; border-width:4px; }
+  .dropdown-menu, .mega { position:static; display:block; width:100%; box-shadow:none; background:transparent; padding:0; }
+  .dropdown-menu a { padding:.5rem 0; }
+}
+</style>
+</head>
+  <script>
+  // Close all dropdowns
+  function closeAllDropdowns() {
+      document.querySelectorAll(".dropdown-menu").forEach(menu => {
+          menu.classList.add("hidden");
+      });
+  }
+
+  // Toggle dropdown on click
+  document.querySelectorAll(".dropdown").forEach(drop => {
+      drop.addEventListener("click", function (e) {
+          e.stopPropagation(); // Prevent closing immediately
+
+          const menu = this.querySelector(".dropdown-menu");
+
+          // First close others
+          closeAllDropdowns();
+
+          // Then toggle this one
+          if (menu.classList.contains("hidden")) {
+              menu.classList.remove("hidden");
+          } else {
+              menu.classList.add("hidden");
+          }
+      });
+  });
+
+  // Close dropdowns when clicking anywhere else
+  document.addEventListener("click", () => {
+      closeAllDropdowns();
+  });
+
+  // Close dropdown after clicking a link
+  document.querySelectorAll(".dropdown-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+          closeAllDropdowns();
+      });
+  });
+  </script>
+<body class="bg-gray-100 text-slate-900">
+
+<!-- ================= HEADER ================= -->
+<header class="bg-white shadow-md border-b-4 border-blue-600">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div class="flex items-center gap-4">
+      <img src="logo.png" alt="School Logo" class="w-20 h-20 object-contain"/>
+      <div>
+        <h1 class="text-xl md:text-2xl font-extrabold text-blue-700">Government Primary School Pethgam Wagoora</h1>
+        <p class="text-sm md:text-base font-medium text-slate-700">Wagoora Babareshi Road Near ZEO Office Wagoora · Email: pspethgam@gmail.com · UDISE: 01022202207 · 9596449881</p>
+      </div>
+    </div>
+    <div class="mt-2 md:mt-0 w-full md:w-auto">
+      <!-- notifications -->
+      <div class="bg-yellow-300 border-y-2 border-yellow-500 px-3 py-2 rounded-md overflow-hidden" style="box-shadow:0 0 18px rgba(250,204,21,0.15);">
+        <div class="whitespace-nowrap">
+          <div style="display:inline-block;padding-left:100%;animation: scroll-left 14s linear infinite;">
+            📢 Winter Assignment Portal Live • New Notices Updated Daily • Parent-Teacher Meeting on 20th Dec
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= NAVIGATION (3D MIXED BUTTONS + MEGA MENU) ================= -->
+<nav class="bg-slate-800/5 shadow-sm">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between flex-wrap gap-3">
+
+    <!-- LEFT: primary nav (hidden on small devices, shown inline for md+) -->
+    <div class="flex items-center gap-3 flex-wrap">
+      <a href="#" class="btn-3d c-blue">Home</a>
+
+      <!-- About -->
+      <div class="dropdown">
+        <button class="btn-3d c-green">About ▾</button>
+        <div class="dropdown-menu">
+          <a href="#about">Our School</a>
+          <a href="#about">Vision & Mission</a>
+          <a href="#about">Headmaster's Message</a>
+          <a href="#about">UDISE & Profile</a>
+          <a href="#about">Achievements</a>
+          <a href="#about">Infrastructure</a>
+        </div>
+      </div>
+
+      <!-- Academics -->
+      <div class="dropdown">
+        <button class="btn-3d c-purple">Academics ▾</button>
+        <div class="dropdown-menu">
+          <a href="#academics">Curriculum</a>
+          <a href="#academics">Syllabus (Class-wise)</a>
+          <a href="#academics">Academic Calendar</a>
+          <a href="#academics">Learning Outcomes</a>
+          <a href="#academics">Assignments</a>
+        </div>
+      </div>
+
+      <a href="#gallery" class="btn-3d c-red">Gallery</a>
+
+      <a href="#heroes" class="btn-3d c-teal">Our Heroes</a>
+
+      <!-- Students (mega) -->
+      <div class="dropdown">
+        <button class="btn-3d c-yellow">Students ▾</button>
+        <div class="dropdown-menu">
+          <div class="mega">
+            <div>
+              <a href="#heroes">Our Heroes (Photos)</a>
+              <a href="#heroes">Student Achievements</a>
+              <a href="#heroes">Class-wise Students</a>
+            </div>
+            <div>
+              <a href="#students-portal">Attendance (View)</a>
+              <a href="#students-portal">Timetable</a>
+              <a href="#students-portal">Study Material</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: actions -->
+    <div class="flex items-center gap-3">
+
+      <!-- Staff dropdown -->
+      <div class="dropdown">
+        <button class="btn-3d c-yellow">Staff ▾</button>
+        <div class="dropdown-menu">
+          <a href="#staff">Teaching Staff</a>
+          <a href="#nonteaching">Non-Teaching Staff</a>
+          <a href="#staff">Staff Achievements</a>
+        </div>
+      </div>
+
+      <!-- Admissions -->
+      <div class="dropdown">
+        <button class="btn-3d c-blue">Admissions ▾</button>
+        <div class="dropdown-menu">
+          <a href="#admissions">Admission Process</a>
+          <a href="#admissions">Admission Form</a>
+          <a href="#admissions">Required Documents</a>
+          <a href="#admissions">Admission Status</a>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="dropdown">
+        <button class="btn-3d c-green">Results ▾</button>
+        <div class="dropdown-menu">
+          <a href="#results">Check Results</a>
+          <a href="#results">Class-wise Results</a>
+          <a href="#results">Teacher Upload</a>
+        </div>
+      </div>
+
+      <!-- Portal / Downloads -->
+      <div class="dropdown">
+        <button class="btn-3d c-purple">Portal ▾</button>
+        <div class="dropdown-menu">
+          <a href="#portal">Winter Assignment Portal</a>
+          <a href="#portal">e-Learning</a>
+          <a href="#downloads">Downloads</a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <a href="#contact" class="btn-3d c-red">Contact</a>
+
+      <!-- Login dropdown -->
+      <div class="dropdown">
+        <button class="btn-3d c-teal">Login ▾</button>
+        <div class="dropdown-menu">
+          <button class="w-full text-left px-4 py-2 hover:bg-slate-50" onclick="alert('Student login placeholder')">Student</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-slate-50" onclick="alert('Teacher login placeholder')">Teacher</button>
+          <button class="w-full text-left px-4 py-2 hover:bg-slate-50" onclick="openAdmin()">Admin</button>
+        </div>
+      </div>
+
+      <!-- Mobile toggle -->
+      <button id="mobileToggle" class="md:hidden p-2 bg-white rounded shadow"><i class="fa fa-bars"></i></button>
+    </div>
+
+    <!-- MOBILE menu -->
+    <div id="mobileMenu" class="w-full hidden mt-3 md:hidden">
+      <div class="grid gap-2">
+        <!-- replicate main items for mobile -->
+        <a href="#" class="btn-3d c-blue w-full justify-center">Home</a>
+        <button class="btn-3d c-green w-full justify-between" onclick="toggleSub('m-about')">About ▾</button>
+        <div id="m-about" class="pl-4 hidden">
+          <a href="#about" class="block py-2">Our School</a>
+          <a href="#about" class="block py-2">Vision & Mission</a>
+        </div>
+
+        <button class="btn-3d c-purple w-full" onclick="toggleSub('m-acad')">Academics ▾</button>
+        <div id="m-acad" class="pl-4 hidden">
+          <a href="#academics" class="block py-2">Curriculum</a>
+          <a href="#academics" class="block py-2">Syllabus</a>
+        </div>
+
+        <a href="#gallery" class="btn-3d c-red w-full justify-center">Gallery</a>
+        <a href="#heroes" class="btn-3d c-teal w-full justify-center">Our Heroes</a>
+        <a href="#staff" class="btn-3d c-yellow w-full justify-center">Staff</a>
+        <a href="#admissions" class="btn-3d c-blue w-full justify-center">Admissions</a>
+        <a href="#results" class="btn-3d c-green w-full justify-center">Results</a>
+        <a href="#portal" class="btn-3d c-purple w-full justify-center">Portal</a>
+        <a href="#contact" class="btn-3d c-red w-full justify-center">Contact</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<script>
+/* simple toggles */
+document.getElementById('mobileToggle').addEventListener('click', ()=> {
+  const m = document.getElementById('mobileMenu'); m.style.display = m.style.display === 'block' ? 'none' : 'block';
+});
+function toggleSub(id){ const el=document.getElementById(id); el.style.display = el.style.display === 'block' ? 'none' : 'block'; }
+</script>
+
+<!-- ================= HERO SLIDER ================= -->
+<section class="max-w-6xl mx-auto px-4 mt-6">
+  <div class="rounded-xl overflow-hidden shadow-lg">
+    <div id="slides" class="relative h-56 md:h-72">
+      <img class="absolute inset-0 w-full h-full object-cover slide active" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1600&auto=format&fit=crop">
+      <img class="absolute inset-0 w-full h-full object-cover slide" src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=1600&auto=format&fit=crop">
+      <img class="absolute inset-0 w-full h-full object-cover slide" src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?q=80&w=1600&auto=format&fit=crop">
+      <!-- overlay -->
+      <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+        <div class="text-white text-center">
+          <h2 class="text-xl md:text-3xl font-extrabold">Welcome to Government Primary School Pethgam Wagoora</h2>
+          <p class="mt-2 hidden md:block">Quality education • Moral values • Joyful learning</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* slider */
+let sIndex = 0;
+const slides = document.querySelectorAll('#slides .slide');
+function showS(){
+  slides.forEach((el,i)=> el.classList.toggle('active', i===sIndex));
+  sIndex = (sIndex+1) % slides.length;
+}
+setInterval(showS, 4500);
+</script>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="max-w-6xl mx-auto px-4 mt-10">
+  <div class="grid md:grid-cols-2 gap-6 items-center">
+    <div>
+      <h3 class="text-3xl font-bold text-green-700">About Our School</h3>
+      <p class="mt-3 text-slate-700">Government Primary School Pethgam Wagoora is dedicated to creating a safe, creative and supportive environment where children become curious learners and confident humans. Our teachers focus on basics, values and joyful learning.</p>
+      <ul class="mt-4 space-y-2 text-slate-700">
+        <li class="flex items-start gap-2"><i class="fa fa-check text-green-600"></i> Dedicated experienced teachers</li>
+        <li class="flex items-start gap-2"><i class="fa fa-check text-green-600"></i> Activities & assignments</li>
+        <li class="flex items-start gap-2"><i class="fa fa-check text-green-600"></i> Safe & friendly campus</li>
+      </ul>
+    </div>
+    <div>
+      <img src="https://images.unsplash.com/photo-1596495578061-6ea1a1d8f6a9?q=80&w=1200&auto=format&fit=crop" class="rounded-xl shadow-lg object-cover h-64 w-full"/>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STAFF (Teaching) ================= -->
+<section id="staff" class="max-w-6xl mx-auto px-4 mt-12">
+  <h3 class="text-3xl font-bold text-blue-700 text-center">Our Teaching Staff</h3>
+  <p class="text-center text-sm text-slate-700 mt-2">(Click View to edit via Admin)</p>
+
+  <div id="teachingGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
+    <!-- JS will populate cards here -->
+  </div>
+</section>
+
+<!-- ================= NON-TEACHING ================= -->
+<section id="nonteaching" class="max-w-6xl mx-auto px-4 mt-12">
+  <h3 class="text-3xl font-bold text-green-700 text-center">Our Non-Teaching Staff</h3>
+  <div id="nonTeachingGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-8">
+    <!-- JS will populate cards here -->
+  </div>
+</section>
+
+<!-- ================= OUR HEROES (Students) ================= -->
+<section id="heroes" class="max-w-6xl mx-auto px-4 mt-12 mb-12">
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <h3 class="text-3xl font-bold text-teal-700">Our Heroes (Students)</h3>
+    <div class="flex items-center gap-3">
+      <label class="text-sm font-semibold">Filter by class:</label>
+      <select id="classFilter" class="border rounded p-2 bg-white">
+        <option value="all">All Classes</option>
+        <option>Pre Primary 3</option>
+        <option>Pre Primary 2</option>
+        <option>Balvatika</option>
+        <option>1st</option>
+        <option>2nd</option>
+        <option>3rd</option>
+        <option>4th</option>
+        <option>5th</option>
+      </select>
+      <button onclick="openAdmin()" class="ml-3 btn-3d c-blue">Admin</button>
+    </div>
+  </div>
+
+  <div id="heroesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+    <!-- JS-generated student cards -->
+  </div>
+</section>
+
+<!-- ================= ADMIN PANEL (Modal) - localStorage demo ================= -->
+<div id="adminModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-xl max-w-3xl w-full p-6 shadow-xl">
+    <div class="flex items-center justify-between">
+      <h4 class="text-xl font-bold">Admin Panel — Manage Staff & Heroes</h4>
+      <div class="flex items-center gap-2">
+        <button onclick="closeAdmin()" class="px-3 py-1 rounded bg-slate-100">Close</button>
+      </div>
+    </div>
+
+    <div class="mt-4 grid md:grid-cols-2 gap-6">
+      <!-- Add Staff -->
+      <div class="p-4 border rounded">
+        <h5 class="font-bold mb-2">Add / Update Staff</h5>
+        <input id="staffType" class="border p-2 w-full mb-2" placeholder="Type: teaching / nonteaching" />
+        <input id="staffName" class="border p-2 w-full mb-2" placeholder="Name" />
+        <input id="staffDesg" class="border p-2 w-full mb-2" placeholder="Designation" />
+        <input id="staffQual" class="border p-2 w-full mb-2" placeholder="Qualification" />
+        <input id="staffSpec" class="border p-2 w-full mb-2" placeholder="Speciality" />
+        <input id="staffImg" class="border p-2 w-full mb-2" placeholder="Image URL (optional)" />
+        <div class="flex gap-2">
+          <button onclick="addOrUpdateStaff()" class="btn-3d c-purple">Save Staff</button>
+          <button onclick="clearStaffForm()" class="px-4 py-2 rounded bg-slate-100">Clear</button>
+        </div>
+      </div>
+
+      <!-- Add Student (Hero) -->
+      <div class="p-4 border rounded">
+        <h5 class="font-bold mb-2">Add Student (Hero)</h5>
+        <input id="heroName" class="border p-2 w-full mb-2" placeholder="Student Name" />
+        <input id="heroClass" class="border p-2 w-full mb-2" placeholder="Class (e.g., 5th / Balvatika)" />
+        <input id="heroRoll" class="border p-2 w-full mb-2" placeholder="Roll No" />
+        <input id="heroAdmission" class="border p-2 w-full mb-2" placeholder="Admission No" />
+        <input id="heroAch" class="border p-2 w-full mb-2" placeholder="Achievement (e.g. Champion of Maths)" />
+        <input id="heroImg" class="border p-2 w-full mb-2" placeholder="Image URL (optional)" />
+        <div class="flex gap-2">
+          <button onclick="addHero()" class="btn-3d c-teal">Save Student</button>
+          <button onclick="clearHeroForm()" class="px-4 py-2 rounded bg-slate-100">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <h5 class="font-bold mb-2">Existing Records</h5>
+      <div class="space-y-4 max-h-56 overflow-auto">
+        <div>
+          <h6 class="font-semibold">Teaching Staff</h6>
+          <div id="adminTeachingList" class="mt-2 space-y-2"></div>
+        </div>
+        <div>
+          <h6 class="font-semibold">Non-Teaching Staff</h6>
+          <div id="adminNonTeachingList" class="mt-2 space-y-2"></div>
+        </div>
+        <div>
+          <h6 class="font-semibold">Students (Heroes)</h6>
+          <div id="adminHeroesList" class="mt-2 space-y-2"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer id="contact" class="bg-slate-800 text-white mt-12 py-8">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h4 class="text-lg font-bold">Government Primary School Pethgam Wagoora</h4>
+    <p class="mt-2 text-sm">Wagoora Babareshi Road Near ZEO Office Wagoora · Email: pspethgam@gmail.com · UDISE: 01022202207 · 9596449881</p>
+    <p class="mt-4 text-xs">© 2025 All Rights Reserved</p>
+  </div>
+</footer>
+
+<!-- ================= JavaScript: Local DB + Render ================= -->
+<script>
+/* ---------- Utilities ---------- */
+function $(id){return document.getElementById(id);}
+
+/* ---------- localStorage keys ---------- */
+const LS_TEACH = 'gps_teaching';
+const LS_NON = 'gps_non';
+const LS_HERO = 'gps_heroes';
+
+/* ---------- seed demo data if empty ---------- */
+if(!localStorage.getItem(LS_TEACH)){
+  localStorage.setItem(LS_TEACH, JSON.stringify([
+    {id:uid(),'name':'Mohammad Ashraf Rather','desg':'Head of Institution','qual':'MA. Economics, M.Ed','spec':'A Dynamic School Leader','img':''},
+    {id:uid(),'name':'Mohammad Iqbal Rather','desg':'Teacher','qual':'M.Sc. Information Technology, B.Ed.','spec':'Champion of Teaching Mathematics','img':''},
+    {id:uid(),'name':'Zamrooda Bano','desg':'Teacher','qual':'BA, B.Ed.','spec':'Our language Expert','img':''}
+  ]));
+}
+if(!localStorage.getItem(LS_NON)){
+  localStorage.setItem(LS_NON, JSON.stringify([
+    {id:uid(),'name':'Masrat Begum','desg':'Aaya','qual':'Diploma','spec':'Student Care','img':''},
+    {id:uid(),'name':'Shaheena Bano','desg':'Cook','qual':'--','spec':'Food & Hygiene','img':''}
+  ]));
+}
+if(!localStorage.getItem(LS_HERO)){
+  localStorage.setItem(LS_HERO, JSON.stringify([
+    {id:uid(),'name':'Ali Khan','class':'5th','roll':'12','admission':'2025-019','ach':'Maths Champion','img':''},
+    {id:uid(),'name':'Aisha Bano','class':'Balvatika','roll':'3','admission':'2025-045','ach':'Drawing Winner','img':''}
+  ]));
+}
+
+/* ---------- render functions ---------- */
+function renderStaff(){
+  const teach = JSON.parse(localStorage.getItem(LS_TEACH)||'[]');
+  const non = JSON.parse(localStorage.getItem(LS_NON)||'[]');
+
+  const tg = $('teachingGrid'); tg.innerHTML = '';
+  teach.forEach(s=>{
+    tg.insertAdjacentHTML('beforeend', staffCardHtml(s,'teaching'));
+  });
+
+  const ng = $('nonTeachingGrid'); ng.innerHTML = '';
+  non.forEach(s=>{
+    ng.insertAdjacentHTML('beforeend', staffCardHtml(s,'nonteaching'));
+  });
+
+  // admin lists
+  renderAdminLists();
+}
+
+function staffCardHtml(s,type){
+  const img = s.img || 'staff_placeholder.png';
+  return `
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden lift staff-card">
+    <div class="card-banner" style="background-image:url('https://images.unsplash.com/photo-1503264116251-35a269479413?q=80&w=1200&auto=format&fit=crop')"></div>
+    <div class="flex justify-center -mt-12">
+      <img src="${img}" alt="${escapeHtml(s.name)}" class="profile-photo shadow" />
+    </div>
+    <div class="p-4 text-center">
+      <h4 class="text-lg font-bold">${escapeHtml(s.name)}</h4>
+      <div class="text-sm text-slate-700 meta">${escapeHtml(s.desg)}</div>
+      <div class="text-sm text-slate-600 mt-2"><strong>Qualification:</strong> ${escapeHtml(s.qual||'N/A')}</div>
+      <div class="text-sm text-slate-600 mt-1"><strong>Speciality:</strong> ${escapeHtml(s.spec||'—')}</div>
+      <div class="mt-4 flex justify-center gap-3">
+        <button class="px-3 py-1 rounded bg-blue-600 text-white" onclick="viewStaff('${s.id}')">View</button>
+        <button class="px-3 py-1 rounded bg-red-500 text-white" onclick="deleteStaff('${s.id}','${type}')">Delete</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------- Heroes (student) rendering ---------- */
+function renderHeroes(filter='all'){
+  const heroes = JSON.parse(localStorage.getItem(LS_HERO)||'[]');
+  const container = $('heroesGrid'); container.innerHTML = '';
+  const list = heroes.filter(h => filter==='all' ? true : (h.class===filter));
+  list.forEach(h=>{
+    const img = h.img || 'student_placeholder.png';
+    container.insertAdjacentHTML('beforeend', `
+      <div class="bg-white rounded-xl shadow-lg p-4 lift text-center">
+        <img src="${img}" alt="${escapeHtml(h.name)}" class="w-24 h-24 mx-auto rounded-full object-cover mb-3"/>
+        <h4 class="font-bold">${escapeHtml(h.name)}</h4>
+        <div class="text-sm text-slate-700 mt-1"><strong>Class:</strong> ${escapeHtml(h.class)}</div>
+        <div class="text-sm text-slate-700"><strong>Roll No:</strong> ${escapeHtml(h.roll)} • <strong>Adm. No:</strong> ${escapeHtml(h.admission)}</div>
+        <div class="text-sm text-green-600 mt-2"><em>${escapeHtml(h.ach||'—')}</em></div>
+        <div class="mt-4 flex justify-center gap-2">
+          <button class="px-3 py-1 rounded bg-blue-600 text-white" onclick="viewHero('${h.id}')">View</button>
+          <button class="px-3 py-1 rounded bg-red-500 text-white" onclick="deleteHero('${h.id}')">Delete</button>
+        </div>
+      </div>`);
+  });
+  renderAdminLists();
+}
+
+/* ---------- admin lists ---------- */
+function renderAdminLists(){
+  const teach = JSON.parse(localStorage.getItem(LS_TEACH)||'[]');
+  const non = JSON.parse(localStorage.getItem(LS_NON)||'[]');
+  const heroes = JSON.parse(localStorage.getItem(LS_HERO)||'[]');
+
+  $('adminTeachingList').innerHTML = teach.map(t=> `<div class="flex items-center justify-between gap-2 p-2 rounded bg-slate-50">
+    <div><strong>${escapeHtml(t.name)}</strong><div class="text-xs">${escapeHtml(t.desg)}</div></div>
+    <div class="flex gap-1"><button onclick="editStaff('${t.id}')" class="px-2 py-1 bg-blue-600 text-white rounded">Edit</button><button onclick="deleteStaff('${t.id}','teaching')" class="px-2 py-1 bg-red-500 text-white rounded">Del</button></div>
+  </div>`).join('');
+
+  $('adminNonTeachingList').innerHTML = non.map(t=> `<div class="flex items-center justify-between gap-2 p-2 rounded bg-slate-50">
+    <div><strong>${escapeHtml(t.name)}</strong><div class="text-xs">${escapeHtml(t.desg)}</div></div>
+    <div class="flex gap-1"><button onclick="editStaff('${t.id}')" class="px-2 py-1 bg-blue-600 text-white rounded">Edit</button><button onclick="deleteStaff('${t.id}','nonteaching')" class="px-2 py-1 bg-red-500 text-white rounded">Del</button></div>
+  </div>`).join('');
+
+  $('adminHeroesList').innerHTML = heroes.map(h=> `<div class="flex items-center justify-between gap-2 p-2 rounded bg-slate-50">
+    <div><strong>${escapeHtml(h.name)}</strong><div class="text-xs">${escapeHtml(h.class)} • Roll: ${escapeHtml(h.roll)}</div></div>
+    <div class="flex gap-1"><button onclick="editHero('${h.id}')" class="px-2 py-1 bg-blue-600 text-white rounded">Edit</button><button onclick="deleteHero('${h.id}')" class="px-2 py-1 bg-red-500 text-white rounded">Del</button></div>
+  </div>`).join('');
+}
+
+/* ---------- CRUD functions ---------- */
+function addOrUpdateStaff(){
+  const type = $('staffType').value.trim().toLowerCase() || 'teaching';
+  const obj = {
+    id: uid(),
+    name: $('staffName').value.trim(),
+    desg: $('staffDesg').value.trim(),
+    qual: $('staffQual').value.trim(),
+    spec: $('staffSpec').value.trim(),
+    img: $('staffImg').value.trim()
+  };
+  if(!obj.name){ alert('Enter name'); return; }
+  if(type==='nonteaching' || type==='non-teaching') {
+    const arr = JSON.parse(localStorage.getItem(LS_NON)||'[]'); arr.push(obj); localStorage.setItem(LS_NON, JSON.stringify(arr));
+  } else {
+    const arr = JSON.parse(localStorage.getItem(LS_TEACH)||'[]'); arr.push(obj); localStorage.setItem(LS_TEACH, JSON.stringify(arr));
+  }
+  clearStaffForm(); renderStaff(); alert('Staff saved (local demo). Use Admin edit to modify.');
+}
+
+function clearStaffForm(){
+  $('staffType').value=''; $('staffName').value=''; $('staffDesg').value=''; $('staffQual').value=''; $('staffSpec').value=''; $('staffImg').value='';
+}
+
+function deleteStaff(id,type){
+  if(!confirm('Delete this staff?')) return;
+  if(type==='nonteaching'){
+    let arr = JSON.parse(localStorage.getItem(LS_NON)||'[]'); arr = arr.filter(a=>a.id!==id); localStorage.setItem(LS_NON, JSON.stringify(arr));
+  } else {
+    let arr = JSON.parse(localStorage.getItem(LS_TEACH)||'[]'); arr = arr.filter(a=>a.id!==id); localStorage.setItem(LS_TEACH, JSON.stringify(arr));
+  }
+  renderStaff();
+}
+
+function editStaff(id){
+  const teach = JSON.parse(localStorage.getItem(LS_TEACH)||'[]');
+  const non = JSON.parse(localStorage.getItem(LS_NON)||'[]');
+  let item = teach.find(t=>t.id===id) || non.find(t=>t.id===id);
+  if(!item) return alert('Not found');
+  // fill fields for manual edit (this demo creates new on Save)
+  $('staffType').value = teach.find(t=>t.id===id) ? 'teaching' : 'nonteaching';
+  $('staffName').value = item.name; $('staffDesg').value = item.desg; $('staffQual').value = item.qual; $('staffSpec').value = item.spec; $('staffImg').value = item.img;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---------- Hero functions ---------- */
+function addHero(){
+  const obj = { id:uid(), name:$('heroName').value.trim(), class:$('heroClass').value.trim(), roll:$('heroRoll').value.trim(), admission:$('heroAdmission').value.trim(), ach:$('heroAch').value.trim(), img:$('heroImg').value.trim() };
+  if(!obj.name){ alert('Enter student name'); return; }
+  const arr = JSON.parse(localStorage.getItem(LS_HERO)||'[]'); arr.push(obj); localStorage.setItem(LS_HERO, JSON.stringify(arr));
+  clearHeroForm(); renderHeroes($('classFilter').value==='all' ? 'all' : $('classFilter').value);
+}
+
+function clearHeroForm(){ $('heroName').value=''; $('heroClass').value=''; $('heroRoll').value=''; $('heroAdmission').value=''; $('heroAch').value=''; $('heroImg').value=''; }
+
+function deleteHero(id){ if(!confirm('Delete this student?')) return; let arr = JSON.parse(localStorage.getItem(LS_HERO)||'[]'); arr = arr.filter(a=>a.id!==id); localStorage.setItem(LS_HERO, JSON.stringify(arr)); renderHeroes($('classFilter').value==='all' ? 'all' : $('classFilter').value); }
+
+function editHero(id){
+  const arr = JSON.parse(localStorage.getItem(LS_HERO)||'[]');
+  const h = arr.find(x=>x.id===id);
+  if(!h) return alert('Not found');
+  $('heroName').value = h.name; $('heroClass').value = h.class; $('heroRoll').value = h.roll; $('heroAdmission').value = h.admission; $('heroAch').value = h.ach; $('heroImg').value = h.img;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function viewStaff(id){ alert('View staff - implement profile page or modal. ID: '+id); }
+function viewHero(id){ alert('View student - implement profile page or modal. ID: '+id); }
+
+/* ---------- admin modal controls ---------- */
+function openAdmin(){ $('adminModal').style.display='flex'; renderAdminLists(); }
+function closeAdmin(){ $('adminModal').style.display='none'; }
+
+/* ---------- helpers ---------- */
+function uid(){ return 'id_'+Math.random().toString(36).slice(2,9); }
+function escapeHtml(str=''){ return String(str).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;'); }
+
+/* ---------- filter handler ---------- */
+$('classFilter').addEventListener('change', ()=> {
+  const v = $('classFilter').value;
+  renderHeroes(v==='all' ? 'all' : v);
+});
+
+/* ---------- initial render ---------- */
+renderStaff();
+renderHeroes('all');
+
+/* small accessibility: close dropdowns on outside click */
+document.addEventListener('click', function(e){
+  const dropdowns = document.querySelectorAll('.dropdown');
+  dropdowns.forEach(d=>{
+    if(!d.contains(e.target)) d.classList.remove('open');
+  });
+});
+/* allow opening dropdown on click for touch */
+document.querySelectorAll('.dropdown > button').forEach(btn=>{
+  btn.addEventListener('click', function(e){
+    const parent = btn.parentElement;
+    parent.classList.toggle('open');
+    e.stopPropagation();
+  });
+});
+</script>
+</body>
+</html>
