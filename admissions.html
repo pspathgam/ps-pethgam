@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Admissions 2025-26 - Government Primary School Pethgam Wagoora</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/css/all.min.css">
+<style>
+:root{
+  --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
+  --bg:#f8f9fa; --text:#222;
+  --btn-shadow: rgba(2,6,23,0.18);
+  --yellow-main: #ffb020;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.45}
+
+/* HEADER */
+.header-wrap{border-bottom:3px solid var(--primary);background:#fff}
+.logo-row{display:flex;align-items:center;padding:14px 18px;gap:18px}
+.logo-row img{width:90px;height:90px;border-radius:50%;object-fit:cover}
+.logo-row .title{flex:1}
+.logo-row h1{margin:0;color:var(--primary);font-size:1.5rem}
+.logo-row h2{margin:4px 0 0;color:var(--secondary);font-weight:600;font-size:0.98rem}
+.contact-info{background:#eef3f8;padding:8px 18px;font-size:0.95rem;border-top:1px solid #e1e6ea}
+
+/* 3D Mixed Buttons (Menu) */
+.navbar {
+  display:flex;
+  gap:10px;
+  padding:12px;
+  overflow-x:auto; 
+  align-items:center;
+  background:transparent;
+}
+.btn-3d {
+  --depth:10px;
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.6rem 1.1rem;
+  border-radius:30px;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transform:translateZ(0);
+  transition: transform .14s ease, box-shadow .14s ease;
+  box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.12);
+  border: none;
+  user-select:none;
+  flex-shrink: 0; 
+}
+.btn-3d:active{ transform: translateY(6px); box-shadow: 0 3px 0 rgba(0,0,0,0.08); }
+
+/* individual colors */
+.c-blue{ background: linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green{ background: linear-gradient(180deg,#34d399,#10b981); }
+.c-purple{ background: linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-pink{ background: linear-gradient(180deg,#fb7185,#ef445b); }
+.c-teal{ background: linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow{ background: linear-gradient(180deg,#ffd66b,#ffb020); }
+
+.c-blue::after { background:#0b69c6; }
+.c-green::after { background:#0a8c4f; }
+.c-purple::after { background:#7b5cf7; }
+.c-pink::after { background:#de3b57; }
+.c-teal::after { background:#07a88f; }
+.c-yellow::after { background:#f0a120; }
+
+.navbar::-webkit-scrollbar{ height:6px; }
+.navbar::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.12); border-radius:6px; }
+
+/* Main Content Styles */
+.content-section{max-width:1150px;margin:20px auto;padding:0 18px}
+
+
+/* --- ADMISSIONS PAGE SPECIFIC STYLES --- */
+
+.admissions-hero {
+    background: linear-gradient(rgba(255, 176, 32, 0.85), rgba(255, 176, 32, 0.85)), url('assets/images/admissions_banner.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 50px 18px;
+    color: #fff;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.admissions-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+.admissions-hero p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Admissions Steps/Accordion */
+.admissions-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.step-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(2, 6, 23, 0.05);
+    border-left: 5px solid var(--yellow-main);
+}
+.step-box h2 {
+    color: var(--primary);
+    margin-top: 0;
+    font-size: 1.6rem;
+}
+.step-box .step-number {
+    display: inline-block;
+    background: var(--yellow-main);
+    color: #333;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+.step-box ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+.step-box ul li {
+    padding-left: 25px;
+    position: relative;
+    margin-bottom: 8px;
+}
+.step-box ul li::before {
+    content: "✔️"; 
+    position: absolute;
+    left: 0;
+    color: var(--secondary);
+}
+
+/* Call to Action Box */
+.cta-box {
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(145deg, var(--primary), #004085);
+    color: #fff;
+    border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.cta-box h3 {
+    margin-top: 0;
+    font-size: 1.8rem;
+}
+.cta-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: var(--yellow-main);
+    color: #333;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-top: 15px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.cta-btn:hover {
+    background: #ffc94d;
+    transform: translateY(-2px);
+}
+
+/* FAQ style for Requirements */
+.faq-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+.faq-item:last-child {
+    border-bottom: none;
+}
+.faq-item strong {
+    color: var(--yellow-main);
+}
+
+
+/* footer */
+.footer{background:var(--primary);color:#fff;padding:18px;margin-top:28px}
+.footer a{color:#fff;text-decoration:underline}
+
+/* --- MOBILE OPTIMIZATION (Media Query: Max width 600px) --- */
+@media (max-width:600px){
+  .logo-row img{width:76px;height:76px}
+  
+  /* Menu Buttons Fix */
+  .navbar {
+    flex-wrap: wrap; 
+    overflow-x: hidden; 
+    justify-content: center;
+    padding: 10px 10px 0 10px; 
+  }
+  .btn-3d {
+    margin-bottom: 10px; 
+  }
+
+  .admissions-hero {
+      padding: 30px 15px;
+  }
+  .admissions-hero h1 {
+      font-size: 1.8rem;
+  }
+  .admissions-hero p {
+      font-size: 0.95rem;
+  }
+
+  .step-box {
+      padding: 15px;
+      border-left-width: 3px;
+  }
+  .step-box h2 {
+      font-size: 1.4rem;
+  }
+  .step-box .step-number {
+      font-size: 1rem;
+      padding: 2px 7px;
+  }
+  
+  .cta-box {
+      padding: 20px;
+  }
+  .cta-box h3 {
+      font-size: 1.4rem;
+  }
+  .cta-btn {
+      width: 100%;
+      text-align: center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header-wrap">
+  <div class="logo-row">
+    <img src="assets/images/logo.png" alt="School Logo" onerror="this.style.display='none'">
+    <div class="title">
+      <h1>Government Primary School Pethgam Wagoora</h1>
+      <h2>Wagoora Babareshi Road Near ZEO Office Wagoora</h2>
+    </div>
+  </div>
+
+  <div class="contact-info">
+    Phone: <strong>7006261694</strong> | <strong>9596449881</strong> |
+    Email: <strong>pspethgam@gmail.com</strong> | UDISE: <strong>01022202207</strong>
+  </div>
+
+  <div class="navbar" role="navigation" aria-label="Main menu">
+    <a class="btn-3d c-blue" href="index.html">Home</a>
+    <a class="btn-3d c-green" href="about.html">About</a>
+    <a class="btn-3d c-purple" href="academics.html">Academics</a>
+    <a class="btn-3d c-pink" href="gallery.html">Gallery</a>
+    <a class="btn-3d c-teal" href="students.html">Our Heroes</a>
+    <a class="btn-3d c-yellow" href="admissions.html">Admissions</a>
+    <a class="btn-3d c-blue" href="contact.html">Contact</a>
+    <a class="btn-3d c-green" href="admin.html">Admin Panel</a>
+  </div>
+</header>
+
+<section class="content-section">
+
+    <div class="admissions-hero">
+        <h1>Admissions Open for Session 2025-26</h1>
+        <p>Give your child the best foundation with our focused curriculum and dedicated teaching staff. We welcome applications for Pre-Primary (Aanganwadi) and Class 1 to 5.</p>
+    </div>
+
+    <div class="admissions-steps">
+        
+        <div class="step-box">
+            <h2 class="step-title"><span class="step-number">Step 1</span> Check Eligibility & Collect Documents</h2>
+            <p>Ensure your child meets the age criteria for the desired grade level and prepare the necessary government documents.</p>
+            
+            <div style="background: #fcf8e3; border: 1px solid #faebcc; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                <h4 style="color: var(--yellow-main); margin: 0 0 10px 0;"><i class="fas fa-info-circle"></i> Key Eligibility Criteria</h4>
+                <div class="faq-item"><strong>Pre-Primary (Aanganwadi):</strong> Child must be 3+ years as of April 1st.</div>
+                <div class="faq-item"><strong>Class I:</strong> Child must be 5+ years as of April 1st.</div>
+                <div class="faq-item"><strong>Transfer Admission:</strong> Only possible if transferring from another Government or recognized Private school with a valid Transfer Certificate (TC).</div>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <h2 class="step-title"><span class="step-number">Step 2</span> Visit the School Office for Registration</h2>
+            <p>Visit the school office during the official admission window to complete the registration form and submit the required paperwork for verification.</p>
+            
+            <ul style="padding-left: 20px;">
+                <li>**Required Documents:**
+                    <ul style="margin-top: 5px;">
+                        <li>Parent/Guardian Aadhaar Card (Copy)</li>
+                        <li>Child's Birth Certificate (Original + Copy for verification)</li>
+                        <li>Child's Aadhaar Card (if available)</li>
+                        <li>Transfer Certificate (TC) from the previous school (for Class 2-5 admissions)</li>
+                        <li>Latest Passport-size Photograph of the child (2 copies)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <h2 class="step-title"><span class="step-number">Step 3</span> Verification and Enrollment</h2>
+            <p>The Head of Institution (HOI) will review the documents and confirm the seat availability. Enrollment will be completed after successful verification.</p>
+            <p style="font-weight: 600; color: var(--secondary);">**No Fee is charged for admission or tuition** in Government Primary Schools (as per government policy). Parents are only required to ensure timely submission of documents.</p>
+        </div>
+
+    </div>
+
+    <div class="cta-box">
+        <h3>Admission Window (Annual Session 2025-26)</h3>
+        <p style="font-size: 1.2rem; font-weight: 600;">The official admission period begins: **March 15th**</p>
+        <p>Please contact the Head of Institution directly during school hours (9:30 AM to 2:30 PM) for any urgent queries.</p>
+        <a href="contact.html" class="cta-btn">
+            <i class="fas fa-phone-alt"></i> Contact Office Now
+        </a>
+    </div>
+    
+    <div class="step-box" style="margin-top: 30px; border-left: 5px solid var(--secondary);">
+        <h2>Why Choose GPS Pethgam Wagoora?</h2>
+        <p>We are dedicated to fostering holistic development through foundational excellence:</p>
+        <ul>
+            <li>**Free Quality Education:** No tuition fees, uniform, or textbook costs.</li>
+            <li>**FLN Focus:** Specialized curriculum ensuring strong Foundational Literacy and Numeracy.</li>
+            <li>**Nutritious MDM:** Hygienic Mid-Day Meal provided daily.</li>
+            <li>**Dedicated Staff:** Committed teachers trained in child-centric pedagogy.</li>
+            <li>**Safe Environment:** Secured campus with adequate facilities (Separate Washrooms, Water).</li>
+        </ul>
+    </div>
+
+
+</section>
+
+
+<footer class="footer">
+  <div style="max-width:1150px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between">
+    <div style="min-width:260px">
+      <h4 style="margin:0 0 8px 0">Contact Details</h4>
+      <p style="margin:0">Government Primary School Pethgam Wagoora<br>Address: Pethgam Wagoora, Baramulla, J&K<br>Wagoora Babareshi Road Near ZEO Office Wagoora 193109</p>
+      <p style="margin:6px 0 0 0">Phone: 7006261694 | 9596449881<br>Email: pspethgam@gmail.com</p>
+    </div>
+    <div style="min-width:220px">
+      <h4 style="margin:0 0 8px 0">Quick Links</h4>
+      <p style="margin:0"><a href="admissions.html">Admissions</a><br><a href="academics.html">Academics</a><br><a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Improve button active state for mobile touch (visual) */
+document.querySelectorAll('.btn-3d').forEach(btn=>{
+  btn.addEventListener('touchstart', ()=> btn.classList.add('pressed'));
+  btn.addEventListener('touchend', ()=> btn.classList.remove('pressed'));
+});
+</script>
+
+</body>
+</html>
+    
