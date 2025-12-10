@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact Us - Government Primary School Pethgam Wagoora</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/css/all.min.css">
+<style>
+:root{
+  --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
+  --bg:#f8f9fa; --text:#222;
+  --btn-shadow: rgba(2,6,23,0.18);
+  --blue-main: #0056b3;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.45}
+
+/* HEADER */
+.header-wrap{border-bottom:3px solid var(--primary);background:#fff}
+.logo-row{display:flex;align-items:center;padding:14px 18px;gap:18px}
+.logo-row img{width:90px;height:90px;border-radius:50%;object-fit:cover}
+.logo-row .title{flex:1}
+.logo-row h1{margin:0;color:var(--primary);font-size:1.5rem}
+.logo-row h2{margin:4px 0 0;color:var(--secondary);font-weight:600;font-size:0.98rem}
+.contact-info{background:#eef3f8;padding:8px 18px;font-size:0.95rem;border-top:1px solid #e1e6ea}
+
+/* 3D Mixed Buttons (Menu) */
+.navbar {
+  display:flex;
+  gap:10px;
+  padding:12px;
+  overflow-x:auto; 
+  align-items:center;
+  background:transparent;
+}
+.btn-3d {
+  --depth:10px;
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.6rem 1.1rem;
+  border-radius:30px;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transform:translateZ(0);
+  transition: transform .14s ease, box-shadow .14s ease;
+  border: none;
+  user-select:none;
+  flex-shrink: 0; 
+}
+.btn-3d:active{ transform: translateY(6px); box-shadow: 0 3px 0 rgba(0,0,0,0.08); }
+
+/* individual colors */
+.c-blue{ background: linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green{ background: linear-gradient(180deg,#34d399,#10b981); }
+.c-purple{ background: linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-pink{ background: linear-gradient(180deg,#fb7185,#ef445b); }
+.c-teal{ background: linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow{ background: linear-gradient(180deg,#ffd66b,#ffb020); }
+
+.c-blue::after { background:#0b69c6; }
+.c-green::after { background:#0a8c4f; }
+.c-purple::after { background:#7b5cf7; }
+.c-pink::after { background:#de3b57; }
+.c-teal::after { background:#07a88f; }
+.c-yellow::after { background:#f0a120; }
+
+.navbar::-webkit-scrollbar{ height:6px; }
+.navbar::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.12); border-radius:6px; }
+
+/* Main Content Styles */
+.content-section{max-width:1150px;margin:20px auto;padding:0 18px}
+
+
+/* --- CONTACT PAGE SPECIFIC STYLES --- */
+
+.contact-hero {
+    background: linear-gradient(rgba(0, 86, 179, 0.9), rgba(0, 86, 179, 0.9)), url('assets/images/contact_banner.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 50px 18px;
+    color: #fff;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.contact-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+.contact-hero p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.two-col-container {
+    display: flex;
+    gap: 30px;
+    align-items: stretch; /* Makes columns the same height */
+    margin-bottom: 30px;
+}
+
+.contact-info-box {
+    flex: 1;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(2, 6, 23, 0.05);
+}
+.contact-info-box h2 {
+    color: var(--primary);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 8px;
+    margin-top: 0;
+    font-size: 1.6rem;
+}
+
+.contact-detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.contact-detail i {
+    font-size: 1.8rem;
+    color: var(--secondary);
+    width: 40px;
+}
+.contact-detail strong {
+    display: block;
+    color: var(--primary);
+}
+
+/* Map Placeholder */
+.map-container {
+    flex: 1.5; /* Takes up more space */
+    background: #eef3f8;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    min-height: 400px;
+    box-shadow: 0 4px 15px rgba(2, 6, 23, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--primary);
+    font-weight: 600;
+}
+.map-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Contact Form Styling */
+.form-section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(2, 6, 23, 0.05);
+}
+.form-section h2 {
+    color: var(--primary);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 8px;
+    margin-top: 0;
+    font-size: 1.6rem;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+.submit-btn {
+    padding: 12px 25px;
+    background: var(--secondary);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.2s;
+}
+.submit-btn:hover {
+    background: #1e7e34;
+}
+
+
+/* footer */
+.footer{background:var(--primary);color:#fff;padding:18px;margin-top:28px}
+.footer a{color:#fff;text-decoration:underline}
+
+/* --- MOBILE OPTIMIZATION (Media Query: Max width 600px) --- */
+@media (max-width:900px){
+    .two-col-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .map-container {
+        min-height: 250px;
+    }
+}
+@media (max-width:600px){
+  .logo-row img{width:76px;height:76px}
+  
+  /* Menu Buttons Fix */
+  .navbar {
+    flex-wrap: wrap; 
+    overflow-x: hidden; 
+    justify-content: center;
+    padding: 10px 10px 0 10px; 
+  }
+  .btn-3d {
+    margin-bottom: 10px; 
+  }
+
+  .contact-hero {
+      padding: 30px 15px;
+  }
+  .contact-hero h1 {
+      font-size: 1.8rem;
+  }
+  .contact-hero p {
+      font-size: 0.95rem;
+  }
+
+  .contact-info-box, .form-section {
+      padding: 15px;
+  }
+  .contact-info-box h2, .form-section h2 {
+      font-size: 1.4rem;
+  }
+  .contact-detail i {
+      font-size: 1.5rem;
+      width: 30px;
+  }
+  .map-container {
+      font-size: 0.9rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header-wrap">
+  <div class="logo-row">
+    <img src="assets/images/logo.png" alt="School Logo" onerror="this.style.display='none'">
+    <div class="title">
+      <h1>Government Primary School Pethgam Wagoora</h1>
+      <h2>Wagoora Babareshi Road Near ZEO Office Wagoora</h2>
+    </div>
+  </div>
+
+  <div class="contact-info">
+    Phone: <strong>7006261694</strong> | <strong>9596449881</strong> |
+    Email: <strong>pspethgam@gmail.com</strong> | UDISE: <strong>01022202207</strong>
+  </div>
+
+  <div class="navbar" role="navigation" aria-label="Main menu">
+    <a class="btn-3d c-blue" href="index.html">Home</a>
+    <a class="btn-3d c-green" href="about.html">About</a>
+    <a class="btn-3d c-purple" href="academics.html">Academics</a>
+    <a class="btn-3d c-pink" href="gallery.html">Gallery</a>
+    <a class="btn-3d c-teal" href="students.html">Our Heroes</a>
+    <a class="btn-3d c-yellow" href="admissions.html">Admissions</a>
+    <a class="btn-3d c-blue" href="contact.html">Contact</a>
+    <a class="btn-3d c-green" href="admin.html">Admin Panel</a>
+  </div>
+</header>
+
+<section class="content-section">
+
+    <div class="contact-hero">
+        <h1>Connect with GPS Pethgam Wagoora</h1>
+        <p>We are always available to answer your queries regarding admissions, school operations, and academic concerns. Please reach out to us during school hours.</p>
+    </div>
+
+    <div class="two-col-container">
+        
+        <div class="contact-info-box">
+            <h2>Direct Contact Information</h2>
+            <p>The best way to contact the school Head of Institution (HOI) and office staff.</p>
+            
+            <div class="contact-detail">
+                <i class="fas fa-phone-alt"></i>
+                <div>
+                    <span>Phone Numbers:</span>
+                    <strong>7006261694 / 9596449881</strong>
+                </div>
+            </div>
+
+            <div class="contact-detail">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <span>Email Address:</span>
+                    <strong>pspethgam@gmail.com</strong>
+                </div>
+            </div>
+
+            <div class="contact-detail">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <span>School Address:</span>
+                    <strong>Government Primary School Pethgam Wagoora, Wagoora Babareshi Road, Near ZEO Office Wagoora, J&K - 193109</strong>
+                </div>
+            </div>
+
+            <div class="contact-detail">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <span>Office Hours (HOI):</span>
+                    <strong>9:30 AM to 2:30 PM (Mon-Sat)</strong>
+                </div>
+            </div>
+            
+            <p style="margin-top: 20px; border-top: 1px dashed #eee; padding-top: 15px; font-style: italic;">For urgent matters, please call the HOI directly during school operating hours.</p>
+
+        </div>
+
+        <div class="map-container">
+             
+        </div>
+
+    </div>
+
+    <div class="form-section">
+        <h2>Send Us a Message</h2>
+        <p>Use the form below for general inquiries, feedback, or suggestions. We aim to respond within two working days.</p>
+        
+        <form action="#" method="POST">
+            
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email address">
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required placeholder="e.g., Admission Inquiry / Feedback">
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required placeholder="Your detailed message..."></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Send Message
+            </button>
+            
+        </form>
+    </div>
+
+
+</section>
+
+
+<footer class="footer">
+  <div style="max-width:1150px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between">
+    <div style="min-width:260px">
+      <h4 style="margin:0 0 8px 0">Contact Details</h4>
+      <p style="margin:0">Government Primary School Pethgam Wagoora<br>Address: Pethgam Wagoora, Baramulla, J&K<br>Wagoora Babareshi Road Near ZEO Office Wagoora 193109</p>
+      <p style="margin:6px 0 0 0">Phone: 7006261694 | 9596449881<br>Email: pspethgam@gmail.com</p>
+    </div>
+    <div style="min-width:220px">
+      <h4 style="margin:0 0 8px 0">Quick Links</h4>
+      <p style="margin:0"><a href="admissions.html">Admissions</a><br><a href="academics.html">Academics</a><br><a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Improve button active state for mobile touch (visual) */
+document.querySelectorAll('.btn-3d').forEach(btn=>{
+  btn.addEventListener('touchstart', ()=> btn.classList.add('pressed'));
+  btn.addEventListener('touchend', ()=> btn.classList.remove('pressed'));
+});
+</script>
+
+</body>
+</html>
