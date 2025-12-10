@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Government Primary School Pethgam Wagoora</title>
 
-    <!-- Tailwind CDN -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -21,6 +21,15 @@
             box-shadow: 0 1px 0 #0f7033;
         }
 
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu {
+            display: none;
+        }
+
+        /* Slider */
         .slide {
             display: none;
         }
@@ -28,232 +37,233 @@
         .active-slide {
             display: block;
         }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
     </style>
 </head>
 
 <body class="bg-gray-100 text-gray-900">
 
-    <!-- ===== HEADER BAR WITH LOGO, DETAILS & NOTIFICATIONS ===== -->
-
-<style>
-    /* Header styling */
-    .school-header {
-        background: #ffffff;
-        padding: 10px 5px;
-        border-bottom: 3px solid #0a7cff;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        text-align: center;
-    }
-
-    .school-header img {
-        width: 80px;
-        height: 80px;
-        object-fit: contain;
-        margin: auto;
-        display: block;
-    }
-
-    .school-title {
-        font-size: 22px;
-        font-weight: 900;
-        color: #004aad;
-        margin-top: 10px;
-        text-transform: uppercase;
-    }
-
-    .school-subtitle {
-        font-size: 14px;
-        color: #333;
-        margin-top: 3px;
-        line-height: 1.4;
-        font-weight: 600;
-    }
-
-    /* Notification Bar */
-    .notif-bar {
-        margin-top: 10px;
-        background: yellow;
-        padding: 8px 0;
-        font-size: 16px;
-        font-weight: bold;
-        color: #000;
-        border-top: 2px solid #ff8800;
-        border-bottom: 2px solid #ff8800;
-        animation: glow 1s infinite alternate;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
-    /* Glow animation */
-    @keyframes glow {
-        from { box-shadow: 0 0 5px #ffcc00; }
-        to { box-shadow: 0 0 20px #ffcc00; }
-    }
-
-    /* Scroll animation */
-    .notif-text {
-        display: inline-block;
-        padding-left: 100%;
-        animation: scroll-left 12s linear infinite;
-    }
-
-    @keyframes scroll-left {
-        0% { transform: translateX(0%); }
-        100% { transform: translateX(-100%); }
-    }
-
-    /* Mobile responsive */
-    @media (max-width: 600px) {
-        .school-title { font-size: 18px; }
-        .school-subtitle { font-size: 12px; }
-    }
-</style>
-
-<div class="school-header">
-    <!-- Logo -->
-    <img src="logo.png" alt="School Logo">
-
-    <!-- School Name -->
-    <div class="school-title">
-        Government Primary School Pethgam Wagoora
-    </div>
-
-    <!-- Address + Contact Info -->
-    <div class="school-subtitle">
-        Wagoora Babareshi Road Near ZEO Office Wagoora <br>
-        Email: pspethgam@gmail.com | UDISE: 01022202207 | Contact: 9596449881
-    </div>
-
-    <!-- Scrolling Notification -->
-    <div class="notif-bar">
-        <div class="notif-text">
-            📢 Welcome to Government Primary School Pethgam Wagoora | Latest Updates | Winter Assignment Portal | Stay Tuned for New Announcements!
-        </div>
-    </div>
-</div>
-            <!-- Nav -->
-            <nav class="hidden md:flex space-x-6 font-semibold text-gray-700">
-                <a href="#" class="hover:text-green-600">Home</a>
-                <a href="#about" class="hover:text-green-600">About</a>
-                <a href="#academics" class="hover:text-green-600">Academics</a>
-                <a href="#students" class="hover:text-green-600">Students</a>
-                <a href="#gallery" class="hover:text-green-600">Gallery</a>
-                <a href="#contact" class="hover:text-green-600">Contact</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- 🎞 Hero Slider -->
-    <section class="max-w-6xl mx-auto mt-4 px-4">
-        <div class="rounded-xl overflow-hidden shadow-lg">
-            <img id="slide1" class="slide active-slide w-full"
-                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1" />
-            <img id="slide2" class="slide w-full"
-                src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c" />
-            <img id="slide3" class="slide w-full"
-                src="https://images.unsplash.com/photo-1529070538774-1843cb3265df" />
-        </div>
-    </section>
-
-    <!-- 🏫 About -->
-    <section id="about" class="max-w-6xl mx-auto px-4 mt-10">
-        <h2 class="text-3xl font-bold text-green-700 mb-4">About Our School</h2>
-        <p class="text-gray-700 leading-relaxed">
-            Government Primary School Pethgam Wagoora is committed to quality education, moral values,
-            and joyful learning for every child. Our dedicated staff including
-            <b>Mr. Mohammad Ashraf Rather (HOI)</b> and teachers ensure academic excellence and
-            student-centered development.
+<!-- ======================= HEADER ======================= -->
+<header class="bg-white shadow-md pb-4 border-b-4 border-blue-600">
+    <div class="text-center py-4">
+        <img src="logo.png" class="w-24 h-24 mx-auto">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-blue-700 uppercase mt-2">
+            Government Primary School Pethgam Wagoora
+        </h1>
+        <p class="text-sm md:text-base font-semibold text-gray-700 mt-1">
+            Wagoora Babareshi Road Near ZEO Office Wagoora <br>
+            Email: pspethgam@gmail.com | UDISE: 01022202207 | Contact: 9596449881
         </p>
-    </section>
+    </div>
 
-    <!-- 📘 Academics -->
-    <section id="academics" class="max-w-6xl mx-auto px-4 mt-10">
-        <h2 class="text-3xl font-bold text-green-700 mb-6">Academics</h2>
+    <!-- Notification Bar -->
+    <div class="bg-yellow-300 font-bold border-y-2 border-yellow-500 py-2 overflow-hidden">
+        <p class="inline-block whitespace-nowrap animate-[scroll-left_15s_linear_infinite]">
+            📢 Welcome to Government Primary School Pethgam Wagoora | Winter Assignment Portal Live | 
+            New Learning Resources Coming Soon | Stay Tuned for Updates!
+        </p>
+    </div>
+</header>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- ======================= NAVBAR ======================= -->
+<nav class="bg-green-700 text-white shadow-md">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
 
-            <div class="bg-white rounded-xl shadow p-6 text-center">
-                <h3 class="font-bold text-xl mb-2">Curriculum</h3>
-                <p class="text-sm text-gray-600 mb-4">Aligned with NEP, SCERT & JKBOSE</p>
-                <button class="btn-3d py-2 px-6 text-white rounded-lg mt-2">View</button>
-            </div>
+        <h2 class="text-xl font-bold">GPS Pethgam</h2>
 
-            <div class="bg-white rounded-xl shadow p-6 text-center">
-                <h3 class="font-bold text-xl mb-2">Syllabus</h3>
-                <p class="text-sm text-gray-600 mb-4">Class-wise downloadable syllabus</p>
-                <button class="btn-3d py-2 px-6 text-white rounded-lg mt-2">Download</button>
-            </div>
+        <!-- Desktop Menu -->
+        <ul class="hidden md:flex space-x-6 font-semibold">
 
-            <div class="bg-white rounded-xl shadow p-6 text-center">
-                <h3 class="font-bold text-xl mb-2">Assignments</h3>
-                <p class="text-sm text-gray-600 mb-4">Winter & Summer Assignments</p>
-                <button class="btn-3d py-2 px-6 text-white rounded-lg mt-2">Open Portal</button>
-            </div>
+            <li><a href="#" class="hover:text-yellow-300">Home</a></li>
 
+            <li class="dropdown relative">
+                <button class="hover:text-yellow-300">About ▾</button>
+                <ul class="dropdown-menu absolute bg-white text-gray-800 mt-2 rounded shadow-md w-48 z-20">
+                    <li><a href="#about" class="block px-4 py-2 hover:bg-gray-200">About School</a></li>
+                    <li><a href="#staff" class="block px-4 py-2 hover:bg-gray-200">Our Staff</a></li>
+                    <li><a href="#students-list" class="block px-4 py-2 hover:bg-gray-200">Our Beloved Students</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#academics" class="hover:text-yellow-300">Academics</a></li>
+
+            <li class="dropdown relative">
+                <button class="hover:text-yellow-300">Student Login ▾</button>
+                <ul class="dropdown-menu absolute bg-white w-52 text-gray-800 mt-2 rounded shadow-md z-20">
+                    <li><a href="#students" class="block px-4 py-2 hover:bg-gray-200">Student Dashboard</a></li>
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Results</a></li>
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Assignments</a></li>
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Notes & eBooks</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown relative">
+                <button class="hover:text-yellow-300">Teacher Login ▾</button>
+                <ul class="dropdown-menu absolute bg-white w-52 text-gray-800 mt-2 rounded shadow-md z-20">
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Teacher Dashboard</a></li>
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Upload Results</a></li>
+                    <li><a href="#" class="block px-4 py-2 hover:bg-gray-200">Attendance</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#gallery" class="hover:text-yellow-300">Gallery</a></li>
+            <li><a href="#contact" class="hover:text-yellow-300">Contact</a></li>
+        </ul>
+
+        <!-- Mobile Menu Button -->
+        <button onclick="toggleMenu()" class="md:hidden text-white text-3xl">☰</button>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobileMenu" class="mobile-menu bg-green-800 text-white px-4 py-3 space-y-3 md:hidden">
+        <a href="#" class="block">Home</a>
+        <a href="#about" class="block">About School</a>
+        <a href="#staff" class="block">Our Staff</a>
+        <a href="#students-list" class="block">Our Beloved Students</a>
+        <a href="#academics" class="block">Academics</a>
+
+        <p class="font-bold mt-2">Student Login</p>
+        <a href="#" class="block">Results</a>
+        <a href="#" class="block">Assignments</a>
+
+        <p class="font-bold mt-2">Teacher Login</p>
+        <a href="#" class="block">Teacher Dashboard</a>
+        <a href="#" class="block">Upload Results</a>
+    </div>
+</nav>
+
+<script>
+function toggleMenu() {
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+</script>
+
+<!-- ======================= HERO SLIDER ======================= -->
+<section class="max-w-6xl mx-auto mt-6 px-4">
+    <div class="rounded-xl overflow-hidden shadow-lg">
+        <img class="slide active-slide w-full"
+            src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1">
+        <img class="slide w-full"
+            src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c">
+        <img class="slide w-full"
+            src="https://images.unsplash.com/photo-1529070538774-1843cb3265df">
+    </div>
+</section>
+
+<script>
+let slide = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlides() {
+    slides.forEach(s => s.classList.remove("active-slide"));
+    slide = (slide + 1) % slides.length;
+    slides[slide].classList.add("active-slide");
+}
+setInterval(showSlides, 4000);
+</script>
+
+<!-- ======================= ABOUT SECTION ======================= -->
+<section id="about" class="max-w-6xl mx-auto px-4 mt-10">
+    <h2 class="text-3xl font-bold text-green-700">About Our School</h2>
+    <p class="mt-3 text-gray-700 leading-relaxed">
+        Government Primary School Pethgam Wagoora is committed to joyful learning, moral development,
+        and strong academic foundations. Our dedicated staff ensures every child grows with confidence.
+    </p>
+</section>
+
+<!-- ======================= STAFF ======================= -->
+<section id="staff" class="max-w-6xl mx-auto px-4 mt-12">
+    <h2 class="text-3xl font-bold text-green-700 mb-4">Our Staff</h2>
+    <ul class="space-y-1 font-semibold text-gray-700 text-lg">
+        <li>• Mohammad Ashraf Rather (HOI)</li>
+        <li>• Mohammad Iqbal Rather (Teacher)</li>
+        <li>• Nazir Ahmad Malik (Teacher)</li>
+        <li>• Zamrooda Bano (Teacher)</li>
+        <li>• Masrat Begum (Aaya)</li>
+        <li>• Shaheena Bano (Cook)</li>
+    </ul>
+</section>
+
+<!-- ======================= students LIST ======================= -->
+<section id="students-list" class="max-w-6xl mx-auto px-4 mt-12">
+    <h2 class="text-3xl font-bold text-green-700 mb-4">Our Beloved Students</h2>
+    <p class="text-gray-700">Student data can be displayed dynamically here.</p>
+</section>
+
+<!-- ======================= ACADEMICS ======================= -->
+<section id="academics" class="max-w-6xl mx-auto px-4 mt-12">
+    <h2 class="text-3xl font-bold text-green-700 mb-6">Academics</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl shadow p-6 text-center">
+            <h3 class="font-bold text-xl mb-2">Curriculum</h3>
+            <p class="text-gray-600 mb-4">Aligned with NEP, SCERT & JKBOSE</p>
+            <button class="btn-3d text-white py-2 px-6 rounded-lg">View</button>
         </div>
-    </section>
-
-    <!-- 🎓 Students -->
-    <section id="students" class="max-w-6xl mx-auto px-4 mt-10">
-        <h2 class="text-3xl font-bold text-green-700 mb-6">Student Corner</h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-            <div class="bg-white rounded-xl shadow p-6 text-center">
-                <h3 class="font-bold text-xl mb-2">Results</h3>
-                <p class="text-sm text-gray-600 mb-4">Check your academic progress</p>
-                <button class="btn-3d py-2 px-6 text-white rounded-lg">Check Now</button>
-            </div>
-
-            <div class="bg-white rounded-xl shadow p-6 text-center">
-                <h3 class="font-bold text-xl mb-2">Notes & eBooks</h3>
-                <p class="text-sm text-gray-600 mb-4">Class wise study materials</p>
-                <button class="btn-3d py-2 px-6 text-white rounded-lg">Open</button>
-            </div>
-
-            <div class="bg-white rounded-xl shadow p-6 text-center">
-                <h3 class="font-bold text-xl mb-2">Attendance</h3>
-                <p class="text-sm text-gray-600 mb-4">Daily attendance record</p>
-                <button class="btn-3d py-2 px-6 text-white rounded-lg">View</button>
-            </div>
-
+        <div class="bg-white rounded-xl shadow p-6 text-center">
+            <h3 class="font-bold text-xl mb-2">Syllabus</h3>
+            <p class="text-gray-600 mb-4">Class-wise downloadable syllabus</p>
+            <button class="btn-3d text-white py-2 px-6 rounded-lg">Download</button>
         </div>
-    </section>
-
-    <!-- 🖼 Gallery -->
-    <section id="gallery" class="max-w-6xl mx-auto px-4 mt-10 mb-12">
-        <h2 class="text-3xl font-bold text-green-700 mb-6">Gallery</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <img class="rounded-xl shadow" src="https://images.unsplash.com/photo-1529070538774-1843cb3265df" />
-            <img class="rounded-xl shadow" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1" />
-            <img class="rounded-xl shadow" src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c" />
-            <img class="rounded-xl shadow" src="https://images.unsplash.com/photo-1568977328715-1baecb176648" />
+        <div class="bg-white rounded-xl shadow p-6 text-center">
+            <h3 class="font-bold text-xl mb-2">Assignments</h3>
+            <p class="text-gray-600 mb-4">Winter & Summer Assignments</p>
+            <button class="btn-3d text-white py-2 px-6 rounded-lg">Open Portal</button>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- 📞 Footer -->
-    <footer id="contact" class="bg-green-700 text-white py-6 mt-10">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-            <h3 class="text-xl font-bold">Government Primary School Pethgam Wagoora</h3>
-            <p>Zone Wagoora, Baramulla, Jammu & Kashmir</p>
-            <p>📞 Contact: 7006XXXXXX</p>
-            <p class="mt-4 text-sm">© 2025 All Rights Reserved</p>
+<!-- ======================= STUDENT SECTION ======================= -->
+<section id="students" class="max-w-6xl mx-auto px-4 mt-12">
+    <h2 class="text-3xl font-bold text-green-700 mb-6">Student Corner</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl shadow p-6 text-center">
+            <h3 class="font-bold text-xl mb-2">Results</h3>
+            <p class="text-gray-600 mb-4">Check your academic performance</p>
+            <button class="btn-3d text-white py-2 px-6 rounded-lg">Check Now</button>
         </div>
-    </footer>
+        <div class="bg-white rounded-xl shadow p-6 text-center">
+            <h3 class="font-bold text-xl mb-2">Notes & eBooks</h3>
+            <p class="text-gray-600 mb-4">Study materials for all classes</p>
+            <button class="btn-3d text-white py-2 px-6 rounded-lg">Open</button>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 text-center">
+            <h3 class="font-bold text-xl mb-2">Attendance</h3>
+            <p class="text-gray-600 mb-4">Daily attendance record</p>
+            <button class="btn-3d text-white py-2 px-6 rounded-lg">View</button>
+        </div>
+    </div>
+</section>
 
-    <!-- 📽 SLIDER SCRIPT -->
-    <script>
-        let slide = 0;
-        const slides = document.querySelectorAll(".slide");
+<!-- ======================= GALLERY ======================= -->
+<section id="gallery" class="max-w-6xl mx-auto px-4 mt-12 mb-12">
+    <h2 class="text-3xl font-bold text-green-700 mb-6">Gallery</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <img class="rounded-xl shadow" src="https://images.unsplash.com/photo-1529070538774-1843cb3265df">
+        <img class="rounded-xl shadow" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1">
+        <img class="rounded-xl shadow" src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c">
+        <img class="rounded-xl shadow" src="https://images.unsplash.com/photo-1568977328715-1baecb176648">
+    </div>
+</section>
 
-        function showSlides() {
-            slides.forEach(s => s.classList.remove("active-slide"));
-            slide = (slide + 1) % slides.length;
-            slides[slide].classList.add("active-slide");
-        }
+<!-- ======================= FOOTER ======================= -->
+<footer id="contact" class="bg-green-700 text-white py-6">
+    <div class="max-w-6xl mx-auto text-center px-4">
+        <h3 class="text-xl font-bold">Government Primary School Pethgam Wagoora</h3>
+        <p>Zone Wagoora, Baramulla, Jammu & Kashmir</p>
+        <p class="mt-2 text-sm">📞 Contact: 9596449881</p>
+        <p class="mt-4 text-xs">© 2025 All Rights Reserved</p>
+    </div>
+</footer>
 
-        setInterval(showSlides, 4000);
-    </script>
 </body>
-
-</html>
+</html>                
