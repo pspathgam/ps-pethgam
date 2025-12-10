@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Admin Panel - Government Primary School Pethgam Wagoora</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/css/all.min.css">
+<style>
+:root{
+  --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
+  --bg:#f8f9fa; --text:#222;
+  --btn-shadow: rgba(2,6,23,0.18);
+  --green-main: #10b981;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.45}
+
+/* HEADER */
+.header-wrap{border-bottom:3px solid var(--primary);background:#fff}
+.logo-row{display:flex;align-items:center;padding:14px 18px;gap:18px}
+.logo-row img{width:90px;height:90px;border-radius:50%;object-fit:cover}
+.logo-row .title{flex:1}
+.logo-row h1{margin:0;color:var(--primary);font-size:1.5rem}
+.logo-row h2{margin:4px 0 0;color:var(--secondary);font-weight:600;font-size:0.98rem}
+.contact-info{background:#eef3f8;padding:8px 18px;font-size:0.95rem;border-top:1px solid #e1e6ea}
+
+/* 3D Mixed Buttons (Menu) */
+.navbar {
+  display:flex;
+  gap:10px;
+  padding:12px;
+  overflow-x:auto; 
+  align-items:center;
+  background:transparent;
+}
+.btn-3d {
+  --depth:10px;
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.6rem 1.1rem;
+  border-radius:30px;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transform:translateZ(0);
+  transition: transform .14s ease, box-shadow .14s ease;
+  box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.12);
+  border: none;
+  user-select:none;
+  flex-shrink: 0; 
+}
+.btn-3d:active{ transform: translateY(6px); box-shadow: 0 3px 0 rgba(0,0,0,0.08); }
+
+/* individual colors */
+.c-blue{ background: linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green{ background: linear-gradient(180deg,#34d399,#10b981); }
+.c-purple{ background: linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-pink{ background: linear-gradient(180deg,#fb7185,#ef445b); }
+.c-teal{ background: linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow{ background: linear-gradient(180deg,#ffd66b,#ffb020); }
+
+.c-blue::after { background:#0b69c6; }
+.c-green::after { background:#0a8c4f; }
+.c-purple::after { background:#7b5cf7; }
+.c-pink::after { background:#de3b57; }
+.c-teal::after { background:#07a88f; }
+.c-yellow::after { background:#f0a120; }
+
+.navbar::-webkit-scrollbar{ height:6px; }
+.navbar::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.12); border-radius:6px; }
+
+/* Main Content Styles */
+.content-section{max-width:1150px;margin:20px auto;padding:0 18px}
+
+
+/* --- ADMIN PANEL SPECIFIC STYLES --- */
+
+.admin-hero {
+    background: linear-gradient(rgba(16, 185, 129, 0.9), rgba(16, 185, 129, 0.9)), url('assets/images/admin_banner.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 50px 18px;
+    color: #fff;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.admin-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+.admin-hero p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.admin-module {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(2, 6, 23, 0.05);
+    border-top: 5px solid var(--green-main);
+    transition: box-shadow 0.3s ease;
+}
+.admin-module:hover {
+    box-shadow: 0 8px 25px rgba(2, 6, 23, 0.1);
+}
+
+.admin-module h3 {
+    color: var(--primary);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+}
+.admin-module h3 i {
+    margin-right: 10px;
+    color: var(--green-main);
+}
+.admin-module ul {
+    list-style: none;
+    padding: 0;
+}
+.admin-module ul li {
+    margin-bottom: 10px;
+    border-bottom: 1px dotted #eee;
+    padding-bottom: 8px;
+}
+.admin-module ul li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.action-link {
+    color: var(--blue-main);
+    text-decoration: none;
+    font-weight: 600;
+}
+.action-link:hover {
+    text-decoration: underline;
+}
+
+/* Status Box */
+.status-box {
+    background: #e6f7f3;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #b2dfdb;
+    color: var(--text);
+    margin-bottom: 20px;
+}
+.status-box strong {
+    color: var(--green-main);
+}
+
+
+/* footer */
+.footer{background:var(--primary);color:#fff;padding:18px;margin-top:28px}
+.footer a{color:#fff;text-decoration:underline}
+
+/* --- MOBILE OPTIMIZATION (Media Query: Max width 600px) --- */
+@media (max-width:600px){
+  .logo-row img{width:76px;height:76px}
+  
+  /* Menu Buttons Fix */
+  .navbar {
+    flex-wrap: wrap; 
+    overflow-x: hidden; 
+    justify-content: center;
+    padding: 10px 10px 0 10px; 
+  }
+  .btn-3d {
+    margin-bottom: 10px; 
+  }
+
+  .admin-hero {
+      padding: 30px 15px;
+  }
+  .admin-hero h1 {
+      font-size: 1.8rem;
+  }
+  .admin-hero p {
+      font-size: 0.95rem;
+  }
+
+  .dashboard-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+  }
+  .admin-module {
+      padding: 15px;
+  }
+  .admin-module h3 {
+      font-size: 1.2rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header-wrap">
+  <div class="logo-row">
+    <img src="assets/images/logo.png" alt="School Logo" onerror="this.style.display='none'">
+    <div class="title">
+      <h1>Government Primary School Pethgam Wagoora</h1>
+      <h2>Wagoora Babareshi Road Near ZEO Office Wagoora</h2>
+    </div>
+  </div>
+
+  <div class="contact-info">
+    Phone: <strong>7006261694</strong> | <strong>9596449881</strong> |
+    Email: <strong>pspethgam@gmail.com</strong> | UDISE: <strong>01022202207</strong>
+  </div>
+
+  <div class="navbar" role="navigation" aria-label="Main menu">
+    <a class="btn-3d c-blue" href="index.html">Home</a>
+    <a class="btn-3d c-green" href="about.html">About</a>
+    <a class="btn-3d c-purple" href="academics.html">Academics</a>
+    <a class="btn-3d c-pink" href="gallery.html">Gallery</a>
+    <a class="btn-3d c-teal" href="students.html">Our Heroes</a>
+    <a class="btn-3d c-yellow" href="admissions.html">Admissions</a>
+    <a class="btn-3d c-blue" href="contact.html">Contact</a>
+    <a class="btn-3d c-green" href="admin.html">Admin Panel</a>
+  </div>
+</header>
+
+<section class="content-section">
+
+    <div class="admin-hero">
+        <h1>School Administrator Dashboard</h1>
+        <p>This panel allows the Head of Institution and designated staff to manage website content, student data, and academic records.</p>
+    </div>
+    
+    <div class="status-box">
+        <i class="fas fa-check-circle" style="color: var(--green-main);"></i> Last Login: Today, 10:00 AM. <strong>3 new contact form submissions pending review.</strong>
+    </div>
+
+    <div class="dashboard-grid">
+        
+        <div class="admin-module">
+            <h3><i class="fas fa-school"></i> General Site Management</h3>
+            <ul>
+                <li><a href="#" class="action-link">Edit School Contact Details (Phone, Email, Address)</a></li>
+                <li><a href="#" class="action-link">Update HOI Message (About Page)</a></li>
+                <li><a href="#" class="action-link">Manage School Announcements/News (Home Page)</a></li>
+                <li><a href="#" class="action-link">Review Incoming Contact Form Submissions</a></li>
+            </ul>
+        </div>
+        
+        <div class="admin-module">
+            <h3><i class="fas fa-users"></i> Student & Achievement Records</h3>
+            <p>Manage the student directory, academic toppers, and alumni profiles.</p>
+            <ul>
+                <li><a href="#" class="action-link">Add/Edit Current Student Profiles (Enrollment, Class, Roll)</a></li>
+                <li><a href="#" class="action-link">Update Academic Toppers List (Class 5th, 4th, 3rd)</a></li>
+                <li><a href="#" class="action-link">Manage Student Achievements/Awards</a></li>
+                <li><a href="#" class="action-link">Update Alumni/Former Heroes Information</a></li>
+            </ul>
+        </div>
+        
+        <div class="admin-module">
+            <h3><i class="fas fa-book-open"></i> Academic & Admissions Content</h3>
+            <ul>
+                <li><a href="#" class="action-link">Update Official Time Table (Academics Page)</a></li>
+                <li><a href="#" class="action-link">Upload New Academic Calendar & Syllabus PDFs</a></li>
+                <li><a href="#" class="action-link">Modify Admission Dates and Eligibility Criteria</a></li>
+                <li><a href="#" class="action-link">Update Mid-Day Meal (MDM) Menu/Schedule</a></li>
+            </ul>
+        </div>
+        
+        <div class="admin-module">
+            <h3><i class="fas fa-camera"></i> Photo Gallery Management</h3>
+            <p>Upload new event photos and categorize them for the public gallery.</p>
+            <ul>
+                <li><a href="#" class="action-link">Upload New Photos (Batch Upload)</a></li>
+                <li><a href="#" class="action-link">Categorize/Tag Existing Photos (Events, Activities, Infra)</a></li>
+                <li><a href="#" class="action-link">Delete or Archive Old Photos</a></li>
+            </ul>
+        </div>
+        
+        <div class="admin-module">
+            <h3><i class="fas fa-lock"></i> Technical & Security Settings</h3>
+            <ul>
+                <li><a href="#" class="action-link">Change Administrator Password</a></li>
+                <li><a href="#" class="action-link">View Website Traffic/Analytics</a></li>
+                <li><a href="#" class="action-link">System Backup & Maintenance Log</a></li>
+            </ul>
+        </div>
+        
+        <div class="admin-module">
+            <h3><i class="fas fa-clipboard-list"></i> Logs & Maintenance</h3>
+            <ul>
+                <li><a href="#" class="action-link">View Site Error Log</a></li>
+                <li><a href="#" class="action-link">Download Data Backups (Students, Contacts)</a></li>
+                <li><a href="#" class="action-link">Manage Website User Roles (HOI, Staff)</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer class="footer">
+  <div style="max-width:1150px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between">
+    <div style="min-width:260px">
+      <h4 style="margin:0 0 8px 0">Contact Details</h4>
+      <p style="margin:0">Government Primary School Pethgam Wagoora<br>Address: Pethgam Wagoora, Baramulla, J&K<br>Wagoora Babareshi Road Near ZEO Office Wagoora 193109</p>
+      <p style="margin:6px 0 0 0">Phone: 7006261694 | 9596449881<br>Email: pspethgam@gmail.com</p>
+    </div>
+    <div style="min-width:220px">
+      <h4 style="margin:0 0 8px 0">Quick Links</h4>
+      <p style="margin:0"><a href="admissions.html">Admissions</a><br><a href="academics.html">Academics</a><br><a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Improve button active state for mobile touch (visual) */
+document.querySelectorAll('.btn-3d').forEach(btn=>{
+  btn.addEventListener('touchstart', ()=> btn.classList.add('pressed'));
+  btn.addEventListener('touchend', ()=> btn.classList.remove('pressed'));
+});
+</script>
+
+</body>
+</html>
