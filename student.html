@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Our Heroes (Students) - Government Primary School Pethgam Wagoora</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+:root{
+  --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
+  --bg:#f8f9fa; --text:#222;
+  --btn-shadow: rgba(2,6,23,0.18);
+  --teal: #0ea5a4;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.45}
+
+/* HEADER */
+.header-wrap{border-bottom:3px solid var(--primary);background:#fff}
+.logo-row{display:flex;align-items:center;padding:14px 18px;gap:18px}
+.logo-row img{width:90px;height:90px;border-radius:50%;object-fit:cover}
+.logo-row .title{flex:1}
+.logo-row h1{margin:0;color:var(--primary);font-size:1.5rem}
+.logo-row h2{margin:4px 0 0;color:var(--secondary);font-weight:600;font-size:0.98rem}
+.contact-info{background:#eef3f8;padding:8px 18px;font-size:0.95rem;border-top:1px solid #e1e6ea}
+
+/* 3D Mixed Buttons (Menu) */
+.navbar {
+  display:flex;
+  gap:10px;
+  padding:12px;
+  overflow-x:auto; 
+  align-items:center;
+  background:transparent;
+}
+.btn-3d {
+  --depth:10px;
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.6rem 1.1rem;
+  border-radius:30px;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transform:translateZ(0);
+  transition: transform .14s ease, box-shadow .14s ease;
+  box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.12);
+  border: none;
+  user-select:none;
+  flex-shrink: 0; 
+}
+.btn-3d:active{ transform: translateY(6px); box-shadow: 0 3px 0 rgba(0,0,0,0.08); }
+
+/* individual colors */
+.c-blue{ background: linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green{ background: linear-gradient(180deg,#34d399,#10b981); }
+.c-purple{ background: linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-pink{ background: linear-gradient(180deg,#fb7185,#ef445b); }
+.c-teal{ background: linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow{ background: linear-gradient(180deg,#ffd66b,#ffb020); }
+
+.c-blue::after { background:#0b69c6; }
+.c-green::after { background:#0a8c4f; }
+.c-purple::after { background:#7b5cf7; }
+.c-pink::after { background:#de3b57; }
+.c-teal::after { background:#07a88f; }
+.c-yellow::after { background:#f0a120; }
+
+.navbar::-webkit-scrollbar{ height:6px; }
+.navbar::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.12); border-radius:6px; }
+
+/* Main Content Styles */
+.content-section{max-width:1150px;margin:20px auto;padding:0 18px}
+
+
+/* --- STUDENTS PAGE SPECIFIC STYLES --- */
+
+.students-hero {
+    background: linear-gradient(rgba(14, 165, 164, 0.85), rgba(14, 165, 164, 0.85)), url('assets/images/students_banner.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 50px 18px;
+    color: #fff;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.students-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+.students-hero p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Student Cards Grid */
+.students-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:18px;
+    margin-top:18px;
+}
+.student-card{
+  background: linear-gradient(180deg, #5eead4 0%, #0ea5a4 100%); /* Teal gradient */
+  color: #ffffff; 
+  border-radius:10px;
+  padding:14px;
+  box-shadow:0 10px 28px rgba(2,6,23,0.1);
+  text-align:center;
+  transition: transform 0.3s ease;
+}
+.student-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(2,6,23,0.2);
+}
+.student-card .photo-square{
+  width:108px;height:108px;
+  border-radius:50%; 
+  overflow:hidden;
+  margin:0 auto 10px;
+  border:4px solid #fff;
+  box-shadow:0 8px 20px rgba(2,6,23,0.1);
+}
+.student-card .photo-square img{
+  width:100%;height:100%;object-fit:cover; 
+}
+.student-card h4{margin:6px 0 4px;font-size:1.1rem}
+.student-card .meta{color:rgba(255,255,255,0.9);font-size:0.95rem; line-height: 1.3;}
+.student-card .achievement{
+    margin-top:8px;
+    font-weight:700;
+    background:rgba(255,255,255,0.8);
+    padding:4px 5px;
+    border-radius:4px;
+    color:var(--primary); /* Use primary color for contrast */
+}
+
+/* Toppers Section */
+.topper-card-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+.topper-card {
+    background: #fff;
+    border: 3px solid var(--accent); /* Yellow border for gold look */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    flex: 1 1 280px;
+    max-width: 350px;
+}
+.topper-card h3 {
+    color: var(--primary);
+    margin-top: 5px;
+    font-size: 1.3rem;
+}
+.topper-card .title-meta {
+    font-style: italic;
+    color: var(--secondary);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.topper-card .topper-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid var(--accent);
+    margin: 0 auto 10px;
+    overflow: hidden;
+}
+.topper-card .topper-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Portal Access Box */
+.portal-box {
+    background: linear-gradient(135deg, #eef3f8, #ffffff);
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 5px solid var(--primary);
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.portal-box h3 {
+    color: var(--primary);
+    margin: 0 0 5px 0;
+}
+.portal-btn {
+    padding: 10px 20px;
+    background: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 700;
+    transition: background-color 0.2s;
+}
+.portal-btn:hover {
+    background: #004085;
+}
+
+
+/* footer */
+.footer{background:var(--primary);color:#fff;padding:18px;margin-top:28px}
+.footer a{color:#fff;text-decoration:underline}
+
+/* --- MOBILE OPTIMIZATION (Media Query: Max width 600px) --- */
+@media (max-width:600px){
+  .logo-row img{width:76px;height:76px}
+  
+  /* Menu Buttons Fix */
+  .navbar {
+    flex-wrap: wrap; 
+    overflow-x: hidden; 
+    justify-content: center;
+    padding: 10px 10px 0 10px; 
+  }
+  .btn-3d {
+    margin-bottom: 10px; 
+  }
+
+  .students-hero {
+      padding: 30px 15px;
+  }
+  .students-hero h1 {
+      font-size: 1.8rem;
+  }
+  .students-hero p {
+      font-size: 0.95rem;
+  }
+  
+  /* Students Grid: 2 Columns */
+  .students-grid {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+  }
+  .student-card {
+    padding: 10px;
+  }
+  .student-card .photo-square {
+    width: 70px;
+    height: 70px;
+    border-width: 3px;
+    margin-bottom: 5px;
+  }
+  .student-card h4 {
+    font-size: 0.95rem;
+    margin: 4px 0 2px;
+  }
+  .student-card .meta, .student-card .achievement {
+    font-size: 0.75rem;
+  }
+  .student-card .achievement {
+    padding: 2px 3px;
+  }
+  
+  /* Toppers Card Mobile */
+  .topper-card-grid {
+      flex-direction: column;
+  }
+  .topper-card {
+      padding: 15px;
+      flex: 1 1 100%;
+  }
+  .topper-card h3 {
+      font-size: 1.2rem;
+  }
+  .topper-card .title-meta {
+      font-size: 0.9rem;
+  }
+
+  /* Portal Box Mobile */
+  .portal-box {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 20px;
+  }
+  .portal-btn {
+      width: 100%;
+      text-align: center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header-wrap">
+  <div class="logo-row">
+    <img src="assets/images/logo.png" alt="School Logo" onerror="this.style.display='none'">
+    <div class="title">
+      <h1>Government Primary School Pethgam Wagoora</h1>
+      <h2>Wagoora Babareshi Road Near ZEO Office Wagoora</h2>
+    </div>
+  </div>
+
+  <div class="contact-info">
+    Phone: <strong>7006261694</strong> | <strong>9596449881</strong> |
+    Email: <strong>pspethgam@gmail.com</strong> | UDISE: <strong>01022202207</strong>
+  </div>
+
+  <div class="navbar" role="navigation" aria-label="Main menu">
+    <a class="btn-3d c-blue" href="index.html">Home</a>
+    <a class="btn-3d c-green" href="about.html">About</a>
+    <a class="btn-3d c-purple" href="academics.html">Academics</a>
+    <a class="btn-3d c-pink" href="gallery.html">Gallery</a>
+    <a class="btn-3d c-teal" href="students.html">Our Heroes</a>
+    <a class="btn-3d c-yellow" href="admissions.html">Admissions</a>
+    <a class="btn-3d c-blue" href="contact.html">Contact</a>
+    <a class="btn-3d c-green" href="admin.html">Admin Panel</a>
+  </div>
+</header>
+
+<section class="content-section">
+
+    <div class="students-hero">
+        <h1>Our Heroes: Students and Alumni</h1>
+        <p>Celebrating the students who make up the heart of GPS Pethgam Wagoora, from current high achievers to successful alumni. Every student is a hero here!</p>
+    </div>
+    
+    <div class="portal-box">
+        <div>
+            <h3>Check Your Results and Attendance Status</h3>
+            <p>Access the consolidated student portal using the official Enrollment ID.</p>
+        </div>
+        <a href="https://jkstudentservices.gov.in" target="_blank" class="portal-btn">
+            <i class="fas fa-sign-in-alt"></i> Go to Student Portal
+        </a>
+    </div>
+
+    <h2 style="color: var(--teal); margin-top: 30px; border-bottom: 2px solid var(--accent); padding-bottom: 8px;">Academic Toppers (2024-25)</h2>
+    
+    <div class="topper-card-grid">
+        
+        <div class="topper-card">
+            <div class="topper-img"><img src="assets/images/std1.jpg" alt="Aqsa Jan"></div>
+            <span style="color: gold; font-size: 2rem; position: relative; top: -10px;"><i class="fas fa-crown"></i></span>
+            <h3>Aqsa Jan</h3>
+            <div class="title-meta">Class V Champion (98.2%)</div>
+            <p>Moving on to Middle School with exceptional foundational skills in all subjects.</p>
+        </div>
+        
+        <div class="topper-card">
+            <div class="topper-img"><img src="assets/images/std3.jpg" alt="Saba Akhtar"></div>
+            <span style="color: silver; font-size: 2rem; position: relative; top: -10px;"><i class="fas fa-medal"></i></span>
+            <h3>Saba Akhtar</h3>
+            <div class="title-meta">Class III Leader (95.0%)</div>
+            <p>A shining star in literacy and numeracy, showing great potential for the future.</p>
+        </div>
+        
+        <div class="topper-card">
+            <div class="topper-img"><img src="assets/images/std2.jpg" alt="Zahid Ahmad"></div>
+            <span style="color: #cd7f32; font-size: 2rem; position: relative; top: -10px;"><i class="fas fa-star"></i></span>
+            <h3>Zahid Ahmad</h3>
+            <div class="title-meta">Class IV Distinction (92.5%)</div>
+            <p>Consistent performance and excellence in environmental studies (EVS).</p>
+        </div>
+        
+    </div>
+
+    <h2 style="color: var(--teal); margin-top: 30px; border-bottom: 2px solid var(--accent); padding-bottom: 8px;">Student Directory (Sample Profiles)</h2>
+
+    <div class="students-grid">
+        
+        <div class="student-card">
+            <div class="photo-square"><img src="assets/images/std4.jpg" alt="Ali Khan"></div>
+            <h4>Ali Khan</h4>
+            <div class="meta">Class: 5th • Roll: 1</div>
+            <div class="meta">Enrollment: 2025-2200</div>
+            <div class="achievement">Football Captain</div>
+        </div>
+
+        <div class="student-card">
+            <div class="photo-square"><img src="assets/images/std1.jpg" alt="Aqsa Jan"></div>
+            <h4>Aqsa Jan</h4>
+            <div class="meta">Class: 5th • Roll: 12</div>
+            <div class="meta">Enrollment: 2025-2214</div>
+            <div class="achievement">Drawing Winner</div>
+        </div>
+
+        <div class="student-card">
+            <div class="photo-square"><img src="assets/images/std2.jpg" alt="Zahid Ahmad"></div>
+            <h4>Zahid Ahmad</h4>
+            <div class="meta">Class: 4th • Roll: 7</div>
+            <div class="meta">Enrollment: 2025-2197</div>
+            <div class="achievement">Quiz Champion</div>
+        </div>
+
+        <div class="student-card">
+            <div class="photo-square"><img src="assets/images/std3.jpg" alt="Saba Akhtar"></div>
+            <h4>Saba Akhtar</h4>
+            <div class="meta">Class: 3rd • Roll: 3</div>
+            <div class="meta">Enrollment: 2025-2155</div>
+            <div class="achievement">Best Handwriting</div>
+        </div>
+        
+        <div class="student-card">
+            <div class="photo-square"><img src="assets/images/std5.jpg" alt="Junaid Mir"></div>
+            <h4>Junaid Mir</h4>
+            <div class="meta">Class: 2nd • Roll: 15</div>
+            <div class="meta">Enrollment: 2025-2228</div>
+            <div class="achievement">Most Improved Reader</div>
+        </div>
+        
+        <div class="student-card">
+            <div class="photo-square"><img src="assets/images/std6.jpg" alt="Rizwan Bhat"></div>
+            <h4>Rizwan Bhat</h4>
+            <div class="meta">Class: 1st • Roll: 9</div>
+            <div class="meta">Enrollment: 2025-2241</div>
+            <div class="achievement">Perfect Attendance</div>
+        </div>
+
+    </div>
+
+    <h2 style="color: var(--teal); margin-top: 40px; border-bottom: 2px solid var(--accent); padding-bottom: 8px;">Our Former Heroes (Alumni)</h2>
+    
+    <div style="background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(2, 6, 23, 0.05);">
+        <p>Our alumni are a testament to the strong foundation laid at GPS Pethgam Wagoora. They continue to excel in their further education.</p>
+        
+        <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                <i class="fas fa-graduation-cap" style="color: var(--primary); position: absolute; left: 0;"></i> 
+                **Mushtaq Ahmed (Batch 2020):** Currently excelling at Government Middle School, Wagoora. Recognized for his leadership skills.
+            </li>
+            <li style="margin-bottom: 15px; padding-left: 30px; position: relative;">
+                <i class="fas fa-graduation-cap" style="color: var(--primary); position: absolute; left: 0;"></i> 
+                **Sameena Jan (Batch 2022):** Consistently in the top five of her class at Higher Secondary School, Babareshi.
+            </li>
+        </ul>
+        <p style="font-style: italic;">We encourage all former students to stay in touch!</p>
+    </div>
+
+
+</section>
+
+
+<footer class="footer">
+  <div style="max-width:1150px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between">
+    <div style="min-width:260px">
+      <h4 style="margin:0 0 8px 0">Contact Details</h4>
+      <p style="margin:0">Government Primary School Pethgam Wagoora<br>Address: Pethgam Wagoora, Baramulla, J&K<br>Wagoora Babareshi Road Near ZEO Office Wagoora 193109</p>
+      <p style="margin:6px 0 0 0">Phone: 7006261694 | 9596449881<br>Email: pspethgam@gmail.com</p>
+    </div>
+    <div style="min-width:220px">
+      <h4 style="margin:0 0 8px 0">Quick Links</h4>
+      <p style="margin:0"><a href="admissions.html">Admissions</a><br><a href="academics.html">Academics</a><br><a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Improve button active state for mobile touch (visual) */
+document.querySelectorAll('.btn-3d').forEach(btn=>{
+  btn.addEventListener('touchstart', ()=> btn.classList.add('pressed'));
+  btn.addEventListener('touchend', ()=> btn.classList.remove('pressed'));
+});
+</script>
+
+</body>
+</html>
