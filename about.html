@@ -154,6 +154,17 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
 
 /* --- MOBILE OPTIMIZATION (Media Query: Max width 600px) --- */
 @media (max-width:600px){
+  /* 1. Menu Buttons Wrap (FIXED) */
+  .navbar {
+    flex-wrap: wrap; 
+    overflow-x: hidden; /* FIX: Prevents horizontal scrolling, forcing wrap */
+    justify-content: center;
+    padding: 10px 10px 0 10px; 
+  }
+  .btn-3d {
+    margin-bottom: 10px; 
+  }
+  
   .logo-row img{width:76px;height:76px}
   .about-header {
       padding: 40px 15px;
@@ -179,6 +190,11 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
       height: 180px;
       flex: none;
   }
+}
+
+@media (max-width:900px){
+    /* Adjustments for tablets/larger phones */
+    .logo-row img{width:76px;height:76px}
 }
 </style>
 </head>
@@ -310,3 +326,4 @@ document.querySelectorAll('.btn-3d').forEach(btn=>{
 
 </body>
 </html>
+ 
