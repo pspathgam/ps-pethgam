@@ -8,6 +8,359 @@
 <!-- Tailwind CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+/* ================= 3D BUTTONS ================= */
+.btn-3d {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.6rem 1.3rem;
+  border-radius:.85rem;
+  font-weight:700;
+  color:#fff;
+  position:relative;
+  transform-style:preserve-3d;
+  box-shadow:0 8px rgba(0,0,0,0.13);
+  transition:.15s ease;
+}
+.btn-3d:active { transform:translateY(6px); box-shadow:0 3px rgba(0,0,0,0.13); }
+
+.c-blue   { background:linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green  { background:linear-gradient(180deg,#34d399,#10b981); }
+.c-purple { background:linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-red    { background:linear-gradient(180deg,#fb7185,#ef4444); }
+.c-teal   { background:linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow { background:linear-gradient(180deg,#facc15,#f59e0b); }
+
+.btn-3d::after{
+  content:""; position:absolute; left:6px; right:6px; bottom:-6px;
+  height:8px; border-radius:.65rem; opacity:.9; filter:blur(2px); z-index:-1;
+}
+
+/* ================= TOP NOTIFICATION ================= */
+@keyframes scroll-left { 0%{transform:translateX(100%);} 100%{transform:translateX(-100%);} }
+
+/* ================= SLIDER ================= */
+.slide { opacity:0; transition:opacity .8s ease; }
+.slide.active { opacity:1; }
+
+/* ================= DROPDOWN MENU ================= */
+.dropdown { position:relative; }
+.dropdown-menu {
+  position:absolute; display:none; left:0; top:100%;
+  background:#fff; border-radius:.5rem;
+  box-shadow:0 10px 30px rgba(2,6,23,0.15);
+  z-index:50; min-width:220px;
+}
+.dropdown:hover .dropdown-menu { display:block; }
+.dropdown-menu a { padding:.6rem 1rem; display:block; }
+.dropdown-menu a:hover { background:#f1f5f9; }
+
+/* MEGA MENU */
+.mega { display:grid; grid-template-columns:1fr 1fr; }
+
+/* MOBILE */
+@media(max-width:768px){
+  .dropdown-menu, .mega{
+    position:static; box-shadow:none; background:transparent; display:block;
+  }
+}
+</style>
+</head>
+<body class="bg-gray-100 text-slate-900">
+
+<!-- ================= HEADER ================= -->
+<header class="bg-white shadow-md border-b-4 border-blue-600">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    
+    <div class="flex items-center gap-4">
+      <img src="logo.png" class="w-20 h-20" />
+      <div>
+        <h1 class="text-xl md:text-2xl font-extrabold text-blue-700">
+          Government Primary School Pethgam Wagoora
+        </h1>
+        <p class="text-sm md:text-base text-slate-700">
+          Wagoora Babareshi Road | Email: pspethgam@gmail.com | UDISE: 01022202207 | 9596449881
+        </p>
+      </div>
+    </div>
+
+    <!-- Notification Bar -->
+    <div class="w-full md:w-auto">
+      <div class="bg-yellow-300 border-y-2 border-yellow-500 px-3 py-2 rounded-md overflow-hidden">
+        <div style="display:inline-block;padding-left:100%;animation:scroll-left 15s linear infinite;">
+          📢 Winter Assignment Portal Live • New Notices Uploaded Daily • Parent Teacher Meet on 20 Dec
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="bg-slate-800/10 py-4 shadow">
+  <div class="max-w-6xl mx-auto px-4 flex items-center justify-between flex-wrap gap-3">
+
+    <!-- LEFT ITEMS -->
+    <div class="flex gap-3 flex-wrap">
+
+      <a class="btn-3d c-blue" href="#">Home</a>
+
+      <div class="dropdown">
+        <button class="btn-3d c-green">About ▾</button>
+        <div class="dropdown-menu">
+          <a href="#about">Our School</a>
+          <a href="#about">Vision & Mission</a>
+          <a href="#about">Headmaster's Message</a>
+          <a href="#about">Infrastructure</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn-3d c-purple">Academics ▾</button>
+        <div class="dropdown-menu">
+          <a href="#academics">Curriculum</a>
+          <a href="#academics">Syllabus</a>
+          <a href="#academics">Assignments</a>
+        </div>
+      </div>
+
+      <a class="btn-3d c-red" href="#gallery">Gallery</a>
+      <a class="btn-3d c-teal" href="#heroes">Our Heroes</a>
+
+      <div class="dropdown">
+        <button class="btn-3d c-yellow">Students ▾</button>
+        <div class="dropdown-menu mega">
+          <div>
+            <a href="#heroes">Photos</a>
+            <a href="#heroes">Achievements</a>
+          </div>
+          <div>
+            <a href="#students-portal">Attendance</a>
+            <a href="#students-portal">Study Material</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT ITEMS -->
+    <div class="flex gap-3">
+
+      <div class="dropdown">
+        <button class="btn-3d c-yellow">Staff ▾</button>
+        <div class="dropdown-menu">
+          <a href="#staff">Teaching Staff</a>
+          <a href="#nonteaching">Non-Teaching</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn-3d c-blue">Admissions ▾</button>
+        <div class="dropdown-menu">
+          <a href="#admissions">Process</a>
+          <a href="#admissions">Form</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn-3d c-green">Results ▾</button>
+        <div class="dropdown-menu">
+          <a href="#results">Check Results</a>
+          <a href="#results">Teacher Upload</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn-3d c-purple">Portal ▾</button>
+        <div class="dropdown-menu">
+          <a href="#portal">Winter Assignment Portal</a>
+          <a href="#downloads">Downloads</a>
+        </div>
+      </div>
+
+      <a class="btn-3d c-red" href="#contact">Contact</a>
+
+      <div class="dropdown">
+        <button class="btn-3d c-teal">Login ▾</button>
+        <div class="dropdown-menu">
+          <a href="#">Student</a>
+          <a href="#">Teacher</a>
+          <a href="#" onclick="openAdmin()">Admin</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</nav>
+
+<!-- ================= HERO SLIDER ================= -->
+<section class="max-w-6xl mx-auto px-4 mt-6">
+  <div class="rounded-xl overflow-hidden shadow-lg">
+    <div id="slides" class="relative h-56 md:h-72">
+      
+      <img class="slide absolute inset-0 w-full h-full object-cover active"
+        src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1600"/>
+
+      <img class="slide absolute inset-0 w-full h-full object-cover"
+        src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=1600"/>
+
+      <img class="slide absolute inset-0 w-full h-full object-cover"
+        src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?q=80&w=1600"/>
+
+      <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+        <h2 class="text-xl md:text-3xl text-white font-extrabold">
+          Welcome to Government Primary School Pethgam Wagoora
+        </h2>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= OUR TEACHING STAFF ================= -->
+<section id="staff" class="max-w-6xl mx-auto px-4 mt-10">
+  <h2 class="text-2xl font-bold text-blue-700 mb-4">Our Teaching Staff</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+    <!-- Staff Card Template -->
+    <div class="bg-white shadow-md rounded-xl p-4">
+      <div class="w-full h-40 bg-gray-200 rounded-lg flex items-center justify-center">
+        <span class="text-gray-400">Photo</span>
+      </div>
+      <h3 class="text-lg font-bold mt-3">Name Placeholder</h3>
+      <p class="text-sm text-slate-600">Designation: Teacher</p>
+      <p class="text-sm text-slate-600">Qualification: B.Ed</p>
+      <p class="text-sm text-slate-600 mt-1 italic">Speciality: Champion of Teaching Mathematics</p>
+    </div>
+
+    <!-- Duplicate the above card for more staff -->
+  </div>
+</section>
+
+<!-- ================= NON-TEACHING STAFF ================= -->
+<section id="nonteaching" class="max-w-6xl mx-auto px-4 mt-10">
+  <h2 class="text-2xl font-bold text-blue-700 mb-4">Our Non-Teaching Staff</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+    <!-- Staff Card Template -->
+    <div class="bg-white shadow-md rounded-xl p-4">
+      <div class="w-full h-40 bg-gray-200 rounded-lg flex items-center justify-center">
+        <span class="text-gray-400">Photo</span>
+      </div>
+      <h3 class="text-lg font-bold mt-3">Name Placeholder</h3>
+      <p class="text-sm text-slate-600">Role: Non-Teaching Staff</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= OUR HEROES (STUDENT CARDS) ================= -->
+<section id="heroes" class="max-w-6xl mx-auto px-4 mt-10">
+  <h2 class="text-2xl font-bold text-blue-700 mb-4">Our Beloved Students</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+    <!-- Student Card Template -->
+    <div class="bg-white shadow-md rounded-xl p-4">
+      <div class="w-full h-40 bg-gray-200 rounded-lg flex items-center justify-center">
+        <span class="text-gray-400">Photo</span>
+      </div>
+
+      <h3 class="text-lg font-bold mt-3">Student Name</h3>
+      <p class="text-sm text-slate-600">Class: 5th</p>
+      <p class="text-sm text-slate-600">Admission No: 12345</p>
+      <p class="text-sm text-slate-600 italic mt-1">Achievement: ⭐ Maths Olympiad Winner</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-slate-800 text-white mt-12 py-6">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <p class="text-sm">© 2025 Government Primary School Pethgam Wagoora</p>
+    <p class="text-xs opacity-80">Designed & Maintained by GPS Pethgam Wagoora</p>
+  </div>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script>
+// ===== SLIDER =====
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slide");
+setInterval(() => {
+  slides[slideIndex].classList.remove("active");
+  slideIndex = (slideIndex + 1) % slides.length;
+  slides[slideIndex].classList.add("active");
+}, 3000);
+
+// ===== DROPDOWN AUTO CLOSE =====
+document.addEventListener("click", function (e) {
+  document.querySelectorAll(".dropdown-menu").forEach(menu => {
+    if (!menu.parentNode.contains(e.target)) {
+      menu.style.display = "none";
+    }
+  });
+});
+
+// Show dropdown on button click (mobile + desktop)
+document.querySelectorAll(".dropdown > button").forEach(btn => {
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    let menu = this.nextElementSibling;
+
+    // Close all first
+    document.querySelectorAll(".dropdown-menu").forEach(m => {
+      if (m !== menu) m.style.display = "none";
+    });
+
+    // Toggle the clicked one
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  });
+});
+
+// ===== ADMIN LOGIN =====
+function openAdmin() {
+  alert("Admin Panel Coming Soon...");
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Government Primary School Pethgam Wagoora</title>
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
 <!-- Font Awesome for icons (optional) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
