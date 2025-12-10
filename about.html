@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About Us - Government Primary School Pethgam Wagoora</title>
+<style>
+:root{
+  --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
+  --bg:#f8f9fa; --text:#222;
+  --btn-shadow: rgba(2,6,23,0.18);
+}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.45}
+
+/* HEADER */
+.header-wrap{border-bottom:3px solid var(--primary);background:#fff}
+.logo-row{display:flex;align-items:center;padding:14px 18px;gap:18px}
+.logo-row img{width:90px;height:90px;border-radius:50%;object-fit:cover}
+.logo-row .title{flex:1}
+.logo-row h1{margin:0;color:var(--primary);font-size:1.5rem}
+.logo-row h2{margin:4px 0 0;color:var(--secondary);font-weight:600;font-size:0.98rem}
+.contact-info{background:#eef3f8;padding:8px 18px;font-size:0.95rem;border-top:1px solid #e1e6ea}
+
+/* 3D Mixed Buttons (Menu) */
+.navbar {
+  display:flex;
+  gap:10px;
+  padding:12px;
+  overflow-x:auto; 
+  align-items:center;
+  background:transparent;
+}
+.btn-3d {
+  --depth:10px;
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.6rem 1.1rem;
+  border-radius:30px;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transform:translateZ(0);
+  transition: transform .14s ease, box-shadow .14s ease;
+  box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.12);
+  border: none;
+  user-select:none;
+  flex-shrink: 0; 
+}
+.btn-3d:active{ transform: translateY(6px); box-shadow: 0 3px 0 rgba(0,0,0,0.08); }
+
+/* individual colors */
+.c-blue{ background: linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green{ background: linear-gradient(180deg,#34d399,#10b981); }
+.c-purple{ background: linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-pink{ background: linear-gradient(180deg,#fb7185,#ef445b); }
+.c-teal{ background: linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow{ background: linear-gradient(180deg,#ffd66b,#ffb020); }
+.c-blue::after { background:#0b69c6; }
+.c-green::after { background:#0a8c4f; }
+.c-purple::after { background:#7b5cf7; }
+.c-pink::after { background:#de3b57; }
+.c-teal::after { background:#07a88f; }
+.c-yellow::after { background:#f0a120; }
+.navbar::-webkit-scrollbar{ height:6px; }
+.navbar::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.12); border-radius:6px; }
+
+/* Main Content Styles */
+.content-section{max-width:1150px;margin:20px auto;padding:0 18px}
+
+.about-header {
+    background: linear-gradient(rgba(0, 86, 179, 0.8), rgba(0, 86, 179, 0.8)), url('assets/images/school_exterior_placeholder.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 60px 18px;
+    color: #fff;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.about-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+.about-header p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0;
+}
+
+.section-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(2, 6, 23, 0.05);
+    margin-bottom: 20px;
+}
+.section-box h2 {
+    color: var(--primary);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 8px;
+    margin-top: 0;
+    font-size: 1.6rem;
+}
+
+.two-col-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+.two-col-layout .image-placeholder {
+    flex: 0 0 40%;
+    max-width: 400px;
+    height: 250px;
+    background: #eef2f8;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0056b3;
+    font-weight: 600;
+    overflow: hidden;
+}
+.two-col-layout .content {
+    flex: 1;
+}
+.two-col-layout img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fact-list {
+    list-style: none;
+    padding: 0;
+}
+.fact-list li {
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+}
+.fact-list li::before {
+    content: "✅"; 
+    position: absolute;
+    left: 0;
+}
+
+/* footer */
+.footer{background:var(--primary);color:#fff;padding:18px;margin-top:28px}
+.footer a{color:#fff;text-decoration:underline}
+
+/* --- MOBILE OPTIMIZATION (Media Query: Max width 600px) --- */
+@media (max-width:600px){
+  .logo-row img{width:76px;height:76px}
+  .about-header {
+      padding: 40px 15px;
+  }
+  .about-header h1 {
+      font-size: 1.8rem;
+  }
+  .about-header p {
+      font-size: 0.95rem;
+  }
+  .section-box {
+      padding: 15px;
+  }
+  .section-box h2 {
+      font-size: 1.4rem;
+  }
+  .two-col-layout {
+      flex-direction: column;
+      gap: 15px;
+  }
+  .two-col-layout .image-placeholder {
+      max-width: 100%;
+      height: 180px;
+      flex: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header-wrap">
+  <div class="logo-row">
+    <img src="assets/images/logo.png" alt="School Logo" onerror="this.style.display='none'">
+    <div class="title">
+      <h1>Government Primary School Pethgam Wagoora</h1>
+      <h2>Wagoora Babareshi Road Near ZEO Office Wagoora</h2>
+    </div>
+  </div>
+
+  <div class="contact-info">
+    Phone: <strong>7006261694</strong> | <strong>9596449881</strong> |
+    Email: <strong>pspethgam@gmail.com</strong> | UDISE: <strong>01022202207</strong>
+  </div>
+
+  <div class="navbar" role="navigation" aria-label="Main menu">
+    <a class="btn-3d c-blue" href="index.html">Home</a>
+    <a class="btn-3d c-green" href="about.html">About</a>
+    <a class="btn-3d c-purple" href="academics.html">Academics</a>
+    <a class="btn-3d c-pink" href="gallery.html">Gallery</a>
+    <a class="btn-3d c-teal" href="students.html">Our Heroes</a>
+    <a class="btn-3d c-yellow" href="admissions.html">Admissions</a>
+    <a class="btn-3d c-blue" href="contact.html">Contact</a>
+    <a class="btn-3d c-green" href="admin.html">Admin Panel</a>
+  </div>
+</header>
+
+<section class="content-section">
+
+    <div class="about-header">
+        <h1>About Government Primary School Pethgam Wagoora</h1>
+        <p>A leading public institution dedicated to providing high-quality foundational education, nurturing character, and fostering a passion for lifelong learning in the community of Pethgam, Wagoora.</p>
+    </div>
+
+    <div class="section-box">
+        <h2>Our Mission and Vision</h2>
+        <div class="two-col-layout">
+            <div class="content">
+                <p><strong>Our Mission:</strong> To create a safe, inclusive, and learning-focused environment where every child is empowered with essential literacy, numeracy, and life skills (as per FLN guidelines).</p>
+                <p>We are committed to providing quality education supported by dedicated teachers and essential resources, ensuring that our students grow into confident, creative, and compassionate citizens.</p>
+            </div>
+            <div class="image-placeholder">
+                [attachment_0](attachment)
+            </div>
+        </div>
+        <div style="margin-top: 15px;">
+            <p><strong>Our Vision:</strong> To be recognized as the cornerstone of primary education in the Wagoora area, delivering educational excellence that shapes resilient and socially responsible young minds ready for the next level of schooling.</p>
+        </div>
+    </div>
+
+    <div class="section-box">
+        <h2>School History & Identity</h2>
+        <p>Established as a vital educational institution for the Pethgam community, our school has been serving students from Pre-Primary (Aanganwadi) to Grade 5. We operate under the guidance of the Zonal Education Office (ZEO) Wagoora and strictly adhere to state and national educational frameworks.</p>
+        
+        <ul class="fact-list">
+            <li>**UDISE Code:** 01022202207</li>
+            <li>**Location:** Wagoora Babareshi Road, Near ZEO Office Wagoora</li>
+            <li>**Management:** Government-run Primary School</li>
+            <li>**Grades Offered:** Pre-Primary (Aanganwadi) to 5th Grade</li>
+        </ul>
+    </div>
+
+    <div class="section-box">
+        <h2>Academic Approach: Foundational Literacy and Numeracy (FLN)</h2>
+        <div class="two-col-layout">
+             <div class="image-placeholder">
+                
+            </div>
+            <div class="content">
+                <p>Our curriculum is centered on achieving the objectives of the **Foundational Literacy and Numeracy (FLN)** mission for all our students in the primary stage.</p>
+                <p>We use activity-based learning, storytelling, and play-way methods to ensure learning is engaging and effective. Continuous evaluation and remedial classes are provided to ensure no child is left behind in achieving foundational competencies.</p>
+                <p style="font-style: italic; color: var(--secondary);">"Joyful learning through hands-on activities is the core of our educational philosophy."</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-box">
+        <h2>Infrastructure and Facilities</h2>
+        <p>Though a primary school, we strive to provide the best possible learning environment for our students. Our facilities include:</p>
+        <ul class="fact-list">
+            <li>**Classrooms:** Three well-maintained and adequately lit classrooms.</li>
+            <li>**Library Corner:** A dedicated space with 350+ books to promote reading habits.</li>
+            <li>**Mid-Day Meal (MDM):** A dedicated kitchen and dining area ensuring hygienic and timely nutritious meals.</li>
+            <li>**Safety:** Separate washroom facilities for boys and girls, and a secured compound wall.</li>
+            <li>**Teaching Aids:** Availability of charts, globes, and digital learning content.</li>
+        </ul>
+    </div>
+
+    <div class="section-box">
+        <h2>Message from the Head of Institution (HOI)</h2>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <img src="assets/images/ashraf.png" alt="Mohammad Ashraf Rather" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary);">
+            <div>
+                <p style="font-size: 1.1rem; font-weight: 500;">"Welcome to Government Primary School Pethgam Wagoora. Our focus is to foster curiosity, kindness, and excellence in every child. We believe that partnership between the school and parents is crucial for a child's successful journey."</p>
+                <p style="font-weight: 700; color: var(--primary); margin-top: 5px;">- Mohammad Ashraf Rather (HOI)</p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<footer class="footer">
+  <div style="max-width:1150px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between">
+    <div style="min-width:260px">
+      <h4 style="margin:0 0 8px 0">Contact Details</h4>
+      <p style="margin:0">Government Primary School Pethgam Wagoora<br>Address: Pethgam Wagoora, Baramulla, J&K<br>Wagoora Babareshi Road Near ZEO Office Wagoora 193109</p>
+      <p style="margin:6px 0 0 0">Phone: 7006261694 | 9596449881<br>Email: pspethgam@gmail.com</p>
+    </div>
+    <div style="min-width:220px">
+      <h4 style="margin:0 0 8px 0">Quick Links</h4>
+      <p style="margin:0"><a href="admissions.html">Admissions</a><br><a href="academics.html">Academics</a><br><a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Improve button active state for mobile touch (visual) */
+document.querySelectorAll('.btn-3d').forEach(btn=>{
+  btn.addEventListener('touchstart', ()=> btn.classList.add('pressed'));
+  btn.addEventListener('touchend', ()=> btn.classList.remove('pressed'));
+});
+</script>
+
+</body>
+</html>
