@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Online Admission Portal - GPS Pethgam Wagoora</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+:root{
+  --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
+  --bg:#f8f9fa; --text:#222;
+  --purple-main: #7c3aed;
+  --step-done: #10b981;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.45}
+
+/* Basic Layout Reset/Styles (Copying from previous pages) */
+.header-wrap{border-bottom:3px solid var(--primary);background:#fff}
+.logo-row{display:flex;align-items:center;padding:14px 18px;gap:18px}
+.logo-row img{width:90px;height:90px;height:90px;border-radius:50%;object-fit:cover}
+.logo-row .title{flex:1}
+.logo-row h1{margin:0;color:var(--primary);font-size:1.5rem}
+.logo-row h2{margin:4px 0 0;color:var(--secondary);font-weight:600;font-size:0.98rem}
+.contact-info{background:#eef3f8;padding:8px 18px;font-size:0.95rem;border-top:1px solid #e1e6ea}
+.content-section{max-width:1150px;margin:20px auto;padding:0 18px}
+
+/* 3D Mixed Buttons (Menu) */
+.navbar { display:flex; gap:10px; padding:12px; overflow-x:auto; align-items:center; background:transparent; }
+.btn-3d { 
+    --depth:10px; position:relative; display:inline-flex; align-items:center; justify-content:center; 
+    padding:.6rem 1.1rem; border-radius:30px; color:#fff; font-weight:700; text-decoration:none; 
+    cursor:pointer; transform:translateZ(0); transition: transform .14s ease, box-shadow .14s ease; 
+    box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.12); border: none; user-select:none; flex-shrink: 0; 
+}
+/* individual colors */
+.c-blue{ background: linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green{ background: linear-gradient(180deg,#34d399,#10b981); }
+.c-purple{ background: linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-pink{ background: linear-gradient(180deg,#fb7185,#ef445b); }
+.c-teal{ background: linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow{ background: linear-gradient(180deg,#ffd66b,#ffb020); }
+
+/* --- APPLICATION PORTAL STYLES --- */
+
+.portal-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+.portal-container h1 {
+    color: var(--purple-main);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+    margin-top: 0;
+    text-align: center;
+}
+
+/* Step Indicator */
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 10px 0;
+}
+.step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding-top: 30px;
+    color: #bbb;
+    font-weight: 600;
+}
+.step::before {
+    content: attr(data-step);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background: #eee;
+    color: #888;
+    border: 2px solid #bbb;
+    font-weight: 700;
+}
+.step.active {
+    color: var(--purple-main);
+}
+.step.active::before {
+    background: var(--purple-main);
+    color: #fff;
+    border-color: var(--purple-main);
+}
+.step.done {
+    color: var(--step-done);
+}
+.step.done::before {
+    content: "✓";
+    background: var(--step-done);
+    color: #fff;
+    border-color: var(--step-done);
+}
+
+/* Form Sections */
+.form-section {
+    display: none; /* Hidden by default */
+    padding: 20px 0;
+}
+.form-section.active {
+    display: block;
+}
+.form-section h2 {
+    color: var(--primary);
+    margin-top: 0;
+    border-left: 5px solid var(--purple-main);
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.form-group input:not([type="checkbox"]):not([type="radio"]), .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.form-group input[type="file"] {
+    padding: 5px;
+}
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+.form-row > .form-group {
+    flex: 1;
+}
+
+/* Declaration box */
+.declaration-box {
+    background: #fcf8e3;
+    border: 1px solid #faebcc;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+.declaration-box strong {
+    color: #8a6d3b;
+}
+
+/* Navigation Buttons */
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+.nav-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.2s;
+}
+.prev-btn {
+    background: #ccc;
+    color: var(--text);
+}
+.next-btn {
+    background: var(--purple-main);
+    color: #fff;
+}
+.submit-btn {
+    background: var(--secondary);
+    color: #fff;
+}
+
+/* Final Confirmation */
+#step-final h2 {
+    text-align: center;
+}
+.download-btn {
+    display: block;
+    width: 80%;
+    margin: 20px auto;
+    padding: 15px;
+    background: var(--primary);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* footer */
+.footer{background:var(--primary);color:#fff;padding:18px;margin-top:28px}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .portal-container { padding: 15px; }
+    .step-indicator { flex-wrap: wrap; }
+    .step { flex: 1 1 50%; margin-bottom: 20px; }
+    .form-row { flex-direction: column; gap: 0; }
+    .form-section { padding: 10px 0; }
+    .nav-buttons { flex-direction: column; gap: 10px; }
+    .nav-btn { width: 100%; }
+    .download-btn { width: 100%; font-size: 1rem; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header-wrap">
+  <div class="logo-row">
+    <img src="assets/images/logo.png" alt="School Logo" onerror="this.style.display='none'">
+    <div class="title">
+      <h1>Government Primary School Pethgam Wagoora</h1>
+      <h2>Wagoora Babareshi Road Near ZEO Office Wagoora</h2>
+    </div>
+  </div>
+  <div class="contact-info">
+    Phone: <strong>7006261694</strong> | <strong>9596449881</strong> |
+    Email: <strong>pspethgam@gmail.com</strong> | UDISE: <strong>01022202207</strong>
+  </div>
+  <div class="navbar" role="navigation" aria-label="Main menu">
+    <a class="btn-3d c-blue" href="index.html">Home</a>
+    <a class="btn-3d c-green" href="about.html">About</a>
+    <a class="btn-3d c-purple" href="academics.html">Academics</a>
+    <a class="btn-3d c-pink" href="gallery.html">Gallery</a>
+    <a class="btn-3d c-teal" href="students.html">Our Heroes</a>
+    <a class="btn-3d c-yellow" href="admissions.html">Admissions</a>
+    <a class="btn-3d c-blue" href="contact.html">Contact</a>
+    <a class="btn-3d c-green" href="admin.html">Admin Panel</a>
+  </div>
+</header>
+
+<section class="content-section">
+
+    <div class="portal-container">
+        <h1>Online Application & Enrollment Portal</h1>
+        <p style="text-align: center; margin-bottom: 20px;">Follow the 5 steps below to generate your pre-filled Admission and APAAR forms.</p>
+
+        <div class="step-indicator">
+            <div class="step active" data-step="1" data-label="Declaration"></div>
+            <div class="step" data-step="2" data-label="Admission Form"></div>
+            <div class="step" data-step="3" data-label="APAAR Consent"></div>
+            <div class="step" data-step="4" data-label="Documents"></div>
+            <div class="step" data-step="5" data-label="Final Submit"></div>
+        </div>
+
+        <form id="admission-form">
+
+            <div id="step-1" class="form-section active">
+                <h2>1. Parental Declaration Acceptance</h2>
+                <div class="declaration-box">
+                    <p><strong>Parental Declaration:</strong> I hereby declare that the above information provided by me is true to the best of my knowledge and belief, and I further declare that I will abide by the rules and regulations of the school. I am giving my consent to the Headmaster/Staff for the admission and betterment of my ward.</p>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="declare-check" required>
+                        I accept the Parental Declaration and authorize the school to proceed with admission.
+                    </label>
+                </div>
+            </div>
+
+            <div id="step-2" class="form-section">
+                <h2>2. Student & Parent Information (Admission Form)</h2>
+                
+                <div class="form-row">
+                    <div class="form-group"><label>Student's Full Name (As Per Aadhaar)</label><input type="text" placeholder="First Name" required></div>
+                    <div class="form-group"><label>Date of Birth</label><input type="date" required></div>
+                </div>
+
+                <div class="form-group"><label>Father's Name</label><input type="text" placeholder="First Name Middle Name Last Name" required></div>
+                <div class="form-group"><label>Mother's Name</label><input type="text" placeholder="First Name Middle Name Last Name" required></div>
+
+                <div class="form-row">
+                    <div class="form-group"><label>Residence</label><input type="text" placeholder="Village/Locality" required></div>
+                    <div class="form-group"><label>District</label><input type="text" value="Baramulla" required></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group"><label>Aadhaar Number</label><input type="text" pattern="\d{12}" title="12 digits" placeholder="0000 0000 0000" required></div>
+                    <div class="form-group"><label>Father's Contact Number</label><input type="tel" pattern="\d{10}" title="10 digits" required></div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group"><label>Category</label>
+                        <select><option>GENERAL</option><option>ST</option><option>SC</option><option>OBC</option></select>
+                    </div>
+                    <div class="form-group"><label>Blood Group</label><input type="text" placeholder="e.g., A+"></div>
+                </div>
+            </div>
+
+            <div id="step-3" class="form-section">
+                <h2>3. APAAR ID Generation Consent</h2>
+                <div class="declaration-box" style="background: #eef3ff; border-color: var(--primary);">
+                    <p>I consent by Father/Mother/Legal Guardian of Student for APAAR ID Generation.</p>
+                    <p>I voluntarily give my consent to share my Aadhaar number and demographic information issued by UIDAI with the Ministry of Education for APAAR ID creation and opening of a DIGILOCKER Account for my child.</p>
+                    <p>I authorize Ministry of Education to use my Aadhaar number for performing Aadhaar based authentication with UIDAI.</p>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="apaar-check" required>
+                        I consent to the generation of the APAAR ID and the use of Aadhaar data as described.
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Parent/Guardian Aadhaar (Self-verified)</label>
+                    <input type="text" pattern="\d{12}" title="12 digits" placeholder="Parent/Guardian Aadhaar Number" required>
+                </div>
+            </div>
+
+            <div id="step-4" class="form-section">
+                <h2>4. Document Uploads (Scanned Copies)</h2>
+                <p style="color: var(--danger); font-weight: 600;">*Maximum file size 500KB. Only PDF or JPEG allowed.*</p>
+                
+                <div class="form-group"><label><i class="fas fa-file-upload"></i> Student Date of Birth Certificate</label><input type="file" accept=".pdf, image/jpeg" required></div>
+                <div class="form-group"><label><i class="fas fa-file-upload"></i> Student's Aadhaar Card</label><input type="file" accept=".pdf, image/jpeg" required></div>
+                <div class="form-group"><label><i class="fas fa-file-upload"></i> Parent's Aadhaar Card</label><input type="file" accept=".pdf, image/jpeg" required></div>
+                <div class="form-group"><label><i class="fas fa-file-upload"></i> Blood Group Report</label><input type="file" accept=".pdf, image/jpeg"></div>
+                <div class="form-group"><label><i class="fas fa-camera"></i> Student's Photograph (Passport Size)</label><input type="file" accept="image/jpeg, image/png" required></div>
+            </div>
+
+            <div id="step-final" class="form-section">
+                <h2>5. Submission Complete & Form Download</h2>
+                <p style="text-align: center; font-size: 1.1rem; color: var(--secondary);">
+                    Your data has been successfully submitted online.
+                </p>
+                <div style="background: #e6fff0; border: 1px dashed var(--secondary); padding: 20px; border-radius: 8px;">
+                    <p style="text-align: center; margin: 0;">
+                        To complete the process, you must submit the printed forms along with the originals of the uploaded documents to the ZEO Office Wagoora.
+                    </p>
+                </div>
+                <a href="assets/downloads/Admission_Form_Pre_filled.pdf" download="Pre_filled_Admission_Forms.pdf" class="download-btn">
+                    <i class="fas fa-print"></i> Download Pre-filled PDF Forms (Admission & APAAR)
+                </a>
+                <p style="text-align: center; margin-top: 20px;">
+                    <button type="button" class="nav-btn submit-btn" onclick="goToStep(1);">Start New Application</button>
+                </p>
+            </div>
+
+            <div class="nav-buttons">
+                <button type="button" id="prev-btn" class="nav-btn prev-btn" onclick="nextStep(-1);" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+                <button type="button" id="next-btn" class="nav-btn next-btn" onclick="nextStep(1);">Next <i class="fas fa-chevron-right"></i></button>
+                <button type="submit" id="submit-btn" class="nav-btn submit-btn" style="display: none;" onclick="finalSubmit();"><i class="fas fa-check-circle"></i> Final Submit</button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+
+<footer class="footer">
+  <div style="max-width:1150px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between">
+    <div style="min-width:260px">
+      <h4 style="margin:0 0 8px 0">Contact Details</h4>
+      <p style="margin:0">Government Primary School Pethgam Wagoora<br>Address: Pethgam Wagoora, Baramulla, J&K<br>Wagoora Babareshi Road Near ZEO Office Wagoora 193109</p>
+      <p style="margin:6px 0 0 0">Phone: 7006261694 | 9596449881<br>Email: pspethgam@gmail.com</p>
+    </div>
+    <div style="min-width:220px">
+      <h4 style="margin:0 0 8px 0">Quick Links</h4>
+      <p style="margin:0"><a href="admissions.html">Admissions</a><br><a href="academics.html">Academics</a><br><a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+let currentStep = 1;
+const totalSteps = 4; // Total steps before final confirmation
+const formSections = document.querySelectorAll('.form-section');
+const steps = document.querySelectorAll('.step');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const submitBtn = document.getElementById('submit-btn');
+
+function updateDisplay() {
+    // Hide all sections
+    formSections.forEach(section => section.classList.remove('active'));
+    // Show current section
+    document.getElementById(`step-${currentStep}`).classList.add('active');
+
+    // Update step indicator classes
+    steps.forEach((step, index) => {
+        step.classList.remove('active', 'done');
+        if (index + 1 < currentStep) {
+            step.classList.add('done');
+        } else if (index + 1 === currentStep) {
+            step.classList.add('active');
+        }
+    });
+
+    // Update navigation buttons
+    prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+    nextBtn.style.display = currentStep < totalSteps ? 'block' : 'none';
+    submitBtn.style.display = currentStep === totalSteps ? 'block' : 'none';
+
+    // Disable next button if declaration is not accepted (Step 1)
+    if (currentStep === 1) {
+        nextBtn.disabled = !document.getElementById('declare-check').checked;
+    } else {
+        nextBtn.disabled = false;
+    }
+
+    // Special handling for the final confirmation step
+    if (currentStep > totalSteps) {
+        document.getElementById('step-final').classList.add('active');
+        document.getElementById('step-4').classList.remove('active');
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'none';
+    }
+}
+
+function validateStep(stepIndex) {
+    if (stepIndex === 1 && !document.getElementById('declare-check').checked) {
+        alert("You must accept the Parental Declaration to proceed.");
+        return false;
+    }
+    if (stepIndex === 3 && !document.getElementById('apaar-check').checked) {
+        alert("You must provide consent for APAAR ID generation to proceed.");
+        return false;
+    }
+    
+    // Simple HTML5 form validation check for current section
+    const currentSection = document.getElementById(`step-${stepIndex}`);
+    const inputs = currentSection.querySelectorAll('input:required, select:required, textarea:required');
+    let isValid = true;
+    
+    inputs.forEach(input => {
+        if (!input.checkValidity()) {
+            input.reportValidity(); // Shows browser error message
+            isValid = false;
+        }
+    });
+    return isValid;
+}
+
+function nextStep(direction) {
+    if (direction === 1) {
+        if (currentStep <= totalSteps && !validateStep(currentStep)) {
+            return; // Stop if validation fails
+        }
+    }
+    
+    currentStep += direction;
+    
+    if (currentStep > totalSteps) {
+        currentStep = totalSteps; // Handled by finalSubmit()
+        return;
+    } else if (currentStep < 1) {
+        currentStep = 1;
+    }
+    
+    updateDisplay();
+}
+
+function goToStep(stepNumber) {
+    currentStep = stepNumber;
+    updateDisplay();
+}
+
+function finalSubmit() {
+    // Final check for Step 4 (Document Uploads) before showing final page
+    if (!validateStep(4)) {
+        return;
+    }
+    currentStep = 5; // Move to the final confirmation step
+    updateDisplay();
+    alert("Application Submitted Online! Please download the PDF for hardcopy submission.");
+}
+
+// Initial setup
+document.addEventListener('DOMContentLoaded', updateDisplay);
+
+// Re-enable next button if declaration is checked on step 1
+document.getElementById('declare-check').addEventListener('change', () => {
+    if (currentStep === 1) {
+        nextBtn.disabled = !document.getElementById('declare-check').checked;
+    }
+});
+
+// Update display to hide the final step immediately after page load
+currentStep = 1;
+updateDisplay();
+</script>
+
+</body>
+  </html>
+  
