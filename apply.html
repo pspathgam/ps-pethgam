@@ -549,8 +549,86 @@ function generateFinalForms() {
     doc1.text(`Student Name: ${studentName}`, 10, 30); 
     doc1.text(`Father's Name: ${fatherName}`, 10, 40); 
     doc1.text("--- INSERT YOUR ADMISSION FORM COORDINATE LOGIC HERE ---", 10, 50);
+    // --- 1. ADMISSION FORM GENERATION ---
+    const doc1 = new jsPDF();
+    
+    // ----------------------------------------------------------------------
+    // !!! START OF ADMISSION FORM CUSTOM COORDINATE CODE BLOCK (INSERT HERE) !!!
+    // ACTION: REPLACE the five lines below with this detailed, custom code block.
+    // ----------------------------------------------------------------------
+    
+    // Set Font Size for form filling (adjust if needed, 10 is standard)
+    doc1.setFontSize(10);
+    
+    // A. Student Name (First, Middle, Last) - Estimated coordinates
+    const studentParts = studentName.split(' ');
+    doc1.text(studentParts[0] || '', 20, 110);      // First Name
+    doc1.text(studentParts[1] || '', 65, 110);      // Middle Name
+    doc1.text(studentParts[2] || '', 110, 110);     // Last Name
+    
+    // B. Name as per Aadhaar (Assuming they are the same)
+    doc1.text(studentParts[0] || '', 20, 125);      // First Name
+    doc1.text(studentParts[1] || '', 65, 125);      // Middle Name
+    doc1.text(studentParts[2] || '', 110, 125);     // Last Name
+    
+    // C. Father's Name 
+    const fatherParts = fatherName.split(' ');
+    doc1.text(fatherParts[0] || '', 20, 140);
+    doc1.text(fatherParts[1] || '', 65, 140);
+    doc1.text(fatherParts[2] || '', 110, 140);
+    
+    // D. Mother's Name
+    const motherParts = motherName.split(' ');
+    doc1.text(motherParts[0] || '', 20, 155);
+    doc1.text(motherParts[1] || '', 65, 155);
+    doc1.text(motherParts[2] || '', 110, 155);
+    
+    // E. Residence (Village/Locality)
+    doc1.text(residence, 35, 170);
+    
+    // F. Tehsil and District
+    doc1.text(tehsil, 28, 185);
+    doc1.text(district, 130, 185);
+    
+    // G. Father's Contact Number
+    doc1.text(fatherContact, 28, 200);
+    
+    // H. Student Aadhaar Number
+    doc1.text(studentAadhaar, 30, 215);
+    
+    // I. Date of Birth (Full DD-MM-YYYY)
+    doc1.text(dob, 140, 215); // Print full DOB for simplicity
+    
+    // J. Class Joining
+    doc1.text(classJoining, 30, 275);
+    
+    // K. PEN Number
+    const penNumber = document.getElementById('pen-number').value || 'N/A';
+    doc1.text(penNumber, 130, 275); 
+    
+    // L. Bank/IFSC Code
+    const bankAccount = document.getElementById('bank-account').value || '';
+    const ifscCode = document.getElementById('ifsc-code').value || '';
+    doc1.text(bankAccount, 35, 235);
+    doc1.text(ifscCode, 130, 248);
+    
+    // M. Category and Blood Group
+    const category = document.getElementById('category').value;
+    const bloodGroup = document.getElementById('blood-group').value;
+    // Note: You would normally mark the box, but we'll print the value near the box
+    doc1.text(category, 60, 255);
+    doc1.text(bloodGroup, 130, 255);
+    
+    // N. Ration Card Number
+    const rationCard = document.getElementById('ration-card').value || '';
+    doc1.text(rationCard, 45, 268); 
 
     // !!! END OF ADMISSION FORM CUSTOM COORDINATE CODE BLOCK !!!
+    
+    // Save/Download the Admission Form
+    doc1.save("Admission_Form_Pre_filled.pdf");
+    // ... (rest of the generateFinalForms function continues for doc2)
+
 
     // Save/Download the Admission Form
     doc1.save("Admission_Form_Pre_filled.pdf");
@@ -559,9 +637,48 @@ function generateFinalForms() {
     const doc2 = new jsPDF();
 
     // ----------------------------------------------------------------------
+        // --- 2. APAAR CONSENT FORM GENERATION ---
+    const doc2 = new jsPDF();
+
+    // ----------------------------------------------------------------------
     // !!! START OF APAAR CONSENT FORM CUSTOM COORDINATE CODE BLOCK (INSERT HERE) !!!
-    // ACTION: REPLACE the four lines below with your original doc2.text(value, X, Y) commands.
-    // This is where the precise filling of the APAAR Consent Form template happens.
+    // ACTION: REPLACE the lines below with this detailed, custom code block.
+    // ----------------------------------------------------------------------
+
+    doc2.setFontSize(10);
+    
+    // A. Student Name (in the blank)
+    doc2.text(studentName, 178, 107); // Filling the first blank line of the consent text
+    
+    // B. Guardian Name (in the second blank for "as the ____")
+    doc2.text(guardianRelationship, 178, 114); 
+    
+    // C. Guardian Name (in the third blank, confirming relationship)
+    doc2.text(studentName, 143, 114);
+    
+    // D. Identity Proof Type (filling the type selected, e.g., Aadhaar/PAN)
+    doc2.text(proofType, 160, 119.5); 
+    
+    // E. Identity Proof Number
+    doc2.text(proofNumber, 50, 126); 
+
+    // F. Final Declaration Box (Consent by Head of the School)
+    // The "Mohmad Ashraf Rather" is already on the form, so we fill the blanks:
+    
+    // Student Name (in the first blank of the final declaration)
+    doc2.text(studentName, 110, 273); 
+
+    // Relationship (in the second blank of the final declaration)
+    doc2.text(guardianRelationship, 180, 273);
+
+    // !!! END OF APAAR CONSENT FORM CUSTOM COORDINATE CODE BLOCK !!!
+
+    // Save/Download the APAAR Form
+    doc2.save("APAAR_Consent_Pre_filled.pdf");
+    
+    return true; // Indicates successful generation
+}
+
     // ----------------------------------------------------------------------
 
     doc2.setFontSize(18);
