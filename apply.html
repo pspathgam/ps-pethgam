@@ -223,6 +223,9 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
     .download-btn { width: 100%; font-size: 1rem; }
 }
 </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
 </head>
 
 <body>
@@ -536,6 +539,64 @@ document.getElementById('declare-check').addEventListener('change', () => {
 // Update display to hide the final step immediately after page load
 currentStep = 1;
 updateDisplay();
+  // Function to collect data and generate a basic PDF
+function generateFinalForms() {
+    // Collect some data points to display
+    const studentNameInput = document.querySelector('#step-2 input[placeholder="First Name Middle Name Last Name"]');
+    const fatherNameInput = document.querySelector('#step-2 input[placeholder="First Name Middle Name Last Name"]:nth-of-type(2)');
+
+    const studentName = studentNameInput ? studentNameInput.value : 'N/A';
+    const fatherName = fatherNameInput ? fatherNameInput.value : 'N/A';
+    
+    // Check if the jsPDF library is loaded
+    if (typeof jspdf === 'undefined' || !jspdf.jsPDF) {
+        alert("PDF Generation Library is missing or failed to load. Using placeholder download.");
+        return false;
+    }
+
+    // Initialize PDF (using global window.jspdf access)
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Add content to the PDF
+    doc.setFontSize(18);
+    doc.text("Admission Form Data Summary", 10, 20);
+    doc.setFontSize(12);
+    doc.text(`Student Name: ${studentName}`, 10, 30);
+    doc.text(`Father's Name: ${fatherName}`, 10, 40);
+    doc.text("--- This is a basic data printout ---", 10, 50);
+
+    // Save/Download the file
+    doc.save("Admission_Form_Data_Printout.pdf");
+    
+    // --- APAAR Consent form would require a second doc.save() call here ---
+    return true; // Indicates successful generation
+}
+
+// Update the finalSubmit function to call the new generation function
+function finalSubmit() {
+    // Final check for Step 4 (Document Uploads) before showing final page
+    if (!validateStep(4)) {
+        return;
+    }
+    
+    // Attempt to generate the PDF
+    const generated = generateFinalForms(); 
+    
+    // If generation fails (e.g., library not loaded), the function returns false.
+    if (!generated) {
+        // Here you would redirect to the placeholder download if the real generation failed.
+        // For now, we just proceed.
+    }
+    
+    currentStep = 5; // Move to the final confirmation step
+    updateDisplay();
+    alert("Application Submitted Online! Please check your downloads folder for the generated forms.");
+}
+
+// NOTE: Remember to update the finalSubmit function to call generateFinalForms();
+// as shown in the code above.
+  
 </script>
 
 </body>
