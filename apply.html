@@ -197,7 +197,7 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
 .download-btn {
     display: block;
     width: 80%;
-    margin: 20px auto;
+    margin: 10px auto;
     padding: 15px;
     background: var(--primary);
     color: #fff;
@@ -256,6 +256,7 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
     <div class="portal-container">
         <h1>Online Application & Enrollment Portal</h1>
         <p style="text-align: center; margin-bottom: 20px;">Follow the 5 steps below to generate your pre-filled Admission and APAAR forms.</p>
+        
 
         <div class="step-indicator">
             <div class="step active" data-step="1" data-label="Declaration"></div>
@@ -265,17 +266,17 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
             <div class="step" data-step="5" data-label="Final Submit"></div>
         </div>
 
-        <form id="admission-form">
+        <form id="admission-form" onsubmit="return false;">
 
             <div id="step-1" class="form-section active">
                 <h2>1. Parental Declaration Acceptance</h2>
                 <div class="declaration-box">
-                    <p><strong>Parental Declaration:</strong> I hereby declare that the above information provided by me is true to the best of my knowledge and belief, and I further declare that I will abide by the rules and regulations of the school. I am giving my consent to the Headmaster/Staff for the admission and betterment of my ward.</p>
+                    <p>I do hereby declare that the above information provided by me is **true to the best of my knowledge and belief**, and I further declare that **I will abide by the rules and regulations** of the ward and institution under rules when sought. I hereby declare that as the Parent of above mentioned student am giving my consent to provide the **Aadhaar for demographic authentication** of the student.</p>
                 </div>
                 <div class="form-group">
                     <label>
                         <input type="checkbox" id="declare-check" required>
-                        I accept the Parental Declaration and authorize the school to proceed with admission.
+                        I accept the above Parental Declaration and consent to provide Aadhaar data for authentication.
                     </label>
                 </div>
             </div>
@@ -284,74 +285,104 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
                 <h2>2. Student & Parent Information (Admission Form)</h2>
                 
                 <div class="form-row">
-                    <div class="form-group"><label>Student's Full Name (As Per Aadhaar)</label><input type="text" placeholder="First Name" required></div>
-                    <div class="form-group"><label>Date of Birth</label><input type="date" required></div>
+                    <div class="form-group"><label>Student's Full Name (As Per Aadhaar)</label><input type="text" placeholder="First Name Middle Name Last Name" required></div>
                 </div>
 
                 <div class="form-group"><label>Father's Name</label><input type="text" placeholder="First Name Middle Name Last Name" required></div>
                 <div class="form-group"><label>Mother's Name</label><input type="text" placeholder="First Name Middle Name Last Name" required></div>
 
+                <div class="form-group"><label>Residence</label><input type="text" placeholder="Village/Locality/Street" required></div>
+
                 <div class="form-row">
-                    <div class="form-group"><label>Residence</label><input type="text" placeholder="Village/Locality" required></div>
+                    <div class="form-group"><label>Tehsil</label><input type="text" required></div>
                     <div class="form-group"><label>District</label><input type="text" value="Baramulla" required></div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group"><label>Aadhaar Number</label><input type="text" pattern="\d{12}" title="12 digits" placeholder="0000 0000 0000" required></div>
                     <div class="form-group"><label>Father's Contact Number</label><input type="tel" pattern="\d{10}" title="10 digits" required></div>
+                    <div class="form-group"><label>Mother's Contact Number</label><input type="tel" pattern="\d{10}" title="10 digits"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group"><label>Aadhaar Number (Student)</label><input type="text" pattern="\d{12}" title="12 digits" placeholder="0000 0000 0000" required></div>
+                    <div class="form-group"><label>Date of Birth</label><input type="date" required></div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group"><label>Bank Account Number</label><input type="text" placeholder="Account Number"></div>
+                    <div class="form-group"><label>IFSC Code</label><input type="text" placeholder="IFSC Code"></div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group"><label>Category</label>
                         <select><option>GENERAL</option><option>ST</option><option>SC</option><option>OBC</option></select>
                     </div>
-                    <div class="form-group"><label>Blood Group</label><input type="text" placeholder="e.g., A+"></div>
+                    <div class="form-group"><label>Blood Group</label><input type="text" placeholder="e.g., A+" required></div>
+                </div>
+                
+                <div class="form-group"><label>Ration Card Number</label><input type="text" placeholder="Ration Card Number"></div>
+                
+                <div class="form-row">
+                    <div class="form-group"><label>Class Joining</label><select required><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option></select></div>
+                    <div class="form-group"><label>PEN Number (Transferring Students)</label><input type="text" placeholder="PEN Number"></div>
                 </div>
             </div>
 
             <div id="step-3" class="form-section">
-                <h2>3. APAAR ID Generation Consent</h2>
+                <h2>3. APAAR ID Generation Consent Form</h2>
                 <div class="declaration-box" style="background: #eef3ff; border-color: var(--primary);">
-                    <p>I consent by Father/Mother/Legal Guardian of Student for APAAR ID Generation.</p>
-                    <p>I voluntarily give my consent to share my Aadhaar number and demographic information issued by UIDAI with the Ministry of Education for APAAR ID creation and opening of a DIGILOCKER Account for my child.</p>
-                    <p>I authorize Ministry of Education to use my Aadhaar number for performing Aadhaar based authentication with UIDAI.</p>
+                    <p>Consent by Father/Mother/Legal Guardian of Student for APAAR ID Generation</p>
+                    <p>I consent by Father/Mother/Legal Guardian of _________________________ as the _________________________ (Father/Mother/Legal Guardian) of _________________________ with my identity proof as _________________________ (Aadhaar / PAN / EPIC Voter ID / Driving License / Passport) and identity Proof Number _________________________ voluntarily give my consent to share his/her Aadhaar Number and demographic information issued by UIDAI with Ministry of Education for the sole purpose of creation of APAAR ID and opening of DIGILOCKER Account of my child for the following intents and purposes.</p>
                 </div>
+                
+                <div class="form-row">
+                    <div class="form-group"><label>Parent/Guardian Full Name</label><input type="text" required></div>
+                    <div class="form-group"><label>Relationship (Father/Mother/Guardian)</label><input type="text" required></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group"><label>Identity Proof Type</label>
+                        <select required><option value="Aadhaar">Aadhaar</option><option value="PAN">PAN</option><option value="EPIC">EPIC Voter ID</option><option value="DL">Driving License</option><option value="Passport">Passport</option></select>
+                    </div>
+                    <div class="form-group"><label>Identity Proof Number</label><input type="text" required></div>
+                </div>
+
                 <div class="form-group">
                     <label>
                         <input type="checkbox" id="apaar-check" required>
-                        I consent to the generation of the APAAR ID and the use of Aadhaar data as described.
+                        I confirm that I have read and agree to the APAAR ID consent terms and authorize the school to proceed.
                     </label>
-                </div>
-                <div class="form-group">
-                    <label>Parent/Guardian Aadhaar (Self-verified)</label>
-                    <input type="text" pattern="\d{12}" title="12 digits" placeholder="Parent/Guardian Aadhaar Number" required>
                 </div>
             </div>
 
             <div id="step-4" class="form-section">
                 <h2>4. Document Uploads (Scanned Copies)</h2>
-                <p style="color: var(--danger); font-weight: 600;">*Maximum file size 500KB. Only PDF or JPEG allowed.*</p>
+                <p style="color: var(--danger); font-weight: 600;">*Required Documents: Date of Birth Certificate, Aadhaar Card (Student & Parent), Blood Group Report, Student Photograph. Max file size 500KB.*</p>
                 
+
                 <div class="form-group"><label><i class="fas fa-file-upload"></i> Student Date of Birth Certificate</label><input type="file" accept=".pdf, image/jpeg" required></div>
                 <div class="form-group"><label><i class="fas fa-file-upload"></i> Student's Aadhaar Card</label><input type="file" accept=".pdf, image/jpeg" required></div>
                 <div class="form-group"><label><i class="fas fa-file-upload"></i> Parent's Aadhaar Card</label><input type="file" accept=".pdf, image/jpeg" required></div>
-                <div class="form-group"><label><i class="fas fa-file-upload"></i> Blood Group Report</label><input type="file" accept=".pdf, image/jpeg"></div>
+                <div class="form-group"><label><i class="fas fa-file-upload"></i> Blood Group Report</label><input type="file" accept=".pdf, image/jpeg" required></div>
                 <div class="form-group"><label><i class="fas fa-camera"></i> Student's Photograph (Passport Size)</label><input type="file" accept="image/jpeg, image/png" required></div>
             </div>
 
             <div id="step-final" class="form-section">
-                <h2>5. Submission Complete & Form Download</h2>
+                <h2>5. Submission Complete & Form Downloads</h2>
                 <p style="text-align: center; font-size: 1.1rem; color: var(--secondary);">
-                    Your data has been successfully submitted online.
+                    Your data has been successfully submitted online. Please download and submit the following **hardcopies** to the school office for verification.
                 </p>
+                
                 <div style="background: #e6fff0; border: 1px dashed var(--secondary); padding: 20px; border-radius: 8px;">
-                    <p style="text-align: center; margin: 0;">
-                        To complete the process, you must submit the printed forms along with the originals of the uploaded documents to the ZEO Office Wagoora.
-                    </p>
+                    <p style="text-align: center; margin-bottom: 10px;">**Download Pre-filled Forms (Must be Printed):**</p>
+                    <a href="assets/downloads/Admission_Form_Pre_filled.pdf" download="Admission_Form_Pre_filled.pdf" class="download-btn" style="margin-bottom: 10px;">
+                        <i class="fas fa-file-pdf"></i> Download Admission Form Hardcopy
+                    </a>
+                    <a href="assets/downloads/APAAR_Consent_Pre_filled.pdf" download="APAAR_Consent_Pre_filled.pdf" class="download-btn">
+                        <i class="fas fa-file-pdf"></i> Download APAAR Consent Form Hardcopy
+                    </a>
                 </div>
-                <a href="assets/downloads/Admission_Form_Pre_filled.pdf" download="Pre_filled_Admission_Forms.pdf" class="download-btn">
-                    <i class="fas fa-print"></i> Download Pre-filled PDF Forms (Admission & APAAR)
-                </a>
+                
                 <p style="text-align: center; margin-top: 20px;">
                     <button type="button" class="nav-btn submit-btn" onclick="goToStep(1);">Start New Application</button>
                 </p>
@@ -360,7 +391,7 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
             <div class="nav-buttons">
                 <button type="button" id="prev-btn" class="nav-btn prev-btn" onclick="nextStep(-1);" disabled><i class="fas fa-chevron-left"></i> Previous</button>
                 <button type="button" id="next-btn" class="nav-btn next-btn" onclick="nextStep(1);">Next <i class="fas fa-chevron-right"></i></button>
-                <button type="submit" id="submit-btn" class="nav-btn submit-btn" style="display: none;" onclick="finalSubmit();"><i class="fas fa-check-circle"></i> Final Submit</button>
+                <button type="button" id="submit-btn" class="nav-btn submit-btn" style="display: none;" onclick="finalSubmit();"><i class="fas fa-check-circle"></i> Final Submit</button>
             </div>
 
         </form>
@@ -395,20 +426,26 @@ function updateDisplay() {
     // Hide all sections
     formSections.forEach(section => section.classList.remove('active'));
     // Show current section
-    document.getElementById(`step-${currentStep}`).classList.add('active');
+    const currentSectionId = currentStep <= totalSteps ? `step-${currentStep}` : 'step-final';
+    const currentSection = document.getElementById(currentSectionId);
+    if (currentSection) {
+        currentSection.classList.add('active');
+    }
 
     // Update step indicator classes
     steps.forEach((step, index) => {
         step.classList.remove('active', 'done');
         if (index + 1 < currentStep) {
             step.classList.add('done');
-        } else if (index + 1 === currentStep) {
+        } else if (index + 1 === currentStep && currentStep <= totalSteps) {
             step.classList.add('active');
+        } else if (currentStep > totalSteps) {
+             step.classList.add('done'); // Mark all steps done on final page
         }
     });
 
     // Update navigation buttons
-    prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+    prevBtn.style.display = currentStep > 1 && currentStep <= totalSteps ? 'block' : 'none';
     nextBtn.style.display = currentStep < totalSteps ? 'block' : 'none';
     submitBtn.style.display = currentStep === totalSteps ? 'block' : 'none';
 
@@ -419,13 +456,10 @@ function updateDisplay() {
         nextBtn.disabled = false;
     }
 
-    // Special handling for the final confirmation step
-    if (currentStep > totalSteps) {
-        document.getElementById('step-final').classList.add('active');
-        document.getElementById('step-4').classList.remove('active');
-        prevBtn.style.display = 'none';
-        nextBtn.style.display = 'none';
-        submitBtn.style.display = 'none';
+    // Scroll to the top of the form section for better mobile experience
+    const portalContainer = document.querySelector('.portal-container');
+    if (portalContainer) {
+        portalContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
 
@@ -441,6 +475,8 @@ function validateStep(stepIndex) {
     
     // Simple HTML5 form validation check for current section
     const currentSection = document.getElementById(`step-${stepIndex}`);
+    if (!currentSection) return true; 
+
     const inputs = currentSection.querySelectorAll('input:required, select:required, textarea:required');
     let isValid = true;
     
@@ -463,7 +499,7 @@ function nextStep(direction) {
     currentStep += direction;
     
     if (currentStep > totalSteps) {
-        currentStep = totalSteps; // Handled by finalSubmit()
+        currentStep = totalSteps; 
         return;
     } else if (currentStep < 1) {
         currentStep = 1;
@@ -484,7 +520,7 @@ function finalSubmit() {
     }
     currentStep = 5; // Move to the final confirmation step
     updateDisplay();
-    alert("Application Submitted Online! Please download the PDF for hardcopy submission.");
+    alert("Application Submitted Online! Please download the PDFs for hardcopy submission.");
 }
 
 // Initial setup
@@ -503,5 +539,6 @@ updateDisplay();
 </script>
 
 </body>
-  </html>
+</html>
   
+                   
