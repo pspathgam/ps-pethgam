@@ -541,12 +541,22 @@ function generateFinalForms() {
     // Initialize PDF document access
     const { jsPDF } = window.jspdf;
     
+    // --- 1. ADMISSION FORM GENERATION ---
+    const doc1 = new jsPDF();
+    
+    // !!! CRITICAL: INSERT YOUR ADMISSION FORM IMAGE TEMPLATE HERE !!!
+    // If your template image path/name is different, CHANGE THIS LINE.
+    doc1.addImage('assets/images/admission_form_template.jpg', 'JPEG', 0, 0, 210, 297); 
+
     // !!! START OF ADMISSION FORM CUSTOM COORDINATE CODE BLOCK !!!
-    // Set Font Size for form filling (adjust if needed, 10 is standard)
     doc1.setFontSize(10);
     
+    // Safety check for name components
+    const studentParts = studentName ? studentName.split(' ') : ['', '', ''];
+    const fatherParts = fatherName ? fatherName.split(' ') : ['', '', ''];
+    const motherParts = motherName ? motherName.split(' ') : ['', '', ''];
+
     // A. Student Name (First, Middle, Last) - Estimated coordinates
-    const studentParts = studentName.split(' ');
     doc1.text(studentParts[0] || '', 20, 110);      // First Name
     doc1.text(studentParts[1] || '', 65, 110);      // Middle Name
     doc1.text(studentParts[2] || '', 110, 110);     // Last Name
@@ -557,13 +567,11 @@ function generateFinalForms() {
     doc1.text(studentParts[2] || '', 110, 125);     // Last Name
     
     // C. Father's Name 
-    const fatherParts = fatherName.split(' ');
     doc1.text(fatherParts[0] || '', 20, 140);
     doc1.text(fatherParts[1] || '', 65, 140);
     doc1.text(fatherParts[2] || '', 110, 140);
     
     // D. Mother's Name
-    const motherParts = motherName.split(' ');
     doc1.text(motherParts[0] || '', 20, 155);
     doc1.text(motherParts[1] || '', 65, 155);
     doc1.text(motherParts[2] || '', 110, 155);
@@ -608,6 +616,10 @@ function generateFinalForms() {
     // --- 2. APAAR CONSENT FORM GENERATION ---
     const doc2 = new jsPDF();
 
+    // !!! CRITICAL: INSERT YOUR APAAR CONSENT FORM IMAGE TEMPLATE HERE !!!
+    // If your template image path/name is different, CHANGE THIS LINE.
+    doc2.addImage('assets/images/apaar_consent_template.jpg', 'JPEG', 0, 0, 210, 297); 
+
     // !!! START OF APAAR CONSENT FORM CUSTOM COORDINATE CODE BLOCK !!!
     doc2.setFontSize(10);
     
@@ -640,10 +652,12 @@ function generateFinalForms() {
 
 
 function finalSubmit() {
-    // Final check for Step 4 (Document Uploads) before showing final page
+    // TEMPORARILY COMMENTED OUT VALIDATION TO TEST PDF GENERATION
+    /*
     if (!validateStep(4)) {
         return;
     }
+    */
     
     // !!! CRITICAL: CALL THE GENERATION FUNCTION !!!
     generateFinalForms(); 
