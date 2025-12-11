@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
+/* (All your existing CSS styles go here, unchanged) */
 :root{
   --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
   --bg:#f8f9fa; --text:#222;
@@ -516,6 +517,14 @@ function generateFinalForms() {
     // 1. COLLECT DATA (Example)
     const studentName = document.getElementById('student-name').value;
     const fatherName = document.getElementById('father-name').value;
+    const motherName = document.getElementById('mother-name').value;
+    const studentAadhaar = document.getElementById('student-aadhaar').value;
+    const dob = document.getElementById('dob').value;
+    const classJoining = document.getElementById('class-joining').value;
+    
+    const guardianName = document.getElementById('guardian-name').value;
+    const proofType = document.getElementById('proof-type').value;
+    const proofNumber = document.getElementById('proof-number').value;
     
     // Check if jsPDF library is loaded
     if (typeof jspdf === 'undefined' || !jspdf.jsPDF) {
@@ -528,32 +537,42 @@ function generateFinalForms() {
     const doc = new jsPDF();
     
     // ----------------------------------------------------------------------
-    // !!! CRITICAL: REPLACE THE FOLLOWING LINES WITH YOUR ORIGINAL CODE !!!
-    // The code below is a basic summary. Your original code should be here
-    // using doc.text(value, X_coordinate, Y_coordinate) to place data
-    // accurately on the page structure of your forms.
+    // 1. ADMISSION FORM GENERATION
+    // CRITICAL: REPLACE THE SUMMARY LINES BELOW WITH YOUR ORIGINAL CODE.
+    // Use doc.text(value, X_coordinate, Y_coordinate)
     // ----------------------------------------------------------------------
     
-    // --- ADMISSION FORM PRINT OUT (Basic Summary) ---
+    // --- ADMISSION FORM PLACEHOLDER CONTENT ---
     doc.setFontSize(18);
     doc.text("Admission Form Data Summary", 10, 20);
     doc.setFontSize(12);
+    
+    // !!! START OF CUSTOM COORDINATE CODE BLOCK (REPLACE THE NEXT 3 LINES) !!!
     doc.text(`Student Name: ${studentName}`, 10, 30);
     doc.text(`Father's Name: ${fatherName}`, 10, 40);
-    doc.text("--- Insert your original custom code here ---", 10, 50);
+    doc.text("--- INSERT YOUR ADMISSION FORM COORDINATE LOGIC HERE ---", 10, 50);
+    // !!! END OF CUSTOM COORDINATE CODE BLOCK !!!
 
     // Save/Download the Admission Form
     doc.save("Admission_Form_Pre_filled.pdf");
     
-    // --- APAAR CONSENT FORM PRINT OUT (Basic Summary) ---
+    // ----------------------------------------------------------------------
+    // 2. APAAR CONSENT FORM GENERATION
+    // CRITICAL: REPLACE THE SUMMARY LINES BELOW WITH YOUR ORIGINAL CODE.
+    // ----------------------------------------------------------------------
+
     // Start new page for the second form
     doc.addPage();
+    
+    // --- APAAR CONSENT FORM PLACEHOLDER CONTENT ---
     doc.setFontSize(18);
     doc.text("APAAR Consent Data Summary", 10, 20);
     doc.setFontSize(12);
-    // You would insert APAAR-specific data here.
-    doc.text(`Guardian Name: ${document.getElementById('guardian-name').value}`, 10, 30);
-    doc.text("--- Insert your original custom code here ---", 10, 40);
+    
+    // !!! START OF CUSTOM COORDINATE CODE BLOCK (REPLACE THE NEXT 2 LINES) !!!
+    doc.text(`Guardian Name: ${guardianName}`, 10, 30);
+    doc.text("--- INSERT YOUR APAAR CONSENT FORM COORDINATE LOGIC HERE ---", 10, 40);
+    // !!! END OF CUSTOM COORDINATE CODE BLOCK !!!
 
     // Save/Download the APAAR Form
     doc.save("APAAR_Consent_Pre_filled.pdf");
@@ -594,4 +613,3 @@ updateDisplay();
 
 </body>
 </html>
-      
