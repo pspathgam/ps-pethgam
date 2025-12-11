@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Check Results - Government Primary School Pethgam Wagoora</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+:root{
+  --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
+  --bg:#f8f9fa; --text:#222;
+  --btn-shadow: rgba(2,6,23,0.18);
+  --result-bg: #e6f3ff; /* Light background for the checker */
+}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.45}
+
+/* HEADER */
+.header-wrap{border-bottom:3px solid var(--primary);background:#fff}
+.logo-row{display:flex;align-items:center;padding:14px 18px;gap:18px}
+.logo-row img{width:90px;height:90px;border-radius:50%;object-fit:cover}
+.logo-row .title{flex:1}
+.logo-row h1{margin:0;color:var(--primary);font-size:1.5rem}
+.logo-row h2{margin:4px 0 0;color:var(--secondary);font-weight:600;font-size:0.98rem}
+.contact-info{background:#eef3f8;padding:8px 18px;font-size:0.95rem;border-top:1px solid #e1e6ea}
+
+/* 3D Mixed Buttons (Menu) */
+.navbar {
+  display:flex;
+  gap:10px;
+  padding:12px;
+  overflow-x:auto; 
+  align-items:center;
+  background:transparent;
+}
+.btn-3d {
+  --depth:10px;
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.6rem 1.1rem;
+  border-radius:30px;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transform:translateZ(0);
+  transition: transform .14s ease, box-shadow .14s ease;
+  box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.12);
+  border: none;
+  user-select:none;
+  flex-shrink: 0; 
+}
+.btn-3d:active{ transform: translateY(6px); box-shadow: 0 3px 0 rgba(0,0,0,0.08); }
+
+/* individual colors */
+.c-blue{ background: linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green{ background: linear-gradient(180deg,#34d399,#10b981); }
+.c-purple{ background: linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-pink{ background: linear-gradient(180deg,#fb7185,#ef445b); }
+.c-teal{ background: linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow{ background: linear-gradient(180deg,#ffd66b,#ffb020); }
+
+.c-blue::after { background:#0b69c6; }
+.c-green::after { background:#0a8c4f; }
+.c-purple::after { background:#7b5cf7; }
+.c-pink::after { background:#de3b57; }
+.c-teal::after { background:#07a88f; }
+.c-yellow::after { background:#f0a120; }
+
+.navbar::-webkit-scrollbar{ height:6px; }
+.navbar::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.12); border-radius:6px; }
+
+/* Main Content Styles */
+.content-section{max-width:1150px;margin:20px auto;padding:0 18px}
+
+
+/* --- RESULTS PAGE SPECIFIC STYLES --- */
+
+.checker-hero {
+    background: linear-gradient(rgba(0, 86, 179, 0.9), rgba(0, 86, 179, 0.9)), url('assets/images/results_banner.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 40px 18px;
+    color: #fff;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.checker-hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.result-checker-box {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    background: var(--result-bg);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-left: 5px solid var(--primary);
+}
+.result-checker-box h2 {
+    color: var(--primary);
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--primary);
+}
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #fff;
+}
+.check-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: var(--secondary);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: background-color 0.2s;
+}
+.check-btn:hover {
+    background: #1e7e34;
+}
+
+/* Result Display (Hidden by default) */
+#result-display {
+    display: none;
+    margin-top: 30px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+#result-display h3 {
+    color: var(--danger);
+    text-align: center;
+    font-size: 1.8rem;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+}
+
+.result-summary {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+.summary-item {
+    text-align: center;
+}
+.summary-item .value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+.summary-item .label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.download-box {
+    text-align: center;
+    padding: 20px;
+    background: #f0fff0;
+    border: 1px dashed var(--secondary);
+    border-radius: 8px;
+    margin-top: 20px;
+}
+.download-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 700;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+.download-btn:hover {
+    background: #004085;
+}
+
+/* Embed PDF container (Simulation for the marksheet) */
+#pdf-preview-container {
+    width: 100%;
+    height: 800px; 
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    overflow: hidden; 
+    position: relative;
+    background: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#pdf-preview-container::after {
+    content: "MARKSHEET PREVIEW: Download PDF to see the result sheet based on your template.";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #999;
+    background: rgba(255, 255, 255, 0.9);
+    border: 3px dashed var(--danger);
+    padding: 20px;
+    text-align: center;
+}
+
+
+/* footer */
+.footer{background:var(--primary);color:#fff;padding:18px;margin-top:28px}
+.footer a{color:#fff;text-decoration:underline}
+
+/* --- MOBILE OPTIMIZATION --- */
+@media (max-width:600px){
+  /* ... (mobile header/menu fixes) ... */
+  .logo-row img{width:76px;height:76px}
+  .navbar { flex-wrap: wrap; overflow-x: hidden; justify-content: center; padding: 10px 10px 0 10px; }
+  .btn-3d { margin-bottom: 10px; }
+
+  .checker-hero { padding: 30px 15px; }
+  .checker-hero h1 { font-size: 1.8rem; }
+  
+  .result-checker-box { padding: 15px; }
+  .result-summary { flex-direction: column; gap: 10px; }
+  .summary-item .value { font-size: 1.4rem; }
+  .summary-item .label { font-size: 0.85rem; }
+  
+  #pdf-preview-container { height: 400px; }
+  #pdf-preview-container::after { font-size: 0.9rem; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header-wrap">
+  <div class="logo-row">
+    <img src="assets/images/logo.png" alt="School Logo" onerror="this.style.display='none'">
+    <div class="title">
+      <h1>Government Primary School Pethgam Wagoora</h1>
+      <h2>Wagoora Babareshi Road Near ZEO Office Wagoora</h2>
+    </div>
+  </div>
+
+  <div class="contact-info">
+    Phone: <strong>7006261694</strong> | <strong>9596449881</strong> |
+    Email: <strong>pspethgam@gmail.com</strong> | UDISE: <strong>01022202207</strong>
+  </div>
+
+  <div class="navbar" role="navigation" aria-label="Main menu">
+    <a class="btn-3d c-blue" href="index.html">Home</a>
+    <a class="btn-3d c-green" href="about.html">About</a>
+    <a class="btn-3d c-purple" href="academics.html">Academics</a>
+    <a class="btn-3d c-pink" href="gallery.html">Gallery</a>
+    <a class="btn-3d c-teal" href="students.html">Our Heroes</a>
+    <a class="btn-3d c-yellow" href="admissions.html">Admissions</a>
+    <a class="btn-3d c-blue" href="contact.html">Contact</a>
+    <a class="btn-3d c-green" href="admin.html">Admin Panel</a>
+  </div>
+</header>
+
+<section class="content-section">
+
+    <div class="checker-hero">
+        <h1>Official Academic Result Checker</h1>
+        <p>Access your detailed performance report by entering your enrollment details.</p>
+    </div>
+
+    <div class="result-checker-box">
+        <h2>Enter Credentials to View Marksheet</h2>
+        <form id="result-form" onsubmit="return checkResult(event);">
+            
+            <div class="form-group">
+                <label for="enrollment-id"><i class="fas fa-id-card"></i> Enrollment/Aapid No.</label>
+                <input type="text" id="enrollment-id" placeholder="e.g., 22125154160" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="dob"><i class="fas fa-calendar-alt"></i> Date of Birth (DD-MM-YYYY)</label>
+                <input type="date" id="dob" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="session"><i class="fas fa-graduation-cap"></i> Academic Session</label>
+                <select id="session" required>
+                    <option value="2024-25">Nov-Dec, 2024 (Latest)</option>
+                    <option value="2023-24">Academic Year 2023-24</option>
+                    <option value="2022-23">Academic Year 2022-23</option>
+                </select>
+            </div>
+
+            <button type="submit" class="check-btn">
+                <i class="fas fa-search"></i> Check Result
+            </button>
+            
+        </form>
+    </div>
+
+    <div id="result-display">
+        
+        <h3>Result Found for Mahira Salam</h3>
+        <p style="text-align: center; color: var(--primary); font-weight: 600;">Class: 4th • Enrollment No.: 22125154160</p>
+        
+        <div class="result-summary">
+            <div class="summary-item">
+                <span class="value">292</span>
+                <span class="label">Total Marks Obtained</span>
+            </div>
+            <div class="summary-item">
+                <span class="value">58%</span>
+                <span class="label">Overall Percentage</span>
+            </div>
+            <div class="summary-item">
+                <span class="value">Average</span>
+                <span class="label">Overall Grade</span>
+            </div>
+            <div class="summary-item">
+                <span class="value" style="color: var(--secondary);">Promote</span>
+                <span class="label">Final Result</span>
+            </div>
+        </div>
+        
+        <div class="download-box">
+            <p style="margin: 0;">Your official Marksheet (based on the template provided) is ready for download.</p>
+            <a href="assets/downloads/marksheet_mahira_salam.pdf" download="Marksheet_Mahira_Salam_2024.pdf" class="download-btn">
+                <i class="fas fa-download"></i> Download Marksheet PDF
+            </a>
+        </div>
+        
+        <div id="pdf-preview-container">
+            </div>
+    </div>
+
+
+</section>
+
+
+<footer class="footer">
+  <div style="max-width:1150px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between">
+    <div style="min-width:260px">
+      <h4 style="margin:0 0 8px 0">Contact Details</h4>
+      <p style="margin:0">Government Primary School Pethgam Wagoora<br>Address: Pethgam Wagoora, Baramulla, J&K<br>Wagoora Babareshi Road Near ZEO Office Wagoora 193109</p>
+      <p style="margin:6px 0 0 0">Phone: 7006261694 | 9596449881<br>Email: pspethgam@gmail.com</p>
+    </div>
+    <div style="min-width:220px">
+      <h4 style="margin:0 0 8px 0">Quick Links</h4>
+      <p style="margin:0"><a href="admissions.html">Admissions</a><br><a href="academics.html">Academics</a><br><a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Simple client-side JS to simulate the result check functionality
+function checkResult(event) {
+    event.preventDefault(); // Prevent form submission
+    
+    const enrollmentId = document.getElementById('enrollment-id').value.trim();
+    const dob = document.getElementById('dob').value;
+    const resultDisplay = document.getElementById('result-display');
+    
+    // --- SIMULATION LOGIC ---
+    
+    // We will use the sample data from your marksheet template: Mahira Salam (22125154160, D.O.B 15-05-2017)
+    if (enrollmentId === '22125154160' && dob === '2017-05-15') {
+        // SUCCESS: Display result
+        resultDisplay.style.display = 'block';
+        alert('Result found for Mahira Salam!');
+    } else {
+        // FAILURE: Hide result and show error
+        resultDisplay.style.display = 'none';
+        alert('Error: Result not found or credentials do not match. Please check your Enrollment ID and Date of Birth.');
+    }
+    
+    // Scroll to the result area
+    window.scrollTo({
+        top: resultDisplay.offsetTop - 20,
+        behavior: 'smooth'
+    });
+    
+    return false; 
+}
+
+/* Improve button active state for mobile touch (visual) */
+document.querySelectorAll('.btn-3d').forEach(btn=>{
+  btn.addEventListener('touchstart', ()=> btn.classList.add('pressed'));
+  btn.addEventListener('touchend', ()=> btn.classList.remove('pressed'));
+});
+</script>
+
+</body>
+</html>
