@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Online Admission Portal - GPS Pethgam Wagoora</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root{
   --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
@@ -223,9 +224,6 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
     .download-btn { width: 100%; font-size: 1rem; }
 }
 </style>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  
 </head>
 
 <body>
@@ -288,46 +286,46 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
                 <h2>2. Student & Parent Information (Admission Form)</h2>
                 
                 <div class="form-row">
-                    <div class="form-group"><label>Student's Full Name (As Per Aadhaar)</label><input type="text" placeholder="First Name Middle Name Last Name" required></div>
+                    <div class="form-group"><label>Student's Full Name (As Per Aadhaar)</label><input type="text" id="student-name" placeholder="First Name Middle Name Last Name" required></div>
                 </div>
 
-                <div class="form-group"><label>Father's Name</label><input type="text" placeholder="First Name Middle Name Last Name" required></div>
-                <div class="form-group"><label>Mother's Name</label><input type="text" placeholder="First Name Middle Name Last Name" required></div>
+                <div class="form-group"><label>Father's Name</label><input type="text" id="father-name" placeholder="First Name Middle Name Last Name" required></div>
+                <div class="form-group"><label>Mother's Name</label><input type="text" id="mother-name" placeholder="First Name Middle Name Last Name" required></div>
 
-                <div class="form-group"><label>Residence</label><input type="text" placeholder="Village/Locality/Street" required></div>
-
-                <div class="form-row">
-                    <div class="form-group"><label>Tehsil</label><input type="text" required></div>
-                    <div class="form-group"><label>District</label><input type="text" value="Baramulla" required></div>
-                </div>
+                <div class="form-group"><label>Residence</label><input type="text" id="residence" placeholder="Village/Locality/Street" required></div>
 
                 <div class="form-row">
-                    <div class="form-group"><label>Father's Contact Number</label><input type="tel" pattern="\d{10}" title="10 digits" required></div>
-                    <div class="form-group"><label>Mother's Contact Number</label><input type="tel" pattern="\d{10}" title="10 digits"></div>
+                    <div class="form-group"><label>Tehsil</label><input type="text" id="tehsil" required></div>
+                    <div class="form-group"><label>District</label><input type="text" id="district" value="Baramulla" required></div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group"><label>Aadhaar Number (Student)</label><input type="text" pattern="\d{12}" title="12 digits" placeholder="0000 0000 0000" required></div>
-                    <div class="form-group"><label>Date of Birth</label><input type="date" required></div>
+                    <div class="form-group"><label>Father's Contact Number</label><input type="tel" id="father-contact" pattern="\d{10}" title="10 digits" required></div>
+                    <div class="form-group"><label>Mother's Contact Number</label><input type="tel" id="mother-contact" pattern="\d{10}" title="10 digits"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group"><label>Aadhaar Number (Student)</label><input type="text" id="student-aadhaar" pattern="\d{12}" title="12 digits" placeholder="0000 0000 0000" required></div>
+                    <div class="form-group"><label>Date of Birth</label><input type="date" id="dob" required></div>
                 </div>
                 
                 <div class="form-row">
-                    <div class="form-group"><label>Bank Account Number</label><input type="text" placeholder="Account Number"></div>
-                    <div class="form-group"><label>IFSC Code</label><input type="text" placeholder="IFSC Code"></div>
+                    <div class="form-group"><label>Bank Account Number</label><input type="text" id="bank-account" placeholder="Account Number"></div>
+                    <div class="form-group"><label>IFSC Code</label><input type="text" id="ifsc-code" placeholder="IFSC Code"></div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group"><label>Category</label>
-                        <select><option>GENERAL</option><option>ST</option><option>SC</option><option>OBC</option></select>
+                        <select id="category"><option>GENERAL</option><option>ST</option><option>SC</option><option>OBC</option></select>
                     </div>
-                    <div class="form-group"><label>Blood Group</label><input type="text" placeholder="e.g., A+" required></div>
+                    <div class="form-group"><label>Blood Group</label><input type="text" id="blood-group" placeholder="e.g., A+" required></div>
                 </div>
                 
-                <div class="form-group"><label>Ration Card Number</label><input type="text" placeholder="Ration Card Number"></div>
+                <div class="form-group"><label>Ration Card Number</label><input type="text" id="ration-card" placeholder="Ration Card Number"></div>
                 
                 <div class="form-row">
-                    <div class="form-group"><label>Class Joining</label><select required><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option></select></div>
-                    <div class="form-group"><label>PEN Number (Transferring Students)</label><input type="text" placeholder="PEN Number"></div>
+                    <div class="form-group"><label>Class Joining</label><select id="class-joining" required><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option></select></div>
+                    <div class="form-group"><label>PEN Number (Transferring Students)</label><input type="text" id="pen-number" placeholder="PEN Number"></div>
                 </div>
             </div>
 
@@ -339,15 +337,15 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
                 </div>
                 
                 <div class="form-row">
-                    <div class="form-group"><label>Parent/Guardian Full Name</label><input type="text" required></div>
-                    <div class="form-group"><label>Relationship (Father/Mother/Guardian)</label><input type="text" required></div>
+                    <div class="form-group"><label>Parent/Guardian Full Name</label><input type="text" id="guardian-name" required></div>
+                    <div class="form-group"><label>Relationship (Father/Mother/Guardian)</label><input type="text" id="guardian-relationship" required></div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group"><label>Identity Proof Type</label>
-                        <select required><option value="Aadhaar">Aadhaar</option><option value="PAN">PAN</option><option value="EPIC">EPIC Voter ID</option><option value="DL">Driving License</option><option value="Passport">Passport</option></select>
+                        <select id="proof-type" required><option value="Aadhaar">Aadhaar</option><option value="PAN">PAN</option><option value="EPIC">EPIC Voter ID</option><option value="DL">Driving License</option><option value="Passport">Passport</option></select>
                     </div>
-                    <div class="form-group"><label>Identity Proof Number</label><input type="text" required></div>
+                    <div class="form-group"><label>Identity Proof Number</label><input type="text" id="proof-number" required></div>
                 </div>
 
                 <div class="form-group">
@@ -373,17 +371,12 @@ body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);
             <div id="step-final" class="form-section">
                 <h2>5. Submission Complete & Form Downloads</h2>
                 <p style="text-align: center; font-size: 1.1rem; color: var(--secondary);">
-                    Your data has been successfully submitted online. Please download and submit the following **hardcopies** to the school office for verification.
+                    Your data has been successfully submitted online. Please check your **downloads folder** for the generated **hardcopies** to submit to the school office for verification.
                 </p>
                 
                 <div style="background: #e6fff0; border: 1px dashed var(--secondary); padding: 20px; border-radius: 8px;">
-                    <p style="text-align: center; margin-bottom: 10px;">**Download Pre-filled Forms (Must be Printed):**</p>
-                    <a href="assets/downloads/Admission_Form_Pre_filled.pdf" download="Admission_Form_Pre_filled.pdf" class="download-btn" style="margin-bottom: 10px;">
-                        <i class="fas fa-file-pdf"></i> Download Admission Form Hardcopy
-                    </a>
-                    <a href="assets/downloads/APAAR_Consent_Pre_filled.pdf" download="APAAR_Consent_Pre_filled.pdf" class="download-btn">
-                        <i class="fas fa-file-pdf"></i> Download APAAR Consent Form Hardcopy
-                    </a>
+                    <p style="text-align: center; margin-bottom: 10px; font-weight: 600;">**Download Successful!**</p>
+                    <p style="text-align: center; font-size: 0.9rem;">(Check your browser's download location for Admission Form and APAAR Consent Form PDF files.)</p>
                 </div>
                 
                 <p style="text-align: center; margin-top: 20px;">
@@ -516,14 +509,72 @@ function goToStep(stepNumber) {
     updateDisplay();
 }
 
+// ----------------------------------------------------
+// !!! PDF GENERATION LOGIC - YOU MUST CUSTOMIZE THIS !!!
+// ----------------------------------------------------
+function generateFinalForms() {
+    // 1. COLLECT DATA (Example)
+    const studentName = document.getElementById('student-name').value;
+    const fatherName = document.getElementById('father-name').value;
+    
+    // Check if jsPDF library is loaded
+    if (typeof jspdf === 'undefined' || !jspdf.jsPDF) {
+        alert("PDF Generation Library not loaded. Cannot generate forms.");
+        return false;
+    }
+
+    // Initialize PDF document
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // ----------------------------------------------------------------------
+    // !!! CRITICAL: REPLACE THE FOLLOWING LINES WITH YOUR ORIGINAL CODE !!!
+    // The code below is a basic summary. Your original code should be here
+    // using doc.text(value, X_coordinate, Y_coordinate) to place data
+    // accurately on the page structure of your forms.
+    // ----------------------------------------------------------------------
+    
+    // --- ADMISSION FORM PRINT OUT (Basic Summary) ---
+    doc.setFontSize(18);
+    doc.text("Admission Form Data Summary", 10, 20);
+    doc.setFontSize(12);
+    doc.text(`Student Name: ${studentName}`, 10, 30);
+    doc.text(`Father's Name: ${fatherName}`, 10, 40);
+    doc.text("--- Insert your original custom code here ---", 10, 50);
+
+    // Save/Download the Admission Form
+    doc.save("Admission_Form_Pre_filled.pdf");
+    
+    // --- APAAR CONSENT FORM PRINT OUT (Basic Summary) ---
+    // Start new page for the second form
+    doc.addPage();
+    doc.setFontSize(18);
+    doc.text("APAAR Consent Data Summary", 10, 20);
+    doc.setFontSize(12);
+    // You would insert APAAR-specific data here.
+    doc.text(`Guardian Name: ${document.getElementById('guardian-name').value}`, 10, 30);
+    doc.text("--- Insert your original custom code here ---", 10, 40);
+
+    // Save/Download the APAAR Form
+    doc.save("APAAR_Consent_Pre_filled.pdf");
+    
+    return true; // Indicates successful generation
+}
+// ----------------------------------------------------
+
+
 function finalSubmit() {
     // Final check for Step 4 (Document Uploads) before showing final page
     if (!validateStep(4)) {
         return;
     }
+    
+    // !!! CRITICAL: CALL THE GENERATION FUNCTION !!!
+    generateFinalForms(); 
+    
     currentStep = 5; // Move to the final confirmation step
     updateDisplay();
-    alert("Application Submitted Online! Please download the PDFs for hardcopy submission.");
+    alert("Application Submitted Online! Please check your downloads folder for the generated forms.");
 }
 
 // Initial setup
@@ -539,67 +590,8 @@ document.getElementById('declare-check').addEventListener('change', () => {
 // Update display to hide the final step immediately after page load
 currentStep = 1;
 updateDisplay();
-  // Function to collect data and generate a basic PDF
-function generateFinalForms() {
-    // Collect some data points to display
-    const studentNameInput = document.querySelector('#step-2 input[placeholder="First Name Middle Name Last Name"]');
-    const fatherNameInput = document.querySelector('#step-2 input[placeholder="First Name Middle Name Last Name"]:nth-of-type(2)');
-
-    const studentName = studentNameInput ? studentNameInput.value : 'N/A';
-    const fatherName = fatherNameInput ? fatherNameInput.value : 'N/A';
-    
-    // Check if the jsPDF library is loaded
-    if (typeof jspdf === 'undefined' || !jspdf.jsPDF) {
-        alert("PDF Generation Library is missing or failed to load. Using placeholder download.");
-        return false;
-    }
-
-    // Initialize PDF (using global window.jspdf access)
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    
-    // Add content to the PDF
-    doc.setFontSize(18);
-    doc.text("Admission Form Data Summary", 10, 20);
-    doc.setFontSize(12);
-    doc.text(`Student Name: ${studentName}`, 10, 30);
-    doc.text(`Father's Name: ${fatherName}`, 10, 40);
-    doc.text("--- This is a basic data printout ---", 10, 50);
-
-    // Save/Download the file
-    doc.save("Admission_Form_Data_Printout.pdf");
-    
-    // --- APAAR Consent form would require a second doc.save() call here ---
-    return true; // Indicates successful generation
-}
-
-// Update the finalSubmit function to call the new generation function
-function finalSubmit() {
-    // Final check for Step 4 (Document Uploads) before showing final page
-    if (!validateStep(4)) {
-        return;
-    }
-    
-    // Attempt to generate the PDF
-    const generated = generateFinalForms(); 
-    
-    // If generation fails (e.g., library not loaded), the function returns false.
-    if (!generated) {
-        // Here you would redirect to the placeholder download if the real generation failed.
-        // For now, we just proceed.
-    }
-    
-    currentStep = 5; // Move to the final confirmation step
-    updateDisplay();
-    alert("Application Submitted Online! Please check your downloads folder for the generated forms.");
-}
-
-// NOTE: Remember to update the finalSubmit function to call generateFinalForms();
-// as shown in the code above.
-  
 </script>
 
 </body>
 </html>
-  
-                   
+      
