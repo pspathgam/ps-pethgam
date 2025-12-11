@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-/* (All your existing CSS styles go here, unchanged) */
 :root{
   --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
   --bg:#f8f9fa; --text:#222;
@@ -17,7 +16,7 @@
 *{box-sizing:border-box}
 body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.45}
 
-/* Basic Layout Reset/Styles (Copying from previous pages) */
+/* Basic Layout Reset/Styles */
 .header-wrap{border-bottom:3px solid var(--primary);background:#fff}
 .logo-row{display:flex;align-items:center;padding:14px 18px;gap:18px}
 .logo-row img{width:90px;height:90px;height:90px;border-radius:50%;object-fit:cover}
@@ -511,20 +510,27 @@ function goToStep(stepNumber) {
 }
 
 // ----------------------------------------------------
-// !!! PDF GENERATION LOGIC - YOU MUST CUSTOMIZE THIS !!!
+// !!! PDF GENERATION LOGIC - THIS IS THE FINAL FIXED BLOCK !!!
 // ----------------------------------------------------
 function generateFinalForms() {
-    // 1. COLLECT DATA (Example)
+    // 1. COLLECT DATA 
+    // Get all the necessary values from the form inputs using their IDs
     const studentName = document.getElementById('student-name').value;
     const fatherName = document.getElementById('father-name').value;
     const motherName = document.getElementById('mother-name').value;
+    const residence = document.getElementById('residence').value;
+    const tehsil = document.getElementById('tehsil').value;
+    const district = document.getElementById('district').value;
+    const fatherContact = document.getElementById('father-contact').value;
     const studentAadhaar = document.getElementById('student-aadhaar').value;
     const dob = document.getElementById('dob').value;
     const classJoining = document.getElementById('class-joining').value;
     
     const guardianName = document.getElementById('guardian-name').value;
+    const guardianRelationship = document.getElementById('guardian-relationship').value;
     const proofType = document.getElementById('proof-type').value;
     const proofNumber = document.getElementById('proof-number').value;
+
     
     // Check if jsPDF library is loaded
     if (typeof jspdf === 'undefined' || !jspdf.jsPDF) {
@@ -532,50 +538,51 @@ function generateFinalForms() {
         return false;
     }
 
-    // Initialize PDF document
+    // Initialize PDF document access
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+    
+    // --- 1. ADMISSION FORM GENERATION ---
+    const doc1 = new jsPDF();
     
     // ----------------------------------------------------------------------
-    // 1. ADMISSION FORM GENERATION
-    // CRITICAL: REPLACE THE SUMMARY LINES BELOW WITH YOUR ORIGINAL CODE.
-    // Use doc.text(value, X_coordinate, Y_coordinate)
+    // !!! START OF ADMISSION FORM CUSTOM COORDINATE CODE BLOCK !!!
+    // REPLACE the five lines below with your original code that uses coordinates (X, Y) 
+    // to fill in the form template. Example: doc1.text(studentName, 70, 60);
     // ----------------------------------------------------------------------
     
-    // --- ADMISSION FORM PLACEHOLDER CONTENT ---
-    doc.setFontSize(18);
-    doc.text("Admission Form Data Summary", 10, 20);
-    doc.setFontSize(12);
-    
-    // !!! START OF CUSTOM COORDINATE CODE BLOCK (REPLACE THE NEXT 3 LINES) !!!
-    doc.text(`Student Name: ${studentName}`, 10, 30);
-    doc.text(`Father's Name: ${fatherName}`, 10, 40);
-    doc.text("--- INSERT YOUR ADMISSION FORM COORDINATE LOGIC HERE ---", 10, 50);
-    // !!! END OF CUSTOM COORDINATE CODE BLOCK !!!
+    doc1.setFontSize(18);
+    doc1.text("Admission Form Data Summary", 10, 20); 
+    doc1.setFontSize(12);
+    doc1.text(`Student Name: ${studentName}`, 10, 30); 
+    doc1.text(`Father's Name: ${fatherName}`, 10, 40); 
+    doc1.text(`DOB: ${dob}`, 10, 50);
+    doc1.text("--- INSERT YOUR ADMISSION FORM COORDINATE LOGIC HERE ---", 10, 60);
+
+    // !!! END OF ADMISSION FORM CUSTOM COORDINATE CODE BLOCK !!!
 
     // Save/Download the Admission Form
-    doc.save("Admission_Form_Pre_filled.pdf");
+    doc1.save("Admission_Form_Pre_filled.pdf");
     
+    // --- 2. APAAR CONSENT FORM GENERATION ---
+    const doc2 = new jsPDF();
+
     // ----------------------------------------------------------------------
-    // 2. APAAR CONSENT FORM GENERATION
-    // CRITICAL: REPLACE THE SUMMARY LINES BELOW WITH YOUR ORIGINAL CODE.
+    // !!! START OF APAAR CONSENT FORM CUSTOM COORDINATE CODE BLOCK !!!
+    // REPLACE the five lines below with your original code that uses coordinates (X, Y) 
+    // to fill in the APAAR consent form template.
     // ----------------------------------------------------------------------
 
-    // Start new page for the second form
-    doc.addPage();
-    
-    // --- APAAR CONSENT FORM PLACEHOLDER CONTENT ---
-    doc.setFontSize(18);
-    doc.text("APAAR Consent Data Summary", 10, 20);
-    doc.setFontSize(12);
-    
-    // !!! START OF CUSTOM COORDINATE CODE BLOCK (REPLACE THE NEXT 2 LINES) !!!
-    doc.text(`Guardian Name: ${guardianName}`, 10, 30);
-    doc.text("--- INSERT YOUR APAAR CONSENT FORM COORDINATE LOGIC HERE ---", 10, 40);
-    // !!! END OF CUSTOM COORDINATE CODE BLOCK !!!
+    doc2.setFontSize(18);
+    doc2.text("APAAR Consent Data Summary", 10, 20);
+    doc2.setFontSize(12);
+    doc2.text(`Guardian Name: ${guardianName}`, 10, 30);
+    doc2.text(`Relationship: ${guardianRelationship}`, 10, 40);
+    doc2.text("--- INSERT YOUR APAAR CONSENT FORM COORDINATE LOGIC HERE ---", 10, 50);
+
+    // !!! END OF APAAR CONSENT FORM CUSTOM COORDINATE CODE BLOCK !!!
 
     // Save/Download the APAAR Form
-    doc.save("APAAR_Consent_Pre_filled.pdf");
+    doc2.save("APAAR_Consent_Pre_filled.pdf");
     
     return true; // Indicates successful generation
 }
