@@ -486,8 +486,48 @@ document.getElementById('declare-check').addEventListener('change', () => {
 // Update display to start at Step 1
 currentStep = 1;
 updateDisplay();
+      /**
+ * Copies data from the multi-step form inputs to the hidden PDF template's inputs.
+ */
+function transferDataToPDFTemplate() {
+    // === Data Transfer for Admission Form (form-admission) ===
+    
+    // Copy student details
+    document.querySelector('#form-admission #student-name').value = document.getElementById('student-name').value;
+    document.querySelector('#form-admission #student-aadhaar-name').value = document.getElementById('student-name').value; // Assuming same name
+    document.querySelector('#form-admission #father-name').value = document.getElementById('father-name').value;
+    document.querySelector('#form-admission #mother-name').value = document.getElementById('mother-name').value;
+
+    // Copy contact and address
+    document.querySelector('#form-admission #residence').value = document.getElementById('residence').value;
+    document.querySelector('#form-admission #district').value = document.getElementById('district').value;
+    document.querySelector('#form-admission #father-contact').value = document.getElementById('father-contact').value;
+    document.querySelector('#form-admission #mother-contact').value = document.getElementById('mother-contact').value; // Assuming this field exists in your multi-step form
+    
+    // Copy official details
+    document.querySelector('#form-admission #student-aadhaar').value = document.getElementById('student-aadhaar').value;
+    document.querySelector('#form-admission #dob').value = document.getElementById('dob').value;
+    document.querySelector('#form-admission #bank-account').value = document.getElementById('bank-account').value;
+    document.querySelector('#form-admission #ifsc-code').value = document.getElementById('ifsc-code').value;
+    document.querySelector('#form-admission #category').value = document.getElementById('category').value;
+    document.querySelector('#form-admission #blood-group').value = document.getElementById('blood-group').value;
+    document.querySelector('#form-admission #ration-card').value = document.getElementById('ration-card').value;
+    document.querySelector('#form-admission #class-joining').value = document.getElementById('class-joining').value;
+    document.querySelector('#form-admission #pen-number').value = document.getElementById('pen-number').value;
+    
+    // NOTE: You need a similar block of code here for the APAAR Consent Form
+    // If your APAAR form template fields have IDs, you would map them:
+    // document.querySelector('#form-apaar #apaar-student-name').value = document.getElementById('student-name').value;
+    
+    // Photo transfer (Assuming 'photoDataURL' is stored globally by the photo input event listener)
+    if (window.photoDataURL) {
+        const img = document.createElement('img');
+        img.src = window.photoDataURL;
+        document.querySelector('#form-admission #photo-box').innerHTML = '';
+        document.querySelector('#form-admission #photo-box').appendChild(img);
+    }
+}
+            
 </script>
-
-
 </body>
 </html>
