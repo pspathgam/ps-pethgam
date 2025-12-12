@@ -1,108 +1,724 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Government Primary School Pethgam Wagoora</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Government Primary School Pethgam Wagoora</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <style>
-        /* BASE STYLES & RESET */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+<style>
+:root{
+  --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
+  --bg:#f8f9fa; --text:#222;
+  --btn-shadow: rgba(2,6,23,0.18);
+}
+*{box-sizing:border-box}
+body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.45}
 
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
+/* HEADER */
+.header-wrap{border-bottom:3px solid var(--primary);background:#fff}
+.logo-row{display:flex;align-items:center;padding:14px 18px;gap:18px}
+.logo-row img{width:90px;height:90px;border-radius:50%;object-fit:cover}
+.logo-row .title{flex:1}
+.logo-row h1{margin:0;color:var(--primary);font-size:1.5rem}
+.logo-row h2{margin:4px 0 0;color:var(--secondary);font-weight:600;font-size:0.98rem}
+.contact-info{background:#eef3f8;padding:8px 18px;font-size:0.95rem;border-top:1px solid #e1e6ea}
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+/* 3D Mixed Buttons (Menu) */
+.navbar {
+  display:flex;
+  gap:10px;
+  padding:12px;
+  overflow-x:auto; 
+  align-items:center;
+  background:transparent;
+}
+.btn-3d {
+  --depth:10px;
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.6rem 1.1rem;
+  border-radius:30px;
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transform:translateZ(0);
+  transition: transform .14s ease, box-shadow .14s ease;
+  box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.12);
+  border: none;
+  user-select:none;
+  flex-shrink: 0; 
+}
+.btn-3d:active{ transform: translateY(6px); box-shadow: 0 3px 0 rgba(0,0,0,0.08); }
 
-        /* 1. TOP HEADER & BRANDING */
-        .header {
-            background: white;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            border-bottom: 2px solid #ddd;
-        }
+/* individual colors */
+.c-blue{ background: linear-gradient(180deg,#2b9bff,#0066cc); }
+.c-green{ background: linear-gradient(180deg,#34d399,#10b981); }
+.c-purple{ background: linear-gradient(180deg,#a78bfa,#7c3aed); }
+.c-pink{ background: linear-gradient(180deg,#fb7185,#ef445b); }
+.c-teal{ background: linear-gradient(180deg,#5eead4,#0ea5a4); }
+.c-yellow{ background: linear-gradient(180deg,#ffd66b,#ffb020); }
 
-        .logo-container {
-            flex-shrink: 0;
-            margin-right: 20px;
-            cursor: pointer; /* Indicates the secret link */
-        }
+/* subtle lip under the button */
+.btn-3d::after{
+  content:'';
+  position:absolute;
+  left:8px; right:8px; bottom:-8px;
+  height:12px; border-radius:20px;
+  z-index:-1; filter:blur(6px);
+  opacity:.9;
+}
 
-        .logo-container img {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid #ccc;
-        }
+/* give each button a colored shadow copy under (matching color) */
+.c-blue::after { background:#0b69c6; }
+.c-green::after { background:#0a8c4f; }
+.c-purple::after { background:#7b5cf7; }
+.c-pink::after { background:#de3b57; }
+.c-teal::after { background:#07a88f; }
+.c-yellow::after { background:#f0a120; }
 
-        .school-info {
-            flex-grow: 1;
-            text-align: center;
-        }
+/* overflow scrollbar hidden look */
+.navbar::-webkit-scrollbar{ height:6px; }
+.navbar::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.12); border-radius:6px; }
 
-        .school-info h1 {
-            color: #0b63d6;
-            font-size: 22px;
-            margin: 0 0 5px 0;
-        }
+/* HERO slider */
+.hero{height:360px;position:relative;overflow:hidden;background:#e9f2ff}
+.slides{display:flex;height:100%;width:300%;animation:slide-animation 15s infinite}
+.slide{flex:0 0 100%;background-size:cover;background-position:center;display:flex;align-items:center}
+.slide .content{background:rgba(0,0,0,0.36);color:#fff;padding:18px;border-radius:10px;margin-left:6%;max-width:640px}
+@keyframes slide-animation{
+  0%{margin-left:0}
+  30%{margin-left:0}
+  33.33%{margin-left:-100%}
+  63.33%{margin-left:-100%}
+  66.66%{margin-left:-200%}
+  96.66%{margin-left:-200%}
+  100%{margin-left:0}
+}
 
-        .school-info p {
-            color: #555;
-            font-size: 13px;
-            margin: 0;
-        }
+/* ticker */
+.ticker{display:flex;align-items:center;overflow:hidden;background:var(--accent);padding:8px 12px}
+.ticker .label{background:var(--danger);color:#fff;padding:6px 10px;border-radius:4px;font-weight:700;margin-right:12px}
+.marquee{flex:1;white-space:nowrap;overflow:hidden}
+.marquee p{display:inline-block;padding-left:100%;animation:marquee 20s linear infinite;margin:0}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 
-        /* 2. MAIN NAVIGATION MENU (The Button Bar) */
-        .menu-nav {
-            background-color: white;
-            padding: 10px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 900;
-        }
+/* content layout */
+.content-section{max-width:1150px;margin:20px auto;padding:0 18px}
 
-        .menu-nav button {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 12px;
-            flex-grow: 1;
-            min-width: 80px;
-            text-transform: uppercase;
-            transition: background-color 0.3s;
-        }
-        
-        /* Menu Button Colors (Matching the provided image) */
-        .btn-home { background-color: #f7b731; }      /* Yellow */
-        .btn-about { background-color: #d64d63; }     /* Red */
-        .btn-acad { background-color: #11b511; }      /* Green */
-        .btn-store { background-color: #8c4dc7; }     /* Purple */
-        .btn-sc { background-color: #38b4c0; }        /* Cyan */
-        .btn-media { background-color: #0b63d6; }     /* Blue */
-        
+/* Quick links cards (Desktop/Default) */
+.quick-links{
+  display:flex; 
+  flex-wrap:wrap;
+  gap:18px;
+  justify-content:space-between;
+  margin-top:14px;
+}
+.card{background:#fff;padding:16px;border-radius:10px;box-shadow:0 6px 20px rgba(2,6,23,0.06);width:calc(25% - 14px);min-width:190px;text-align:center}
+.card .icon{width:48px;height:48px;border-radius:50%;display:inline-block;color:#fff;line-height:48px;margin-bottom:8px}
+.card:nth-child(1) .icon{background:var(--primary)}.card:nth-child(2) .icon{background:var(--secondary)}.card:nth-child(3) .icon{background:var(--accent)}.card:nth-child(4) .icon{background:#17a2b8}
+
+/* news */
+.news-section{margin-top:20px}
+.news-box{background:#fff;padding:14px;border-radius:10px;box-shadow:0 3px 8px rgba(0,0,0,0.06)}
+.news-scroller{display:flex;gap:14px;overflow:hidden;animation:news-scroll 28s linear infinite}
+@keyframes news-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* --- STAFF CARD STYLES (NEW TEMPLATE) --- */
+.staff-grid-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-top:24px}
+.staff-card {
+  background: #ffffff; 
+  color: var(--text); 
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(2,6,23,0.1); 
+  position:relative;
+  text-align:center;
+}
+
+.staff-card .banner{
+  width:100%; 
+  height:120px; 
+  background-image: url('assets/images/city_banner.jpg'); /* Default banner background */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  z-index: 1;
+}
+
+.staff-card .avatar {
+  width:100px; 
+  height:100px; 
+  border-radius:50%; 
+  overflow:hidden;
+  border:4px solid #fff; 
+  position:absolute; 
+  top:70px; /* Positioned halfway on the banner */
+  left:50%; 
+  transform:translateX(-50%); 
+  box-shadow:0 4px 12px rgba(2,6,23,0.2);
+  z-index: 2;
+}
+.staff-card .avatar img {
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.staff-card .panel{
+  padding: 60px 18px 20px; /* Space for the avatar */
+  position:relative;
+}
+
+.staff-card h4{
+  margin:0;
+  font-size:1.4rem; 
+  color: var(--primary);
+} 
+.staff-card .desg{
+  color:#64748b;
+  font-weight:600;
+  font-size:1rem;
+  margin: 4px 0 10px;
+}
+.staff-card p.desc{
+  font-size:0.95rem;
+  color:#475569;
+  font-style: italic;
+  line-height:1.4;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* Contact and Social Wrapper */
+.contact-social-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Space between social groups and button */
+  margin-top: 15px;
+}
+
+/* Social Icon Columns */
+.social-col {
+  display: flex;
+  flex-direction: column; /* Stacks icons vertically */
+  gap: 8px; /* Space between icons in the column */
+}
+
+.social-icon {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--primary);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.social-icon:hover {
+  transform: scale(1.1);
+}
+
+.contact-btn{
+  padding:10px 20px;
+  border-radius:999px;
+  border:none;
+  background:var(--secondary); 
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow: 0 4px 8px rgba(40,167,69,0.2);
+  flex-shrink: 0; /* Ensures the button doesn't shrink */
+}
+/* END NEW STAFF CARD STYLES */
+
+
+/* STUDENT CARD STYLES (Desktop/Default) */
+.students-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-top:18px}
+.student-card{
+  background: linear-gradient(
+    180deg, 
+    #ffe761 0%,     
+    #ffb020 50%,    
+    #ff4a86 100%    
+  );
+  color: #ffffff; 
+
+  border-radius:10px;padding:14px;box-shadow:0 10px 28px rgba(2,6,23,0.1);
+  text-align:center;
+}
+.student-card .photo-square{
+  width:108px;height:108px;
+  border-radius:50%; 
+  overflow:hidden;margin:0 auto 10px;
+  border:4px solid #fff;
+  box-shadow:0 8px 20px rgba(2,6,23,0.1);
+}
+.student-card .photo-square img{
+  width:100%;height:100%;object-fit:cover; 
+}
+
+.student-card h4{margin:6px 0 4px;font-size:1.05rem}
+.student-card .meta{color:rgba(255,255,255,0.9);font-size:0.95rem} 
+
+/* HOI + GLANCE cards (Desktop/Default) */
+.info-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:20px}
+.info-card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 12px 30px rgba(2,6,23,0.06);text-align:center}
+.info-card img{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 10px;border:4px solid #fff;box-shadow:0 8px 18px rgba(2,6,23,0.08)}
+
+/* gallery small */
+.gallery-grid{display:flex;gap:14px;overflow:auto;margin-top:12px}
+.gallery-grid img{width:240px;height:140px;object-fit:cover;border-radius:8px;}
+
+/* footer */
+.footer{background:var(--primary);color:#fff;padding:18px;margin-top:28px}
+.footer a{color:#fff;text-decoration:underline}
+
+/* --- MOBILE OPTIMIZATION (Media Query: Max width 600px) --- */
+@media (max-width:600px){
+  /* 1. Menu Buttons Wrap */
+  .navbar {
+    flex-wrap: wrap; 
+    overflow-x: hidden; 
+    justify-content: center;
+    padding: 10px 10px 0 10px; 
+  }
+  .btn-3d {
+    margin-bottom: 10px; 
+  }
+  
+  /* 2. Quick Links in Two Columns */
+  .quick-links {
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+  }
+  .card {
+    width: 100%; 
+    min-width: unset; 
+    padding: 12px;
+  }
+
+  /* 3. Staff Cards in Two Columns */
+  .staff-grid-wrap {
+    /* Adjusted grid-template-columns to fit the new, larger card design */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 12px;
+  }
+  
+  /* Adjustments for the new staff card layout on mobile */
+  .staff-card .banner {
+    height: 90px;
+  }
+  .staff-card .avatar {
+    width: 80px; 
+    height: 80px;
+    top: 50px;
+    border-width: 3px;
+  }
+  .staff-card .panel {
+    padding: 45px 8px 15px; 
+  }
+  .staff-card h4 {
+    font-size: 1.1rem;
+  }
+  .staff-card .desg, .staff-card p.desc {
+    font-size: 0.8rem;
+  }
+  .contact-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  .social-icon {
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 13px;
+  }
+  .social-col {
+    gap: 6px;
+  }
+
+  /* 4. Student Cards in Two Columns */
+  .students-grid {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+  }
+  .student-card .photo-square {
+    width: 70px;
+    height: 70px;
+    border-width: 3px;
+  }
+  .student-card h4 {
+    font-size: 0.9rem;
+    margin: 4px 0 2px;
+  }
+  .student-card .meta, .student-card div:last-child {
+    font-size: 0.75rem;
+  }
+
+  /* 5. HOI & Glance Cards in Two Columns */
+  .info-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .info-card {
+    padding: 12px;
+  }
+  .info-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+  .info-card p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width:900px){
+  /* Adjustments for tablets/larger phones */
+  .logo-row img{width:76px;height:76px}
+  .hero{height:260px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header-wrap">
+  <div class="logo-row">
+    <img src="assets/images/logo.png" alt="School Logo" onerror="this.style.display='none'">
+    <div class="title">
+      <h1>Government Primary School Pethgam Wagoora</h1>
+      <h2>Wagoora Babareshi Road Near ZEO Office Wagoora</h2>
+    </div>
+  </div>
+
+  <div class="contact-info">
+    Phone: <strong>7006261694</strong> | <strong>9596449881</strong> |
+    Email: <strong>pspethgam@gmail.com</strong> | UDISE: <strong>01022202207</strong>
+  </div>
+
+  <div class="navbar" role="navigation" aria-label="Main menu">
+    <a class="btn-3d c-blue" href="index.html">Home</a>
+    <a class="btn-3d c-green" href="about.html">About</a>
+    <a class="btn-3d c-purple" href="academics.html">Academics</a>
+    <a class="btn-3d c-pink" href="gallery.html">Gallery</a>
+    <a class="btn-3d c-teal" href="students.html">Our Heroes</a>
+    <a class="btn-3d c-yellow" href="admissions.html">Admissions</a>
+    <a class="btn-3d c-blue" href="contact.html">Contact</a>
+    <a class="btn-3d c-green" href="admin.html">Admin Panel</a>
+  </div>
+</header>
+
+<section class="hero" aria-label="Hero banner">
+  <div class="slides" id="heroSlides">
+    <div class="slide" style="background-image:url('assets/images/hero1.jpg')">
+      <div class="content">
+        <h2>Welcome to Government Primary School Pethgam Wagoora</h2>
+        <p>Creating a safe, inclusive and learning-focused environment for our children.</p>
+        <div style="margin-top:10px">
+          <a class="btn-3d c-yellow" href="apply.html">Apply Online</a>
+          <a class="btn-3d c-teal" href="results.html">Check Results</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" style="background-image:url('assets/images/hero2.jpg')">
+      <div class="content">
+        <h2>Holistic education that builds character</h2>
+        <p>Activities, learning material and support for every student.</p>
+        <div style="margin-top:10px"><a class="btn-3d c-purple" href="academics.html">Syllabus & Time Table</a></div>
+      </div>
+    </div>
+
+    <div class="slide" style="background-image:url('assets/images/hero3.jpg')">
+      <div class="content">
+        <h2>Community driven progress</h2>
+        <p>Parents, teachers, and local community working together.</p>
+        <div style="margin-top:10px"><a class="btn-3d c-blue" href="contact.html">Contact Us</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" role="region" aria-label="Latest announcements">
+  <div class="label">Announcements</div>
+  <div class="marquee"><p>Admissions open for Pre Primary 3 to Grade 5 — Apply online | School reopens on 1st November 2025 | Parent-teacher meeting on 10 December 2025 | Winter vacation from 1st December 2025.</p></div>
+</div>
+
+<section class="content-section">
+
+  <div class="quick-links">
+    <div class="card"><div class="icon">A</div><h3>Admissions 2025–26</h3><p>Online forms & guidance.</p><a href="admissions.html">Open</a></div>
+    <div class="card"><div class="icon">B</div><h3>Biometric Attendance</h3><p>Teacher & Student portal.</p><a href="students.html">Open</a></div>
+    <div class="card"><div class="icon">S</div><h3>Syllabus & Time Table</h3><p>Download class-wise syllabus.</p><a href="academics.html">Open</a></div>
+    <div class="card"><div class="icon">R</div><h3>Results</h3><p>Academic results & mark sheets.</p><a href="students.html">Open</a></div>
+  </div>
+
+  <div class="news-section" style="margin-top:22px">
+    <h3>News & Events</h3>
+    <div class="news-box">
+      <div class="news-scroller" id="newsScroller">
+        <div class="news-item"><strong>Annual Day:</strong> Annual Day celebration next week on school ground.</div>
+        <div class="news-item"><strong>FLN Baseline:</strong> FLN Baseline test from Monday for Grades 1-3.</div>
+        <div class="news-item"><strong>MDM:</strong> Mid-Day Meal weekly menu updated.</div>
+        <div class="news-item"><strong>Annual Day:</strong> Annual Day celebration next week on school ground.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:28px">
+    <h3 style="margin:0 0 12px 0;color:var(--primary)">Our Teaching Staff</h3>
+
+    <div class="staff-grid-wrap">
+      
+      <div class="staff-card">
+        <div class="banner"></div>
+
+        <div class="avatar"><img src="assets/images/ashraf.png" alt="HOI"></div>
+
+        <div class="panel">
+          <h4>Mohammad Ashraf Rather</h4>
+          <div class="desg">Head of Institution (HOI)</div>
+          <p class="desc">"Our mission is to nurture confident, creative and compassionate young minds. We are committed to providing quality education and joyful learning."</p>
+          
+          <div class="contact-social-wrapper">
+            <div class="social-col">
+              <a href="#" class="social-icon" style="background:#1DA1F2;"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon" style="background:#0077B5;"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            
+            <button class="contact-btn" onclick="alert('Contact HOI: 9596449881')">CONTACT</button>
+            
+            <div class="social-col">
+              <a href="#" class="social-icon" style="background:#3b5998;"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon" style="background:#FF0000;"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="staff-card">
+        <div class="banner"></div>
+        <div class="avatar"><img src="assets/images/iqbal.jpg" alt="IQBAL"></div>
+        <div class="panel">
+          <h4>Mohammad Iqbal Rather</h4>
+          <div class="desg">Teacher</div>
+          <p class="desc">Champion of Teaching Mathematics — delivers class with hands-on activities.</p>
+          
+          <div class="contact-social-wrapper">
+            <div class="social-col">
+              <a href="#" class="social-icon" style="background:#1DA1F2;"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon" style="background:#0077B5;"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            
+            <button class="contact-btn" onclick="alert('Contact Teacher: 7006261694')">CONTACT</button>
+            
+            <div class="social-col">
+              <a href="#" class="social-icon" style="background:#3b5998;"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon" style="background:#FF0000;"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="staff-card">
+        <div class="banner"></div>
+        <div class="avatar"><img src="assets/images/zamrooda.jpg" alt="Zamrooda"></div>
+        <div class="panel">
+          <h4>Zamrooda Bano</h4>
+          <div class="desg">Teacher</div>
+          <p class="desc">Language & value education in primary years. Focuses on reading and comprehension.</p>
+          
+          <div class="contact-social-wrapper">
+            <div class="social-col">
+              <a href="#" class="social-icon" style="background:#1DA1F2;"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon" style="background:#0077B5;"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            
+            <button class="contact-btn" onclick="alert('Contact Teacher: school number')">CONTACT</button>
+            
+            <div class="social-col">
+              <a href="#" class="social-icon" style="background:#3b5998;"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon" style="background:#FF0000;"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> </div>
+
+  <div style="margin-top:26px">
+    <h3 style="margin:0 0 12px 0;color:var(--primary)">Our Non-Teaching Staff</h3>
+    <div class="staff-grid-wrap">
+      <div class="staff-card">
+        <div class="banner"></div>
+        <div class="avatar"><img src="assets/images/masrat.jpg" alt="Masrat"></div>
+        <div class="panel">
+          <h4>Masrat Begum</h4>
+          <div class="desg">Aaya</div>
+          <p class="desc">Student-care & pre-primary support.</p>
+          <div class="contact-social-wrapper">
+            <div class="social-col">
+              <a href="#" class="social-icon" style="background:#1DA1F2;"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon" style="background:#0077B5;"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <button class="contact-btn" onclick="alert('Contact Aaya')">CONTACT</button>
+            <div class="social-col">
+              <a href="#" class="social-icon" style="background:#3b5998;"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon" style="background:#FF0000;"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="staff-card">
+        <div class="banner"></div>
+        <div class="avatar"><img src="assets/images/shaheena.jpg" alt="Shaheena"></div>
+        <div class="panel">
+          <h4>Shaheena Bano</h4>
+          <div class="desg">Cook</div>
+          <p class="desc">Mid-Day Meal services & kitchen hygiene.</p>
+          <div class="contact-social-wrapper">
+            <div class="social-col">
+              <a href="#" class="social-icon" style="background:#1DA1F2;"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon" style="background:#0077B5;"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <button class="contact-btn" onclick="alert('Contact Cook')">CONTACT</button>
+            <div class="social-col">
+              <a href="#" class="social-icon" style="background:#3b5998;"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon" style="background:#FF0000;"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:28px">
+    <h3 style="margin:0 0 12px 0;color:#7c3aed">Our Beloved Students</h3>
+
+    <div class="students-grid">
+      <div class="student-card">
+        <div class="photo-square"><img src="assets/images/std1.jpg" style="width:100%;height:100%;object-fit:cover"></div>
+        <h4>Aqsa Jan</h4>
+        <div class="meta">Class: 5th • Roll: 12</div>
+        <div class="meta">Admission: 2025-2214</div>
+        <div class="meta">DOB: 12-03-2014</div>
+        <div style="margin-top:8px;font-weight:700;background:rgba(255,255,255,0.8);padding:2px 5px;border-radius:4px;color:#222">Achievement: Drawing Winner</div>
+      </div>
+
+      <div class="student-card">
+        <div class="photo-square"><img src="assets/images/std2.jpg" style="width:100%;height:100%;object-fit:cover"></div>
+        <h4>Zahid Ahmad</h4>
+        <div class="meta">Class: 4th • Roll: 7</div>
+        <div class="meta">Admission: 2025-2197</div>
+        <div class="meta">DOB: 05-02-2015</div>
+        <div style="margin-top:8px;font-weight:700;background:rgba(255,255,255,0.8);padding:2px 5px;border-radius:4px;color:#222">Achievement: Quiz Champion</div>
+      </div>
+
+      <div class="student-card">
+        <div class="photo-square"><img src="assets/images/std3.jpg" style="width:100%;height:100%;object-fit:cover"></div>
+        <h4>Saba Akhtar</h4>
+        <div class="meta">Class: 3rd • Roll: 3</div>
+        <div class="meta">Admission: 2025-2155</div>
+        <div class="meta">DOB: 21-07-2016</div>
+        <div style="margin-top:8px;font-weight:700;background:rgba(255,255,255,0.8);padding:2px 5px;border-radius:4px;color:#222">Achievement: Best Handwriting</div>
+      </div>
+      
+      <div class="student-card">
+        <div class="photo-square"><img src="assets/images/std4.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='https://via.placeholder.com/108/ff4a86/ffffff?text=Student+4'"></div>
+        <h4>Ali Khan</h4>
+        <div class="meta">Class: 5th • Roll: 1</div>
+        <div class="meta">Admission: 2025-2200</div>
+        <div class="meta">DOB: 10-01-2014</div>
+        <div style="margin-top:8px;font-weight:700;background:rgba(255,255,255,0.8);padding:2px 5px;border-radius:4px;color:#222">Achievement: Football Captain</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="info-cards" style="margin-top:30px">
+    <div class="info-card">
+      <img src="assets/images/staff_ashraf.jpg" alt="HOI">
+      <h3>HOI's Message</h3>
+      <p>Welcome to Government Primary School Pethgam Wagoora. Our focus is to foster curiosity, kindness and excellence in every child. We are committed to providing quality education supported by dedicated teachers and essential resources.</p>
+      <p style="font-weight:700;margin-top:8px">- Mohammad Ashraf Rather (HOI)</p>
+    </div>
+
+    <div class="info-card">
+      <h3>School at a Glance</h3>
+      <p><strong>Students:</strong> 50+</p>
+      <p><strong>Teachers:</strong> 3</p>
+      <p><strong>Aaya:</strong> 1</p>
+      <p><strong>Cook:</strong> 1</p>
+      <p><strong>Classrooms:</strong> 3</p>
+      <p><strong>Library Books:</strong> 350+</p>
+    </div>
+  </div>
+
+  <div style="margin-top:26px">
+    <h3>Photo Gallery Preview</h3>
+    <div class="gallery-grid">
+      <img src="assets/images/gallery1.jpg" alt="Children in classroom" onerror="this.src='https://via.placeholder.com/320x180/0056b3/ffffff?text=Classroom'">
+      <img src="assets/images/gallery2.jpg" alt="School building exterior" onerror="this.src='https://via.placeholder.com/320x180/28a745/ffffff?text=School+Building'">
+      <img src="assets/images/gallery3.jpg" alt="Students playing games" onerror="this.src='https://via.placeholder.com/320x180/ffc107/333333?text=Sports+Day'">
+      <img src="assets/images/gallery4.jpg" alt="Teacher interacting" onerror="this.src='https://via.placeholder.com/320x180/17a2b8/ffffff?text=Learning+Activity'">
+    </div>
+    <p style="text-align:center;margin-top:12px"><a href="gallery.html" style="font-weight:700;color:var(--primary)">View full gallery →</a></p>
+  </div>
+
+</section>
+
+<footer class="footer">
+  <div style="max-width:1150px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between">
+    <div style="min-width:260px">
+      <h4 style="margin:0 0 8px 0">Contact Details</h4>
+      <p style="margin:0">Government Primary School Pethgam Wagoora<br>Address: Pethgam Wagoora, Baramulla, J&K<br>Wagoora Babareshi Road Near ZEO Office Wagoora 193109</p>
+      <p style="margin:6px 0 0 0">Phone: 7006261694 | 9596449881<br>Email: pspethgam@gmail.com</p>
+    </div>
+    <div style="min-width:220px">
+      <h4 style="margin:0 0 8px 0">Quick Links</h4>
+      <p style="margin:0"><a href="admissions.html">Admissions</a><br><a href="academics.html">Academics</a><br><a href="contact.html">Contact</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Simple slider: fades by toggling slides via class (keeps your original behavior) */
+(function(){
+  const slides = document.querySelectorAll('.slides .slide');
+  let idx = 0;
+  function show(){ slides.forEach((s,i)=> s.style.opacity = i===idx ? '1' : '0'); idx = (idx+1) % slides.length; }
+  // initial
+  slides.forEach(s=>s.style.transition='opacity .8s ease');
+  show(); setInterval(show,4500);
+})();
+
+/* Improve button active state for mobile touch (visual) */
+document.querySelectorAll('.btn-3d').forEach(btn=>{
+  btn.addEventListener('touchstart', ()=> btn.classList.add('pressed'));
+  btn.addEventListener('touchend', ()=> btn.classList.remove('pressed'));
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+
         /* 3. HERO SECTION */
         .hero {
             position: relative;
