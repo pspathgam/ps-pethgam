@@ -1,17 +1,12 @@
 <!doctype html>
-<html lang="en">
+
+<html lang=\"en\">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Admission Form — Government Primary School Pethgam Wagoora (A4)</title>
-
-<!-- jsPDF + html2canvas -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-<style>
+<meta charset=\"utf-8\" />
+<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />
+<title>Admission Form — GPS Pethgam Wagoora (Fillable A4)</title><!-- jsPDF + AcroForm + html2canvas --><script src=\"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js\"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.plugin.acroform.min.js\"></script><script src=\"https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js\"></script><style>
   /* Reset */
-  *{box-sizing:border-box;font-family: "Helvetica Neue", Arial, Helvetica, sans-serif}
+  *{box-sizing:border-box;font-family: \"Helvetica Neue\", Arial, Helvetica, sans-serif}
   body{margin:16px;background:#f2f4f7;color:#222}
 
   /* Center the preview area */
@@ -41,8 +36,7 @@
   .form-row{display:flex;gap:12px;align-items:center}
   .form-group{display:flex;flex-direction:column;margin:8px 0;flex:1}
   label{font-size:11.5px;font-weight:700;margin-bottom:6px}
-  /* underline input style (improved) */
-  input[type="text"], input[type="tel"], input[type="date"], select, textarea {
+  input[type=\"text\"], input[type=\"tel\"], input[type=\"date\"], select, textarea {
     border: none;
     border-bottom: 1.5px solid #333;
     padding:6px 8px;
@@ -50,7 +44,7 @@
     outline: none;
     background: transparent;
   }
-  input[type="text"]::placeholder{color:#999}
+  input[type=\"text\"]::placeholder{color:#999}
   .small{flex:0 0 120px}
   .tiny{flex:0 0 70px}
 
@@ -91,183 +85,169 @@
     .a4-sheet{transform:scale(0.62);transform-origin:top center}
     .wrap{width:100%;padding:6px}
   }
-</style>
-</head>
-<body>
-
-<div class="wrap">
-  <div style="width:210mm;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-    <div style="font-weight:700">Government Primary School Pethgam Wagoora — Admission (A4)</div>
-    <div style="font-size:12px;color:#555">UDISE: 01022202207</div>
+</style></head>
+<body><div class=\"wrap\">
+  <div style=\"width:210mm;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px\">
+    <div style=\"font-weight:700\">Government Primary School Pethgam Wagoora — Admission (A4)</div>
+    <div style=\"font-size:12px;color:#555\">UDISE: 01022202207</div>
+  </div>  <div class=\"a4-sheet\" id=\"form-a4\"><!-- Header -->
+<div class=\"school-header\">
+  <div class=\"school-logo\" aria-hidden=\"true\">
+    <img id=\"logo-img\" src=\"assets/images/logo.png\" alt=\"logo\" onerror=\"this.src='logo.png'\">
   </div>
-
-  <div class="a4-sheet" id="form-a4">
-
-    <!-- Header -->
-    <div class="school-header">
-      <div class="school-logo" aria-hidden="true">
-        <img id="logo-img" src="assets/images/logo.png" alt="logo" onerror="this.src='logo.png'">
-      </div>
-      <div class="school-title">
-        <h1>GOVERNMENT PRIMARY SCHOOL PETHGAM WAGOORA</h1>
-        <p>Wagoora Babareshi Road Near Zonal Education Office Wagoora · Email: pspethgam@gmail.com · UDISECode: 01022202207</p>
-      </div>
-      <div style="flex:0 0 120px;text-align:center;color:#666;font-size:12px">
-        <div style="font-weight:700">ADMISSION FORM</div>
-      </div>
-    </div>
-
-    <!-- Top row: Student name + photo -->
-    <div style="display:flex;gap:12px;margin-top:12px;align-items:flex-start">
-      <div style="flex:1">
-        <div class="form-group">
-          <label>Students Full Name:</label>
-          <input type="text" id="student-name" placeholder="First Middle Last" value="">
-        </div>
-
-        <div class="form-group">
-          <label>Name As Per Aadhaar:</label>
-          <input type="text" id="student-aadhaar-name" placeholder="As per Aadhaar">
-        </div>
-
-        <div class="form-row">
-          <div class="form-group" style="flex:1">
-            <label>Father's Full Name:</label>
-            <input type="text" id="father-name" placeholder="">
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group" style="flex:1">
-            <label>Mother's Full Name:</label>
-            <input type="text" id="mother-name" placeholder="">
-          </div>
-        </div>
-      </div>
-
-      <div style="width:140px;display:flex;flex-direction:column;gap:8px;align-items:center">
-        <div class="photo-box" id="photo-box">
-          <span id="photo-placeholder">AFFIX RECENT<br>PASSPORT SIZE<br>PHOTO</span>
-        </div>
-        <input type="file" id="photo-input" accept="image/*">
-      </div>
-    </div>
-
-    <!-- Residence / district -->
-    <div class="section">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Residence:</label>
-          <input type="text" id="residence" placeholder="Village / Locality / Street">
-        </div>
-        <div class="form-group small">
-          <label>District:</label>
-          <input type="text" id="district" placeholder="Baramulla">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group small">
-          <label>Father's Cell No.:</label>
-          <input type="tel" id="father-contact" placeholder="10 digits">
-        </div>
-        <div class="form-group small">
-          <label>Mother's Cell No.:</label>
-          <input type="tel" id="mother-contact" placeholder="">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Aadhaar Number:</label>
-          <input type="text" id="student-aadhaar" placeholder="0000 0000 0000">
-        </div>
-        <div class="form-group tiny">
-          <label>Date of Birth:</label>
-          <input type="date" id="dob">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group small">
-          <label>Bank Account Number:</label>
-          <input type="text" id="bank-account" placeholder="">
-        </div>
-        <div class="form-group small">
-          <label>Bank Name:</label>
-          <input type="text" id="bank-name" placeholder="">
-        </div>
-        <div class="form-group small">
-          <label>IFSC Code:</label>
-          <input type="text" id="ifsc-code" placeholder="">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group small">
-          <label>Category:</label>
-          <select id="category">
-            <option>GENERAL</option><option>ST</option><option>SC</option><option>OBC</option>
-          </select>
-        </div>
-        <div class="form-group tiny">
-          <label>Blood Group:</label>
-          <input type="text" id="blood-group" placeholder="A+">
-        </div>
-        <div class="form-group">
-          <label>Ration Card Number:</label>
-          <input type="text" id="ration-card" placeholder="">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group small">
-          <label>Class Joining:</label>
-          <input type="text" id="class-joining" placeholder="1st">
-        </div>
-        <div class="form-group small">
-          <label>PEN Number (if transf.):</label>
-          <input type="text" id="pen-number" placeholder="">
-        </div>
-      </div>
-    </div>
-
-    <!-- Declaration -->
-    <div class="declaration">
-      <strong>Parents Declaration:</strong>
-      <p style="margin:6px 0 0 0; font-size:12px">
-        I do hereby declare that the above information provided by me is true to the best of my knowledge and belief. I further declare that I will abide by the rules and regulations laid down by the school and the department from time to time and will co-operate with the institution for the betterment of my ward and institution when sought. I hereby consent to provide the AADHAAR for the demographic authentication of the student. (Agreed: <em>tick box on portal</em>)
-      </p>
-    </div>
-
-    <!-- For office use + signatures -->
-    <div style="margin-top:12px;border-top:1px dashed #ccc;padding-top:10px">
-      <div style="font-weight:700;margin-bottom:6px;font-size:12px">For Office Use Only</div>
-      <div style="font-size:12px;color:#333">
-        The Student is admitted to Class ______ under Admission No. ______ on ________. All required documents (Birth Certificate, Residence Proof and Transfer Certificate (if applicable)) have been verified and found satisfactory.
-      </div>
-
-      <div class="sign-row">
-        <div class="sig">Signature of Parent</div>
-        <div class="sig">Sig. of Adm. Incharge</div>
-        <div class="sig">Sig. of Headmaster</div>
-      </div>
-    </div>
-
+  <div class=\"school-title\">
+    <h1>GOVERNMENT PRIMARY SCHOOL PETHGAM WAGOORA</h1>
+    <p>Wagoora Babareshi Road Near Zonal Education Office Wagoora · Email: pspethgam@gmail.com · UDISECode: 01022202207</p>
   </div>
-
-  <!-- Controls -->
-  <div class="actions">
-    <button class="btn-primary" id="download-pdf">Generate A4 PDF</button>
-    <button class="btn-ghost" id="reset-form">Reset Form</button>
-  </div>
-
-  <div style="font-size:12px;color:#666;text-align:center;margin-top:6px">
-    Tip: For best results on mobile, rotate to portrait and tap "Generate A4 PDF".
+  <div style=\"flex:0 0 120px;text-align:center;color:#666;font-size:12px\">
+    <div style=\"font-weight:700\">ADMISSION FORM</div>
   </div>
 </div>
 
-<script>
+<!-- Top row: Student name + photo -->
+<div style=\"display:flex;gap:12px;margin-top:12px;align-items:flex-start\">
+  <div style=\"flex:1\">
+    <div class=\"form-group\">
+      <label>Students Full Name:</label>
+      <input type=\"text\" id=\"student-name\" placeholder=\"First Middle Last\" value=\"\">
+    </div>
+
+    <div class=\"form-group\">
+      <label>Name As Per Aadhaar:</label>
+      <input type=\"text\" id=\"student-aadhaar-name\" placeholder=\"As per Aadhaar\">
+    </div>
+
+    <div class=\"form-row\">
+      <div class=\"form-group\" style=\"flex:1\">
+        <label>Father's Full Name:</label>
+        <input type=\"text\" id=\"father-name\" placeholder=\"\">
+      </div>
+    </div>
+
+    <div class=\"form-row\">
+      <div class=\"form-group\" style=\"flex:1\">
+        <label>Mother's Full Name:</label>
+        <input type=\"text\" id=\"mother-name\" placeholder=\"\">
+      </div>
+    </div>
+  </div>
+
+  <div style=\"width:140px;display:flex;flex-direction:column;gap:8px;align-items:center\">
+    <div class=\"photo-box\" id=\"photo-box\">
+      <span id=\"photo-placeholder\">AFFIX RECENT<br>PASSPORT SIZE<br>PHOTO</span>
+    </div>
+    <input type=\"file\" id=\"photo-input\" accept=\"image/*\">
+  </div>
+</div>
+
+<!-- Residence / district -->
+<div class=\"section\">
+  <div class=\"form-row\">
+    <div class=\"form-group\">
+      <label>Residence:</label>
+      <input type=\"text\" id=\"residence\" placeholder=\"Village / Locality / Street\">
+    </div>
+    <div class=\"form-group small\">
+      <label>District:</label>
+      <input type=\"text\" id=\"district\" placeholder=\"Baramulla\">
+    </div>
+  </div>
+
+  <div class=\"form-row\">
+    <div class=\"form-group small\">
+      <label>Father's Cell No.:</label>
+      <input type=\"tel\" id=\"father-contact\" placeholder=\"10 digits\">
+    </div>
+    <div class=\"form-group small\">
+      <label>Mother's Cell No.:</label>
+      <input type=\"tel\" id=\"mother-contact\" placeholder=\"\">
+    </div>
+  </div>
+
+  <div class=\"form-row\">
+    <div class=\"form-group\">
+      <label>Aadhaar Number:</label>
+      <input type=\"text\" id=\"student-aadhaar\" placeholder=\"0000 0000 0000\">
+    </div>
+    <div class=\"form-group tiny\">
+      <label>Date of Birth:</label>
+      <input type=\"date\" id=\"dob\">
+    </div>
+  </div>
+
+  <div class=\"form-row\">
+    <div class=\"form-group small\">
+      <label>Bank Account Number:</label>
+      <input type=\"text\" id=\"bank-account\" placeholder=\"\">
+    </div>
+    <div class=\"form-group small\">
+      <label>Bank Name:</label>
+      <input type=\"text\" id=\"bank-name\" placeholder=\"\">
+    </div>
+    <div class=\"form-group small\">
+      <label>IFSC Code:</label>
+      <input type=\"text\" id=\"ifsc-code\" placeholder=\"\">
+    </div>
+  </div>
+
+  <div class=\"form-row\">
+    <div class=\"form-group small\">
+      <label>Category:</label>
+      <select id=\"category\">
+        <option>GENERAL</option><option>ST</option><option>SC</option><option>OBC</option>
+      </select>
+    </div>
+    <div class=\"form-group tiny\">
+      <label>Blood Group:</label>
+      <input type=\"text\" id=\"blood-group\" placeholder=\"A+\">
+    </div>
+    <div class=\"form-group\">
+      <label>Ration Card Number:</label>
+      <input type=\"text\" id=\"ration-card\" placeholder=\"\">
+    </div>
+  </div>
+
+  <div class=\"form-row\">
+    <div class=\"form-group small\">
+      <label>Class Joining:</label>
+      <input type=\"text\" id=\"class-joining\" placeholder=\"1st\">
+    </div>
+    <div class=\"form-group small\">
+      <label>PEN Number (if transf.):</label>
+      <input type=\"text\" id=\"pen-number\" placeholder=\"\">
+    </div>
+  </div>
+</div>
+
+<!-- Declaration -->
+<div class=\"declaration\">
+  <strong>Parents Declaration:</strong>
+  <p style=\"margin:6px 0 0 0; font-size:12px\">
+    I do hereby declare that the above information provided by me is true to the best of my knowledge and belief. I further declare that I will abide by the rules and regulations laid down by the school and the department from time to time and will co-operate with the institution for the betterment of my ward and institution when sought. I hereby consent to provide the AADHAAR for the demographic authentication of the student. (Agreed: <em>tick box on portal</em>)
+  </p>
+</div>
+
+<!-- For office use + signatures -->
+<div style=\"margin-top:12px;border-top:1px dashed #ccc;padding-top:10px\">
+  <div style=\"font-weight:700;margin-bottom:6px;font-size:12px\">For Office Use Only</div>
+  <div style=\"font-size:12px;color:#333\">
+    The Student is admitted to Class ______ under Admission No. ______ on ________. All required documents (Birth Certificate, Residence Proof and Transfer Certificate (if applicable)) have been verified and found satisfactory.
+  </div>
+
+  <div class=\"sign-row\">
+    <div class=\"sig\">Signature of Parent</div>
+    <div class=\"sig\">Sig. of Adm. Incharge</div>
+    <div class=\"sig\">Sig. of Headmaster</div>
+  </div>
+</div>
+
+  </div>  <!-- Controls -->  <div class=\"actions\">
+    <button class=\"btn-primary\" id=\"download-pdf\">Generate Fillable A4 PDF</button>
+    <button class=\"btn-ghost\" id=\"reset-form\">Reset Form</button>
+  </div>  <div style=\"font-size:12px;color:#666;text-align:center;margin-top:6px\">
+    Tip: For best results on mobile, rotate to portrait and tap \"Generate A4 PDF\".
+  </div>
+</div><script>
 (function(){
   // photo preview
   const photoInput = document.getElementById('photo-input');
@@ -292,108 +272,150 @@
 
   // Reset form
   document.getElementById('reset-form').addEventListener('click', function(){
-    // simple reset all inputs
     const inputs = document.querySelectorAll('#form-a4 input, #form-a4 select, #form-a4 textarea');
     inputs.forEach(i => {
       if (i.type === 'file') i.value = '';
       else i.value = '';
     });
-    // reset photo
-    photoBox.innerHTML = '<span id="photo-placeholder">AFFIX RECENT<br>PASSPORT SIZE<br>PHOTO</span>';
+    photoBox.innerHTML = '<span id=\"photo-placeholder\">AFFIX RECENT<br>PASSPORT SIZE<br>PHOTO</span>';
     photoDataURL = null;
   });
 
-  // PDF Generation
+  // PDF Generation: capture background then overlay real AcroForm fields by mapping DOM positions -> PDF mm
   document.getElementById('download-pdf').addEventListener('click', async function(){
-    // small pre-validations (you can expand)
     const name = document.getElementById('student-name').value.trim();
     if (!name) {
       if(!confirm('Student name is empty. Continue to generate PDF?')) return;
     }
 
-    // Use html2canvas to render the .a4-sheet exactly as shown
     const element = document.getElementById('form-a4');
-
-    // apply a temporary white background to avoid transparency issues
-    element.style.background = '#fff';
-
-    // html2canvas options — use a higher scale for sharper PDF
-    const scale = 2; // 2 = high-res; increase to 3 if you need extra crispness but bigger file
-    const canvas = await html2canvas(element, {
-      scale: scale,
-      useCORS: true,
-      allowTaint: true,
-      logging: false,
-      windowWidth: element.scrollWidth,
-      windowHeight: element.scrollHeight
-    });
-
-    // Convert canvas to image data
+    // Use html2canvas to render the background exactly as the on-screen layout
+    const scale = Math.min(window.devicePixelRatio || 1, 2); // balance quality and size
+    const canvas = await html2canvas(element, { scale: scale, useCORS:true, logging:false, windowWidth: element.scrollWidth, windowHeight: element.scrollHeight });
     const imgData = canvas.toDataURL('image/png');
 
-    // Create jsPDF at A4 size in mm
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF({
-      unit: 'mm',
-      format: 'a4',
-      orientation: 'portrait'
-    });
+    const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+    pdf.initForm();
 
-    // Calculate dimensions to fit the canvas into A4
-    // canvas.width/height are in px; we will draw full width 210mm
-    const pdfWidth = 210;
-    const imgProps = {
-      width: canvas.width,
-      height: canvas.height
-    };
-    // height in mm = (canvas.height * pdfWidth) / canvas.width
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    // mm per px factor based on element width -> 210mm
+    const elemRect = element.getBoundingClientRect();
+    const mmPerPx = 210 / elemRect.width; // 1 px in element coords = mmPerPx mm in PDF
+    const pdfHeightMm = elemRect.height * mmPerPx;
 
-    // Add image to PDF
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    // Add full-page background image (may extend beyond single A4 height)
+    pdf.addImage(imgData, 'PNG', 0, 0, 210, pdfHeightMm);
 
-    // If the content height > a single A4 page, add pages (multi-page support)
-    if (pdfHeight > 297) {
-      // split into multiple pages
-      let remainingHeight = pdfHeight;
-      let position = 0;
-      const pageHeight = 297;
-      // clear and create first page already done above, now slice pages
-      // create a temporary canvas to extract page-sized chunks
+    // Multi-page handling: if pdfHeightMm > 297, we'll split pages for fields
+    const pageHeight = 297; // mm
+    const totalPages = Math.ceil(pdfHeightMm / pageHeight);
+
+    // Helper: add new page if required
+    function ensurePage(index) {
+      if (index === 0) return; // first page already on pdf
+      // for pages beyond first, we must add image slice for that page
+      pdf.addPage();
+      // draw the corresponding slice of the original canvas into this page
+      // compute source crop coords in canvas px
+      const canvasHeight = canvas.height;
+      const canvasWidth = canvas.width;
+      const pxPerMm = canvasWidth / 210; // px per mm horizontally
+      const srcY = Math.floor(index * pageHeight * pxPerMm);
+      const srcH = Math.min(Math.floor(pageHeight * pxPerMm), canvasHeight - srcY);
+      if (srcH <= 0) return;
       const pageCanvas = document.createElement('canvas');
-      const pageScale = canvas.width / pdfWidth;
-      // pageHeight in canvas px:
-      const pagePx = Math.floor(pageHeight * pageScale);
-      pageCanvas.width = canvas.width;
-      pageCanvas.height = pagePx;
+      pageCanvas.width = canvasWidth;
+      pageCanvas.height = srcH;
       const ctx = pageCanvas.getContext('2d');
-
-      // Already drew the first page (0..pagePx). Now iterate remaining
-      let pageCount = Math.ceil(pdfHeight / pageHeight);
-      for (let i = 1; i < pageCount; i++) {
-        const sx = 0;
-        const sy = i * pagePx;
-        const sw = canvas.width;
-        const sh = Math.min(pagePx, canvas.height - sy);
-        // clear pageCanvas and draw the slice
-        pageCanvas.width = sw;
-        pageCanvas.height = sh;
-        ctx.clearRect(0,0, sw, sh);
-        ctx.drawImage(canvas, sx, sy, sw, sh, 0, 0, sw, sh);
-        const imgPart = pageCanvas.toDataURL('image/png');
-        pdf.addPage();
-        // height in mm for this part:
-        const partHeightMM = (sh * pdfWidth) / canvas.width;
-        pdf.addImage(imgPart, 'PNG', 0, 0, pdfWidth, partHeightMM);
-      }
+      ctx.drawImage(canvas, 0, srcY, canvasWidth, srcH, 0, 0, canvasWidth, srcH);
+      const imgPart = pageCanvas.toDataURL('image/png');
+      // draw to pdf full width 210mm and height pageHeight or smaller
+      const partHeightMm = (srcH / canvasWidth) * 210;
+      pdf.addImage(imgPart, 'PNG', 0, 0, 210, partHeightMm);
     }
 
-    // Save with helpful filename
-    const studentSafe = name ? name.replace(/\s+/g, '_') : 'student';
-    pdf.save(`${studentSafe}_Admission_A4.pdf`);
+    // Create fields for all relevant inputs/select/textarea except file input
+    const fields = Array.from(element.querySelectorAll('input:not([type=file]), select, textarea'));
+
+    fields.forEach((fld) => {
+      const r = fld.getBoundingClientRect();
+      // positions relative to element
+      const offsetX = r.left - elemRect.left;
+      const offsetY = r.top - elemRect.top;
+      // convert to mm
+      const xMm = offsetX * mmPerPx;
+      const yMm = offsetY * mmPerPx;
+      const wMm = r.width * mmPerPx;
+      const hMm = r.height * mmPerPx || 6; // fallback
+
+      // Determine page index (0-based)
+      const pageIndex = Math.floor(yMm / pageHeight);
+      // ensure page exists and has background image printed
+      if (pageIndex > 0) {
+        // need to add missing pages up to this index
+        for (let p = 1; p <= pageIndex; p++) {
+          if (pdf.getNumberOfPages() <= p) ensurePage(p);
+        }
+      }
+
+      // Compute y position relative to that page
+      const yOnPage = yMm - (pageIndex * pageHeight);
+
+      // Create a text field for everything (simple and compatible)
+      // Use field name derived from id or name or index
+      const fname = fld.id || fld.name || ('field_' + Math.floor(Math.random()*100000));
+      // Switch to the correct page to add the field
+      pdf.setPage(pageIndex + 1);
+
+      // create AcroForm field
+      try {
+        const tf = pdf.createTextField(fname);
+        // jsPDF AcroForm Rect expects [x, y, width, height] in user units (mm) with y measured from top.
+        tf.Rect = [xMm, yOnPage, Math.max(wMm, 20), Math.max(hMm, 6)];
+        // set some appearances
+        tf.textFont = pdf.internal.getFontSize ? pdf.internal.getFont() : undefined;
+        // set default value
+        let val = '';
+        if (fld.tagName.toLowerCase() === 'select') val = fld.options[fld.selectedIndex]?.text || '';
+        else if (fld.type === 'date') val = fld.value; else val = fld.value || '';
+        tf.Value = val;
+        pdf.addField(tf);
+      } catch (err) {
+        // fallback: draw the value as plain text if field creation fails
+        pdf.setFontSize(10);
+        pdf.text(fld.value || '', xMm + 1, yOnPage + 4);
+      }
+
+      // Special case: if this is the photo box and a photo is provided, draw it into PDF instead of a form field
+      if (fld.id === 'residence') {
+        /* nothing special here; example placeholder if needed */
+      }
+    });
+
+    // Handle photo insertion: if user uploaded a photo, place it at the photo-box coordinates
+    if (photoDataURL) {
+      const photoBox = document.getElementById('photo-box');
+      const r = photoBox.getBoundingClientRect();
+      const offsetX = r.left - elemRect.left;
+      const offsetY = r.top - elemRect.top;
+      const xMm = offsetX * mmPerPx;
+      const yMm = offsetY * mmPerPx;
+      const wMm = r.width * mmPerPx;
+      const hMm = r.height * mmPerPx;
+      const pageIndex = Math.floor(yMm / pageHeight);
+      for (let p = 1; p <= pageIndex; p++) { if (pdf.getNumberOfPages() <= p) ensurePage(p); }
+      const yOnPage = yMm - (pageIndex * pageHeight);
+      pdf.setPage(pageIndex + 1);
+      // draw photo into pdf
+      pdf.addImage(photoDataURL, 'PNG', xMm, yOnPage, wMm, hMm);
+    }
+
+    // finalize and save
+    pdf.save((name ? name.replace(/\s+/g,'_') : 'student') + '_Admission_Fillable_A4.pdf');
+
   });
 
 })();
 </script>
 </body>
-</html>
+</html>                  
