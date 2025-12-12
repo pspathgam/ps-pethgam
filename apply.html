@@ -180,7 +180,7 @@
                     <div class="form-group small"> 
                         <label>Category:</label> 
                         <select id="category"> 
-                            <option>GENERAL</option><option>ST</option><option>SC</option><option>OBC</option> 
+                            <option value="GENERAL">GENERAL</option><option value="ST">ST</option><option value="SC">SC</option><option value="OBC">OBC</option> 
                         </select> 
                     </div> 
                     <div class="form-group tiny"> 
@@ -221,6 +221,7 @@
         </div>
         
         <div class="actions">
+            <button id="save-data" class="btn-ghost">Save Progress</button>
             <button id="download-pdf" class="btn-primary">Generate A4 PDF</button>
             <button id="reset-form" class="btn-ghost">Reset Form</button>
         </div>
@@ -230,12 +231,73 @@
 
     <script>
         (function(){ 
-            // photo preview 
+            const FORM_STORAGE_KEY = 'gps_pethgam_admission_form_data'; 
+            
+            // DOM Elements 
             const photoInput = document.getElementById('photo-input'); 
             const photoBox = document.getElementById('photo-box'); 
             const photoPlaceholder = document.getElementById('photo-placeholder'); 
-            let photoDataURL = null; 
+            const formInputs = document.querySelectorAll('#form-a4 input, #form-a4 select, #form-a4 textarea');
             
+            let photoDataURL = null; // Stores photo data for PDF
+            
+            // --- START: Added Data Persistence Logic ---
+            
+            // Function to save form data to Local Storage
+            function saveFormData() {
+                const data = {};
+                formInputs.forEach(input => {
+                    if (input.id) {
+                        data[input.id] = input.value;
+                    }
+                });
+                // Save photo separately
+                data['photoDataURL'] = photoDataURL;
+                localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(data));
+                console.log('Form data saved to local storage.');
+            }
+            
+            // Function to load form data from Local Storage
+            function loadFormData() {
+                const savedData = localStorage.getItem(FORM_STORAGE_KEY);
+                if (!savedData) return;
+                
+                const data = JSON.parse(savedData);
+                
+                formInputs.forEach(input => {
+                    if (input.id && data[input.id] !== undefined) {
+                        input.value = data[input.id];
+                    }
+                });
+
+                // Load photo data
+                if (data.photoDataURL) {
+                    photoDataURL = data.photoDataURL;
+                    photoBox.innerHTML = ''; 
+                    const img = document.createElement('img'); 
+                    img.src = photoDataURL; 
+                    photoBox.appendChild(img);
+                }
+            }
+            
+            // Event listeners for auto-save (on change/input)
+            formInputs.forEach(input => {
+                input.addEventListener('input', saveFormData);
+                input.addEventListener('change', saveFormData);
+            });
+            
+            // Manual Save Button
+            document.getElementById('save-data').addEventListener('click', function() {
+                saveFormData();
+                alert('Progress Saved!');
+            });
+            
+            // Load data when the page loads
+            window.addEventListener('load', loadFormData);
+
+            // --- END: Added Data Persistence Logic ---
+            
+            // Photo preview and save logic
             photoInput.addEventListener('change', function(e){ 
                 const file = e.target.files[0]; 
                 if (!file) return; 
@@ -243,29 +305,35 @@
                 
                 reader.onload = function(ev){ 
                     photoDataURL = ev.target.result; 
-                    // show preview 
+                    // Update preview 
                     photoBox.innerHTML = ''; 
                     const img = document.createElement('img'); 
                     img.src = photoDataURL; 
                     photoBox.appendChild(img); 
+                    // Save photo data on change
+                    saveFormData();
                 }; 
                 reader.readAsDataURL(file); 
             }); 
             
             // Reset form 
             document.getElementById('reset-form').addEventListener('click', function(){ 
+                if (!confirm('Are you sure you want to reset the entire form? This will clear all data.')) return;
+                
                 // simple reset all inputs 
-                const inputs = document.querySelectorAll('#form-a4 input, #form-a4 select, #form-a4 textarea'); 
-                inputs.forEach(i => { 
+                formInputs.forEach(i => { 
                     if (i.type === 'file') i.value = ''; 
                     else i.value = ''; 
                 }); 
                 // reset photo 
                 photoBox.innerHTML = '<span id="photo-placeholder">AFFIX RECENT<br>PASSPORT SIZE<br>PHOTO</span>'; 
                 photoDataURL = null; 
+                
+                // Clear from Local Storage
+                localStorage.removeItem(FORM_STORAGE_KEY);
             }); 
             
-            // PDF Generation 
+            // PDF Generation (original logic)
             document.getElementById('download-pdf').addEventListener('click', async function(){ 
                 // small pre-validations (you can expand) 
                 const name = document.getElementById('student-name').value.trim(); 
@@ -278,256 +346,90 @@
                 // apply a temporary white background to avoid transparency issues 
                 element.style.background = '#fff'; 
                 
-<script>
-let currentStep = 1;
-const totalSteps = 4; // Total steps before final confirmation
-const formSections = document.querySelectorAll('.form-section');
-const steps = document.querySelectorAll('.step');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
-const submitBtn = document.getElementById('submit-btn');
+                // html2canvas options — use a higher scale for sharper PDF 
+                const scale = 2; // 2 = high-res; increase to 3 if you need extra crispness but bigger file 
+                const canvas = await html2canvas(element, { 
+                    scale: scale, 
+                    useCORS: true, 
+                    allowTaint: true, 
+                    logging: false, 
+                    windowWidth: element.scrollWidth, 
+                    windowHeight: element.scrollHeight 
+                }); 
+                
+                // Convert canvas to image data 
+                const imgData = canvas.toDataURL('image/png'); 
+                
+                // Create jsPDF at A4 size in mm 
+                const { jsPDF } = window.jspdf; 
+                const pdf = new jsPDF({ 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }); 
+                
+                // Calculate dimensions to fit the canvas into A4 
+                // canvas.width/height are in px; we will draw full width 210mm 
+                const pdfWidth = 210; 
+                const imgProps = { 
+                    width: canvas.width, 
+                    height: canvas.height 
+                }; 
+                // height in mm = (canvas.height * pdfWidth) / canvas.width 
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; 
+                
+                // Add image to PDF 
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight); 
+                
+                // If the content height > a single A4 page, add pages (multi-page support) 
+                if (pdfHeight > 297) { 
+                    // split into multiple pages 
+                    let remainingHeight = pdfHeight; 
+                    let position = 0; 
+                    const pageHeight = 297; 
+                    
+                    // clear and create first page already done above, now slice pages 
+                    // create a temporary canvas to extract page-sized chunks 
+                    const pageCanvas = document.createElement('canvas'); 
+                    const pageScale = canvas.width / pdfWidth; 
+                    // pageHeight in canvas px: 
+                    const pagePx = Math.floor(pageHeight * pageScale); 
+                    pageCanvas.width = canvas.width; 
+                    pageCanvas.height = pagePx; 
+                    const ctx = pageCanvas.getContext('2d'); 
+                    
+                     // Already drew the first page (0..pagePx). Now iterate remaining 
+                    let pageCount = Math.ceil(pdfHeight / pageHeight); 
+                    
+                    for (let i = 1; i < pageCount; i++) { 
+                        const sx = 0; 
+                        const sy = i * pagePx; 
+                        const sw = canvas.width; 
+                        const sh = Math.min(pagePx, canvas.height - sy); 
+                        
+                        // clear pageCanvas and draw the slice 
+                        pageCanvas.width = sw; 
+                        pageCanvas.height = sh; 
+                        ctx.clearRect(0,0, sw, sh); 
+                        ctx.drawImage(canvas, sx, sy, sw, sh, 0, 0, sw, sh); 
+                        
+                        const imgPart = pageCanvas.toDataURL('image/png'); 
+                        pdf.addPage(); 
+                        // height in mm for this part: 
+                        const partHeightMM = (sh * pdfWidth) / canvas.width; 
+                        pdf.addImage(imgPart, 'PNG', 0, 0, pdfWidth, partHeightMM); 
+                    } 
+                } 
+                
+                // Save with helpful filename 
+                const studentSafe = name ? name.replace(/\s+/g, '_') : 'student'; 
+                pdf.save(`${studentSafe}_Admission_A4.pdf`); 
+                
+                // Restore original background after PDF generation
+                element.style.background = null; 
+            }); 
+        })(); 
+    </script>
 
-// --- Multi-Step Navigation Logic ---
-
-function updateDisplay() {
-    // Standard navigation update logic goes here (as previously defined)
-    formSections.forEach(section => section.classList.remove('active'));
-    const currentSectionId = currentStep <= totalSteps ? `step-${currentStep}` : 'step-final';
-    const currentSection = document.getElementById(currentSectionId);
-    if (currentSection) {
-        currentSection.classList.add('active');
-    }
-
-    steps.forEach((step, index) => {
-        step.classList.remove('active', 'done');
-        if (index + 1 < currentStep) {
-            step.classList.add('done');
-        } else if (index + 1 === currentStep && currentStep <= totalSteps) {
-            step.classList.add('active');
-        } else if (currentStep > totalSteps) {
-             step.classList.add('done');
-        }
-    });
-
-    prevBtn.style.display = currentStep > 1 && currentStep <= totalSteps ? 'block' : 'none';
-    nextBtn.style.display = currentStep < totalSteps ? 'block' : 'none';
-    submitBtn.style.display = currentStep === totalSteps ? 'block' : 'none';
-
-    if (currentStep === 1) {
-        nextBtn.disabled = !document.getElementById('declare-check').checked;
-    } else {
-        nextBtn.disabled = false;
-    }
-
-    const portalContainer = document.querySelector('.portal-container');
-    if (portalContainer) {
-        portalContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-}
-
-function validateStep(stepIndex) {
-    // Standard validation logic goes here (as previously defined)
-    if (stepIndex === 1 && !document.getElementById('declare-check').checked) {
-        alert("You must accept the Parental Declaration to proceed.");
-        return false;
-    }
-    if (stepIndex === 3 && !document.getElementById('apaar-check').checked) {
-        alert("You must provide consent for APAAR ID generation to proceed.");
-        return false;
-    }
-    
-    const currentSection = document.getElementById(`step-${stepIndex}`);
-    if (!currentSection) return true; 
-
-    const inputs = currentSection.querySelectorAll('input:required, select:required, textarea:required');
-    let isValid = true;
-    
-    inputs.forEach(input => {
-        if (!input.checkValidity()) {
-            input.reportValidity();
-            isValid = false;
-        }
-    });
-    return isValid;
-}
-
-function nextStep(direction) {
-    if (direction === 1) {
-        if (currentStep <= totalSteps && !validateStep(currentStep)) {
-            return;
-        }
-    }
-    currentStep += direction;
-    
-    if (currentStep > totalSteps) {
-        currentStep = totalSteps; 
-        return; 
-    } else if (currentStep < 1) {
-        currentStep = 1;
-    }
-    
-    updateDisplay();
-}
-
-// --- NEW HTML-TO-PDF GENERATION FUNCTION ---
-
-/**
- * Generates a PDF from a given HTML element using html2canvas.
- * @param {string} elementId - The ID of the HTML element to capture.
- * @param {string} filenamePrefix - The prefix for the downloaded PDF file.
- */
-async function generatePDFFromHTML(elementId, filenamePrefix) {
-    const element = document.getElementById(elementId);
-    if (!element) {
-        console.error(`Element with ID ${elementId} not found. Skipping PDF generation.`);
-        return false;
-    }
-
-    // Temporarily set background to white for clear canvas capture
-    element.style.background = '#fff';
-
-    const scale = 2; // For high resolution
-    const canvas = await html2canvas(element, { 
-        scale: scale, 
-        useCORS: true, 
-        allowTaint: true, 
-        logging: false, 
-        windowWidth: element.scrollWidth, 
-        windowHeight: element.scrollHeight 
-    }); 
-
-    // Revert background color after capture (optional)
-    element.style.background = '';
-
-    const { jsPDF } = window.jspdf; 
-    const pdf = new jsPDF({ 
-        unit: 'mm', 
-        format: 'a4', 
-        orientation: 'portrait' 
-    }); 
-    
-    // Calculate dimensions
-    const pdfWidth = 210; 
-    const imgProps = { 
-        width: canvas.width, 
-        height: canvas.height 
-    }; 
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; 
-    
-    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdfWidth, pdfHeight); 
-    
-    // Multi-page logic (simplified from your provided code)
-    if (pdfHeight > 297) { 
-        let pageCount = Math.ceil(pdfHeight / 297); 
-        const pagePx = Math.floor(297 * (canvas.width / pdfWidth));
-        
-        for (let i = 1; i < pageCount; i++) { 
-            const sx = 0; 
-            const sy = i * pagePx; 
-            const sw = canvas.width; 
-            const sh = Math.min(pagePx, canvas.height - sy); 
-            
-            const pageCanvas = document.createElement('canvas'); 
-            const ctx = pageCanvas.getContext('2d'); 
-
-            pageCanvas.width = sw; 
-            pageCanvas.height = sh; 
-            ctx.clearRect(0,0, sw, sh); 
-            ctx.drawImage(canvas, sx, sy, sw, sh, 0, 0, sw, sh); 
-            
-            pdf.addPage(); 
-            const partHeightMM = (sh * pdfWidth) / canvas.width; 
-            pdf.addImage(pageCanvas.toDataURL('image/png'), 'PNG', 0, 0, pdfWidth, partHeightMM); 
-        } 
-    } 
-    
-    // Save file
-    const studentName = document.getElementById('student-name').value.trim();
-    const studentSafe = studentName ? studentName.replace(/\s+/g, '_') : 'student';
-    pdf.save(`${studentSafe}_${filenamePrefix}.pdf`); 
-    
-    return true; 
-}
-
-
-// --- FINAL SUBMISSION FUNCTION (Triggers both PDFs) ---
-
-async function finalSubmit() {
-    // You can re-enable validation for file uploads here if required
-    // if (!validateStep(4)) { return; } 
-
-    // 1. Generate Admission Form PDF
-    const admissionSuccess = await generatePDFFromHTML('form-admission', 'Admission_Form');
-
-    // 2. Generate APAAR Consent Form PDF
-    const apaarSuccess = await generatePDFFromHTML('form-apaar', 'APAAR_Consent');
-
-    if (admissionSuccess && apaarSuccess) {
-        currentStep = 5; // Move to the final confirmation step
-        updateDisplay();
-        alert("Application Submitted Online! Please check your downloads folder for the generated forms.");
-    } else {
-        // This will only happen if the HTML elements are not found
-        console.error("PDF generation failed. Check if 'form-admission' and 'form-apaar' elements exist.");
-        alert("An error occurred during PDF generation. Please ensure all form sections are present.");
-    }
-}
-
-// Initial setup
-document.addEventListener('DOMContentLoaded', updateDisplay);
-
-// Re-enable next button if declaration is checked on step 1
-document.getElementById('declare-check').addEventListener('change', () => {
-    if (currentStep === 1) {
-        nextBtn.disabled = !document.getElementById('declare-check').checked;
-    }
-});
-
-// Update display to start at Step 1
-currentStep = 1;
-updateDisplay();
-      /**
- * Copies data from the multi-step form inputs to the hidden PDF template's inputs.
- */
-function transferDataToPDFTemplate() {
-    // === Data Transfer for Admission Form (form-admission) ===
-    
-    // Copy student details
-    document.querySelector('#form-admission #student-name').value = document.getElementById('student-name').value;
-    document.querySelector('#form-admission #student-aadhaar-name').value = document.getElementById('student-name').value; // Assuming same name
-    document.querySelector('#form-admission #father-name').value = document.getElementById('father-name').value;
-    document.querySelector('#form-admission #mother-name').value = document.getElementById('mother-name').value;
-
-    // Copy contact and address
-    document.querySelector('#form-admission #residence').value = document.getElementById('residence').value;
-    document.querySelector('#form-admission #district').value = document.getElementById('district').value;
-    document.querySelector('#form-admission #father-contact').value = document.getElementById('father-contact').value;
-    document.querySelector('#form-admission #mother-contact').value = document.getElementById('mother-contact').value; // Assuming this field exists in your multi-step form
-    
-    // Copy official details
-    document.querySelector('#form-admission #student-aadhaar').value = document.getElementById('student-aadhaar').value;
-    document.querySelector('#form-admission #dob').value = document.getElementById('dob').value;
-    document.querySelector('#form-admission #bank-account').value = document.getElementById('bank-account').value;
-    document.querySelector('#form-admission #ifsc-code').value = document.getElementById('ifsc-code').value;
-    document.querySelector('#form-admission #category').value = document.getElementById('category').value;
-    document.querySelector('#form-admission #blood-group').value = document.getElementById('blood-group').value;
-    document.querySelector('#form-admission #ration-card').value = document.getElementById('ration-card').value;
-    document.querySelector('#form-admission #class-joining').value = document.getElementById('class-joining').value;
-    document.querySelector('#form-admission #pen-number').value = document.getElementById('pen-number').value;
-    
-    // NOTE: You need a similar block of code here for the APAAR Consent Form
-    // If your APAAR form template fields have IDs, you would map them:
-    // document.querySelector('#form-apaar #apaar-student-name').value = document.getElementById('student-name').value;
-    
-    // Photo transfer (Assuming 'photoDataURL' is stored globally by the photo input event listener)
-    if (window.photoDataURL) {
-        const img = document.createElement('img');
-        img.src = window.photoDataURL;
-        document.querySelector('#form-admission #photo-box').innerHTML = '';
-        document.querySelector('#form-admission #photo-box').appendChild(img);
-    }
-}
-            
-</script>
 </body>
 </html>
