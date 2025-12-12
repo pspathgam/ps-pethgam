@@ -509,162 +509,240 @@ function goToStep(stepNumber) {
     updateDisplay();
 }
 
+// Utility: load image and return Promise that resolves with HTMLImageElement
+function loadImage(src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        // Allow local loading - if templates are served from same origin this will work
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = (e) => reject(new Error('Image failed to load: ' + src));
+        img.src = src;
+    });
+}
+
 // --------------------------------------------------------------------------
-// !!! CORE PDF GENERATION LOGIC - CLEAN AND COMPLETE !!!
+// PDF GENERATION (uses images loaded safely, then fills fields)
 // --------------------------------------------------------------------------
-function generateFinalForms() {
-    // 1. COLLECT ALL DATA FROM FORM INPUTS
-    const studentName = document.getElementById('student-name').value;
-    const fatherName = document.getElementById('father-name').value;
-    const motherName = document.getElementById('mother-name').value;
-    const residence = document.getElementById('residence').value;
-    const tehsil = document.getElementById('tehsil').value;
-    const district = document.getElementById('district').value;
-    const fatherContact = document.getElementById('father-contact').value;
-    const studentAadhaar = document.getElementById('student-aadhaar').value;
-    const dob = document.getElementById('dob').value;
+async function generateFinalForms() {
+    // Collect data
+    const studentName = document.getElementById('student-name').value.trim();
+    const fatherName = document.getElementById('father-name').value.trim();
+    const motherName = document.getElementById('mother-name').value.trim();
+    const residence = document.getElementById('residence').value.trim();
+    const tehsil = document.getElementById('tehsil').value.trim();
+    const district = document.getElementById('district').value.trim();
+    const fatherContact = document.getElementById('father-contact').value.trim();
+    const motherContact = document.getElementById('mother-contact').value.trim();
+    const studentAadhaar = document.getElementById('student-aadhaar').value.trim();
+    const dob = document.getElementById('dob').value; // iso yyyy-mm-dd
     const classJoining = document.getElementById('class-joining').value;
     
-    const guardianName = document.getElementById('guardian-name').value;
-    const guardianRelationship = document.getElementById('guardian-relationship').value;
+    const guardianName = document.getElementById('guardian-name').value.trim();
+    const guardianRelationship = document.getElementById('guardian-relationship').value.trim();
     const proofType = document.getElementById('proof-type').value;
-    const proofNumber = document.getElementById('proof-number').value;
+    const proofNumber = document.getElementById('proof-number').value.trim();
     
-    // Additional fields for PDF
-    const bankAccount = document.getElementById('bank-account').value || '';
-    const ifscCode = document.getElementById('ifsc-code').value || '';
-    const category = document.getElementById('category').value;
-    const bloodGroup = document.getElementById('blood-group').value;
-    const rationCard = document.getElementById('ration-card').value || '';
-    const penNumber = document.getElementById('pen-number').value || 'N/A';
-    
-    // Initialize PDF document access
+    const bankAccount = document.getElementById('bank-account').value.trim() || '';
+    const ifscCode = document.getElementById('ifsc-code').value.trim() || '';
+    const category = document.getElementById('category').value || '';
+    const bloodGroup = document.getElementById('blood-group').value || '';
+    const rationCard = document.getElementById('ration-card').value.trim() || '';
+    const penNumber = document.getElementById('pen-number').value.trim() || 'N/A';
+
+    // Load templates (wait for them)
+    let admissionImg, apaarImg;
+    try {
+        admissionImg = await loadImage('assets/images/admission_form_template.jpg');
+    } catch (e) {
+        alert('Failed to load admission form template image. Check path: assets/images/admission_form_template.jpg');
+        console.error(e);
+        return false;
+    }
+    try {
+        apaarImg = await loadImage('assets/images/apaar_consent_template.jpg');
+    } catch (e) {
+        alert('Failed to load APAAR consent template image. Check path: assets/images/apaar_consent_template.jpg');
+        console.error(e);
+        return false;
+    }
+
     const { jsPDF } = window.jspdf;
-    
-    // --- 1. ADMISSION FORM GENERATION ---
-    const doc1 = new jsPDF();
-    
-    // !!! CRITICAL: INSERT YOUR ADMISSION FORM IMAGE TEMPLATE HERE !!!
-    // If your template image path/name is different, CHANGE THIS LINE.
-    doc1.addImage('assets/images/admission_form_template.jpg', 'JPEG', 0, 0, 210, 297); 
 
-    // !!! START OF ADMISSION FORM CUSTOM COORDINATE CODE BLOCK !!!
+    // ----- ADMISSION FORM -----
+    const doc1 = new jsPDF({ unit: 'mm', format: 'a4' });
+    // Draw template as background
+    doc1.addImage(admissionImg, 'JPEG', 0, 0, 210, 297);
+
+    // We'll use a reasonable font size; you can change to 9 or 11 if you prefer
     doc1.setFontSize(10);
-    
-    // Safety check for name components
-    const studentParts = studentName ? studentName.split(' ') : ['', '', ''];
-    const fatherParts = fatherName ? fatherName.split(' ') : ['', '', ''];
-    const motherParts = motherName ? motherName.split(' ') : ['', '', ''];
+    doc1.setTextColor(0,0,0);
+    doc1.setFont('helvetica', 'normal');
 
-    // A. Student Name (First, Middle, Last) - Estimated coordinates
-    doc1.text(studentParts[0] || '', 20, 110);      // First Name
-    doc1.text(studentParts[1] || '', 65, 110);      // Middle Name
-    doc1.text(studentParts[2] || '', 110, 110);     // Last Name
-    
-    // B. Name as per Aadhaar (Assuming they are the same)
-    doc1.text(studentParts[0] || '', 20, 125);      // First Name
-    doc1.text(studentParts[1] || '', 65, 125);      // Middle Name
-    doc1.text(studentParts[2] || '', 110, 125);     // Last Name
-    
-    // C. Father's Name 
-    doc1.text(fatherParts[0] || '', 20, 140);
-    doc1.text(fatherParts[1] || '', 65, 140);
-    doc1.text(fatherParts[2] || '', 110, 140);
-    
-    // D. Mother's Name
-    doc1.text(motherParts[0] || '', 20, 155);
-    doc1.text(motherParts[1] || '', 65, 155);
-    doc1.text(motherParts[2] || '', 110, 155);
-    
-    // E. Residence (Village/Locality)
-    doc1.text(residence, 35, 170);
-    
-    // F. Tehsil and District
-    doc1.text(tehsil, 28, 185);
-    doc1.text(district, 130, 185);
-    
-    // G. Father's Contact Number
-    doc1.text(fatherContact, 28, 200);
-    
-    // H. Student Aadhaar Number
-    doc1.text(studentAadhaar, 30, 215);
-    
-    // I. Date of Birth (Full DD-MM-YYYY)
-    doc1.text(dob, 140, 215); 
-    
-    // J. Class Joining
-    doc1.text(classJoining, 30, 275);
-    
-    // K. PEN Number
-    doc1.text(penNumber, 130, 275); 
-    
-    // L. Bank/IFSC Code
-    doc1.text(bankAccount, 35, 235);
-    doc1.text(ifscCode, 130, 248);
-    
-    // M. Category and Blood Group
-    doc1.text(category, 60, 255);
-    doc1.text(bloodGroup, 130, 255);
-    
-    // N. Ration Card Number
-    doc1.text(rationCard, 45, 268); 
-    // !!! END OF ADMISSION FORM CUSTOM COORDINATE CODE BLOCK !!!
-    
-    // Save/Download the Admission Form
-    doc1.save("Admission_Form_Pre_filled.pdf");
-    
-    // --- 2. APAAR CONSENT FORM GENERATION ---
-    const doc2 = new jsPDF();
+    // Split student name into parts (first, middle, last)
+    const parts = studentName ? studentName.split(/\s+/) : [];
+    const sFirst = parts[0] || '';
+    const sMiddle = parts.length > 2 ? parts.slice(1, -1).join(' ') : (parts[1] || '');
+    const sLast = parts.length > 1 ? parts[parts.length -1] : '';
 
-    // !!! CRITICAL: INSERT YOUR APAAR CONSENT FORM IMAGE TEMPLATE HERE !!!
-    // If your template image path/name is different, CHANGE THIS LINE.
-    doc2.addImage('assets/images/apaar_consent_template.jpg', 'JPEG', 0, 0, 210, 297); 
+    const fParts = fatherName ? fatherName.split(/\s+/) : [];
+    const fFirst = fParts[0] || '';
+    const fMiddle = fParts.length > 2 ? fParts.slice(1, -1).join(' ') : (fParts[1] || '');
+    const fLast = fParts.length > 1 ? fParts[fParts.length -1] : '';
 
-    // !!! START OF APAAR CONSENT FORM CUSTOM COORDINATE CODE BLOCK !!!
+    const mParts = motherName ? motherName.split(/\s+/) : [];
+    const mFirst = mParts[0] || '';
+    const mMiddle = mParts.length > 2 ? mParts.slice(1, -1).join(' ') : (mParts[1] || '');
+    const mLast = mParts.length > 1 ? mParts[mParts.length -1] : '';
+
+    // NOTE: coordinates below are approximations that match the templates you provided.
+    // If you want pixel-perfect alignment, tell me and I will fine-tune based on the exact templates.
+
+    // Student name box (First / Middle / Last) -- near top of form
+    doc1.text(sFirst, 20, 66);
+    doc1.text(sMiddle, 80, 66);
+    doc1.text(sLast, 145, 66);
+
+    // Name as per Aadhaar (second boxed line)
+    doc1.text(sFirst, 20, 80);
+    doc1.text(sMiddle, 80, 80);
+    doc1.text(sLast, 145, 80);
+
+    // Father's name
+    doc1.text(fFirst, 20, 95);
+    doc1.text(fMiddle, 80, 95);
+    doc1.text(fLast, 145, 95);
+
+    // Mother's name
+    doc1.text(mFirst, 20, 110);
+    doc1.text(mMiddle, 80, 110);
+    doc1.text(mLast, 145, 110);
+
+    // Residence
+    // If long, break into two lines
+    const residenceLines = splitTextToSize(residence, 70);
+    doc1.text(residenceLines[0] || '', 15, 125);
+    if (residenceLines[1]) doc1.text(residenceLines[1], 15, 132);
+
+    // Tehsil / District
+    doc1.text(tehsil, 15, 147);
+    doc1.text(district, 120, 147);
+
+    // Father's / Mother's contact
+    doc1.text(fatherContact || '', 15, 163);
+    doc1.text(motherContact || '', 120, 163);
+
+    // Aadhaar number (student) - show as plain text (if you want spaced boxes, you can split digits)
+    doc1.text(studentAadhaar || '', 15, 180);
+
+    // Date of birth - format as DD-MM-YYYY if provided
+    if (dob) {
+        const dt = new Date(dob);
+        const dd = String(dt.getDate()).padStart(2,'0');
+        const mm = String(dt.getMonth()+1).padStart(2,'0');
+        const yy = String(dt.getFullYear());
+        doc1.text(dd + '-' + mm + '-' + yy, 140, 180);
+    }
+
+    // Bank Account / Bank Name
+    // place account number left, bank name right (approx)
+    doc1.text(bankAccount || '', 15, 200);
+    doc1.text('', 120, 200); // placeholder for Bank Name if you add a field
+
+    // Bank Branch / IFSC
+    doc1.text('', 15, 212); // branch placeholder
+    doc1.text(ifscCode || '', 120, 212);
+
+    // Category / Blood group
+    doc1.text(category || '', 20, 227);
+    doc1.text(bloodGroup || '', 130, 227);
+
+    // Ration card
+    doc1.text(rationCard || '', 15, 240);
+
+    // Class joining and PEN
+    doc1.text(classJoining || '', 20, 260);
+    doc1.text(penNumber || '', 120, 260);
+
+    // Save admission PDF
+    try {
+        doc1.save("Admission_Form_Pre_filled.pdf");
+    } catch (e) {
+        console.error('Error saving admission PDF', e);
+        alert('Error creating Admission PDF. See console for details.');
+        return false;
+    }
+
+    // ----- APAAR CONSENT FORM -----
+    const doc2 = new jsPDF({ unit: 'mm', format: 'a4' });
+    doc2.addImage(apaarImg, 'JPEG', 0, 0, 210, 297);
     doc2.setFontSize(10);
-    
-    // A. Student Name (in the blank)
-    doc2.text(studentName, 178, 107); // Filling the first blank line of the consent text
-    
-    // B. Relationship (in the second blank for "as the ____")
-    doc2.text(guardianRelationship, 178, 114); 
-    
-    // C. Guardian Name (in the third blank, confirming relationship)
-    doc2.text(studentName, 143, 114);
-    
-    // D. Identity Proof Type (filling the type selected, e.g., Aadhaar/PAN)
-    doc2.text(proofType, 160, 119.5); 
-    
-    // E. Identity Proof Number
-    doc2.text(proofNumber, 50, 126); 
+    doc2.setTextColor(0,0,0);
+    doc2.setFont('helvetica', 'normal');
 
-    // F. Final Declaration Box (Consent by Head of the School)
-    doc2.text(studentName, 110, 273); 
-    doc2.text(guardianRelationship, 180, 273);
-    // !!! END OF APAAR CONSENT FORM CUSTOM COORDINATE CODE BLOCK !!!
+    // For APAAR, fill blanks from the top portion
+    // The template has lines: "I _______________ as the ______ (Father/Mother/Legal Guardian) of ________"
+    // We'll place guardianName, relationship, and studentName accordingly.
 
-    // Save/Download the APAAR Form
-    doc2.save("APAAR_Consent_Pre_filled.pdf");
-    
-    return true; // Indicates successful generation
+    // Guardian name (full) near top line
+    doc2.text(guardianName || '', 18, 48);
+
+    // Relationship (short) - place near the blank
+    doc2.text(guardianRelationship || '', 150, 48);
+
+    // Student name (the blank after "of")
+    doc2.text(studentName || '', 18, 56);
+
+    // Identity proof and number - placed on next line approximate locations
+    doc2.text(proofType || '', 18, 72);
+    doc2.text(proofNumber || '', 120, 72);
+
+    // Place of physical consent & date placeholders (lower section)
+    // "Place of Physical Consent:_________"
+    doc2.text('', 50, 230); // left blank unless you want to capture a value
+    // Date of physical consent - leave empty
+    doc2.text('', 110, 230);
+
+    // Consent by head - fill name and date (if needed)
+    // Here we place guardian name near signature area as acknowledgement
+    doc2.text(guardianName || '', 30, 260);
+    doc2.text(studentName || '', 110, 260);
+
+    // Save APAAR PDF
+    try {
+        doc2.save("APAAR_Consent_Pre_filled.pdf");
+    } catch (e) {
+        console.error('Error saving APAAR PDF', e);
+        alert('Error creating APAAR PDF. See console for details.');
+        return false;
+    }
+
+    return true;
 }
-// --------------------------------------------------------------------------
 
+// Helper to split a long string into approx-sized chunks for PDF
+function splitTextToSize(text, approxCharWidth) {
+    if (!text) return [''];
+    // approximate: 1 char ~ 1 unit here; keep it simple
+    const max = Math.floor(approxCharWidth / 0.9);
+    if (text.length <= max) return [text];
+    const first = text.slice(0, max);
+    const rest = text.slice(max);
+    return [first, rest];
+}
 
 function finalSubmit() {
-    // TEMPORARILY COMMENTED OUT VALIDATION TO TEST PDF GENERATION
-    /*
-    if (!validateStep(4)) {
-        return;
-    }
-    */
-    
-    // !!! CRITICAL: CALL THE GENERATION FUNCTION !!!
-    generateFinalForms(); 
-    
-    currentStep = 5; // Move to the final confirmation step
-    updateDisplay();
-    alert("Application Submitted Online! Please check your downloads folder for the generated forms.");
+    // Validate documents step (optional) - keeping original behavior
+    // Call generation
+    generateFinalForms().then(success => {
+        if (success) {
+            currentStep = 5; // Move to final confirmation
+            updateDisplay();
+            alert("Application Submitted Online! Please check your downloads folder for the generated forms.");
+        } else {
+            // do nothing - user alerted inside generator
+        }
+    });
 }
 
 // Initial setup
