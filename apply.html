@@ -1,764 +1,399 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Online Admission Portal - GPS Pethgam Wagoora</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title>Admission Form — GPS Pethgam Wagoora (A4)</title>
+
+<!-- jsPDF + html2canvas -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <style>
-:root{
-  --primary:#0056b3; --secondary:#28a745; --accent:#ffc107; --danger:#dc3545;
-  --bg:#f8f9fa; --text:#222;
-  --purple-main: #7c3aed;
-  --step-done: #10b981;
-}
-*{box-sizing:border-box}
-body{font-family:Inter,Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text);line-height:1.45}
+  /* Reset */
+  *{box-sizing:border-box;font-family: "Helvetica Neue", Arial, Helvetica, sans-serif}
+  body{margin:16px;background:#f2f4f7;color:#222}
 
-/* Basic Layout Reset/Styles */
-.header-wrap{border-bottom:3px solid var(--primary);background:#fff}
-.logo-row{display:flex;align-items:center;padding:14px 18px;gap:18px}
-.logo-row img{width:90px;height:90px;height:90px;border-radius:50%;object-fit:cover}
-.logo-row .title{flex:1}
-.logo-row h1{margin:0;color:var(--primary);font-size:1.5rem}
-.logo-row h2{margin:4px 0 0;color:var(--secondary);font-weight:600;font-size:0.98rem}
-.contact-info{background:#eef3f8;padding:8px 18px;font-size:0.95rem;border-top:1px solid #e1e6ea}
-.content-section{max-width:1150px;margin:20px auto;padding:0 18px}
+  /* Center the preview area */
+  .wrap{max-width:900px;margin:8px auto 80px;display:flex;flex-direction:column;gap:12px;align-items:center}
 
-/* 3D Mixed Buttons (Menu) */
-.navbar { display:flex; gap:10px; padding:12px; overflow-x:auto; align-items:center; background:transparent; }
-.btn-3d { 
-    --depth:10px; position:relative; display:inline-flex; align-items:center; justify-content:center; 
-    padding:.6rem 1.1rem; border-radius:30px; color:#fff; font-weight:700; text-decoration:none; 
-    cursor:pointer; transform:translateZ(0); transition: transform .14s ease, box-shadow .14s ease; 
-    box-shadow: 0 var(--depth) 0 rgba(0,0,0,0.12); border: none; user-select:none; flex-shrink: 0; 
-}
-/* individual colors */
-.c-blue{ background: linear-gradient(180deg,#2b9bff,#0066cc); }
-.c-green{ background: linear-gradient(180deg,#34d399,#10b981); }
-.c-purple{ background: linear-gradient(180deg,#a78bfa,#7c3aed); }
-.c-pink{ background: linear-gradient(180deg,#fb7185,#ef445b); }
-.c-teal{ background: linear-gradient(180deg,#5eead4,#0ea5a4); }
-.c-yellow{ background: linear-gradient(180deg,#ffd66b,#ffb020); }
-
-/* --- APPLICATION PORTAL STYLES --- */
-
-.portal-container {
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-}
-.portal-container h1 {
-    color: var(--purple-main);
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 10px;
-    margin-top: 0;
-    text-align: center;
-}
-
-/* Step Indicator */
-.step-indicator {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    padding: 10px 0;
-}
-.step {
-    flex: 1;
-    text-align: center;
+  /* A4 sheet container (on-screen representation) */
+  .a4-sheet {
+    width: 210mm;               /* exact A4 width */
+    min-height: 297mm;          /* exact A4 height */
+    background: white;
+    padding: 16mm;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    border: 1px solid #ddd;
     position: relative;
-    padding-top: 30px;
-    color: #bbb;
-    font-weight: 600;
-}
-.step::before {
-    content: attr(data-step);
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    border-radius: 50%;
-    background: #eee;
-    color: #888;
-    border: 2px solid #bbb;
-    font-weight: 700;
-}
-.step.active {
-    color: var(--purple-main);
-}
-.step.active::before {
-    background: var(--purple-main);
-    color: #fff;
-    border-color: var(--purple-main);
-}
-.step.done {
-    color: var(--step-done);
-}
-.step.done::before {
-    content: "✓";
-    background: var(--step-done);
-    color: #fff;
-    border-color: var(--step-done);
-}
+    color:#111;
+  }
 
-/* Form Sections */
-.form-section {
-    display: none; /* Hidden by default */
-    padding: 20px 0;
-}
-.form-section.active {
-    display: block;
-}
-.form-section h2 {
-    color: var(--primary);
-    margin-top: 0;
-    border-left: 5px solid var(--purple-main);
-    padding-left: 10px;
-    margin-bottom: 20px;
-}
+  /* Header */
+  .school-header {display:flex;align-items:center;gap:12px;border-bottom:1px solid #222;padding-bottom:6px}
+  .school-logo {width:72px;height:72px;border-radius:50%;overflow:hidden;flex:0 0 72px;border:1px solid #ccc;display:flex;align-items:center;justify-content:center}
+  .school-logo img{width:100%;height:100%;object-fit:contain}
+  .school-title{flex:1;text-align:center}
+  .school-title h1{margin:0;font-size:18px;letter-spacing:0.5px}
+  .school-title p{margin:2px 0 0 0;font-size:11px;color:#333}
 
-/* Form Elements */
-.form-group {
-    margin-bottom: 20px;
-}
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-.form-group input:not([type="checkbox"]):not([type="radio"]), .form-group select, .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-.form-group input[type="file"] {
-    padding: 5px;
-}
-.form-row {
-    display: flex;
-    gap: 20px;
-}
-.form-row > .form-group {
-    flex: 1;
-}
-
-/* Declaration box */
-.declaration-box {
-    background: #fcf8e3;
-    border: 1px solid #faebcc;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-}
-.declaration-box strong {
-    color: #8a6d3b;
-}
-
-/* Navigation Buttons */
-.nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    border-top: 1px solid #eee;
-    padding-top: 20px;
-}
-.nav-btn {
-    padding: 12px 25px;
+  /* Form grid */
+  .form-row{display:flex;gap:12px;align-items:center}
+  .form-group{display:flex;flex-direction:column;margin:8px 0;flex:1}
+  label{font-size:11.5px;font-weight:700;margin-bottom:6px}
+  /* underline input style (improved) */
+  input[type="text"], input[type="tel"], input[type="date"], select, textarea {
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 700;
-    transition: background-color 0.2s;
-}
-.prev-btn {
-    background: #ccc;
-    color: var(--text);
-}
-.next-btn {
-    background: var(--purple-main);
-    color: #fff;
-}
-.submit-btn {
-    background: var(--secondary);
-    color: #fff;
-}
+    border-bottom: 1.5px solid #333;
+    padding:6px 8px;
+    font-size:13px;
+    outline: none;
+    background: transparent;
+  }
+  input[type="text"]::placeholder{color:#999}
+  .small{flex:0 0 120px}
+  .tiny{flex:0 0 70px}
 
-/* Final Confirmation */
-#step-final h2 {
-    text-align: center;
-}
-.download-btn {
-    display: block;
-    width: 80%;
-    margin: 10px auto;
-    padding: 15px;
-    background: var(--primary);
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    font-weight: 700;
-}
+  /* Photo box */
+  .photo-box {
+    width:110px;height:130px;border:1.5px dashed #555;border-radius:6px;display:flex;align-items:center;justify-content:center;
+    font-size:11px;color:#666;text-align:center;padding:8px;background:#fafafa;
+  }
+  .photo-box img{width:100%;height:100%;object-fit:cover;border-radius:4px}
 
-/* footer */
-.footer{background:var(--primary);color:#fff;padding:18px;margin-top:28px}
+  /* Section separators and thin grid style */
+  .section {margin-top:10px;padding-top:8px;border-top:0.5px solid #ccc}
+  .two-cols{display:flex;gap:12px}
+  .table-like{display:block;border:1px solid #aaa;padding:6px;border-radius:4px;background:#fff}
 
-/* Mobile Adjustments */
-@media (max-width: 600px) {
-    .portal-container { padding: 15px; }
-    .step-indicator { flex-wrap: wrap; }
-    .step { flex: 1 1 50%; margin-bottom: 20px; }
-    .form-row { flex-direction: column; gap: 0; }
-    .form-section { padding: 10px 0; }
-    .nav-buttons { flex-direction: column; gap: 10px; }
-    .nav-btn { width: 100%; }
-    .download-btn { width: 100%; font-size: 1rem; }
-}
+  /* Declaration */
+  .declaration{font-size:11px;color:#222;margin-top:14px;border:1px solid #eee;padding:10px;border-radius:4px;background:#fcfcfc}
+
+  /* Footer signature area */
+  .sign-row{display:flex;gap:18px;justify-content:space-between;margin-top:18px}
+  .sig {flex:1;text-align:center;font-size:12px;color:#333}
+
+  /* Buttons */
+  .actions {display:flex;gap:10px;align-items:center;justify-content:center;margin-top:14px}
+  button{padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+  .btn-primary{background:#0b63d6;color:#fff}
+  .btn-ghost{background:#fff;border:1px solid #0b63d6;color:#0b63d6}
+
+  /* Make printable exactly A4 when printing */
+  @media print {
+    body {background: white; margin: 0}
+    .wrap{box-shadow:none;margin:0}
+    .a4-sheet{box-shadow:none;border:none;margin:0;padding:12mm}
+  }
+
+  /* Mobile responsiveness for editing on small screens */
+  @media (max-width:420px) {
+    .a4-sheet{transform:scale(0.62);transform-origin:top center}
+    .wrap{width:100%;padding:6px}
+  }
 </style>
 </head>
-
 <body>
 
-<header class="header-wrap">
-  <div class="logo-row">
-    <img src="assets/images/logo.png" alt="School Logo" onerror="this.style.display='none'">
-    <div class="title">
-      <h1>Government Primary School Pethgam Wagoora</h1>
-      <h2>Wagoora Babareshi Road Near ZEO Office Wagoora</h2>
+<div class="wrap">
+  <div style="width:210mm;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+    <div style="font-weight:700">Government Primary School Pethgam Wagoora — Admission (A4)</div>
+    <div style="font-size:12px;color:#555">UDISE: 01022202207</div>
+  </div>
+
+  <div class="a4-sheet" id="form-a4">
+
+    <!-- Header -->
+    <div class="school-header">
+      <div class="school-logo" aria-hidden="true">
+        <img id="logo-img" src="assets/images/logo.png" alt="logo" onerror="this.src='logo.png'">
+      </div>
+      <div class="school-title">
+        <h1>GOVERNMENT PRIMARY SCHOOL PETHGAM WAGOORA</h1>
+        <p>Wagoora Babareshi Road Near Zonal Education Office Wagoora · Email: pspethgam@gmail.com · UDISECode: 01022202207</p>
+      </div>
+      <div style="flex:0 0 120px;text-align:center;color:#666;font-size:12px">
+        <div style="font-weight:700">ADMISSION FORM</div>
+      </div>
     </div>
-  </div>
-  <div class="contact-info">
-    Phone: <strong>7006261694</strong> | <strong>9596449881</strong> |
-    Email: <strong>pspethgam@gmail.com</strong> | UDISE: <strong>01022202207</strong>
-  </div>
-  <div class="navbar" role="navigation" aria-label="Main menu">
-    <a class="btn-3d c-blue" href="index.html">Home</a>
-    <a class="btn-3d c-green" href="about.html">About</a>
-    <a class="btn-3d c-purple" href="academics.html">Academics</a>
-    <a class="btn-3d c-pink" href="gallery.html">Gallery</a>
-    <a class="btn-3d c-teal" href="students.html">Our Heroes</a>
-    <a class="btn-3d c-yellow" href="admissions.html">Admissions</a>
-    <a class="btn-3d c-blue" href="contact.html">Contact</a>
-    <a class="btn-3d c-green" href="admin.html">Admin Panel</a>
-  </div>
-</header>
 
-<section class="content-section">
-
-    <div class="portal-container">
-        <h1>Online Application & Enrollment Portal</h1>
-        <p style="text-align: center; margin-bottom: 20px;">Follow the 5 steps below to generate your pre-filled Admission and APAAR forms.</p>
-        
-
-        <div class="step-indicator">
-            <div class="step active" data-step="1" data-label="Declaration"></div>
-            <div class="step" data-step="2" data-label="Admission Form"></div>
-            <div class="step" data-step="3" data-label="APAAR Consent"></div>
-            <div class="step" data-step="4" data-label="Documents"></div>
-            <div class="step" data-step="5" data-label="Final Submit"></div>
+    <!-- Top row: Student name + photo -->
+    <div style="display:flex;gap:12px;margin-top:12px;align-items:flex-start">
+      <div style="flex:1">
+        <div class="form-group">
+          <label>Students Full Name:</label>
+          <input type="text" id="student-name" placeholder="First Middle Last" value="">
         </div>
 
-        <form id="admission-form" onsubmit="return false;">
+        <div class="form-group">
+          <label>Name As Per Aadhaar:</label>
+          <input type="text" id="student-aadhaar-name" placeholder="As per Aadhaar">
+        </div>
 
-            <div id="step-1" class="form-section active">
-                <h2>1. Parental Declaration Acceptance</h2>
-                <div class="declaration-box">
-                    <p>I do hereby declare that the above information provided by me is **true to the best of my knowledge and belief**, and I further declare that **I will abide by the rules and regulations** of the ward and institution under rules when sought. I hereby declare that as the Parent of above mentioned student am giving my consent to provide the **Aadhaar for demographic authentication** of the student.</p>
-                </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" id="declare-check" required>
-                        I accept the above Parental Declaration and consent to provide Aadhaar data for authentication.
-                    </label>
-                </div>
-            </div>
+        <div class="form-row">
+          <div class="form-group" style="flex:1">
+            <label>Father's Full Name:</label>
+            <input type="text" id="father-name" placeholder="">
+          </div>
+        </div>
 
-            <div id="step-2" class="form-section">
-                <h2>2. Student & Parent Information (Admission Form)</h2>
-                
-                <div class="form-row">
-                    <div class="form-group"><label>Student's Full Name (As Per Aadhaar)</label><input type="text" id="student-name" placeholder="First Name Middle Name Last Name" required></div>
-                </div>
+        <div class="form-row">
+          <div class="form-group" style="flex:1">
+            <label>Mother's Full Name:</label>
+            <input type="text" id="mother-name" placeholder="">
+          </div>
+        </div>
+      </div>
 
-                <div class="form-group"><label>Father's Name</label><input type="text" id="father-name" placeholder="First Name Middle Name Last Name" required></div>
-                <div class="form-group"><label>Mother's Name</label><input type="text" id="mother-name" placeholder="First Name Middle Name Last Name" required></div>
-
-                <div class="form-group"><label>Residence</label><input type="text" id="residence" placeholder="Village/Locality/Street" required></div>
-
-                <div class="form-row">
-                    <div class="form-group"><label>Tehsil</label><input type="text" id="tehsil" required></div>
-                    <div class="form-group"><label>District</label><input type="text" id="district" value="Baramulla" required></div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group"><label>Father's Contact Number</label><input type="tel" id="father-contact" pattern="\d{10}" title="10 digits" required></div>
-                    <div class="form-group"><label>Mother's Contact Number</label><input type="tel" id="mother-contact" pattern="\d{10}" title="10 digits"></div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group"><label>Aadhaar Number (Student)</label><input type="text" id="student-aadhaar" pattern="\d{12}" title="12 digits" placeholder="0000 0000 0000" required></div>
-                    <div class="form-group"><label>Date of Birth</label><input type="date" id="dob" required></div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group"><label>Bank Account Number</label><input type="text" id="bank-account" placeholder="Account Number"></div>
-                    <div class="form-group"><label>IFSC Code</label><input type="text" id="ifsc-code" placeholder="IFSC Code"></div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group"><label>Category</label>
-                        <select id="category"><option>GENERAL</option><option>ST</option><option>SC</option><option>OBC</option></select>
-                    </div>
-                    <div class="form-group"><label>Blood Group</label><input type="text" id="blood-group" placeholder="e.g., A+" required></div>
-                </div>
-                
-                <div class="form-group"><label>Ration Card Number</label><input type="text" id="ration-card" placeholder="Ration Card Number"></div>
-                
-                <div class="form-row">
-                    <div class="form-group"><label>Class Joining</label><select id="class-joining" required><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option></select></div>
-                    <div class="form-group"><label>PEN Number (Transferring Students)</label><input type="text" id="pen-number" placeholder="PEN Number"></div>
-                </div>
-            </div>
-
-            <div id="step-3" class="form-section">
-                <h2>3. APAAR ID Generation Consent Form</h2>
-                <div class="declaration-box" style="background: #eef3ff; border-color: var(--primary);">
-                    <p>Consent by Father/Mother/Legal Guardian of Student for APAAR ID Generation</p>
-                    <p>I consent by Father/Mother/Legal Guardian of _________________________ as the _________________________ (Father/Mother/Legal Guardian) of _________________________ with my identity proof as _________________________ (Aadhaar / PAN / EPIC Voter ID / Driving License / Passport) and identity Proof Number _________________________ voluntarily give my consent to share his/her Aadhaar Number and demographic information issued by UIDAI with Ministry of Education for the sole purpose of creation of APAAR ID and opening of DIGILOCKER Account of my child for the following intents and purposes.</p>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group"><label>Parent/Guardian Full Name</label><input type="text" id="guardian-name" required></div>
-                    <div class="form-group"><label>Relationship (Father/Mother/Guardian)</label><input type="text" id="guardian-relationship" required></div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group"><label>Identity Proof Type</label>
-                        <select id="proof-type" required><option value="Aadhaar">Aadhaar</option><option value="PAN">PAN</option><option value="EPIC">EPIC Voter ID</option><option value="DL">Driving License</option><option value="Passport">Passport</option></select>
-                    </div>
-                    <div class="form-group"><label>Identity Proof Number</label><input type="text" id="proof-number" required></div>
-                </div>
-
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" id="apaar-check" required>
-                        I confirm that I have read and agree to the APAAR ID consent terms and authorize the school to proceed.
-                    </label>
-                </div>
-            </div>
-
-            <div id="step-4" class="form-section">
-                <h2>4. Document Uploads (Scanned Copies)</h2>
-                <p style="color: var(--danger); font-weight: 600;">*Required Documents: Date of Birth Certificate, Aadhaar Card (Student & Parent), Blood Group Report, Student Photograph. Max file size 500KB.*</p>
-                
-
-                <div class="form-group"><label><i class="fas fa-file-upload"></i> Student Date of Birth Certificate</label><input type="file" accept=".pdf, image/jpeg" required></div>
-                <div class="form-group"><label><i class="fas fa-file-upload"></i> Student's Aadhaar Card</label><input type="file" accept=".pdf, image/jpeg" required></div>
-                <div class="form-group"><label><i class="fas fa-file-upload"></i> Parent's Aadhaar Card</label><input type="file" accept=".pdf, image/jpeg" required></div>
-                <div class="form-group"><label><i class="fas fa-file-upload"></i> Blood Group Report</label><input type="file" accept=".pdf, image/jpeg" required></div>
-                <div class="form-group"><label><i class="fas fa-camera"></i> Student's Photograph (Passport Size)</label><input type="file" accept="image/jpeg, image/png" required></div>
-            </div>
-
-            <div id="step-final" class="form-section">
-                <h2>5. Submission Complete & Form Downloads</h2>
-                <p style="text-align: center; font-size: 1.1rem; color: var(--secondary);">
-                    Your data has been successfully submitted online. Please check your **downloads folder** for the generated **hardcopies** to submit to the school office for verification.
-                </p>
-                
-                <div style="background: #e6fff0; border: 1px dashed var(--secondary); padding: 20px; border-radius: 8px;">
-                    <p style="text-align: center; margin-bottom: 10px; font-weight: 600;">**Download Successful!**</p>
-                    <p style="text-align: center; font-size: 0.9rem;">(Check your browser's download location for Admission Form and APAAR Consent Form PDF files.)</p>
-                </div>
-                
-                <p style="text-align: center; margin-top: 20px;">
-                    <button type="button" class="nav-btn submit-btn" onclick="goToStep(1);">Start New Application</button>
-                </p>
-            </div>
-
-            <div class="nav-buttons">
-                <button type="button" id="prev-btn" class="nav-btn prev-btn" onclick="nextStep(-1);" disabled><i class="fas fa-chevron-left"></i> Previous</button>
-                <button type="button" id="next-btn" class="nav-btn next-btn" onclick="nextStep(1);">Next <i class="fas fa-chevron-right"></i></button>
-                <button type="button" id="submit-btn" class="nav-btn submit-btn" style="display: none;" onclick="finalSubmit();"><i class="fas fa-check-circle"></i> Final Submit</button>
-            </div>
-
-        </form>
+      <div style="width:140px;display:flex;flex-direction:column;gap:8px;align-items:center">
+        <div class="photo-box" id="photo-box">
+          <span id="photo-placeholder">AFFIX RECENT<br>PASSPORT SIZE<br>PHOTO</span>
+        </div>
+        <input type="file" id="photo-input" accept="image/*">
+      </div>
     </div>
-</section>
 
+    <!-- Residence / district -->
+    <div class="section">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Residence:</label>
+          <input type="text" id="residence" placeholder="Village / Locality / Street">
+        </div>
+        <div class="form-group small">
+          <label>District:</label>
+          <input type="text" id="district" placeholder="Baramulla">
+        </div>
+      </div>
 
-<footer class="footer">
-  <div style="max-width:1150px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between">
-    <div style="min-width:260px">
-      <h4 style="margin:0 0 8px 0">Contact Details</h4>
-      <p style="margin:0">Government Primary School Pethgam Wagoora<br>Address: Pethgam Wagoora, Baramulla, J&K<br>Wagoora Babareshi Road Near ZEO Office Wagoora 193109</p>
-      <p style="margin:6px 0 0 0">Phone: 7006261694 | 9596449881<br>Email: pspethgam@gmail.com</p>
+      <div class="form-row">
+        <div class="form-group small">
+          <label>Father's Cell No.:</label>
+          <input type="tel" id="father-contact" placeholder="10 digits">
+        </div>
+        <div class="form-group small">
+          <label>Mother's Cell No.:</label>
+          <input type="tel" id="mother-contact" placeholder="">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Aadhaar Number:</label>
+          <input type="text" id="student-aadhaar" placeholder="0000 0000 0000">
+        </div>
+        <div class="form-group tiny">
+          <label>Date of Birth:</label>
+          <input type="date" id="dob">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group small">
+          <label>Bank Account Number:</label>
+          <input type="text" id="bank-account" placeholder="">
+        </div>
+        <div class="form-group small">
+          <label>Bank Name:</label>
+          <input type="text" id="bank-name" placeholder="">
+        </div>
+        <div class="form-group small">
+          <label>IFSC Code:</label>
+          <input type="text" id="ifsc-code" placeholder="">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group small">
+          <label>Category:</label>
+          <select id="category">
+            <option>GENERAL</option><option>ST</option><option>SC</option><option>OBC</option>
+          </select>
+        </div>
+        <div class="form-group tiny">
+          <label>Blood Group:</label>
+          <input type="text" id="blood-group" placeholder="A+">
+        </div>
+        <div class="form-group">
+          <label>Ration Card Number:</label>
+          <input type="text" id="ration-card" placeholder="">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group small">
+          <label>Class Joining:</label>
+          <input type="text" id="class-joining" placeholder="1st">
+        </div>
+        <div class="form-group small">
+          <label>PEN Number (if transf.):</label>
+          <input type="text" id="pen-number" placeholder="">
+        </div>
+      </div>
     </div>
-    <div style="min-width:220px">
-      <h4 style="margin:0 0 8px 0">Quick Links</h4>
-      <p style="margin:0"><a href="admissions.html">Admissions</a><br><a href="academics.html">Academics</a><br><a href="contact.html">Contact</a></p>
+
+    <!-- Declaration -->
+    <div class="declaration">
+      <strong>Parents Declaration:</strong>
+      <p style="margin:6px 0 0 0; font-size:12px">
+        I do hereby declare that the above information provided by me is true to the best of my knowledge and belief. I further declare that I will abide by the rules and regulations laid down by the school and the department from time to time and will co-operate with the institution for the betterment of my ward and institution when sought. I hereby consent to provide the AADHAAR for the demographic authentication of the student. (Agreed: <em>tick box on portal</em>)
+      </p>
     </div>
+
+    <!-- For office use + signatures -->
+    <div style="margin-top:12px;border-top:1px dashed #ccc;padding-top:10px">
+      <div style="font-weight:700;margin-bottom:6px;font-size:12px">For Office Use Only</div>
+      <div style="font-size:12px;color:#333">
+        The Student is admitted to Class ______ under Admission No. ______ on ________. All required documents (Birth Certificate, Residence Proof and Transfer Certificate (if applicable)) have been verified and found satisfactory.
+      </div>
+
+      <div class="sign-row">
+        <div class="sig">Signature of Parent</div>
+        <div class="sig">Sig. of Adm. Incharge</div>
+        <div class="sig">Sig. of Headmaster</div>
+      </div>
+    </div>
+
   </div>
-</footer>
+
+  <!-- Controls -->
+  <div class="actions">
+    <button class="btn-primary" id="download-pdf">Generate A4 PDF</button>
+    <button class="btn-ghost" id="reset-form">Reset Form</button>
+  </div>
+
+  <div style="font-size:12px;color:#666;text-align:center;margin-top:6px">
+    Tip: For best results on mobile, rotate to portrait and tap "Generate A4 PDF".
+  </div>
+</div>
 
 <script>
-let currentStep = 1;
-const totalSteps = 4; // Total steps before final confirmation
-const formSections = document.querySelectorAll('.form-section');
-const steps = document.querySelectorAll('.step');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
-const submitBtn = document.getElementById('submit-btn');
+(function(){
+  // photo preview
+  const photoInput = document.getElementById('photo-input');
+  const photoBox = document.getElementById('photo-box');
+  const photoPlaceholder = document.getElementById('photo-placeholder');
+  let photoDataURL = null;
 
-function updateDisplay() {
-    // Hide all sections
-    formSections.forEach(section => section.classList.remove('active'));
-    // Show current section
-    const currentSectionId = currentStep <= totalSteps ? `step-${currentStep}` : 'step-final';
-    const currentSection = document.getElementById(currentSectionId);
-    if (currentSection) {
-        currentSection.classList.add('active');
+  photoInput.addEventListener('change', function(e){
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      photoDataURL = ev.target.result;
+      // show preview
+      photoBox.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = photoDataURL;
+      photoBox.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Reset form
+  document.getElementById('reset-form').addEventListener('click', function(){
+    // simple reset all inputs
+    const inputs = document.querySelectorAll('#form-a4 input, #form-a4 select, #form-a4 textarea');
+    inputs.forEach(i => {
+      if (i.type === 'file') i.value = '';
+      else i.value = '';
+    });
+    // reset photo
+    photoBox.innerHTML = '<span id="photo-placeholder">AFFIX RECENT<br>PASSPORT SIZE<br>PHOTO</span>';
+    photoDataURL = null;
+  });
+
+  // PDF Generation
+  document.getElementById('download-pdf').addEventListener('click', async function(){
+    // small pre-validations (you can expand)
+    const name = document.getElementById('student-name').value.trim();
+    if (!name) {
+      if(!confirm('Student name is empty. Continue to generate PDF?')) return;
     }
 
-    // Update step indicator classes
-    steps.forEach((step, index) => {
-        step.classList.remove('active', 'done');
-        if (index + 1 < currentStep) {
-            step.classList.add('done');
-        } else if (index + 1 === currentStep && currentStep <= totalSteps) {
-            step.classList.add('active');
-        } else if (currentStep > totalSteps) {
-             step.classList.add('done'); // Mark all steps done on final page
-        }
+    // Use html2canvas to render the .a4-sheet exactly as shown
+    const element = document.getElementById('form-a4');
+
+    // apply a temporary white background to avoid transparency issues
+    element.style.background = '#fff';
+
+    // html2canvas options — use a higher scale for sharper PDF
+    const scale = 2; // 2 = high-res; increase to 3 if you need extra crispness but bigger file
+    const canvas = await html2canvas(element, {
+      scale: scale,
+      useCORS: true,
+      allowTaint: true,
+      logging: false,
+      windowWidth: element.scrollWidth,
+      windowHeight: element.scrollHeight
     });
 
-    // Update navigation buttons
-    prevBtn.style.display = currentStep > 1 && currentStep <= totalSteps ? 'block' : 'none';
-    nextBtn.style.display = currentStep < totalSteps ? 'block' : 'none';
-    submitBtn.style.display = currentStep === totalSteps ? 'block' : 'none';
+    // Convert canvas to image data
+    const imgData = canvas.toDataURL('image/png');
 
-    // Disable next button if declaration is not accepted (Step 1)
-    if (currentStep === 1) {
-        nextBtn.disabled = !document.getElementById('declare-check').checked;
-    } else {
-        nextBtn.disabled = false;
-    }
-
-    // Scroll to the top of the form section for better mobile experience
-    const portalContainer = document.querySelector('.portal-container');
-    if (portalContainer) {
-        portalContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-}
-
-function validateStep(stepIndex) {
-    if (stepIndex === 1 && !document.getElementById('declare-check').checked) {
-        alert("You must accept the Parental Declaration to proceed.");
-        return false;
-    }
-    if (stepIndex === 3 && !document.getElementById('apaar-check').checked) {
-        alert("You must provide consent for APAAR ID generation to proceed.");
-        return false;
-    }
-    
-    // Simple HTML5 form validation check for current section
-    const currentSection = document.getElementById(`step-${stepIndex}`);
-    if (!currentSection) return true; 
-
-    const inputs = currentSection.querySelectorAll('input:required, select:required, textarea:required');
-    let isValid = true;
-    
-    inputs.forEach(input => {
-        if (!input.checkValidity()) {
-            input.reportValidity(); // Shows browser error message
-            isValid = false;
-        }
-    });
-    return isValid;
-}
-
-function nextStep(direction) {
-    if (direction === 1) {
-        if (currentStep <= totalSteps && !validateStep(currentStep)) {
-            return; // Stop if validation fails
-        }
-    }
-    
-    currentStep += direction;
-    
-    if (currentStep > totalSteps) {
-        currentStep = totalSteps; 
-        return; 
-    } else if (currentStep < 1) {
-        currentStep = 1;
-    }
-    
-    updateDisplay();
-}
-
-function goToStep(stepNumber) {
-    currentStep = stepNumber;
-    updateDisplay();
-}
-
-// Utility: load image and return Promise that resolves with HTMLImageElement
-function loadImage(src) {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        // Allow local loading - if templates are served from same origin this will work
-        img.crossOrigin = 'anonymous';
-        img.onload = () => resolve(img);
-        img.onerror = (e) => reject(new Error('Image failed to load: ' + src));
-        img.src = src;
-    });
-}
-
-// --------------------------------------------------------------------------
-// PDF GENERATION (uses images loaded safely, then fills fields)
-// --------------------------------------------------------------------------
-async function generateFinalForms() {
-    // Collect data
-    const studentName = document.getElementById('student-name').value.trim();
-    const fatherName = document.getElementById('father-name').value.trim();
-    const motherName = document.getElementById('mother-name').value.trim();
-    const residence = document.getElementById('residence').value.trim();
-    const tehsil = document.getElementById('tehsil').value.trim();
-    const district = document.getElementById('district').value.trim();
-    const fatherContact = document.getElementById('father-contact').value.trim();
-    const motherContact = document.getElementById('mother-contact').value.trim();
-    const studentAadhaar = document.getElementById('student-aadhaar').value.trim();
-    const dob = document.getElementById('dob').value; // iso yyyy-mm-dd
-    const classJoining = document.getElementById('class-joining').value;
-    
-    const guardianName = document.getElementById('guardian-name').value.trim();
-    const guardianRelationship = document.getElementById('guardian-relationship').value.trim();
-    const proofType = document.getElementById('proof-type').value;
-    const proofNumber = document.getElementById('proof-number').value.trim();
-    
-    const bankAccount = document.getElementById('bank-account').value.trim() || '';
-    const ifscCode = document.getElementById('ifsc-code').value.trim() || '';
-    const category = document.getElementById('category').value || '';
-    const bloodGroup = document.getElementById('blood-group').value || '';
-    const rationCard = document.getElementById('ration-card').value.trim() || '';
-    const penNumber = document.getElementById('pen-number').value.trim() || 'N/A';
-
-    // Load templates (wait for them)
-    let admissionImg, apaarImg;
-    try {
-        admissionImg = await loadImage('assets/images/admission_form_template.jpg');
-    } catch (e) {
-        alert('Failed to load admission form template image. Check path: assets/images/admission_form_template.jpg');
-        console.error(e);
-        return false;
-    }
-    try {
-        apaarImg = await loadImage('assets/images/apaar_consent_template.jpg');
-    } catch (e) {
-        alert('Failed to load APAAR consent template image. Check path: assets/images/apaar_consent_template.jpg');
-        console.error(e);
-        return false;
-    }
-
+    // Create jsPDF at A4 size in mm
     const { jsPDF } = window.jspdf;
-
-    // ----- ADMISSION FORM -----
-    const doc1 = new jsPDF({ unit: 'mm', format: 'a4' });
-    // Draw template as background
-    doc1.addImage(admissionImg, 'JPEG', 0, 0, 210, 297);
-
-    // We'll use a reasonable font size; you can change to 9 or 11 if you prefer
-    doc1.setFontSize(10);
-    doc1.setTextColor(0,0,0);
-    doc1.setFont('helvetica', 'normal');
-
-    // Split student name into parts (first, middle, last)
-    const parts = studentName ? studentName.split(/\s+/) : [];
-    const sFirst = parts[0] || '';
-    const sMiddle = parts.length > 2 ? parts.slice(1, -1).join(' ') : (parts[1] || '');
-    const sLast = parts.length > 1 ? parts[parts.length -1] : '';
-
-    const fParts = fatherName ? fatherName.split(/\s+/) : [];
-    const fFirst = fParts[0] || '';
-    const fMiddle = fParts.length > 2 ? fParts.slice(1, -1).join(' ') : (fParts[1] || '');
-    const fLast = fParts.length > 1 ? fParts[fParts.length -1] : '';
-
-    const mParts = motherName ? motherName.split(/\s+/) : [];
-    const mFirst = mParts[0] || '';
-    const mMiddle = mParts.length > 2 ? mParts.slice(1, -1).join(' ') : (mParts[1] || '');
-    const mLast = mParts.length > 1 ? mParts[mParts.length -1] : '';
-
-    // NOTE: coordinates below are approximations that match the templates you provided.
-    // If you want pixel-perfect alignment, tell me and I will fine-tune based on the exact templates.
-
-    // Student name box (First / Middle / Last) -- near top of form
-    doc1.text(sFirst, 20, 66);
-    doc1.text(sMiddle, 80, 66);
-    doc1.text(sLast, 145, 66);
-
-    // Name as per Aadhaar (second boxed line)
-    doc1.text(sFirst, 20, 80);
-    doc1.text(sMiddle, 80, 80);
-    doc1.text(sLast, 145, 80);
-
-    // Father's name
-    doc1.text(fFirst, 20, 95);
-    doc1.text(fMiddle, 80, 95);
-    doc1.text(fLast, 145, 95);
-
-    // Mother's name
-    doc1.text(mFirst, 20, 110);
-    doc1.text(mMiddle, 80, 110);
-    doc1.text(mLast, 145, 110);
-
-    // Residence
-    // If long, break into two lines
-    const residenceLines = splitTextToSize(residence, 70);
-    doc1.text(residenceLines[0] || '', 15, 125);
-    if (residenceLines[1]) doc1.text(residenceLines[1], 15, 132);
-
-    // Tehsil / District
-    doc1.text(tehsil, 15, 147);
-    doc1.text(district, 120, 147);
-
-    // Father's / Mother's contact
-    doc1.text(fatherContact || '', 15, 163);
-    doc1.text(motherContact || '', 120, 163);
-
-    // Aadhaar number (student) - show as plain text (if you want spaced boxes, you can split digits)
-    doc1.text(studentAadhaar || '', 15, 180);
-
-    // Date of birth - format as DD-MM-YYYY if provided
-    if (dob) {
-        const dt = new Date(dob);
-        const dd = String(dt.getDate()).padStart(2,'0');
-        const mm = String(dt.getMonth()+1).padStart(2,'0');
-        const yy = String(dt.getFullYear());
-        doc1.text(dd + '-' + mm + '-' + yy, 140, 180);
-    }
-
-    // Bank Account / Bank Name
-    // place account number left, bank name right (approx)
-    doc1.text(bankAccount || '', 15, 200);
-    doc1.text('', 120, 200); // placeholder for Bank Name if you add a field
-
-    // Bank Branch / IFSC
-    doc1.text('', 15, 212); // branch placeholder
-    doc1.text(ifscCode || '', 120, 212);
-
-    // Category / Blood group
-    doc1.text(category || '', 20, 227);
-    doc1.text(bloodGroup || '', 130, 227);
-
-    // Ration card
-    doc1.text(rationCard || '', 15, 240);
-
-    // Class joining and PEN
-    doc1.text(classJoining || '', 20, 260);
-    doc1.text(penNumber || '', 120, 260);
-
-    // Save admission PDF
-    try {
-        doc1.save("Admission_Form_Pre_filled.pdf");
-    } catch (e) {
-        console.error('Error saving admission PDF', e);
-        alert('Error creating Admission PDF. See console for details.');
-        return false;
-    }
-
-    // ----- APAAR CONSENT FORM -----
-    const doc2 = new jsPDF({ unit: 'mm', format: 'a4' });
-    doc2.addImage(apaarImg, 'JPEG', 0, 0, 210, 297);
-    doc2.setFontSize(10);
-    doc2.setTextColor(0,0,0);
-    doc2.setFont('helvetica', 'normal');
-
-    // For APAAR, fill blanks from the top portion
-    // The template has lines: "I _______________ as the ______ (Father/Mother/Legal Guardian) of ________"
-    // We'll place guardianName, relationship, and studentName accordingly.
-
-    // Guardian name (full) near top line
-    doc2.text(guardianName || '', 18, 48);
-
-    // Relationship (short) - place near the blank
-    doc2.text(guardianRelationship || '', 150, 48);
-
-    // Student name (the blank after "of")
-    doc2.text(studentName || '', 18, 56);
-
-    // Identity proof and number - placed on next line approximate locations
-    doc2.text(proofType || '', 18, 72);
-    doc2.text(proofNumber || '', 120, 72);
-
-    // Place of physical consent & date placeholders (lower section)
-    // "Place of Physical Consent:_________"
-    doc2.text('', 50, 230); // left blank unless you want to capture a value
-    // Date of physical consent - leave empty
-    doc2.text('', 110, 230);
-
-    // Consent by head - fill name and date (if needed)
-    // Here we place guardian name near signature area as acknowledgement
-    doc2.text(guardianName || '', 30, 260);
-    doc2.text(studentName || '', 110, 260);
-
-    // Save APAAR PDF
-    try {
-        doc2.save("APAAR_Consent_Pre_filled.pdf");
-    } catch (e) {
-        console.error('Error saving APAAR PDF', e);
-        alert('Error creating APAAR PDF. See console for details.');
-        return false;
-    }
-
-    return true;
-}
-
-// Helper to split a long string into approx-sized chunks for PDF
-function splitTextToSize(text, approxCharWidth) {
-    if (!text) return [''];
-    // approximate: 1 char ~ 1 unit here; keep it simple
-    const max = Math.floor(approxCharWidth / 0.9);
-    if (text.length <= max) return [text];
-    const first = text.slice(0, max);
-    const rest = text.slice(max);
-    return [first, rest];
-}
-
-function finalSubmit() {
-    // Validate documents step (optional) - keeping original behavior
-    // Call generation
-    generateFinalForms().then(success => {
-        if (success) {
-            currentStep = 5; // Move to final confirmation
-            updateDisplay();
-            alert("Application Submitted Online! Please check your downloads folder for the generated forms.");
-        } else {
-            // do nothing - user alerted inside generator
-        }
+    const pdf = new jsPDF({
+      unit: 'mm',
+      format: 'a4',
+      orientation: 'portrait'
     });
-}
 
-// Initial setup
-document.addEventListener('DOMContentLoaded', updateDisplay);
+    // Calculate dimensions to fit the canvas into A4
+    // canvas.width/height are in px; we will draw full width 210mm
+    const pdfWidth = 210;
+    const imgProps = {
+      width: canvas.width,
+      height: canvas.height
+    };
+    // height in mm = (canvas.height * pdfWidth) / canvas.width
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-// Re-enable next button if declaration is checked on step 1
-document.getElementById('declare-check').addEventListener('change', () => {
-    if (currentStep === 1) {
-        nextBtn.disabled = !document.getElementById('declare-check').checked;
+    // Add image to PDF
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+    // If the content height > a single A4 page, add pages (multi-page support)
+    if (pdfHeight > 297) {
+      // split into multiple pages
+      let remainingHeight = pdfHeight;
+      let position = 0;
+      const pageHeight = 297;
+      // clear and create first page already done above, now slice pages
+      // create a temporary canvas to extract page-sized chunks
+      const pageCanvas = document.createElement('canvas');
+      const pageScale = canvas.width / pdfWidth;
+      // pageHeight in canvas px:
+      const pagePx = Math.floor(pageHeight * pageScale);
+      pageCanvas.width = canvas.width;
+      pageCanvas.height = pagePx;
+      const ctx = pageCanvas.getContext('2d');
+
+      // Already drew the first page (0..pagePx). Now iterate remaining
+      let pageCount = Math.ceil(pdfHeight / pageHeight);
+      for (let i = 1; i < pageCount; i++) {
+        const sx = 0;
+        const sy = i * pagePx;
+        const sw = canvas.width;
+        const sh = Math.min(pagePx, canvas.height - sy);
+        // clear pageCanvas and draw the slice
+        pageCanvas.width = sw;
+        pageCanvas.height = sh;
+        ctx.clearRect(0,0, sw, sh);
+        ctx.drawImage(canvas, sx, sy, sw, sh, 0, 0, sw, sh);
+        const imgPart = pageCanvas.toDataURL('image/png');
+        pdf.addPage();
+        // height in mm for this part:
+        const partHeightMM = (sh * pdfWidth) / canvas.width;
+        pdf.addImage(imgPart, 'PNG', 0, 0, pdfWidth, partHeightMM);
+      }
     }
-});
 
-// Update display to hide the final step immediately after page load
-currentStep = 1;
-updateDisplay();
+    // Save with helpful filename
+    const studentSafe = name ? name.replace(/\s+/g, '_') : 'student';
+    pdf.save(`${studentSafe}_Admission_A4.pdf`);
+  });
+
+})();
 </script>
-
 </body>
 </html>
