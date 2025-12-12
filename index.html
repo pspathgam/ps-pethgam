@@ -1,3 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Government Primary School Pethgam Wagoora</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;800&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Nunito', sans-serif;
+        background: #f5faff;
+        overflow-x: hidden;
+    }
+
+    /* Header */
+    .top-bar {
+        background: #004aad;
+        padding: 8px 20px;
+        color: #fff;
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* 3D Menu Buttons */
+    .navbar {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        padding: 15px;
+        flex-wrap: wrap;
+        background: #fff;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .btn-3d {
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-size: 16px;
+        color: #fff;
+        text-decoration: none;
+        box-shadow: 0 4px #3334;
+        transition: 0.2s;
+        font-weight: bold;
+    }
+
+    .btn-3d:active {
+        box-shadow: 0 1px #3334;
+        transform: translateY(3px);
+    }
+
+    .c-blue { background:#007bff; }
+    .c-green { background:#28a745; }
+    .c-yellow { background:#f4b400; }
+    .c-teal { background:#00bcd4; }
+    .c-purple { background:#9c27b0; }
+    .c-pink { background:#e91e63; }
+
+    /* Scrolling Notice */
+    .notice-bar {
+        background: #ffcc00;
+        font-size: 16px;
+        font-weight: 700;
+        padding: 10px;
+        color: #000;
+    }
+
+    /* Hero Slider */
+    .slider {
+        width: 100%;
+        height: 260px;
+        background: #000;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+    }
+    .slide {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-size: cover;
+        background-position: center;
+        animation: slideAnim 15s infinite;
+    }
+    @keyframes slideAnim {
+        0%   {opacity:1;}
+        33%  {opacity:0;}
+        66%  {opacity:0;}
+        100% {opacity:1;}
+    }
+
+    /* Section Headings */
+    h2 {
+        text-align: center;
+        margin-top: 40px;
+        color: #004aad;
+        font-size: 28px;
+    }
+
+    /* Cards */
+    .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .card {
+        background:#fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    /* Gallery */
+    .gallery {
+        display: flex;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 20px;
+    }
+    .gallery img {
+        width: 260px;
+        height: 180px;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+
+    /* Footer */
+    .footer {
+        background:#002b5b;
+        color:#fff;
+        padding:20px;
+        margin-top:40px;
+    }
+
+    .footer p { margin:0; text-align:center; }
+
+</style>
+
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+    <span>📍 Pethgam Wagoora, Baramulla</span>
+    <span>📞 7006XXXXXX | ✉ gpspethgam@gmail.com</span>
+</div>
+
+<!-- NAVIGATION MENU -->
+<div class="navbar">
+    <a href="index.html" class="btn-3d c-blue">Home</a>
+    <a href="about.html" class="btn-3d c-green">About</a>
+    <a href="academics.html" class="btn-3d c-purple">Academics</a>
+    <a href="gallery.html" class="btn-3d c-pink">Gallery</a>
+    <a href="students.html" class="btn-3d c-teal">Our Heroes</a>
+    <a href="admissions.html" class="btn-3d c-yellow">Admissions</a>
+    <a href="contact.html" class="btn-3d c-blue">Contact</a>
+    <!-- SECRET ADMIN LINK IS NOT SHOWN -->
+</div>
+
+<!-- NOTICE SCROLL -->
+<marquee class="notice-bar">📢 Latest: Winter Assignments Updated | Admissions Open 2025 | New Photo Gallery Added</marquee>
+
+<!-- HERO SLIDER -->
+<div class="slider">
+    <div class="slide" style="background-image:url('https://images.pexels.com/photos/3184319/pexels-photo-3184319.jpeg');"></div>
+</div>
+
+<!-- FEATURES -->
+<h2>Quick Access</h2>
+<div class="features">
+    <div class="card">📘 Homework & Assignments</div>
+    <div class="card">📄 Download Forms</div>
+    <div class="card">🎓 Results & Marksheets</div>
+    <div class="card">🍱 Mid-Day Meal Reports</div>
+</div>
+
+<!-- GALLERY -->
+<h2>Photo Gallery</h2>
+<div class="gallery">
+    <img src="https://images.pexels.com/photos/3184308/pexels-photo-3184308.jpeg">
+    <img src="https://images.pexels.com/photos/1741231/pexels-photo-1741231.jpeg">
+    <img src="https://images.pexels.com/photos/207653/pexels-photo-207653.jpeg">
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>Government Primary School Pethgam Wagoora © 2025 | All Rights Reserved</p>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
